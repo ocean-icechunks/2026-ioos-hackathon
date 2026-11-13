@@ -28,6 +28,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2203a4f6ac1ba7367e1838bf177e702f.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -138,6 +204,10 @@
   @font-face { font-family: "Source Serif 4 Display"; font-weight: 700; font-style: normal; font-display: swap; src: url("talk-fonts/SourceSerif4Display-Bold.woff2") format("woff2"); }
   @font-face { font-family: "Source Serif 4 Display"; font-weight: 400; font-style: italic; font-display: swap; src: url("talk-fonts/SourceSerif4Display-It.woff2") format("woff2"); }
   </style>
+  <meta name="mermaid-theme" content="neutral">
+  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <style>html:root{--talk-font-heading:var(--talk-font-heading-sans);--talk-heading-tracking:-0.02em}</style>
 </head>
 <body class="quarto-light">
@@ -148,7 +218,7 @@
   <div class="talk-title-main">
     <p class="talk-kicker">Virtual Icechunk · IOOS Hackathon 2026</p>
     <h1 class="title">Working with an agent</h1>
-    <p class="subtitle">ocean-icechunks-skills does the heavy lifting; you make the decisions</p>
+    <p class="subtitle">The agent does the typing; you make the decisions</p>
   </div>
   <div class="talk-title-meta">
     <div class="talk-authors">
@@ -161,23 +231,16 @@
 </section>
 <section id="an-agent-is-not-a-chatbot" class="slide level2">
 <h2>An agent is not a chatbot</h2>
-</section>
-<section id="one-task-one-session-one-handoff" class="slide level2">
-<h2>One task, one session, one handoff</h2>
-</section>
-<section id="what-a-skill-is" class="slide level2">
-<h2>What a skill is</h2>
-</section>
-<section id="install-ocean-icechunks-skills" class="slide level2">
-<h2>Install ocean-icechunks-skills</h2>
-</section>
-<section id="check-that-it-worked" class="slide level2">
-<h2>Check that it worked</h2>
-</section>
-<section id="the-skill-builds-in-a-set-order" class="slide level2">
-<h2>The skill builds in a set order</h2>
+<ul>
+<li>It <strong>reads your files, runs commands and writes code</strong> in the folder you start it from</li>
+<li>It <strong>asks before</strong> it does anything risky. Read the request before you say yes</li>
+<li>It works <strong>in your name</strong>, with your subscription and your GitHub login</li>
+</ul>
+<div class="takeaway">
+<p>Treat it like a fast, well-read collaborator who is new to your project. Give it clear tasks, and check its work.</p>
+</div>
 <aside class="notes">
-<p>DRAFT: plan → smoke test → production → docs; it stops for your review at each gate.</p>
+<p>Set up in the JupyterHub Skills pages: “Start your coding agent” installs Claude Code, Codex or Antigravity and the ocean-icechunks skills.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -190,17 +253,213 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="prompts-that-work" class="slide level2">
+<section id="one-task-one-session-one-handoff" class="slide level2">
+<h2>One task, one session, one handoff</h2>
+<div class="cell" data-reveal="true" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A["Pick a task"] --&gt; B["Plan first"] --&gt; C["Build small"] --&gt; D{"Done or&lt;br/&gt;switching?"}
+  D -- "keep going" --&gt; C
+  D -- "yes" --&gt; E["Write a&lt;br/&gt;handoff note"] --&gt; F["/clear"] --&gt; A
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>The biggest mistake is treating the agent like a chat: tangents and one endless conversation. Every session gets one task with a boundary.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="a-task-has-a-boundary" class="slide level2">
+<h2>A task has a boundary</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>A task</th>
+<th>Not a task</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Check whether these HYCOM files allow byte-range reads”</td>
+<td>“Help me with Icechunk”</td>
+</tr>
+<tr class="even">
+<td>“Write a plan for a virtual store of the NDVI files”</td>
+<td>“Let’s work on the data”</td>
+</tr>
+<tr class="odd">
+<td>“Make the smoke-test notebook read real values”</td>
+<td>“Make everything better”</td>
+</tr>
+<tr class="even">
+<td>“Explain why this store shows axes but no data”</td>
+<td>“Tell me about Zarr”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="plan-first-build-small" class="slide level2">
+<h2>Plan first, build small</h2>
+<ul>
+<li><strong>Ask for a plan before any code.</strong> Claude Code has a plan mode (<strong>Shift+Tab</strong>) that stops it from changing files while it plans</li>
+<li><strong>Read the plan.</strong> That is where your science knowledge matters most</li>
+<li><strong>Build one small piece at a time:</strong> one notebook, a few files, one check. Small pieces are easy to review, and cheap to redo</li>
+</ul>
+</section>
+<section id="close-the-loop" class="slide level2">
+<h2>Close the loop</h2>
+<p>When a task is done, or you are switching tasks, or the session is getting long:</p>
+<ol type="1">
+<li><em>“I am about to clear. Write what we did and what’s next to <code>notes/handoff.md</code>.”</em></li>
+<li>Type <code>/clear</code></li>
+<li>Start the next task with <em>“Read <code>notes/handoff.md</code> and continue.”</em></li>
+</ol>
+<div class="takeaway">
+<p>Long conversations cost you three ways: they use up your subscription faster, the agent loses focus, and a crash loses everything since the last note.</p>
+</div>
+</section>
+<section>
+<section id="skills" class="title-slide slide level1 talk-section center" data-state="talk-dark" data-background-color="#0F1C26">
+<h1>Skills</h1>
+
+</section>
+<section id="what-a-skill-is" class="slide level2">
+<h2>What a skill is</h2>
+<ul>
+<li>A <strong>folder of instructions</strong> (<code>SKILL.md</code> plus reference files) that teaches the agent how to do one kind of job</li>
+<li>The agent reads every installed skill’s <strong>one-paragraph description</strong> at the start of a session</li>
+<li>When your request <strong>matches</strong>, it loads the skill and follows it</li>
+</ul>
+<div class="takeaway">
+<p>You do not call a skill. Describe the task in plain language, and the agent picks the skill. To ask for one directly, type <code>/virtual-icechunk</code> (in Codex, <code>$virtual-icechunk</code>).</p>
+</div>
+</section>
+<section id="ocean-icechunks-skills" class="slide level2">
+<h2>ocean-icechunks-skills</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Skill</th>
+<th>Use it to</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>virtual-icechunk</strong></td>
+<td>Research, build, validate, document and audit virtual Icechunk stores of NetCDF/HDF5 files</td>
+</tr>
+<tr class="even">
+<td><strong>archive-to-cloud</strong></td>
+<td>Copy a provider’s files, unchanged, to object storage first, when they are not somewhere a store can reference</td>
+</tr>
+</tbody>
+</table>
+<p>Both were written from lessons learned on real ocean-data builds, and they work with Claude Code, Codex, Copilot and Antigravity.</p>
+<p><a href="https://github.com/ocean-icechunks/ocean-icechunks-skills" class="small">github.com/ocean-icechunks/ocean-icechunks-skills</a></p>
+</section>
+<section id="the-skill-builds-in-a-set-order" class="slide level2">
+<h2>The skill builds in a set order</h2>
+<div class="cell" data-reveal="true" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A["1 · Research&lt;br/&gt;and plan"] --&gt; B["2 · Smoke-test&lt;br/&gt;notebook"] --&gt; C["3 · Production&lt;br/&gt;build"] --&gt; D["4 · README and&lt;br/&gt;loading example"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>It stops for your review between steps.</strong> Expect questions and a plan before any build code</li>
+<li>The smoke test writes to a <strong>local</strong> store and must read <strong>real data</strong> back</li>
+<li>Credentials never go in a notebook, and tests never touch a production store</li>
+</ul>
+</section>
+<section id="prompts-that-work" class="slide level2 code">
 <h2>Prompts that work</h2>
+<pre class="text"><code>I want a virtual Icechunk store for the NOAA CDR NDVI files in
+s3://noaa-cdr-ndvi-pds. Research the files and write a plan before any code.
+
+Does this THREDDS server expose the real NetCDF files, or only OPeNDAP?
+
+Write a smoke-test notebook that builds a small store from three of these
+files and reads real data back.
+
+The smoke test passed. Turn it into a production build script.
+
+Write the README and a loading example for this store.
+
+Why is this store so slow to open?</code></pre>
+</section>
+<section id="you-are-still-the-scientist" class="slide level2">
+<h2>You are still the scientist</h2>
+<ul>
+<li><strong>Check the numbers.</strong> Do the values, units and dates make sense for this dataset?</li>
+<li><strong>Ask why.</strong> <em>“Why did you drop that variable?”</em> <em>“What did you assume about the time axis?”</em></li>
+<li><strong>Stop it when it goes in circles.</strong> A build that keeps failing gets more expensive, not more likely to work</li>
+</ul>
 </section>
 <section id="report-a-lesson-back" class="slide level2">
 <h2>Report a lesson back</h2>
+<p>A skill only knows what someone has written into it. When a build teaches you something:</p>
+<ol type="1">
+<li>Ask: <em>“What did this build teach that the virtual-icechunk skill should know?”</em></li>
+<li>Write it down in your project’s notes, with the evidence</li>
+<li>Open an <a href="https://github.com/ocean-icechunks/ocean-icechunks-skills/issues/new?template=update-skill.yml">Update skill issue</a></li>
+</ol>
 </section>
-<section id="takeaways" class="slide level2 dark" data-state="talk-dark" data-background-color="#0F1C26">
-<h2>Takeaways</h2>
+<section id="try-it" class="slide level2 dark" data-state="talk-dark" data-background-color="#0F1C26">
+<h2>Try it</h2>
+<p>In a terminal on the hub:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/ndvi-store <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/ndvi-store</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span>          <span class="co"># or codex, or agy</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then ask: <em>“Research the NOAA CDR NDVI files for January 2000 in s3://noaa-cdr-ndvi-pds and write a plan for a virtual Icechunk store. No code yet.”</em></p>
+<aside class="notes">
+<p>Read the plan together. Does it find the files are NetCDF4/HDF5? That the files are one day each? Does it notice the QA variable is unchunked? Chapter 4 covers what an audit should find.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="next-the-basic-pipeline" class="slide level2 dark" data-state="talk-dark" data-background-color="#0F1C26">
+<h2>Next: the basic pipeline</h2>
+<p><a href="../slides/03-pipeline.html" class="lead">Chapter 3 · The basic pipeline</a></p>
 
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

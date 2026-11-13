@@ -102,63 +102,91 @@
     "href": "slides/02-agent-and-skills.html#an-agent-is-not-a-chatbot",
     "title": "Working with an agent",
     "section": "An agent is not a chatbot",
-    "text": "An agent is not a chatbot"
+    "text": "An agent is not a chatbot\n\nIt reads your files, runs commands and writes code in the folder you start it from\nIt asks before it does anything risky. Read the request before you say yes\nIt works in your name, with your subscription and your GitHub login\n\n\nTreat it like a fast, well-read collaborator who is new to your project. Give it clear tasks, and check its work.\n\n\nSet up in the JupyterHub Skills pages: “Start your coding agent” installs Claude Code, Codex or Antigravity and the ocean-icechunks skills."
   },
   {
     "objectID": "slides/02-agent-and-skills.html#one-task-one-session-one-handoff",
     "href": "slides/02-agent-and-skills.html#one-task-one-session-one-handoff",
     "title": "Working with an agent",
     "section": "One task, one session, one handoff",
-    "text": "One task, one session, one handoff"
+    "text": "One task, one session, one handoff\n\n\n\n\n\nflowchart LR\n  A[\"Pick a task\"] --&gt; B[\"Plan first\"] --&gt; C[\"Build small\"] --&gt; D{\"Done or&lt;br/&gt;switching?\"}\n  D -- \"keep going\" --&gt; C\n  D -- \"yes\" --&gt; E[\"Write a&lt;br/&gt;handoff note\"] --&gt; F[\"/clear\"] --&gt; A\n\n\n\n\n\n\n\nThe biggest mistake is treating the agent like a chat: tangents and one endless conversation. Every session gets one task with a boundary."
+  },
+  {
+    "objectID": "slides/02-agent-and-skills.html#a-task-has-a-boundary",
+    "href": "slides/02-agent-and-skills.html#a-task-has-a-boundary",
+    "title": "Working with an agent",
+    "section": "A task has a boundary",
+    "text": "A task has a boundary\n\n\n\n\n\n\n\nA task\nNot a task\n\n\n\n\n“Check whether these HYCOM files allow byte-range reads”\n“Help me with Icechunk”\n\n\n“Write a plan for a virtual store of the NDVI files”\n“Let’s work on the data”\n\n\n“Make the smoke-test notebook read real values”\n“Make everything better”\n\n\n“Explain why this store shows axes but no data”\n“Tell me about Zarr”"
+  },
+  {
+    "objectID": "slides/02-agent-and-skills.html#plan-first-build-small",
+    "href": "slides/02-agent-and-skills.html#plan-first-build-small",
+    "title": "Working with an agent",
+    "section": "Plan first, build small",
+    "text": "Plan first, build small\n\nAsk for a plan before any code. Claude Code has a plan mode (Shift+Tab) that stops it from changing files while it plans\nRead the plan. That is where your science knowledge matters most\nBuild one small piece at a time: one notebook, a few files, one check. Small pieces are easy to review, and cheap to redo"
+  },
+  {
+    "objectID": "slides/02-agent-and-skills.html#close-the-loop",
+    "href": "slides/02-agent-and-skills.html#close-the-loop",
+    "title": "Working with an agent",
+    "section": "Close the loop",
+    "text": "Close the loop\nWhen a task is done, or you are switching tasks, or the session is getting long:\n\n“I am about to clear. Write what we did and what’s next to notes/handoff.md.”\nType /clear\nStart the next task with “Read notes/handoff.md and continue.”\n\n\nLong conversations cost you three ways: they use up your subscription faster, the agent loses focus, and a crash loses everything since the last note."
   },
   {
     "objectID": "slides/02-agent-and-skills.html#what-a-skill-is",
     "href": "slides/02-agent-and-skills.html#what-a-skill-is",
     "title": "Working with an agent",
     "section": "What a skill is",
-    "text": "What a skill is"
+    "text": "What a skill is\n\nA folder of instructions (SKILL.md plus reference files) that teaches the agent how to do one kind of job\nThe agent reads every installed skill’s one-paragraph description at the start of a session\nWhen your request matches, it loads the skill and follows it\n\n\nYou do not call a skill. Describe the task in plain language, and the agent picks the skill. To ask for one directly, type /virtual-icechunk (in Codex, $virtual-icechunk)."
   },
   {
-    "objectID": "slides/02-agent-and-skills.html#install-ocean-icechunks-skills",
-    "href": "slides/02-agent-and-skills.html#install-ocean-icechunks-skills",
+    "objectID": "slides/02-agent-and-skills.html#ocean-icechunks-skills",
+    "href": "slides/02-agent-and-skills.html#ocean-icechunks-skills",
     "title": "Working with an agent",
-    "section": "Install ocean-icechunks-skills",
-    "text": "Install ocean-icechunks-skills"
-  },
-  {
-    "objectID": "slides/02-agent-and-skills.html#check-that-it-worked",
-    "href": "slides/02-agent-and-skills.html#check-that-it-worked",
-    "title": "Working with an agent",
-    "section": "Check that it worked",
-    "text": "Check that it worked"
+    "section": "ocean-icechunks-skills",
+    "text": "ocean-icechunks-skills\n\n\n\n\n\n\n\nSkill\nUse it to\n\n\n\n\nvirtual-icechunk\nResearch, build, validate, document and audit virtual Icechunk stores of NetCDF/HDF5 files\n\n\narchive-to-cloud\nCopy a provider’s files, unchanged, to object storage first, when they are not somewhere a store can reference\n\n\n\nBoth were written from lessons learned on real ocean-data builds, and they work with Claude Code, Codex, Copilot and Antigravity.\ngithub.com/ocean-icechunks/ocean-icechunks-skills"
   },
   {
     "objectID": "slides/02-agent-and-skills.html#the-skill-builds-in-a-set-order",
     "href": "slides/02-agent-and-skills.html#the-skill-builds-in-a-set-order",
     "title": "Working with an agent",
     "section": "The skill builds in a set order",
-    "text": "The skill builds in a set order\n\nDRAFT: plan → smoke test → production → docs; it stops for your review at each gate."
+    "text": "The skill builds in a set order\n\n\n\n\n\nflowchart LR\n  A[\"1 · Research&lt;br/&gt;and plan\"] --&gt; B[\"2 · Smoke-test&lt;br/&gt;notebook\"] --&gt; C[\"3 · Production&lt;br/&gt;build\"] --&gt; D[\"4 · README and&lt;br/&gt;loading example\"]\n\n\n\n\n\n\n\nIt stops for your review between steps. Expect questions and a plan before any build code\nThe smoke test writes to a local store and must read real data back\nCredentials never go in a notebook, and tests never touch a production store"
   },
   {
     "objectID": "slides/02-agent-and-skills.html#prompts-that-work",
     "href": "slides/02-agent-and-skills.html#prompts-that-work",
     "title": "Working with an agent",
     "section": "Prompts that work",
-    "text": "Prompts that work"
+    "text": "Prompts that work\nI want a virtual Icechunk store for the NOAA CDR NDVI files in\ns3://noaa-cdr-ndvi-pds. Research the files and write a plan before any code.\n\nDoes this THREDDS server expose the real NetCDF files, or only OPeNDAP?\n\nWrite a smoke-test notebook that builds a small store from three of these\nfiles and reads real data back.\n\nThe smoke test passed. Turn it into a production build script.\n\nWrite the README and a loading example for this store.\n\nWhy is this store so slow to open?"
+  },
+  {
+    "objectID": "slides/02-agent-and-skills.html#you-are-still-the-scientist",
+    "href": "slides/02-agent-and-skills.html#you-are-still-the-scientist",
+    "title": "Working with an agent",
+    "section": "You are still the scientist",
+    "text": "You are still the scientist\n\nCheck the numbers. Do the values, units and dates make sense for this dataset?\nAsk why. “Why did you drop that variable?” “What did you assume about the time axis?”\nStop it when it goes in circles. A build that keeps failing gets more expensive, not more likely to work"
   },
   {
     "objectID": "slides/02-agent-and-skills.html#report-a-lesson-back",
     "href": "slides/02-agent-and-skills.html#report-a-lesson-back",
     "title": "Working with an agent",
     "section": "Report a lesson back",
-    "text": "Report a lesson back"
+    "text": "Report a lesson back\nA skill only knows what someone has written into it. When a build teaches you something:\n\nAsk: “What did this build teach that the virtual-icechunk skill should know?”\nWrite it down in your project’s notes, with the evidence\nOpen an Update skill issue"
   },
   {
-    "objectID": "slides/02-agent-and-skills.html#takeaways",
-    "href": "slides/02-agent-and-skills.html#takeaways",
+    "objectID": "slides/02-agent-and-skills.html#try-it",
+    "href": "slides/02-agent-and-skills.html#try-it",
     "title": "Working with an agent",
-    "section": "Takeaways",
-    "text": "Takeaways"
+    "section": "Try it",
+    "text": "Try it\nIn a terminal on the hub:\nmkdir -p ~/ndvi-store && cd ~/ndvi-store\nclaude          # or codex, or agy\nThen ask: “Research the NOAA CDR NDVI files for January 2000 in s3://noaa-cdr-ndvi-pds and write a plan for a virtual Icechunk store. No code yet.”\n\nRead the plan together. Does it find the files are NetCDF4/HDF5? That the files are one day each? Does it notice the QA variable is unchunked? Chapter 4 covers what an audit should find."
+  },
+  {
+    "objectID": "slides/02-agent-and-skills.html#next-the-basic-pipeline",
+    "href": "slides/02-agent-and-skills.html#next-the-basic-pipeline",
+    "title": "Working with an agent",
+    "section": "Next: the basic pipeline",
+    "text": "Next: the basic pipeline\nChapter 3 · The basic pipeline"
   },
   {
     "objectID": "setup/05-scratch-bucket.html",
