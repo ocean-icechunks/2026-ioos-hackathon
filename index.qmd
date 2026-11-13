@@ -11,7 +11,16 @@ hackathon you will mostly hand the actual work to a coding agent that has the
 installed. Each chapter is a short slide deck. Click through it, or press **S**
 for the speaker notes.
 
-## Start here: two quick wins
+## Before you start: get set up
+
+New to the hub? Work through **JupyterHub Skills** first (about 20 minutes):
+
+1. [Log in to the JupyterHub](setup/01-jupyterhub.qmd)
+2. [Find your way around JupyterLab](setup/02-jupyterlab.qmd)
+3. [The scratch bucket](setup/03-scratch-bucket.qmd)
+4. [Git and GitHub, with an agent](setup/04-git-with-agent.qmd): log in once with `gh`, then let the agent run git for you
+
+## Two quick wins (chapter 2)
 
 1. **Open 306 TB in about a second.** Bering Sea bottom temperature on the snow
    crab grounds, 1994–2015, from the HYCOM reanalysis.
@@ -24,8 +33,8 @@ for the speaker notes.
 
 | | Deck | What it covers |
 |---|---|---|
-| 1 | [Quick wins](slides/01-quick-wins.qmd) | The two notebooks above, and what just happened |
-| 2 | [Why virtual Icechunk](slides/02-why-virtual.qmd) | Chunks, not files; virtual references; when virtual is the wrong answer |
+| 1 | [Why virtual Icechunk](slides/01-why-virtual.qmd) | Chunks, not files; virtual references; when virtual is the wrong answer |
+| 2 | [Quick wins](slides/02-quick-wins.qmd) | The two notebooks above, and what just happened |
 | 3 | [Working with an agent](slides/03-agent-and-skills.qmd) | One task per session; installing and using ocean-icechunks-skills |
 | 4 | [The basic pipeline](slides/04-pipeline.qmd) | Six steps from NetCDF files to a store anyone can open |
 | 5 | [Auditing your files](slides/05-audit.qmd) | What to check before anyone writes build code |

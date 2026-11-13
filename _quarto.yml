@@ -7,6 +7,7 @@ project:
   render:
     - index.qmd
     - resources.qmd
+    - setup/*.qmd
     - slides/*.qmd
 
 website:
@@ -18,12 +19,22 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - text: JupyterHub Skills
+        menu:
+          - href: setup/01-jupyterhub.qmd
+            text: "Log in to the JupyterHub"
+          - href: setup/02-jupyterlab.qmd
+            text: "Find your way around JupyterLab"
+          - href: setup/03-scratch-bucket.qmd
+            text: "The scratch bucket"
+          - href: setup/04-git-with-agent.qmd
+            text: "Git and GitHub, with an agent"
       - text: Chapters
         menu:
-          - href: slides/01-quick-wins.qmd
-            text: "1 · Quick wins"
-          - href: slides/02-why-virtual.qmd
-            text: "2 · Why virtual Icechunk"
+          - href: slides/01-why-virtual.qmd
+            text: "1 · Why virtual Icechunk"
+          - href: slides/02-quick-wins.qmd
+            text: "2 · Quick wins"
           - href: slides/03-agent-and-skills.qmd
             text: "3 · Working with an agent"
           - href: slides/04-pipeline.qmd

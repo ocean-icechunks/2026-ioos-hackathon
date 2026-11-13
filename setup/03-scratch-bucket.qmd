@@ -1,0 +1,78 @@
+---
+title: "The scratch bucket"
+description: "Cloud storage on the hub for trying things out. Files are deleted after 7 days."
+---
+
+The hub comes with an S3 **scratch bucket**, `{{< var hub.scratch >}}`. It is
+a good place to write a test Icechunk store to cloud storage, rather than to
+your home directory. You do not need to set up any credentials, because the hub
+already has them.
+
+::: {.callout-warning}
+**Files in the scratch bucket are deleted 7 days after you upload them.**
+Everyone on the hub can read and write it, so stay inside your own folder.
+Do not put anything there you need to keep, and never put credentials there.
+:::
+
+## Your folder
+
+The hub sets an environment variable, `SCRATCH_BUCKET`, that points to a
+folder named after your GitHub username:
+
+```python
+import os
+scratch = os.environ["SCRATCH_BUCKET"]
+scratch    # 's3://nmfs-openscapes-scratch/<your-github-username>'
+```
+
+## Write, list, read and delete
+
+```python
+import s3fs
+
+fs = s3fs.S3FileSystem()             # uses the hub's credentials
+
+fs.pipe(f"{scratch}/hello.txt", b"hello")   # write a small file
+fs.ls(scratch)                              # list your folder
+fs.cat(f"{scratch}/hello.txt")              # read it back
+fs.rm(f"{scratch}/hello.txt")               # delete it
+```
+
+To upload a local file or folder, use `fs.put("local.nc", f"{scratch}/local.nc")`.
+For a folder, add `recursive=True`. `fs.ls` raises an error on an empty folder,
+so write something first.
+
+## An Icechunk store in the scratch bucket
+
+You can write an Icechunk store here almost as easily as to a local folder.
+Only the storage setup changes:
+
+```python
+import boto3
+import icechunk
+
+bucket, prefix = scratch.removeprefix("s3://").split("/", 1)
+creds = boto3.Session().get_credentials().get_frozen_credentials()   # the hub's credentials
+
+storage = icechunk.s3_storage(
+    bucket=bucket,
+    prefix=f"{prefix}/my-store",
+    region="us-west-2",
+    access_key_id=creds.access_key,
+    secret_access_key=creds.secret_key,
+    session_token=creds.token,
+)
+```
+
+::: {.callout-note}
+Why not `from_env=True`? On this hub, Icechunk does not pick up the hub's
+credentials by itself, and you get `AccessDenied` (tested 2026-11-13 with
+icechunk 2.3.1). Passing them from `boto3` works. They expire after about an
+hour, so rerun the cell if a long session starts failing.
+:::
+
+Chapter 6, [Building a store](../slides/06-build.qmd), covers the rest. Or ask
+your agent: *"write the smoke-test store to my scratch bucket instead of a local
+folder."*
+
+[Adapted from [NMFS HackDays 2025: Using the S3 Scratch Bucket](https://nmfs-opensci.github.io/NMFSHackDays-2025/topics-skills/03-ScratchBucket.html).]{.small}
