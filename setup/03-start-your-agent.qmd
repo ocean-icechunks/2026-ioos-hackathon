@@ -137,5 +137,5 @@ Check that the skills loaded. Type `/skills` (in Claude Code or Codex) or `/`
 (in Antigravity) and look for `virtual-icechunk`. Or just ask: *"What skills do
 you have for Icechunk?"*
 
-Chapter 3, [Working with an agent](../slides/03-agent-and-skills.qmd), covers
+Chapter 2, [Working with an agent](../slides/02-agent-and-skills.qmd), covers
 how to get good work out of it.

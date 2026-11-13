@@ -35,18 +35,16 @@ website:
         menu:
           - href: slides/01-why-virtual.qmd
             text: "1 · Why virtual Icechunk"
-          - href: slides/02-quick-wins.qmd
-            text: "2 · Quick wins"
-          - href: slides/03-agent-and-skills.qmd
-            text: "3 · Working with an agent"
-          - href: slides/04-pipeline.qmd
-            text: "4 · The basic pipeline"
-          - href: slides/05-audit.qmd
-            text: "5 · Auditing your files"
-          - href: slides/06-build.qmd
-            text: "6 · Building a store"
-          - href: slides/07-visualize.qmd
-            text: "7 · Visualizing"
+          - href: slides/02-agent-and-skills.qmd
+            text: "2 · Working with an agent"
+          - href: slides/03-pipeline.qmd
+            text: "3 · The basic pipeline"
+          - href: slides/04-audit.qmd
+            text: "4 · Auditing your files"
+          - href: slides/05-build.qmd
+            text: "5 · Building a store"
+          - href: slides/06-visualize.qmd
+            text: "6 · Visualizing"
       - href: resources.qmd
         text: Resources
     right:

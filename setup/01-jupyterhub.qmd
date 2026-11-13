@@ -4,24 +4,31 @@ description: "Start a server, find your files, and stop it when you are done."
 ---
 
 Everything in this tutorial runs on a JupyterHub in the cloud. You do not need
-to install anything on your own computer, but you do need a GitHub account,
-because the hub uses it to let you in.
+to install anything on your own computer.
+
+::: {.callout-warning}
+## The workshop hub is deleted a week after the hackathon
+Everything on it goes: your home directory, the shared folders, and the scratch
+bucket. Before then, push your work to GitHub
+([Git and GitHub, with an agent](04-git-with-agent.qmd)), and download anything
+else you want to keep.
+:::
 
 ::: {.callout-note icon=false}
 ## You will
 
 - Log in and start a server
+- Save your work before the hub is deleted
 - Know where your files live, and which folders are shared
 - Stop or restart your server
 :::
 
 ## Start a server
 
-1. Log in to [GitHub](https://github.com).
-2. Go to [{{< var hub.url >}}]({{< var hub.url >}}) and click **Login to continue**.
-
-   ![](img/jhub.png){fig-alt="The JupyterHub login page" width=70%}
-
+1. Go to [{{< var hub.url >}}]({{< var hub.url >}}).
+2. Log in. Your **username is your email address**. The **password** is the
+   one the organizers give you at the start of the hackathon; everyone uses the
+   same one. Do not post it anywhere public, including GitHub.
 3. **Image:** keep the default, a geospatial image with Python and R.
 4. **Size:** pick the smallest machine. That is plenty for everything here.
    Larger machines cost more, so choose one only if you run out of memory.
@@ -68,8 +75,8 @@ will not lose work, unless you were in the middle of uploading a file.
 
 ## Getting help
 
-- Ask in the hackathon channel.
-- Missing a package, or something looks broken? Open an issue in
-  [nmfs-opensci/NOAAHackDays](https://github.com/nmfs-opensci/NOAAHackDays/issues).
+- Ask in the hackathon channel, or ask a helper in the room.
+- Problem with this tutorial? Open an issue in
+  [ocean-icechunks/2026-ioos-hackathon](https://github.com/ocean-icechunks/2026-ioos-hackathon/issues).
 
 [Adapted from [NMFS HackDays 2025: Intro to JupyterHubs](https://nmfs-opensci.github.io/NMFSHackDays-2025/topics-skills/01-intro-to-jupyterhub.html).]{.small}

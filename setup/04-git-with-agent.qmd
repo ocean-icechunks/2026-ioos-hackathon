@@ -3,7 +3,10 @@ title: "Git and GitHub, with an agent"
 description: "Log in once with gh, then let the agent do the git commands for you."
 ---
 
-Your hackathon work lives in a GitHub repository. Git is a lot to learn in one
+Your hackathon work lives in a GitHub repository, so you need a
+[GitHub account](https://github.com/signup). That matters more than usual here:
+the workshop hub is deleted a week after the hackathon, and GitHub is where your
+work survives. Git is a lot to learn in one
 week, and you do not have to: **your agent can run the git commands for you.**
 You make the decisions (what to save, when to share it, and whether a change is
 right), and the agent types the commands.

@@ -1,38 +1,155 @@
 ---
-title: "Why virtual Icechunk"
-subtitle: "Scientists do not care about files"
+title: "Why virtual Icechunk?"
+subtitle: "Deliver a product, not a pile of files"
 ---
 
-## {.quote}
+## So many NetCDF files
 
-> Scientists do not care about files.
+![CEFI MOM6 Northeast Pacific hindcast on the PSL THREDDS server: page 1 of 17.](images/cefi-file-listing.jpg){fig-alt="A file listing showing NetCDF and JSON files named by variable and year, 'Showing 1 to 50 of 820 entries'"}
 
-[Tom Nicholas, Earthmover, 2026]{.quote-source}
-
-## Users ask for data, archives serve files
-
-## Chunks, not files
-
-## A virtual reference: URL + offset + length
-
-## Zarr, Icechunk, VirtualiZarr: who does what
-
-## Metadata lives here, data lives there
-
-::: notes
-DRAFT: two hosts, two credentials. Source vs destination table.
+::: {.takeaway}
+**820 files**, from one model, one hindcast, one region, and one release.
 :::
 
-## From archive to AI-ready, step by step
-
 ::: notes
-DRAFT: Earthmover steps 0–4 (object storage → index chunks → metadata with the data → catalog repos → agent interfaces), mapped onto what we do in this hackathon.
+Ocean model output comes as thousands of NetCDF files, one per variable per
+year (or per day). Which files do I need? Which variables? A time series means
+opening hundreds of them.
 :::
 
-## When virtual is the wrong answer
+## Users want a product, not a pile of files {.visual}
+
+![](images/virtual-stores-diagram.jpg){fig-alt="Diagram: models, ops and science write NetCDF files; virtual stores A, B and C each reference a subset; Zarr libraries, browser apps, OPeNDAP and ML services read the stores; notebooks, dashboards and forecasts use them"}
 
 ::: notes
-DRAFT: GOBAI-O2, one 12 GB contiguous uncompressed NetCDF: materialized instead.
+A cloud-optimized dataset that is linked to the underlying files hides the file
+structure. The user opens one dataset, with every variable and the full time
+range, and never sees a file name. We deliver a product.
 :::
 
-## Takeaways {.dark}
+## Why not just download the files, or use THREDDS?
+
+::: {.columns}
+::: {.column width="50%"}
+**Downloading**
+
+- Gigabytes to get the one slice you need
+- Copies on every laptop, all out of date
+- Hours of scripting before any science
+
+**Data servers**
+
+- Cap large requests (PSL THREDDS: 500 MB each)
+- Fail under load ("NetCDF: DAP failure")
+:::
+
+::: {.column width="50%"}
+**Object storage** (S3, Google Cloud, Azure)
+
+- Serves byte ranges, not whole files
+- Spreads requests across many machines, so
+  parallel readers do not queue behind each other
+- In practice, as many connections as you can
+  throw at it
+:::
+:::
+
+::: notes
+THREDDS has one server, and every request goes through it. Object storage is
+built to serve huge numbers of concurrent requests for pieces of objects. That
+is what a cloud-optimized reader needs.
+:::
+
+## From minutes to seconds {.visual}
+
+![](images/cefi-speedup.jpg){height="620" fig-alt="Bar chart: tob took 282.3 s from THREDDS and 9.2 s from Arraylake, 30.7 times faster; nh4_bottom failed on THREDDS and took 35.1 s from Arraylake"}
+
+::: {.refs}
+Resampling a 2-D CEFI MOM6 NEP variable: THREDDS vs. a virtual store in Earthmover Arraylake. Holmes, ESIP, July 2026.
+:::
+
+# Let's see this in action
+
+## Bering Sea snow crab, 1994–2015
+
+[**306 TB** of HYCOM reanalysis · opens in **~1 s** · **nothing** downloaded]{.lead}
+
+::: {.columns}
+::: {.column width="50%"}
+![](images/snowcrab-1.png){height="430" fig-alt="Map of HYCOM bottom temperature in the Bering Sea on 15 July 2010, with the 2 degree C cold pool outlined and the snow crab box in magenta"}
+:::
+::: {.column width="50%"}
+![](images/snowcrab-2.png){height="430" fig-alt="Mid-July mean bottom temperature in the snow crab box and the percent of the box below 2 degrees C, each year 1994 to 2015"}
+:::
+:::
+
+[**Open in Colab →**](https://colab.research.google.com/github/ocean-icechunks/hycom/blob/main/hycom-gofs-3pt1-reanalysis/bering-sea-snow-crab-demo.ipynb){.lead}
+
+::: notes
+Run all cells. The map is the cold pool on the eastern Bering Sea shelf. The
+time series is the box-mean bottom temperature and the fraction of the box
+below 2 °C. The metadata comes from Source Cooperative, and every value is read
+by byte range from HYCOM's NetCDF files on AWS Open Data.
+:::
+
+## VirtualiZarr: no reprocessing
+
+- **Keep the data as it is.** The NetCDF files stay where the provider put them.
+- **Build a catalog of chunks.** For every chunk: which file, at what byte
+  offset, and how long.
+- **Save the catalog as one Zarr dataset.** Readers open that, and read the
+  bytes straight from the original files.
+
+::: {.takeaway}
+If the files are compatible (the same grid, chunking and encoding), there is
+nothing to rewrite.
+:::
+
+::: notes
+This is the big change. We used to have to convert everything to Zarr, which
+meant a second copy of petabytes. Virtual references point at the originals.
+:::
+
+## New tools make this much easier
+
+- **VirtualiZarr 2:** reads NetCDF/HDF5 metadata and builds the chunk catalog
+- **Icechunk 2:** stores the catalog, with versions and commits, like git for data
+- **Coding agents + [ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills):**
+  plan, build, check and document a store for you
+
+::: notes
+A year ago this took a specialist days of trial and error. Now the libraries
+handle the hard parts, and an agent with the skill knows the gotchas.
+:::
+
+# Let's try it out
+
+## Make your own virtual store
+
+::: {.stats}
+[5]{.stat} NOAA NDVI NetCDF files on AWS
+
+[303 MB]{.stat} of data, left in place
+
+[54 kB]{.stat} Icechunk store
+:::
+
+[**Open in Colab →**](https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/simple-virtual-icechunk.ipynb){.lead}
+
+::: notes
+Seven short steps: find the files, tell VirtualiZarr how to reach them, open
+one, combine five, write and commit, reopen as a reader, plot real data.
+Measured on 2026-11-13.
+:::
+
+## Resources
+
+- **This tutorial:** [ocean-icechunks.github.io/2026-ioos-hackathon](https://ocean-icechunks.github.io/2026-ioos-hackathon)
+- **Agent skills:** [ocean-icechunks/ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills)
+- **Example stores:** [ocean-icechunks/hycom](https://github.com/ocean-icechunks/hycom), [ocean-icechunks/icechunks](https://github.com/ocean-icechunks/icechunks)
+- **Background:** [AI-ready scientific data archives](https://www.earthmover.io/blog/ai-ready-scientific-data-archives) (Earthmover, 2026)
+- **Docs:** [VirtualiZarr](https://virtualizarr.readthedocs.io), [Icechunk](https://icechunk.io)
+
+## Next: put an agent to work {.dark}
+
+[Chapter 2 · Working with an agent](02-agent-and-skills.qmd){.lead}

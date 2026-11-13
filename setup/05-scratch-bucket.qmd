@@ -9,7 +9,8 @@ your home directory. You do not need to set up any credentials, because the hub
 already has them.
 
 ::: {.callout-warning}
-**Files in the scratch bucket are deleted 7 days after you upload them.**
+**Files in the scratch bucket are deleted 7 days after you upload them**, and
+the whole bucket goes when the workshop hub is deleted.
 Everyone on the hub can read and write it, so stay inside your own folder.
 Do not put anything there you need to keep, and never put credentials there.
 :::
@@ -71,7 +72,7 @@ icechunk 2.3.1). Passing them from `boto3` works. They expire after about an
 hour, so rerun the cell if a long session starts failing.
 :::
 
-Chapter 6, [Building a store](../slides/06-build.qmd), covers the rest. Or ask
+Chapter 5, [Building a store](../slides/05-build.qmd), covers the rest. Or ask
 your agent: *"write the smoke-test store to my scratch bucket instead of a local
 folder."*
 
