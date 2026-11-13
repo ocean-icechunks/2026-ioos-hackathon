@@ -18,7 +18,7 @@ because the hub uses it to let you in.
 ## Start a server
 
 1. Log in to [GitHub](https://github.com).
-2. Go to <{{< var hub.url >}}> and click **Login to continue**.
+2. Go to [{{< var hub.url >}}]({{< var hub.url >}}) and click **Login to continue**.
 
    ![](img/jhub.png){fig-alt="The JupyterHub login page" width=70%}
 
@@ -57,7 +57,7 @@ From the **JupyterLab** tab, choose one of these:
 - **File → Hub Control Panel → Stop My Server**
 
 ::: {.callout-tip}
-Lost the JupyterLab tab? Go to <{{< var hub.home >}}>.
+Lost the JupyterLab tab? Go to [{{< var hub.home >}}]({{< var hub.home >}}).
 :::
 
 ## If the server crashes
