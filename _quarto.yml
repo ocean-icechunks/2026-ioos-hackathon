@@ -3,7 +3,7 @@
 # type cannot render revealjs chapters, which is why this is a website.
 project:
   type: website
-  output-dir: _site
+  output-dir: docs
   render:
     - index.qmd
     - resources.qmd

@@ -1,4 +1,5 @@
 _site/
+# docs/ is the rendered site, committed for GitHub Pages (main branch, /docs folder)
 .quarto/
 *_files/
 __pycache__/
