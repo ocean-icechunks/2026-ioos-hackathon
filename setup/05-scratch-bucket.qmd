@@ -3,7 +3,7 @@ title: "The scratch bucket"
 description: "Cloud storage on the hub for trying things out. Files are deleted after 7 days."
 ---
 
-The hub comes with an S3 **scratch bucket**, `{{< var hub.scratch >}}`. It is
+The hub comes with an S3 **scratch bucket**. It is
 a good place to write a test Icechunk store to cloud storage, rather than to
 your home directory. You do not need to set up any credentials, because the hub
 already has them.
@@ -22,7 +22,7 @@ folder named after your GitHub username:
 ```python
 import os
 scratch = os.environ["SCRATCH_BUCKET"]
-scratch    # 's3://nmfs-openscapes-scratch/<your-github-username>'
+scratch    # 's3://<scratch-bucket>/<your-github-username>'
 ```
 
 ## Write, list, read and delete

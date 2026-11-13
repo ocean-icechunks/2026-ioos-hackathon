@@ -13,12 +13,13 @@ for the speaker notes.
 
 ## Before you start: get set up
 
-New to the hub? Work through **JupyterHub Skills** first (about 20 minutes):
+New to the hub? Work through **JupyterHub Skills** first (about 30 minutes):
 
 1. [Log in to the JupyterHub](setup/01-jupyterhub.qmd)
 2. [Find your way around JupyterLab](setup/02-jupyterlab.qmd)
-3. [The scratch bucket](setup/03-scratch-bucket.qmd)
+3. [Start your coding agent](setup/03-start-your-agent.qmd): Claude Code, Codex or Antigravity, with your own subscription
 4. [Git and GitHub, with an agent](setup/04-git-with-agent.qmd): log in once with `gh`, then let the agent run git for you
+5. [The scratch bucket](setup/05-scratch-bucket.qmd): cloud storage for test stores
 
 ## Two quick wins (chapter 2)
 
