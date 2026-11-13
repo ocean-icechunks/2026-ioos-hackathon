@@ -1,0 +1,28 @@
+---
+title: "Auditing your files"
+subtitle: "What to check before anyone writes build code"
+---
+
+## Look before you build {.statement}
+
+## Does the server give you files?
+
+::: notes
+DRAFT: THREDDS OPeNDAP/NCSS and ERDDAP generate responses; they cannot be referenced. archive-to-cloud skill if files must be copied first.
+:::
+
+## Do byte-range reads work?
+
+## Format, chunks and compression
+
+::: notes
+DRAFT: the h5py snippet; NDVI is chunked (1, 1200, 2400) + gzip + shuffle, but QA is unchunked.
+:::
+
+## Can these files be combined?
+
+## Stable URLs and who can read them
+
+## Ask the agent to audit {.code}
+
+## Takeaways {.dark}

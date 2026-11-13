@@ -1,0 +1,26 @@
+---
+title: "Building a virtual Icechunk store"
+subtitle: "First the code, then the prompts"
+---
+
+## The basic code {.code}
+
+## Writing to the cloud instead of your laptop
+
+## Same job, done by prompting
+
+## Gate 1 · The plan
+
+## Gate 2 · The smoke-test notebook
+
+## Gate 3 · Production
+
+## Gate 4 · README and loading example
+
+## Demos to try
+
+::: notes
+DRAFT: June 5 concat and append notebooks; CoastWatch OHC, OA indicators, HYCOM stores.
+:::
+
+## Takeaways {.dark}

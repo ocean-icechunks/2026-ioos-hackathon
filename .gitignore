@@ -1,0 +1,9 @@
+_site/
+.quarto/
+*_files/
+__pycache__/
+.ipynb_checkpoints/
+# local Icechunk repos written by the notebooks
+ndvi-icechunk*/
+
+/.quarto/

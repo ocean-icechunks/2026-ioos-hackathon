@@ -1,0 +1,26 @@
+---
+title: "Working with an agent"
+subtitle: "ocean-icechunks-skills does the heavy lifting; you make the decisions"
+---
+
+## An agent is not a chatbot
+
+## One task, one session, one handoff
+
+## What a skill is
+
+## Install ocean-icechunks-skills
+
+## Check that it worked
+
+## The skill builds in a set order
+
+::: notes
+DRAFT: plan → smoke test → production → docs; it stops for your review at each gate.
+:::
+
+## Prompts that work
+
+## Report a lesson back
+
+## Takeaways {.dark}

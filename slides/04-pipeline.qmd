@@ -1,0 +1,24 @@
+---
+title: "The basic pipeline"
+subtitle: "Six steps from NetCDF files to a store anyone can open"
+---
+
+## The whole pipeline on one slide
+
+::: notes
+DRAFT: mermaid diagram: find files → source access → open one file → combine → write and commit → reopen and read.
+:::
+
+## 1 · Find the files
+
+## 2 · Tell VirtualiZarr how to reach them
+
+## 3 · Open one file virtually
+
+## 4 · Combine compatible files
+
+## 5 · Write and commit
+
+## 6 · Reopen as a reader and read real data
+
+## Takeaways {.dark}

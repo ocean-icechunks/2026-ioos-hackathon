@@ -1,0 +1,35 @@
+---
+title: "Virtual Icechunk"
+subtitle: "A short tutorial for the 2026 IOOS Hackathon"
+toc: false
+---
+
+This tutorial gives you a quick overview of virtual Icechunk stores: what they
+are, how one gets built, and what to check before building one. During the
+hackathon you will mostly hand the actual work to a coding agent that has the
+[ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills)
+installed. Each chapter is a short slide deck. Click through it, or press **S**
+for the speaker notes.
+
+## Start here: two quick wins
+
+1. **Open 306 TB in about a second.** Bering Sea bottom temperature on the snow
+   crab grounds, 1994–2015, from the HYCOM reanalysis.
+   [Open in Colab](https://colab.research.google.com/github/ocean-icechunks/hycom/blob/main/hycom-gofs-3pt1-reanalysis/bering-sea-snow-crab-demo.ipynb)
+2. **Make your own virtual store.** Five NOAA NDVI files on AWS become one
+   local Icechunk store.
+   [Open in Colab](https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/simple-virtual-icechunk.ipynb)
+
+## Chapters
+
+| | Deck | What it covers |
+|---|---|---|
+| 1 | [Quick wins](slides/01-quick-wins.qmd) | The two notebooks above, and what just happened |
+| 2 | [Why virtual Icechunk](slides/02-why-virtual.qmd) | Chunks, not files; virtual references; when virtual is the wrong answer |
+| 3 | [Working with an agent](slides/03-agent-and-skills.qmd) | One task per session; installing and using ocean-icechunks-skills |
+| 4 | [The basic pipeline](slides/04-pipeline.qmd) | Six steps from NetCDF files to a store anyone can open |
+| 5 | [Auditing your files](slides/05-audit.qmd) | What to check before anyone writes build code |
+| 6 | [Building a store](slides/06-build.qmd) | First the code, then the prompts; demos to try |
+| 7 | [Visualizing](slides/07-visualize.qmd) | xarray, hvplot and gridlook |
+
+See [Resources](resources.qmd) for links to everything mentioned in the decks.

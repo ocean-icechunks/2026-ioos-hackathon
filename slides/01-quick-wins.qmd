@@ -1,0 +1,42 @@
+---
+title: "Quick wins"
+subtitle: "Open 1994–2015 of ocean model output in seconds, then build your own store"
+---
+
+## Win 1: 306 TB in about a second {.statement}
+
+HYCOM GOFS 3.1 reanalysis as a virtual Icechunk store
+
+::: notes
+DRAFT: what the store is (1/12°, 3-hourly, 1994–2015), and that nothing was copied.
+:::
+
+## Bering Sea snow crab: bottom temperature, 1994–2015
+
+[Open in Colab](https://colab.research.google.com/github/ocean-icechunks/hycom/blob/main/hycom-gofs-3pt1-reanalysis/bering-sea-snow-crab-demo.ipynb){.lead}
+
+::: notes
+DRAFT: the cold pool map and the time series figure; what the notebook does in each cell.
+:::
+
+## What just happened?
+
+::: notes
+DRAFT: metadata from Source Cooperative, bytes from the HYCOM bucket on AWS. Sets up chapter 2.
+:::
+
+## Win 2: make your own virtual store
+
+[Open in Colab](https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/simple-virtual-icechunk.ipynb){.lead}
+
+::: notes
+DRAFT: five NOAA CDR NDVI files on AWS → one local Icechunk store, in about a dozen lines.
+:::
+
+## What you built
+
+::: notes
+DRAFT: a 54 kB store pointing at 303 MB of NetCDF that never moved (measured 2026-11-13).
+:::
+
+## Where we go next {.dark}

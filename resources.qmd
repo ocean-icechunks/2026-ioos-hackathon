@@ -1,0 +1,22 @@
+---
+title: "Resources"
+---
+
+## Skills and examples
+
+- [ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills): the `virtual-icechunk` and `archive-to-cloud` agent skills
+- [ocean-icechunks/icechunks](https://github.com/ocean-icechunks/icechunks): CoastWatch OHC, GOBAI-O2 and OA-indicators stores
+- [ocean-icechunks/hycom](https://github.com/ocean-icechunks/hycom): the HYCOM reanalysis stores
+- [NMFS HackHours, June 5 2026](https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/): VirtualiZarr + Icechunk notebooks
+- [gridlook](https://github.com/eeholmes/gridlook): a browser viewer for Zarr and Icechunk stores
+
+## Background reading
+
+- [AI-ready scientific data archives](https://www.earthmover.io/blog/ai-ready-scientific-data-archives) (Earthmover, 2026)
+- [Rich Signell on the state of cloud-native geospatial](https://youtu.be/OPLZQpBADow) (March 2026)
+
+## Documentation
+
+- [Icechunk](https://icechunk.io)
+- [VirtualiZarr](https://virtualizarr.readthedocs.io)
+- [Xarray](https://docs.xarray.dev)

@@ -1,0 +1,38 @@
+---
+title: "Why virtual Icechunk"
+subtitle: "Scientists do not care about files"
+---
+
+## {.quote}
+
+> Scientists do not care about files.
+
+[Tom Nicholas, Earthmover, 2026]{.quote-source}
+
+## Users ask for data, archives serve files
+
+## Chunks, not files
+
+## A virtual reference: URL + offset + length
+
+## Zarr, Icechunk, VirtualiZarr: who does what
+
+## Metadata lives here, data lives there
+
+::: notes
+DRAFT: two hosts, two credentials. Source vs destination table.
+:::
+
+## From archive to AI-ready, step by step
+
+::: notes
+DRAFT: Earthmover steps 0–4 (object storage → index chunks → metadata with the data → catalog repos → agent interfaces), mapped onto what we do in this hackathon.
+:::
+
+## When virtual is the wrong answer
+
+::: notes
+DRAFT: GOBAI-O2, one 12 GB contiguous uncompressed NetCDF: materialized instead.
+:::
+
+## Takeaways {.dark}

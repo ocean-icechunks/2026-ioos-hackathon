@@ -1,0 +1,46 @@
+# Website project: the landing page and resources are HTML pages; each chapter
+# in slides/ is a talk-revealjs deck (see slides/_metadata.yml). Quarto's book
+# type cannot render revealjs chapters, which is why this is a website.
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - resources.qmd
+    - slides/*.qmd
+
+website:
+  title: "Virtual Icechunk"
+  site-url: https://ocean-icechunks.github.io/2026-ioos-hackathon
+  repo-url: https://github.com/ocean-icechunks/2026-ioos-hackathon
+  repo-actions: [source, issue]
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Chapters
+        menu:
+          - href: slides/01-quick-wins.qmd
+            text: "1 · Quick wins"
+          - href: slides/02-why-virtual.qmd
+            text: "2 · Why virtual Icechunk"
+          - href: slides/03-agent-and-skills.qmd
+            text: "3 · Working with an agent"
+          - href: slides/04-pipeline.qmd
+            text: "4 · The basic pipeline"
+          - href: slides/05-audit.qmd
+            text: "5 · Auditing your files"
+          - href: slides/06-build.qmd
+            text: "6 · Building a store"
+          - href: slides/07-visualize.qmd
+            text: "7 · Visualizing"
+      - href: resources.qmd
+        text: Resources
+    right:
+      - icon: github
+        href: https://github.com/ocean-icechunks/2026-ioos-hackathon
+
+format:
+  html:
+    theme: cosmo
+    toc: true

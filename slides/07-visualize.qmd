@@ -1,0 +1,20 @@
+---
+title: "Visualizing Icechunk stores"
+subtitle: "From xarray in a notebook to a globe in the browser"
+---
+
+## Open a published store
+
+## Plot with hvplot
+
+## gridlook: a store on a globe, no install
+
+## Try it
+
+::: notes
+DRAFT: NDVI and OA-indicators viewer links.
+:::
+
+## Axes but no data? It's CORS
+
+## Takeaways {.dark}
