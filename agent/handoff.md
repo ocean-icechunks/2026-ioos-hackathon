@@ -2,11 +2,13 @@
 
 Rolling state for agents. This is orientation, not a task list.
 
-## Repo state (2026-11-14)
+## Repo state (2026-11-14, after PR #6)
 
 - The virtual Icechunk tutorial site for the 2026 IOOS Hackathon. Eli Holmes and
   Rich Signell lead the project.
-- Merged to `main` in PR #1. Live at
+- Sidebar: Home, JupyterHub Skills, **Lectures** (six decks), **Examples**
+  (landing page `examples/index.qmd` + six notebooks), Resources.
+- Live at
   <https://ocean-icechunks.github.io/2026-ioos-hackathon> (GitHub Pages, `main`
   `/docs`).
 - Layout and the render rule are in `AGENTS.md`. Decisions and why are in
@@ -33,6 +35,15 @@ Rolling state for agents. This is orientation, not a task list.
   classifier.
 - **Mermaid on slides:** keep `htmlLabels: false` and a `fig-width`, and keep
   flowcharts on one row. Eli rejected a two-row subgraph layout.
+- **Example notebooks render from their stored outputs** (Quarto does not
+  execute `.ipynb`). To change one, re-run it end to end in a clean venv
+  (nbclient worked), clear the `%pip` cell's output (it prints the venv path),
+  check every number the text quotes against the run, look at the figures, then
+  render. Figures land in `docs/examples/*_files/`, which `.gitignore`
+  un-ignores on purpose.
+- **Long OISST `daily/` reads can die on one dropped S3 connection.** Example 5
+  reads a year at a time with retries for that reason. Run long examples one at
+  a time so their quoted timings are honest.
 
 ## Open threads
 
@@ -41,11 +52,22 @@ Rolling state for agents. This is orientation, not a task list.
   fixed yet. The tutorial already uses the working form.
 - **Never verified on the workshop hub:** scratch bucket, image, machine sizes.
   Only the main hub was checked.
+- **Examples not checked:** run times on Colab (only the hub was timed; OISST
+  may be slower there, GOBAI faster), and the landing page's sample prompt has
+  not been run through an agent. The home page's Examples paragraph does not
+  link to `examples/index.qmd`; pointed out to Eli, left as she wrote it.
 - **Never seen by me:** the agents' first-start sign-in screens, and some slides
   headless Chrome never captured (the chapter 5 four-step table and prompt
   slides). Eli checked chapter 2's flowcharts in a browser on 2026-11-14.
 
 ## Recently shipped
+
+- PR #6 (merged 2026-11-14, branch deleted): revision 3. Lectures and Examples
+  sidebar sections; six examples (HYCOM snow crab, PacIOOS ALOHA seasons and
+  T–S, OA saturation horizon, OISST world SST, Gulf of Maine heatwaves, GOBAI
+  oxygen minimum zone); the Examples landing page with store URLs and a sample
+  agent prompt; Eli's home-page edits. Which ideas Eli picked, and why, are in
+  `design/tutorial-decisions.md`.
 
 - PR #4 (merged 2026-11-14, branch deleted): docked left sidebar with the
   IOOS Code Sprint logo (`images/`), a ⌂ Home link in every deck's footer
