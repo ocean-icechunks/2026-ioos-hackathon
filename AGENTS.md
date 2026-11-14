@@ -18,6 +18,8 @@ slides/images/     figures used by the decks
 notebooks/         Colab-ready notebooks
 _extensions/eeholmes/talk/   the deck format, from eeholmes/quarto-talk-template
 docs/              the rendered site, committed: GitHub Pages serves main /docs
+agent/handoff.md   rolling session state: read this first
+design/*.md        design notes: decisions and why (not docs/design: docs/ is Quarto's output)
 ```
 
 ## Run `quarto render` before every commit
@@ -27,12 +29,12 @@ on push, so a commit that changes a `.qmd` file without re-rendering leaves the
 live site out of date.
 
 ```bash
-quarto render          # rebuilds docs/
-git add -A docs        # commit the rendered output with the source change
+quarto render && touch docs/.nojekyll   # rebuild docs/, keep .nojekyll
+git add -A docs                         # commit the rendered output with the source change
 ```
 
-`docs/.nojekyll` must stay. A full `rm -rf docs` deletes it, so recreate it
-with `touch docs/.nojekyll`.
+`docs/.nojekyll` must stay. **A full `quarto render` deletes it** (observed
+2026-11-14), so always follow a full render with `touch docs/.nojekyll`.
 
 ## Conventions
 
