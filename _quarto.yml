@@ -69,6 +69,8 @@ website:
           contents:
             - href: examples/01-hycom-snow-crab.ipynb
               text: "1 · HYCOM: bottom temp in snow crab region"
+            - href: examples/02-pacioos-aloha-profiles.ipynb
+              text: "2 · PacIOOS: mixed layer and water masses at ALOHA"
         - text: "---"
         - href: resources.qmd
           text: Resources

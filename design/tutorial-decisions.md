@@ -30,6 +30,12 @@ does not undo something deliberate. Decisions are Eli Holmes's, from
   cleared, because it prints the venv path). Example 1 is a copy of
   `ocean-icechunks/hycom`'s `bering-sea-snow-crab-demo.ipynb` with an
   "adapted from" link; the copy here is the one to edit for the site.
+  Example 2 (PacIOOS ROMS reanalysis at Station ALOHA: seasonal mixed layer
+  and water masses) was chosen by Eli from five ideas as "textbook material".
+  It reads one 02:00 HST profile on the 15th of each month, 2009–2020,
+  because each chunk is one depth at one time step and long series are costly.
+  The rendered figures sit in `docs/examples/*_files/`, which `.gitignore`
+  un-ignores; before that exception, Example 1's figures were not committed.
 - **Mermaid on slides uses `htmlLabels: false` and `fig-width: 11`.** HTML
   labels were clipped (the deck's fonts change the text after Mermaid measures
   it) and the default size was tiny. Eli rejected a two-row layout made with
