@@ -3,15 +3,15 @@ title: "Working with an agent"
 subtitle: "The agent does the typing; you make the decisions"
 ---
 
-## Where your time goes {.visual}
+## From writing the code to directing the work {.visual}
 
-![](images/fig_agent_time.png){script="scripts/fig_agent_time.py" fig-alt="Two pie charts. Without an agent: 80% writing and debugging code, 20% planning and deciding. With an agent: 50% planning and deciding, 35% checking and adjusting what the agent did, 15% reading the agent's code, and no time writing code."}
+![](images/fig_agent_time.png){script="scripts/fig_agent_time.py" fig-alt="Two pie charts. Without an agent: planning the approach 20%, writing code 45%, debugging 35%. With an agent: defining the task and approach 35%, directing and refining the work 25%, discussing and planning tests 25%, reviewing code or text 15%."}
 
 ::: notes
-My own rough estimate, not a measurement. Without an agent, most of my time
-went to writing and debugging code. With one, I write almost no code. Half my
-time is deciding what to build and how, and most of the rest is checking what
-the agent says it did and steering it.
+My own rough estimate, not a measurement. Without an agent, 80% of my time
+went to writing and debugging code. With one, I write almost none. My time goes
+to defining the task, directing and refining the work, deciding how to test it,
+and reviewing what comes back.
 :::
 
 ## An agent is not a chatbot
