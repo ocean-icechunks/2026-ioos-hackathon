@@ -6,3 +6,7 @@
   min-height: 0 !important;
   flex: none !important;
 }
+
+/* Show the footer (with its Home link) on the title slide too; the talk
+   theme hides it there. */
+.reveal-viewport.talk-titlepage .reveal .footer { display: block !important; }

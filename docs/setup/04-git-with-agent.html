@@ -60,12 +60,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../setup/05-scratch-bucket.html" rel="next">
+<link href="../setup/03-start-your-agent.html" rel="prev">
+<link href="../images/ioos-code-sprint-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -75,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-55e293e7e8c3c3332286285459f7de79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -123,79 +125,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-jupyterhub-skills" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">JupyterHub Skills</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-jupyterhub-skills">    
-        <li>
-    <a class="dropdown-item" href="../setup/01-jupyterhub.html">
- <span class="dropdown-text">Log in to the JupyterHub</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../setup/02-jupyterlab.html">
- <span class="dropdown-text">Find your way around JupyterLab</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../setup/03-start-your-agent.html">
- <span class="dropdown-text">Start your coding agent</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../setup/04-git-with-agent.html">
- <span class="dropdown-text">Git and GitHub, with an agent</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../setup/05-scratch-bucket.html">
- <span class="dropdown-text">The scratch bucket</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-chapters" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Chapters</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-chapters">    
-        <li>
-    <a class="dropdown-item" href="../slides/01-why-virtual.html">
- <span class="dropdown-text">1 · Why virtual Icechunk</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../slides/02-agent-and-skills.html">
- <span class="dropdown-text">2 · Working with an agent</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../slides/03-pipeline.html">
- <span class="dropdown-text">3 · The basic pipeline</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../slides/04-audit.html">
- <span class="dropdown-text">4 · Auditing your files</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../slides/05-build.html">
- <span class="dropdown-text">5 · Building a store</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../slides/06-visualize.html">
- <span class="dropdown-text">6 · Visualizing</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../resources.html"> 
-<span class="menu-text">Resources</span></a>
-  </li>  
-</ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
+  <li class="nav-item">
     <a class="nav-link" href="https://github.com/ocean-icechunks/2026-ioos-hackathon"> <i class="bi bi-github" role="img">
 </i> 
-<span class="menu-text"></span></a>
+<span class="menu-text">repo</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -203,10 +137,123 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../setup/01-jupyterhub.html">JupyterHub Skills</a></li><li class="breadcrumb-item"><a href="../setup/04-git-with-agent.html">Git and GitHub, with an agent</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/ioos-code-sprint-logo.png" alt="IOOS Code Sprint logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">JupyterHub Skills</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/01-jupyterhub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Log in to the JupyterHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/02-jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Find your way around JupyterLab</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/03-start-your-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Start your coding agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/04-git-with-agent.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Git and GitHub, with an agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/05-scratch-bucket.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The scratch bucket</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/01-why-virtual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Why virtual Icechunk</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/02-agent-and-skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Working with an agent</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/03-pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · The basic pipeline</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/04-audit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Auditing your files</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/05-build.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · Building a store</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/06-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · Visualizing</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -224,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../setup/01-jupyterhub.html">JupyterHub Skills</a></li><li class="breadcrumb-item"><a href="../setup/04-git-with-agent.html">Git and GitHub, with an agent</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Git and GitHub, with an agent</h1>
 </div>
@@ -262,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="choose-how-much-access" class="level2">
 <h2 class="anchored" data-anchor-id="choose-how-much-access">Choose how much access</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Token for one repository (safer)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Full access</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Token for one repository (safer)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Full access</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>The agent can push to your hackathon repository and nothing else.</p>
@@ -759,6 +806,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../setup/03-start-your-agent.html" class="pagination-link" aria-label="Start your coding agent">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Start your coding agent</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../setup/05-scratch-bucket.html" class="pagination-link" aria-label="The scratch bucket">
+        <span class="nav-page-text">The scratch bucket</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+<link href="../images/ioos-code-sprint-logo.png" rel="icon" type="image/png">
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -273,15 +274,15 @@
 </section>
 <section id="one-task-one-session-one-handoff" class="slide level2">
 <h2>One task, one session, one handoff</h2>
-<div class="cell" data-reveal="true" data-layout-align="center">
+<div class="cell" data-reveal="true" data-fig-width="11" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A["Pick a task"] --&gt; B["Plan first"] --&gt; C["Build small"] --&gt; D{"Done or&lt;br/&gt;switching?"}
-  D -- "keep going" --&gt; C
-  D -- "yes" --&gt; E["Write a&lt;br/&gt;handoff note"] --&gt; F["/clear"] --&gt; A
+<pre class="mermaid mermaid-js">%%{init: {"flowchart": {"htmlLabels": false, "padding": 14}, "themeVariables": {"fontSize": "20px", "fontFamily": "Inter, sans-serif"}}}%%
+flowchart LR
+  A["Pick a task"] --&gt; B["Plan first"] --&gt; C["Build small"]
+  C -- "done?" --&gt; E["Write a&lt;br/&gt;handoff note"] --&gt; F["/clear"] --&gt; A
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -401,12 +402,13 @@
 </section>
 <section id="the-skill-builds-in-a-set-order" class="slide level2">
 <h2>The skill builds in a set order</h2>
-<div class="cell" data-reveal="true" data-layout-align="center">
+<div class="cell" data-reveal="true" data-fig-width="11" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
+<pre class="mermaid mermaid-js">%%{init: {"flowchart": {"htmlLabels": false, "padding": 14}, "themeVariables": {"fontSize": "20px", "fontFamily": "Inter, sans-serif"}}}%%
+flowchart LR
   A["1 · Research&lt;br/&gt;and plan"] --&gt; B["2 · Smoke-test&lt;br/&gt;notebook"] --&gt; C["3 · Production&lt;br/&gt;build"] --&gt; D["4 · README and&lt;br/&gt;loading example"]
 </pre>
 </div>
@@ -482,7 +484,7 @@ Why is this store so slow to open?</code></pre>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>Working with an agent</p>
+<p><a href="../index.html">⌂ Home</a> · Working with an agent</p>
 </div>
 </div></div>
 
