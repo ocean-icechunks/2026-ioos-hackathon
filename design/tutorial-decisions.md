@@ -49,6 +49,12 @@ does not undo something deliberate. Decisions are Eli Holmes's, from
   one dropped S3 connection ("connection closed before message completed").
   The OISST container is S3, so it needs
   `containers_credentials({...: s3_anonymous_credentials()})`, not `HttpAccess`.
+- **`examples/index.qmd` is the Examples section's landing page** (the sidebar
+  section has `href:`). Eli asked for: what the examples show, questions to
+  try, store URLs, and a sample agent prompt. The prompt asks the agent to say
+  what it will read before reading and to explain the chunking; its Cape Cod
+  question has a cheap path (`monthly/sst_max` for the year) and an expensive
+  one (every daily file), on purpose.
 - **Example 6 (GOBAI HR oxygen minimum zone)** measures the northern edge along
   130 °W, not 120 °W: at 120 °W the < 60 µmol/kg water reaches the coast
   (32.9 °N) and the "edge" just tracked land. GOBAI HR is preliminary, so the

@@ -1,0 +1,74 @@
+---
+title: "Examples"
+description: "Short notebooks that open large ocean datasets as virtual Icechunk stores, and ideas for your own questions."
+---
+
+Each example opens a large ocean dataset as a **virtual Icechunk store** and
+answers one question with it in a few seconds or minutes. You download nothing
+in advance, even when the dataset is hundreds of terabytes or thousands of files.
+Use them to see how a store opens, how much a read costs, and what kind of
+analysis becomes easy. Each one has an **Open in Colab** button.
+
+| | Dataset | What it shows | Read time |
+|---|---|---|---|
+| [1](01-hycom-snow-crab.ipynb) | HYCOM reanalysis, 306 TB | Bering Sea bottom temperature on the snow crab grounds | seconds |
+| [2](02-pacioos-aloha-profiles.ipynb) | PacIOOS ROMS Hawaiʻi reanalysis | How deep the seasons reach; water masses in T–S | ~15 s |
+| [3](03-oa-saturation-horizon.ipynb) | NCEI ocean acidification indicators | The aragonite saturation horizon | seconds |
+| [4](04-oisst-world-sst.ipynb) | NOAA OISST, ~16,500 daily files | Daily world SST, one line per year since 1981 | ~40 s |
+| [5](05-oisst-gulf-of-maine-heatwaves.ipynb) | NOAA OISST, every daily file | Marine heatwave days in the Gulf of Maine | ~3 min |
+| [6](06-gobai-oxygen-minimum-zone.ipynb) | GOBAI HR oxygen, weekly 1993–2025 | The eastern tropical Pacific oxygen minimum zone | seconds |
+
+Times were measured on the workshop's JupyterHub; elsewhere they can be longer.
+
+## Try your own questions
+
+The examples are starting points. Each store holds far more than one notebook
+uses. Here are some questions to try:
+
+- **HYCOM:** how does the Bering Sea cold pool's extent change from year to
+  year? How do currents through the Aleutian passes vary?
+- **PacIOOS:** how big is the tide at Honolulu? Can you see the afternoon
+  surface warming in calm summer weeks?
+- **OA indicators:** where are pH and aragonite saturation lowest at the
+  surface? Which regions have the fewest observations behind the map?
+- **OISST:** in which year was your favourite stretch of coast warmest? How
+  does the Niño 3.4 index line up with the world SST chart?
+- **GOBAI:** is the oxygen minimum zone of the Arabian Sea or off Peru changing
+  too? Where does nitrate track oxygen?
+
+## Ask your agent
+
+You do not need to write the code. Give your agent the store's URL and a
+question, and ask it to tell you what it will read before it reads it.
+
+| Store | URL | README |
+|---|---|---|
+| HYCOM GOFS 3.1 reanalysis | `https://data.source.coop/ocean-icechunks/hycom/hycom-gofs-3pt1-reanalysis` | [README](https://github.com/ocean-icechunks/hycom/tree/main/hycom-gofs-3pt1-reanalysis) |
+| PacIOOS ROMS Hawaiʻi reanalysis | `https://data.source.coop/ocean-icechunks/pacioos/roms_hiig_reanalysis/icechunk` | [README](https://github.com/ocean-icechunks/pacioos/tree/main/stores/roms_hiig_reanalysis) |
+| NCEI OA indicators | `https://data.source.coop/ocean-icechunks/oa-indicators/climatology` | [README](https://github.com/ocean-icechunks/icechunks/tree/main/oa-indicators) |
+| NOAA OISST v2.1 | `https://data.source.coop/ocean-icechunks/noaa-oisst/oisst.icechunk` | [README](https://github.com/ocean-icechunks/noaa_oisst) |
+| GOBAI HR | `gs://noaa-oar-gobai/icechunk/v202606` | [page](https://storage.googleapis.com/noaa-oar-gobai/index.html) |
+
+A sample prompt:
+
+> Open the virtual Icechunk store at
+> `https://data.source.coop/ocean-icechunks/noaa-oisst/oisst.icechunk`
+> anonymously. Its data are virtual references to NOAA's files, so authorize
+> anonymous reads of the store's virtual chunk containers. List its groups and
+> variables, and explain how the arrays are chunked.
+>
+> Then answer this question: **in which year was the sea surface off Cape Cod
+> warmest, and on which day?** Before you read any data, tell me how many chunks
+> and roughly how many bytes your plan reads. If there is a cheaper way, say so.
+> Then write a short notebook with one figure, and run it.
+
+Two parts of that prompt do most of the work:
+
+- **"Tell me what you will read first."** A careless read of a big store can
+  pull gigabytes; a good plan for the same question might pull megabytes.
+- **"Explain the chunking."** How a store is chunked decides which questions
+  are cheap. A map at one time step and a long time series at one point can
+  differ in cost by a thousand times.
+
+If the agent gets stuck opening a store, give it the store's README link from
+the table above: each README has working code to open that store.

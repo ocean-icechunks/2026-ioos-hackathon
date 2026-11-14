@@ -11,6 +11,7 @@ project:
     - resources.qmd
     - setup/*.qmd
     - slides/*.qmd
+    - examples/index.qmd
     - examples/*.ipynb
 
 website:
@@ -66,6 +67,7 @@ website:
             - href: slides/06-visualize.qmd
               text: "6 · Visualizing"
         - section: Examples
+          href: examples/index.qmd
           contents:
             - href: examples/01-hycom-snow-crab.ipynb
               text: "1 · HYCOM: bottom temp in snow crab region"
