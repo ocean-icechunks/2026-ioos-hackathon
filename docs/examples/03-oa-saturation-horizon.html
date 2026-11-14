@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.34">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>NCEI OA indicators: the aragonite saturation horizon – Virtual Icechunk</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../examples/02-pacioos-aloha-profiles.html" rel="prev">
+<link href="../images/ioos-code-sprint-logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-55e293e7e8c3c3332286285459f7de79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Virtual Icechunk</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ocean-icechunks/2026-ioos-hackathon"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">repo</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../examples/01-hycom-snow-crab.html">Examples</a></li><li class="breadcrumb-item"><a href="../examples/03-oa-saturation-horizon.html">3 · OA indicators: aragonite saturation horizon</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/ioos-code-sprint-logo.png" alt="IOOS Code Sprint logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">JupyterHub Skills</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/01-jupyterhub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Log in to the JupyterHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/02-jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Find your way around JupyterLab</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/03-start-your-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Start your coding agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/04-git-with-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Git and GitHub, with an agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/05-scratch-bucket.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The scratch bucket</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/01-why-virtual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Why virtual Icechunk</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/02-agent-and-skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Working with an agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/03-pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · The basic pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/04-audit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Auditing your files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/05-build.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · Building a store</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/06-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · Visualizing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/01-hycom-snow-crab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · HYCOM: bottom temp in snow crab region</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/02-pacioos-aloha-profiles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · PacIOOS: seasons and water masses at ALOHA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/03-oa-saturation-horizon.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3 · OA indicators: aragonite saturation horizon</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-textbook-idea" id="toc-the-textbook-idea" class="nav-link active" data-scroll-target="#the-textbook-idea">The textbook idea</a></li>
+  <li><a href="#why-the-store-helps" id="toc-why-the-store-helps" class="nav-link" data-scroll-target="#why-the-store-helps">Why the store helps</a></li>
+  <li><a href="#map-the-saturation-horizon" id="toc-map-the-saturation-horizon" class="nav-link" data-scroll-target="#map-the-saturation-horizon">Map the saturation horizon</a></li>
+  <li><a href="#two-profiles" id="toc-two-profiles" class="nav-link" data-scroll-target="#two-profiles">Two profiles</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/03-oa-saturation-horizon.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../examples/01-hycom-snow-crab.html">Examples</a></li><li class="breadcrumb-item"><a href="../examples/03-oa-saturation-horizon.html">3 · OA indicators: aragonite saturation horizon</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">NCEI OA indicators: the aragonite saturation horizon</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/03-oa-saturation-horizon.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img"></a></p>
+<figcaption>Open In Colab</figcaption>
+</figure>
+</div>
+<p>A textbook ocean acidification picture from NCEI’s <a href="https://doi.org/10.25921/g8pb-zy76">climatology of ocean acidification indicators on the North American margins</a> (1° grid, surface to 500 m, observations 2003–2018 adjusted to 2010), as a <a href="https://github.com/ocean-icechunks/icechunks/tree/main/oa-indicators">virtual Icechunk store</a>. No credentials needed. Runs on Google Colab (Python 3.12).</p>
+<section id="the-textbook-idea" class="level2">
+<h2 class="anchored" data-anchor-id="the-textbook-idea">The textbook idea</h2>
+<p>The ocean takes up about a quarter of the CO₂ that people emit. Dissolved CO₂ forms carbonic acid, which lowers pH and uses up <strong>carbonate ions</strong> (CO₃²⁻), the building block that corals, pteropods, oysters and other animals use to make shells of calcium carbonate.</p>
+<p>The <strong>aragonite saturation state</strong>, Ω<sub>A</sub>, measures how easy that is:</p>
+<p><span class="math display">\[\Omega_A = \frac{[\mathrm{Ca^{2+}}]\,[\mathrm{CO_3^{2-}}]}{K'_{sp}}\]</span></p>
+<ul>
+<li>Ω<sub>A</sub> &gt; 1: seawater is supersaturated, and aragonite shells can form and persist.</li>
+<li>Ω<sub>A</sub> &lt; 1: seawater is <strong>corrosive</strong>, and unprotected aragonite dissolves.</li>
+</ul>
+<p>Ω<sub>A</sub> falls with depth. Deep water is cold and under pressure, both of which make aragonite more soluble, and it holds CO₂ released by the decay of sinking organic matter. The depth where Ω<sub>A</sub> = 1 is the <strong>aragonite saturation horizon</strong>. Two things set how deep it is:</p>
+<ul>
+<li><strong>Ocean basin.</strong> North Pacific deep water is old and has collected respired CO₂ for centuries, so its horizon is far shallower than the North Atlantic’s.</li>
+<li><strong>Upwelling.</strong> Along the US West Coast, spring and summer winds bring that corrosive water up onto the continental shelf (<a href="https://doi.org/10.1126/science.1155676">Feely et al.&nbsp;2008</a>). It was behind the oyster-hatchery failures in the Pacific Northwest (<a href="https://doi.org/10.4319/lo.2012.57.3.0698">Barton et al.&nbsp;2012</a>), and every bit of anthropogenic CO₂ raises the horizon further.</li>
+</ul>
+</section>
+<section id="why-the-store-helps" class="level2">
+<h2 class="anchored" data-anchor-id="why-the-store-helps">Why the store helps</h2>
+<p>NCEI ships this product as one NetCDF file per indicator, and the files’ latitude, longitude and depth axes are placeholder zeros, so you cannot select a place or draw a map without rebuilding the grid by hand. The store puts all 12 indicators on one real <code>(depth, lat, lon)</code> grid.</p>
+<div id="f729c27a" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>q <span class="st">"icechunk&gt;=2.3"</span> <span class="st">"xarray&gt;=2026.7"</span> <span class="st">"zarr&gt;=3.4"</span> matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="89463b59" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> icechunk, xarray <span class="im">as</span> xr</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://data.source.coop/ocean-icechunks/oa-indicators/climatology"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> icechunk.Repository.<span class="bu">open</span>(icechunk.http_storage(url))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Authorize anonymous reads of NCEI's files, where the data actually live.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> {p: icechunk.credentials.HttpAccess <span class="cf">for</span> p <span class="kw">in</span> repo.config.virtual_chunk_containers}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> repo.reopen(authorize_virtual_chunk_access<span class="op">=</span>auth)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_zarr(repo.readonly_session(<span class="st">"main"</span>).store, consolidated<span class="op">=</span><span class="va">False</span>, chunks<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
+
+:root {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
+}
+
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+body.vscode-dark {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+  line-height: 1.6;
+  padding-bottom: 4px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.xr-header {
+  border-bottom: solid 1px var(--xr-border-color);
+  margin-bottom: 4px;
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-obj-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type,
+.xr-group-box-contents > label {
+  color: var(--xr-font-color2);
+  display: block;
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item > input,
+.xr-group-box-contents > input,
+.xr-array-wrap > input {
+  display: block;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
+
+.xr-section-item > input + label,
+.xr-var-item > input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item > input:enabled + label,
+.xr-var-item > input:enabled + label,
+.xr-array-wrap > input:enabled + label,
+.xr-group-box-contents > input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item > input:focus-visible + label,
+.xr-var-item > input:focus-visible + label,
+.xr-array-wrap > input:focus-visible + label,
+.xr-group-box-contents > input:focus-visible + label {
+  outline: auto;
+}
+
+.xr-section-item > input:enabled + label:hover,
+.xr-var-item > input:enabled + label:hover,
+.xr-array-wrap > input:enabled + label:hover,
+.xr-group-box-contents > input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.xr-section-summary > em {
+  font-weight: normal;
+}
+
+.xr-span-grid {
+  grid-column-end: -1;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label > span {
+  display: inline-block;
+  padding-left: 0.6em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: "►";
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: "▼";
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details,
+.xr-group-box-contents > label {
+  padding-top: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in ~ .xr-section-details {
+  display: none;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-children {
+  display: inline-grid;
+  grid-template-columns: 100%;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 30px auto;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 26px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
+  padding-bottom: 4px;
+}
+
+.xr-group-box-contents > label::before {
+  content: "📂";
+  padding-right: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label::before {
+  content: "📁";
+}
+
+.xr-group-box-contents > input:checked + label {
+  padding-bottom: 0px;
+}
+
+.xr-group-box-contents > input:checked ~ .xr-sections {
+  display: none;
+}
+
+.xr-group-box-contents > input + label > span {
+  display: none;
+}
+
+.xr-group-box-ellipsis {
+  font-size: 1.4em;
+  font-weight: 900;
+  color: var(--xr-font-color2);
+  letter-spacing: 0.15em;
+  cursor: default;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: "(";
+}
+
+.xr-dim-list:after {
+  content: ")";
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ",";
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt; Size: 86MB
+Dimensions:    (depth: 14, lat: 76, lon: 141)
+Coordinates:
+  * depth      (depth) float64 112B 0.0 10.0 20.0 30.0 ... 300.0 400.0 500.0
+  * lat        (lat) float64 608B 10.5 11.5 12.5 13.5 ... 82.5 83.5 84.5 85.5
+  * lon        (lon) float64 1kB -179.5 -178.5 -177.5 ... -41.5 -40.5 -39.5
+Data variables: (12/72)
+    CO3_SE     (depth, lat, lon) float64 1MB ...
+    CO3_an     (depth, lat, lon) float64 1MB ...
+    CO3_mn     (depth, lat, lon) float64 1MB ...
+    DIC_gp     (depth, lat, lon) float64 1MB ...
+    DIC_an     (depth, lat, lon) float64 1MB ...
+    Hfree_SE   (depth, lat, lon) float64 1MB ...
+    ...         ...
+    pHT_dd     (depth, lat, lon) float64 1MB ...
+    pHT_mn     (depth, lat, lon) float64 1MB ...
+    pHT_sd     (depth, lat, lon) float64 1MB ...
+    pHT_an     (depth, lat, lon) float64 1MB ...
+    fCO2_an    (depth, lat, lon) float64 1MB ...
+    pHT_gp     (depth, lat, lon) float64 1MB ...
+Attributes: (12/33)
+    Conventions:                   CF-1.12, ACDD-1.3
+    title:                         Climatological distribution of ocean acidi...
+    summary:                       1x1 degree coastal climatologies of twelve...
+    keywords:                      ocean acidification, pH, aragonite saturat...
+    source:                        NCEI Accession 0270962: twelve NetCDF-4 fi...
+    history:                       2026-09-17T22:18:58+00:00: merged the twel...
+    ...                            ...
+    geospatial_lon_units:          degrees_east
+    geospatial_vertical_units:     m
+    geospatial_vertical_positive:  down
+    time_coverage_start:           2003-12-06
+    time_coverage_end:             2018-11-22
+    comment:                       A climatology: there is no time dimension....</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-c1503a35-ece5-423d-9af8-678d27de1171" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-c1503a35-ece5-423d-9af8-678d27de1171" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">depth</span>: 14</li><li><span class="xr-has-index">lat</span>: 76</li><li><span class="xr-has-index">lon</span>: 141</li></ul></div></li><li class="xr-section-item"><input id="section-ecc3c131-6aa8-455b-83b9-a05e4f1a6cce" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-ecc3c131-6aa8-455b-83b9-a05e4f1a6cce" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">depth</span></div><div class="xr-var-dims">(depth)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 10.0 20.0 ... 300.0 400.0 500.0</div><input id="attrs-72337c8d-acc6-41a1-bcae-b3357b08b67a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-72337c8d-acc6-41a1-bcae-b3357b08b67a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fd59b4af-8100-4492-839d-fdc3e25b70e8" class="xr-var-data-in" type="checkbox"><label for="data-fd59b4af-8100-4492-839d-fdc3e25b70e8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>depth</dd><dt><span>long_name :</span></dt><dd>Depth below sea surface</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>axis :</span></dt><dd>Z</dd></dl></div><div class="xr-var-data"><pre>array([  0.,  10.,  20.,  30.,  50.,  75., 100., 125., 150., 200., 250., 300.,
+       400., 500.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">10.5 11.5 12.5 ... 83.5 84.5 85.5</div><input id="attrs-9ce9d2d5-768f-4f1a-98cc-3dfdbc35e365" class="xr-var-attrs-in" type="checkbox"><label for="attrs-9ce9d2d5-768f-4f1a-98cc-3dfdbc35e365" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-82fad51e-15a3-409f-8c8e-a299f6240422" class="xr-var-data-in" type="checkbox"><label for="data-82fad51e-15a3-409f-8c8e-a299f6240422" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class="xr-var-data"><pre>array([10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5, 17.5, 18.5, 19.5, 20.5, 21.5,
+       22.5, 23.5, 24.5, 25.5, 26.5, 27.5, 28.5, 29.5, 30.5, 31.5, 32.5, 33.5,
+       34.5, 35.5, 36.5, 37.5, 38.5, 39.5, 40.5, 41.5, 42.5, 43.5, 44.5, 45.5,
+       46.5, 47.5, 48.5, 49.5, 50.5, 51.5, 52.5, 53.5, 54.5, 55.5, 56.5, 57.5,
+       58.5, 59.5, 60.5, 61.5, 62.5, 63.5, 64.5, 65.5, 66.5, 67.5, 68.5, 69.5,
+       70.5, 71.5, 72.5, 73.5, 74.5, 75.5, 76.5, 77.5, 78.5, 79.5, 80.5, 81.5,
+       82.5, 83.5, 84.5, 85.5])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-179.5 -178.5 ... -40.5 -39.5</div><input id="attrs-0ea812d8-1bc2-4b87-9644-95f01877c564" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0ea812d8-1bc2-4b87-9644-95f01877c564" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-17febaeb-d827-4e77-9089-0f194c5666bb" class="xr-var-data-in" type="checkbox"><label for="data-17febaeb-d827-4e77-9089-0f194c5666bb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>axis :</span></dt><dd>X</dd></dl></div><div class="xr-var-data"><pre>array([-179.5, -178.5, -177.5, -176.5, -175.5, -174.5, -173.5, -172.5, -171.5,
+       -170.5, -169.5, -168.5, -167.5, -166.5, -165.5, -164.5, -163.5, -162.5,
+       -161.5, -160.5, -159.5, -158.5, -157.5, -156.5, -155.5, -154.5, -153.5,
+       -152.5, -151.5, -150.5, -149.5, -148.5, -147.5, -146.5, -145.5, -144.5,
+       -143.5, -142.5, -141.5, -140.5, -139.5, -138.5, -137.5, -136.5, -135.5,
+       -134.5, -133.5, -132.5, -131.5, -130.5, -129.5, -128.5, -127.5, -126.5,
+       -125.5, -124.5, -123.5, -122.5, -121.5, -120.5, -119.5, -118.5, -117.5,
+       -116.5, -115.5, -114.5, -113.5, -112.5, -111.5, -110.5, -109.5, -108.5,
+       -107.5, -106.5, -105.5, -104.5, -103.5, -102.5, -101.5, -100.5,  -99.5,
+        -98.5,  -97.5,  -96.5,  -95.5,  -94.5,  -93.5,  -92.5,  -91.5,  -90.5,
+        -89.5,  -88.5,  -87.5,  -86.5,  -85.5,  -84.5,  -83.5,  -82.5,  -81.5,
+        -80.5,  -79.5,  -78.5,  -77.5,  -76.5,  -75.5,  -74.5,  -73.5,  -72.5,
+        -71.5,  -70.5,  -69.5,  -68.5,  -67.5,  -66.5,  -65.5,  -64.5,  -63.5,
+        -62.5,  -61.5,  -60.5,  -59.5,  -58.5,  -57.5,  -56.5,  -55.5,  -54.5,
+        -53.5,  -52.5,  -51.5,  -50.5,  -49.5,  -48.5,  -47.5,  -46.5,  -45.5,
+        -44.5,  -43.5,  -42.5,  -41.5,  -40.5,  -39.5])</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-9dec3341-0b16-4689-933e-90cc8d5054d5" class="xr-section-summary-in" type="checkbox"><label for="section-9dec3341-0b16-4689-933e-90cc8d5054d5" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(72)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>CO3_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-3a66226c-565d-48d1-946b-99f1d4c36af2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3a66226c-565d-48d1-946b-99f1d4c36af2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5c5c531b-c8c0-443f-867b-040d51a7cc76" class="xr-var-data-in" type="checkbox"><label for="data-5c5c531b-c8c0-443f-867b-040d51a7cc76" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed carbonate ion content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Carbonate ion content defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Carbonate.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>CO3_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-e6614af0-fe5a-423c-92f5-2cb77bf5e678" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e6614af0-fe5a-423c-92f5-2cb77bf5e678" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c39c8a80-4447-4969-9cd3-e48484483501" class="xr-var-data-in" type="checkbox"><label for="data-c39c8a80-4447-4969-9cd3-e48484483501" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean carbonate ion content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Carbonate ion content at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Carbonate.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>CO3_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c6cb6333-ba6a-4617-bf25-750305bd0a99" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c6cb6333-ba6a-4617-bf25-750305bd0a99" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-75a25079-eb7f-4386-9c51-57b437a99159" class="xr-var-data-in" type="checkbox"><label for="data-75a25079-eb7f-4386-9c51-57b437a99159" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean carbonate ion content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Carbonate ion content in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Carbonate.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DIC_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-2b2502cc-0a75-4a5c-9176-012d6666a242" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2b2502cc-0a75-4a5c-9176-012d6666a242" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ddfac6be-e140-4af9-b0a7-0b941b425b83" class="xr-var-data-in" type="checkbox"><label for="data-ddfac6be-e140-4af9-b0a7-0b941b425b83" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for total dissolved inorganic carbon content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Total dissolved inorganic carbon content.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/DIC.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DIC_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-8e664d41-219f-4862-b024-106ff44b3a17" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8e664d41-219f-4862-b024-106ff44b3a17" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-24aae24d-be2f-4738-8536-b8dc4025ec35" class="xr-var-data-in" type="checkbox"><label for="data-24aae24d-be2f-4738-8536-b8dc4025ec35" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean total dissolved inorganic carbon content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>standard_name :</span></dt><dd>moles_of_dissolved_inorganic_carbon_per_unit_mass_in_sea_water</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Total dissolved inorganic carbon content at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/DIC.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Hfree_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-aba1f37c-c226-4d7f-8ce1-033dc8801d62" class="xr-var-attrs-in" type="checkbox"><label for="attrs-aba1f37c-c226-4d7f-8ce1-033dc8801d62" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a49305d3-1a5d-4067-9917-b601aaa50f8b" class="xr-var-data-in" type="checkbox"><label for="data-a49305d3-1a5d-4067-9917-b601aaa50f8b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed free hydrogen ion content</dd><dt><span>units :</span></dt><dd>nmol kg-1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Free hydrogen ion content defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_free.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>CO3_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-33838803-d991-4725-97c2-80fe28cb29c7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-33838803-d991-4725-97c2-80fe28cb29c7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b9c645bf-d4c7-45c4-8d4c-694ca1a89177" class="xr-var-data-in" type="checkbox"><label for="data-b9c645bf-d4c7-45c4-8d4c-694ca1a89177" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of carbonate ion content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Carbonate ion content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Carbonate.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DIC_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-603c5cb0-65c9-46b6-bdd9-a886d0a34d09" class="xr-var-attrs-in" type="checkbox"><label for="attrs-603c5cb0-65c9-46b6-bdd9-a886d0a34d09" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6cef2a0c-9d90-4eb6-be00-4c6b2df276f9" class="xr-var-data-in" type="checkbox"><label for="data-6cef2a0c-9d90-4eb6-be00-4c6b2df276f9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean total dissolved inorganic carbon content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>standard_name :</span></dt><dd>moles_of_dissolved_inorganic_carbon_per_unit_mass_in_sea_water</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Total dissolved inorganic carbon content in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/DIC.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>CO3_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-27d0aefb-245d-496a-8b7e-b26625479da6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-27d0aefb-245d-496a-8b7e-b26625479da6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5bc03efa-ca44-452c-b574-9484b24180c1" class="xr-var-data-in" type="checkbox"><label for="data-5bc03efa-ca44-452c-b574-9484b24180c1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for carbonate ion content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Carbonate ion content.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Carbonate.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DIC_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-5a57fa5e-b466-47b5-b77b-1a49e5c68564" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5a57fa5e-b466-47b5-b77b-1a49e5c68564" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-215d90d2-ab91-4c18-a3e3-932b9d980dec" class="xr-var-data-in" type="checkbox"><label for="data-215d90d2-ab91-4c18-a3e3-932b9d980dec" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed total dissolved inorganic carbon content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Total dissolved inorganic carbon content defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/DIC.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DIC_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-4ed6a675-3c5c-4e14-9ab4-d02d907be5ad" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4ed6a675-3c5c-4e14-9ab4-d02d907be5ad" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-90240663-94c8-492d-9d6d-ebc9219dcaf9" class="xr-var-data-in" type="checkbox"><label for="data-90240663-94c8-492d-9d6d-ebc9219dcaf9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of total dissolved inorganic carbon content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Total dissolved inorganic carbon content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/DIC.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DIC_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c802eadf-b128-4d55-9212-d46c9a331cda" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c802eadf-b128-4d55-9212-d46c9a331cda" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-00d7ca53-06b5-42b9-938a-8df444f81b25" class="xr-var-data-in" type="checkbox"><label for="data-00d7ca53-06b5-42b9-938a-8df444f81b25" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of total dissolved inorganic carbon content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>standard_name :</span></dt><dd>moles_of_dissolved_inorganic_carbon_per_unit_mass_in_sea_water</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Total dissolved inorganic carbon content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/DIC.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>CO3_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c3f22b92-cb9b-4b74-940e-2b04db03efab" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c3f22b92-cb9b-4b74-940e-2b04db03efab" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-aa679f14-b692-4f11-bf6c-31d9f00093e4" class="xr-var-data-in" type="checkbox"><label for="data-aa679f14-b692-4f11-bf6c-31d9f00093e4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of carbonate ion content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Carbonate ion content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Carbonate.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Hfree_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-61582072-25bc-40d9-afd2-d59884ac6f25" class="xr-var-attrs-in" type="checkbox"><label for="attrs-61582072-25bc-40d9-afd2-d59884ac6f25" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f5673c54-8e32-479e-b5fa-ff9cb2c4bb6a" class="xr-var-data-in" type="checkbox"><label for="data-f5673c54-8e32-479e-b5fa-ff9cb2c4bb6a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of free hydrogen ion content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Free hydrogen ion content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_free.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Htotal_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c615798a-a230-49bd-a228-e7a8e6edc40f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c615798a-a230-49bd-a228-e7a8e6edc40f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6916e33b-38ff-4037-8242-5959b5dff009" class="xr-var-data-in" type="checkbox"><label for="data-6916e33b-38ff-4037-8242-5959b5dff009" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean total hydrogen ion content</dd><dt><span>units :</span></dt><dd>nmol kg-1</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Total hydrogen ion content in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_total.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Hfree_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-3dc08861-4d08-40f6-b0d6-64e84cedf91f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3dc08861-4d08-40f6-b0d6-64e84cedf91f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-434787bb-4987-4aa7-9875-62e80956b778" class="xr-var-data-in" type="checkbox"><label for="data-434787bb-4987-4aa7-9875-62e80956b778" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of free hydrogen ion content</dd><dt><span>units :</span></dt><dd>nmol kg-1</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Free hydrogen ion content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_free.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Hfree_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-0f3fef22-cc1b-42af-9054-ca67bc01e470" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0f3fef22-cc1b-42af-9054-ca67bc01e470" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e1c0f8d5-b159-4ca5-9df3-dbb0b3468615" class="xr-var-data-in" type="checkbox"><label for="data-e1c0f8d5-b159-4ca5-9df3-dbb0b3468615" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean free hydrogen ion content</dd><dt><span>units :</span></dt><dd>nmol kg-1</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Free hydrogen ion content at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_free.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Htotal_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-a87e6e88-39d7-4d22-a4e7-cf1ca035797e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a87e6e88-39d7-4d22-a4e7-cf1ca035797e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3ea827a4-ae52-4b22-93d0-3584824f2b36" class="xr-var-data-in" type="checkbox"><label for="data-3ea827a4-ae52-4b22-93d0-3584824f2b36" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of total hydrogen ion content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Total hydrogen ion content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_total.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Hfree_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-6687181b-dc81-499a-ac66-de002a54466d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6687181b-dc81-499a-ac66-de002a54466d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f7c5175d-814c-400b-afd2-8bbcbd301192" class="xr-var-data-in" type="checkbox"><label for="data-f7c5175d-814c-400b-afd2-8bbcbd301192" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for free hydrogen ion content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Free hydrogen ion content.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_free.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Hfree_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-56d12285-2605-41e5-a732-9aeb4ca505f7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-56d12285-2605-41e5-a732-9aeb4ca505f7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8c895d19-1aed-45ef-be34-049c2d54198b" class="xr-var-data-in" type="checkbox"><label for="data-8c895d19-1aed-45ef-be34-049c2d54198b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean free hydrogen ion content</dd><dt><span>units :</span></dt><dd>nmol kg-1</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Free hydrogen ion content in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_free.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Htotal_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-a8a594b8-eb69-4952-88bd-36fabbe49799" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a8a594b8-eb69-4952-88bd-36fabbe49799" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7bd404d8-1656-4aee-b36f-eff75ad073a9" class="xr-var-data-in" type="checkbox"><label for="data-7bd404d8-1656-4aee-b36f-eff75ad073a9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean total hydrogen ion content</dd><dt><span>units :</span></dt><dd>nmol kg-1</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Total hydrogen ion content at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_total.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Htotal_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-4a4b0481-7042-401f-b924-b2d7c7a6fd1f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4a4b0481-7042-401f-b924-b2d7c7a6fd1f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1ca24d2a-d6b6-4811-b271-8212c927ff77" class="xr-var-data-in" type="checkbox"><label for="data-1ca24d2a-d6b6-4811-b271-8212c927ff77" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed total hydrogen ion content</dd><dt><span>units :</span></dt><dd>nmol kg-1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Total hydrogen ion content defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_total.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Htotal_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-4a111f6f-b0e1-4793-8079-934bf0dbc11d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4a111f6f-b0e1-4793-8079-934bf0dbc11d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e8995c12-4cc2-468f-bea7-eff253f1a638" class="xr-var-data-in" type="checkbox"><label for="data-e8995c12-4cc2-468f-bea7-eff253f1a638" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of total hydrogen ion content</dd><dt><span>units :</span></dt><dd>nmol kg-1</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Total hydrogen ion content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_total.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaA_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-80e2a70c-0eaf-4d29-9161-6fb3c8b4194c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-80e2a70c-0eaf-4d29-9161-6fb3c8b4194c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-acddbe2e-30c0-4fb1-b52d-f793a0548013" class="xr-var-data-in" type="checkbox"><label for="data-acddbe2e-30c0-4fb1-b52d-f793a0548013" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean aragonite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Aragonite saturation state at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Aragonite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaA_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-709739ea-d650-4809-90e7-46d0383d40a1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-709739ea-d650-4809-90e7-46d0383d40a1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f9e28716-558e-4a6f-a72b-580d7b190ae9" class="xr-var-data-in" type="checkbox"><label for="data-f9e28716-558e-4a6f-a72b-580d7b190ae9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for aragonite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Aragonite saturation state.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Aragonite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaA_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-b6d2835b-93b6-4254-8edd-1ac18b4b0ff7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b6d2835b-93b6-4254-8edd-1ac18b4b0ff7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ff16bed9-b1ad-420e-9852-627e309c39a8" class="xr-var-data-in" type="checkbox"><label for="data-ff16bed9-b1ad-420e-9852-627e309c39a8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean aragonite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Aragonite saturation state in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Aragonite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaC_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-0dfc287a-4121-43d8-b94e-6b644a0d68e1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0dfc287a-4121-43d8-b94e-6b644a0d68e1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6196e3c4-c027-4c6f-9295-a778f0cdc1bb" class="xr-var-data-in" type="checkbox"><label for="data-6196e3c4-c027-4c6f-9295-a778f0cdc1bb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed calcite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Calcite saturation state defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Calcite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaA_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-7b265317-f2e8-47ae-a25e-d85ad0a140ba" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7b265317-f2e8-47ae-a25e-d85ad0a140ba" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d6f34fa2-68ec-4a94-ae5a-f6a150d84aaa" class="xr-var-data-in" type="checkbox"><label for="data-d6f34fa2-68ec-4a94-ae5a-f6a150d84aaa" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed aragonite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Aragonite saturation state defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Aragonite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaA_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-a809383c-020b-42d6-b79c-01c7af8f22e1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a809383c-020b-42d6-b79c-01c7af8f22e1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0cd485c2-78bc-476d-bbb6-6bf348a01e72" class="xr-var-data-in" type="checkbox"><label for="data-0cd485c2-78bc-476d-bbb6-6bf348a01e72" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of aragonite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Aragonite saturation state in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Aragonite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaA_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-b3bbe8e0-30c1-4966-ab23-da9cb8c2b9ef" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b3bbe8e0-30c1-4966-ab23-da9cb8c2b9ef" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5b0a2ef6-fb82-4a90-b4f2-9af83c5b9aff" class="xr-var-data-in" type="checkbox"><label for="data-5b0a2ef6-fb82-4a90-b4f2-9af83c5b9aff" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of aragonite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Aragonite saturation state in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Aragonite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaC_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-02407ada-52ff-4b1b-931d-8e7cf2d2f154" class="xr-var-attrs-in" type="checkbox"><label for="attrs-02407ada-52ff-4b1b-931d-8e7cf2d2f154" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-286363f1-af18-4839-bcb6-ea58893997fc" class="xr-var-data-in" type="checkbox"><label for="data-286363f1-af18-4839-bcb6-ea58893997fc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean calcite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Calcite saturation state at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Calcite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>Htotal_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-339a9be2-2ac4-4fcb-ba5e-940c902ce7a4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-339a9be2-2ac4-4fcb-ba5e-940c902ce7a4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e152c7e2-ccbe-455b-b9b9-b2d17b870aff" class="xr-var-data-in" type="checkbox"><label for="data-e152c7e2-ccbe-455b-b9b9-b2d17b870aff" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for total hydrogen ion content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Total hydrogen ion content.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Hydrogen_total.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaC_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-d8e6062e-dc4f-4370-b6b5-52a0a368ab25" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d8e6062e-dc4f-4370-b6b5-52a0a368ab25" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7c5249a0-03f0-4fc3-8e3a-10e512f432bd" class="xr-var-data-in" type="checkbox"><label for="data-7c5249a0-03f0-4fc3-8e3a-10e512f432bd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean calcite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Calcite saturation state in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Calcite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>RF_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-b06036fe-52da-4b85-b634-b03a1e719e6a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b06036fe-52da-4b85-b634-b03a1e719e6a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c19baef1-3b58-4318-b841-c39ced2e5f5b" class="xr-var-data-in" type="checkbox"><label for="data-c19baef1-3b58-4318-b841-c39ced2e5f5b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed Revelle factor</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Revelle Factor defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/RF.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaC_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-143673d9-641c-479c-ab28-8dc87dde6919" class="xr-var-attrs-in" type="checkbox"><label for="attrs-143673d9-641c-479c-ab28-8dc87dde6919" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7de65196-7c81-4c2c-bee5-175e9c4def02" class="xr-var-data-in" type="checkbox"><label for="data-7de65196-7c81-4c2c-bee5-175e9c4def02" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of calcite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Calcite saturation state in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Calcite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>RF_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-bcb56ee2-8fbb-4bf5-a7ec-10d4bc26df90" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bcb56ee2-8fbb-4bf5-a7ec-10d4bc26df90" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8df62cb4-0ed1-447a-b41d-3203e68eecc7" class="xr-var-data-in" type="checkbox"><label for="data-8df62cb4-0ed1-447a-b41d-3203e68eecc7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for Revelle factor</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Revelle Factor.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/RF.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaC_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-7378168c-ac67-4e4d-8143-8c3a6200fff2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7378168c-ac67-4e4d-8143-8c3a6200fff2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a538c498-bb33-4c4e-bea8-32aff763d314" class="xr-var-data-in" type="checkbox"><label for="data-a538c498-bb33-4c4e-bea8-32aff763d314" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for calcite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Calcite saturation state.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Calcite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>OmegaC_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-27baf098-ae24-44fd-a443-b17ec8733238" class="xr-var-attrs-in" type="checkbox"><label for="attrs-27baf098-ae24-44fd-a443-b17ec8733238" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3e053f7e-11b7-42ba-923d-2b88210358d5" class="xr-var-data-in" type="checkbox"><label for="data-3e053f7e-11b7-42ba-923d-2b88210358d5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of calcite saturation state</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Calcite saturation state in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Calcite.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>RF_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-691d5db7-3b26-477d-8544-2508fd3209e0" class="xr-var-attrs-in" type="checkbox"><label for="attrs-691d5db7-3b26-477d-8544-2508fd3209e0" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d03e243e-2acf-411e-887e-22319373a638" class="xr-var-data-in" type="checkbox"><label for="data-d03e243e-2acf-411e-887e-22319373a638" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean Revelle factor</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Revelle Factor at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/RF.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>RF_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-8f8d8443-0773-4438-9459-d581f73e0f40" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8f8d8443-0773-4438-9459-d581f73e0f40" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-71f65cf5-2bb4-463f-9316-a117a78a0df0" class="xr-var-data-in" type="checkbox"><label for="data-71f65cf5-2bb4-463f-9316-a117a78a0df0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean Revelle factor</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Revelle Factor in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/RF.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>RF_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-24096038-dbe9-49d2-bf02-7234b5627ed3" class="xr-var-attrs-in" type="checkbox"><label for="attrs-24096038-dbe9-49d2-bf02-7234b5627ed3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c777efd8-b8e5-481f-bade-85a3d3c4f1b8" class="xr-var-data-in" type="checkbox"><label for="data-c777efd8-b8e5-481f-bade-85a3d3c4f1b8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of Revelle factor</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Revelle Factor in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/RF.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>RF_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-cf956eb2-35f4-4f5c-900a-4f64e3061906" class="xr-var-attrs-in" type="checkbox"><label for="attrs-cf956eb2-35f4-4f5c-900a-4f64e3061906" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4282319d-d725-486d-963a-b9eb452de896" class="xr-var-data-in" type="checkbox"><label for="data-4282319d-d725-486d-963a-b9eb452de896" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of Revelle factor</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Revelle Factor in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/RF.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>S_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-accd6ae6-d495-4bbc-9d60-32979ef42153" class="xr-var-attrs-in" type="checkbox"><label for="attrs-accd6ae6-d495-4bbc-9d60-32979ef42153" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d398dfe4-e58f-41d2-bf84-f85a305bf2d1" class="xr-var-data-in" type="checkbox"><label for="data-d398dfe4-e58f-41d2-bf84-f85a305bf2d1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of salinity (PSS-78)</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Salinity (PSS-78) in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Salinity.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>S_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-db827175-a559-424c-a127-44c121d899e2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-db827175-a559-424c-a127-44c121d899e2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-75a9d803-282f-4cf6-b79a-62b8e1a141a4" class="xr-var-data-in" type="checkbox"><label for="data-75a9d803-282f-4cf6-b79a-62b8e1a141a4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for salinity (PSS-78)</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Salinity (PSS-78).</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Salinity.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>S_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-ce87c81f-6a2e-4e11-9ce3-ac70c745d407" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ce87c81f-6a2e-4e11-9ce3-ac70c745d407" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c75ff47c-909b-41c6-9292-3bac5e7fb106" class="xr-var-data-in" type="checkbox"><label for="data-c75ff47c-909b-41c6-9292-3bac5e7fb106" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of salinity (PSS-78)</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>sea_water_practical_salinity</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Salinity (PSS-78) in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Salinity.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>TA_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-55f4adea-1a5b-4b20-90ec-9f78824d943c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-55f4adea-1a5b-4b20-90ec-9f78824d943c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-586aa287-09f4-46ea-a82b-43d57cc8f5f7" class="xr-var-data-in" type="checkbox"><label for="data-586aa287-09f4-46ea-a82b-43d57cc8f5f7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean total alkalinity content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>standard_name :</span></dt><dd>sea_water_alkalinity_per_unit_mass_expressed_as_mole_equivalent</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Total alkalinity content at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/TA.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>TA_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-f73de036-dceb-4f7b-b78c-18cc3cba0d5d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f73de036-dceb-4f7b-b78c-18cc3cba0d5d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7718db4b-a77e-4e25-8371-266cecb9f32f" class="xr-var-data-in" type="checkbox"><label for="data-7718db4b-a77e-4e25-8371-266cecb9f32f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of total alkalinity content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Total alkalinity content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/TA.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>TA_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c648e5d5-5b30-4675-b805-2ce44ead8de1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c648e5d5-5b30-4675-b805-2ce44ead8de1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9c2eacd4-c590-4933-8a2f-14af746596ce" class="xr-var-data-in" type="checkbox"><label for="data-9c2eacd4-c590-4933-8a2f-14af746596ce" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for total alkalinity content</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Total alkalinity content.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/TA.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>S_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-054884b5-5963-47f1-89af-565b6a6fe2af" class="xr-var-attrs-in" type="checkbox"><label for="attrs-054884b5-5963-47f1-89af-565b6a6fe2af" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fd739abe-fb90-4eba-9411-9ceab9a151d6" class="xr-var-data-in" type="checkbox"><label for="data-fd739abe-fb90-4eba-9411-9ceab9a151d6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean salinity (PSS-78)</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>sea_water_practical_salinity</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Salinity (PSS-78) in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Salinity.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>S_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-6c9dedbd-dce2-4f80-8b85-01896b4d4a81" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6c9dedbd-dce2-4f80-8b85-01896b4d4a81" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-dfc1f2a4-9fbb-48db-84af-30f4a9bb3caf" class="xr-var-data-in" type="checkbox"><label for="data-dfc1f2a4-9fbb-48db-84af-30f4a9bb3caf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed salinity (PSS-78)</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Salinity (PSS-78) defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Salinity.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>S_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-553edde5-7bcd-466e-839f-8d65f6c40194" class="xr-var-attrs-in" type="checkbox"><label for="attrs-553edde5-7bcd-466e-839f-8d65f6c40194" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7b90ac38-d8fe-4d64-8a55-ecbec789440e" class="xr-var-data-in" type="checkbox"><label for="data-7b90ac38-d8fe-4d64-8a55-ecbec789440e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean salinity (PSS-78)</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>sea_water_practical_salinity</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Salinity (PSS-78) at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Salinity.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>TA_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-ee5f14d5-aee3-4e0b-a447-c3399dc8e1d6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ee5f14d5-aee3-4e0b-a447-c3399dc8e1d6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-462f10a6-1340-4ba4-ab96-9784f8d30821" class="xr-var-data-in" type="checkbox"><label for="data-462f10a6-1340-4ba4-ab96-9784f8d30821" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed total alkalinity content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Total alkalinity content defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/TA.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>T_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-bf164f41-eece-4650-b55e-6f4c6ad33461" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bf164f41-eece-4650-b55e-6f4c6ad33461" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6766664f-522b-4860-8647-6befe6ce8559" class="xr-var-data-in" type="checkbox"><label for="data-6766664f-522b-4860-8647-6befe6ce8559" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed water temperature (ITS-90)</dd><dt><span>units :</span></dt><dd>degree_Celsius</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Water temperature (ITS-90) defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Temperature.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>T_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-02600b08-04de-4234-8cfc-d3090237fbc6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-02600b08-04de-4234-8cfc-d3090237fbc6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2449e066-2dfe-4bbf-8863-e5870460f2dc" class="xr-var-data-in" type="checkbox"><label for="data-2449e066-2dfe-4bbf-8863-e5870460f2dc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean water temperature (ITS-90)</dd><dt><span>units :</span></dt><dd>degree_Celsius</dd><dt><span>standard_name :</span></dt><dd>sea_water_temperature</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Water temperature (ITS-90) at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Temperature.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>T_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-8c027ac1-a17d-4dd4-a8fb-6d1b92191a38" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8c027ac1-a17d-4dd4-a8fb-6d1b92191a38" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8c4d5c78-69cd-40a6-8465-c843f87e4f13" class="xr-var-data-in" type="checkbox"><label for="data-8c4d5c78-69cd-40a6-8465-c843f87e4f13" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for water temperature (ITS-90)</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Water temperature (ITS-90).</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Temperature.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>T_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-51a874e9-17eb-42dc-9f38-f8842508d844" class="xr-var-attrs-in" type="checkbox"><label for="attrs-51a874e9-17eb-42dc-9f38-f8842508d844" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0390bd9e-f0ee-457e-8373-7e610a7fabf5" class="xr-var-data-in" type="checkbox"><label for="data-0390bd9e-f0ee-457e-8373-7e610a7fabf5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean water temperature (ITS-90)</dd><dt><span>units :</span></dt><dd>degree_Celsius</dd><dt><span>standard_name :</span></dt><dd>sea_water_temperature</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Water temperature (ITS-90) in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Temperature.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>fCO2_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-e5e1ce10-4088-4ee7-b406-efa87a57b803" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e5e1ce10-4088-4ee7-b406-efa87a57b803" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c96f36dc-b3d9-4c1c-8241-ab473e364c14" class="xr-var-data-in" type="checkbox"><label for="data-c96f36dc-b3d9-4c1c-8241-ab473e364c14" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed fugacity of carbon dioxide</dd><dt><span>units :</span></dt><dd>uatm</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of Fugacity of carbon dioxide defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/fCO2.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>T_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-fd981156-5722-4e1e-abc1-f6be03d84687" class="xr-var-attrs-in" type="checkbox"><label for="attrs-fd981156-5722-4e1e-abc1-f6be03d84687" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-eba6e2be-7501-4b36-9ff7-7bc7cd4641ef" class="xr-var-data-in" type="checkbox"><label for="data-eba6e2be-7501-4b36-9ff7-7bc7cd4641ef" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of water temperature (ITS-90)</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Water temperature (ITS-90) in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Temperature.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>T_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-069e9556-c237-41d3-b2b3-61c2ae2ead02" class="xr-var-attrs-in" type="checkbox"><label for="attrs-069e9556-c237-41d3-b2b3-61c2ae2ead02" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0d6d0aff-eb52-4e2c-b32c-5f65cc53e9e4" class="xr-var-data-in" type="checkbox"><label for="data-0d6d0aff-eb52-4e2c-b32c-5f65cc53e9e4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of water temperature (ITS-90)</dd><dt><span>units :</span></dt><dd>degree_Celsius</dd><dt><span>standard_name :</span></dt><dd>sea_water_temperature</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Water temperature (ITS-90) in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/Temperature.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pHT_SE</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-61844150-7f4a-4b12-b366-9d10dad35d5d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-61844150-7f4a-4b12-b366-9d10dad35d5d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d146d5ea-cb2d-4fd3-a6ae-8a55cf07a838" class="xr-var-data-in" type="checkbox"><label for="data-d146d5ea-cb2d-4fd3-a6ae-8a55cf07a838" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard error of the analysed pH on the total scale</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The standard error about the objectively analyzed data of pH on Total Scale defined in Levitus et al. (2012) GRL.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/pH.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>fCO2_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c20664ff-43ea-49ae-86f3-591b3067b2aa" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c20664ff-43ea-49ae-86f3-591b3067b2aa" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-dc8dba33-7ff5-43fa-b993-bbe02bd84e45" class="xr-var-data-in" type="checkbox"><label for="data-dc8dba33-7ff5-43fa-b993-bbe02bd84e45" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for fugacity of carbon dioxide</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for Fugacity of carbon dioxide.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/fCO2.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>fCO2_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-0c89cde0-8e8c-42c0-9edf-7c28018c9cdb" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0c89cde0-8e8c-42c0-9edf-7c28018c9cdb" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8c165c55-a1b5-47ad-8e69-18bfffa1f92f" class="xr-var-data-in" type="checkbox"><label for="data-8c165c55-a1b5-47ad-8e69-18bfffa1f92f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of fugacity of carbon dioxide</dd><dt><span>units :</span></dt><dd>uatm</dd><dt><span>standard_name :</span></dt><dd>fugacity_of_carbon_dioxide_in_sea_water</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Fugacity of carbon dioxide in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/fCO2.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>TA_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-52314f88-556d-4de1-b8a4-d46a0eac623c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-52314f88-556d-4de1-b8a4-d46a0eac623c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5fece826-c119-4494-b08a-4d42be5fb6bf" class="xr-var-data-in" type="checkbox"><label for="data-5fece826-c119-4494-b08a-4d42be5fb6bf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean total alkalinity content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>standard_name :</span></dt><dd>sea_water_alkalinity_per_unit_mass_expressed_as_mole_equivalent</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Total alkalinity content in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/TA.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>TA_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-78378559-b240-49b1-b199-cfa6c0e4dbf9" class="xr-var-attrs-in" type="checkbox"><label for="attrs-78378559-b240-49b1-b199-cfa6c0e4dbf9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-cd2991da-28b7-4511-9748-9e1d6daa4248" class="xr-var-data-in" type="checkbox"><label for="data-cd2991da-28b7-4511-9748-9e1d6daa4248" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of total alkalinity content</dd><dt><span>units :</span></dt><dd>umol kg-1</dd><dt><span>standard_name :</span></dt><dd>sea_water_alkalinity_per_unit_mass_expressed_as_mole_equivalent</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of Total alkalinity content in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/TA.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>fCO2_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-5e99c008-26df-44ab-8f45-e525f0abda6d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5e99c008-26df-44ab-8f45-e525f0abda6d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-717695ca-78b4-4a23-8fdb-4f645a981483" class="xr-var-data-in" type="checkbox"><label for="data-717695ca-78b4-4a23-8fdb-4f645a981483" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of fugacity of carbon dioxide</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of Fugacity of carbon dioxide in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/fCO2.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>fCO2_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-4c7110cc-2930-4ba1-9cae-cf80de428df1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4c7110cc-2930-4ba1-9cae-cf80de428df1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-10a96c94-55e5-4d5e-bc9f-47debf501d06" class="xr-var-data-in" type="checkbox"><label for="data-10a96c94-55e5-4d5e-bc9f-47debf501d06" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean fugacity of carbon dioxide</dd><dt><span>units :</span></dt><dd>uatm</dd><dt><span>standard_name :</span></dt><dd>fugacity_of_carbon_dioxide_in_sea_water</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for Fugacity of carbon dioxide in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/fCO2.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pHT_dd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-70ebaa66-3ce5-4641-85bb-c311c8af88c2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-70ebaa66-3ce5-4641-85bb-c311c8af88c2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bb7e469f-4bfb-4b6e-bf47-8236859ab8cc" class="xr-var-data-in" type="checkbox"><label for="data-bb7e469f-4bfb-4b6e-bf47-8236859ab8cc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of observations of pH on the total scale</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>number_of_observations</dd><dt><span>comment :</span></dt><dd>The number of observations of pH on Total Scale in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/pH.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pHT_mn</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-fcc2af0e-40bc-4249-9ef3-fe0d0d045f29" class="xr-var-attrs-in" type="checkbox"><label for="attrs-fcc2af0e-40bc-4249-9ef3-fe0d0d045f29" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e456eade-42aa-413f-8c46-cc7c8e83c725" class="xr-var-data-in" type="checkbox"><label for="data-e456eade-42aa-413f-8c46-cc7c8e83c725" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Statistical mean pH on the total scale</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>sea_water_ph_reported_on_total_scale</dd><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>comment :</span></dt><dd>Average of all unflagged interpolated values at each standard depth level for pH on Total Scale in each grid-square which contain at least one measurement.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/pH.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pHT_sd</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-0b7b7c2c-e0c7-44c5-bd69-763bc314cd76" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0b7b7c2c-e0c7-44c5-bd69-763bc314cd76" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8b4ed0d7-489b-448d-82d8-c8c688113a9c" class="xr-var-data-in" type="checkbox"><label for="data-8b4ed0d7-489b-448d-82d8-c8c688113a9c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Standard deviation of pH on the total scale</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>sea_water_ph_reported_on_total_scale</dd><dt><span>cell_methods :</span></dt><dd>area: standard_deviation</dd><dt><span>comment :</span></dt><dd>The standard deviation about the statistical mean of pH on Total Scale in each grid-square at each standard depth level.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/pH.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pHT_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-f410d2a8-ce49-4bb9-9699-25bd6e8994f4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f410d2a8-ce49-4bb9-9699-25bd6e8994f4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-74a713ed-0447-49e8-8626-0805f185361b" class="xr-var-data-in" type="checkbox"><label for="data-74a713ed-0447-49e8-8626-0805f185361b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean pH on the total scale</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>standard_name :</span></dt><dd>sea_water_ph_reported_on_total_scale</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for pH on Total Scale at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/pH.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>fCO2_an</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-4ca7026d-176a-46ce-8b75-df4198b9a6b4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4ca7026d-176a-46ce-8b75-df4198b9a6b4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-18ea3adb-918f-4692-abe4-0dfe87e4c469" class="xr-var-data-in" type="checkbox"><label for="data-18ea3adb-918f-4692-abe4-0dfe87e4c469" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Objectively analysed mean fugacity of carbon dioxide</dd><dt><span>units :</span></dt><dd>uatm</dd><dt><span>standard_name :</span></dt><dd>fugacity_of_carbon_dioxide_in_sea_water</dd><dt><span>comment :</span></dt><dd>Objectively analyzed mean fields for Fugacity of carbon dioxide at standard depth levels.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/fCO2.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pHT_gp</span></div><div class="xr-var-dims">(depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-b5bc6659-c1cf-4146-8848-31bfedea844f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b5bc6659-c1cf-4146-8848-31bfedea844f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-888bfc1a-2748-49ea-818a-a8f236e83fe4" class="xr-var-data-in" type="checkbox"><label for="data-888bfc1a-2748-49ea-818a-a8f236e83fe4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Number of grid squares within the radius of influence for pH on the total scale</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>comment :</span></dt><dd>The number of grid-squares within the smallest radius of influence around each grid-square which contain a statistical mean for pH on Total Scale.</dd><dt><span>source :</span></dt><dd>https://www.ncei.noaa.gov/data/oceans/ncei/ocads/data/0270962/pH.nc</dd></dl></div><div class="xr-var-data"><pre>[150024 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-1b68d8d1-3cd9-4672-889e-9576f11356fd" class="xr-section-summary-in" type="checkbox"><label for="section-1b68d8d1-3cd9-4672-889e-9576f11356fd" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(33)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.12, ACDD-1.3</dd><dt><span>title :</span></dt><dd>Climatological distribution of ocean acidification indicators from the surface to 500 m on the North American ocean margins</dd><dt><span>summary :</span></dt><dd>1x1 degree coastal climatologies of twelve ocean acidification and hydrographic indicators at 14 standard depth levels from the surface to 500 m on the North American ocean margins, gridded with the World Ocean Atlas objective-analysis technique from CODAP-NA and GLODAPv2 (2021) observations collected 2003-12-06 to 2018-11-22 and adjusted to the year 2010. Each indicator has six fields: the objectively analysed mean (_an, the recommended field), the statistical mean (_mn), standard deviation (_sd), standard error (_SE), number of observations (_dd) and number of contributing grid squares (_gp).</dd><dt><span>keywords :</span></dt><dd>ocean acidification, pH, aragonite saturation state, calcite saturation state, dissolved inorganic carbon, total alkalinity, fugacity of carbon dioxide, Revelle factor, climatology, North American ocean margins</dd><dt><span>source :</span></dt><dd>NCEI Accession 0270962: twelve NetCDF-4 files, one per indicator, objectively analysed from CODAP-NA (Version 2021) and GLODAPv2.2021</dd><dt><span>history :</span></dt><dd>2026-09-17T22:18:58+00:00: merged the twelve per-indicator NetCDF files of NCEI accession 0270962 into a single virtual Icechunk store with VirtualiZarr (byte-range references; no array data copied); promoted depth/latitude/longitude to index coordinates named depth/lat/lon; rewrote variable and global attributes to CF-1.12 and ACDD-1.3</dd><dt><span>institution :</span></dt><dd>NOAA National Centers for Environmental Information (NCEI)</dd><dt><span>creator_name :</span></dt><dd>Li-Qing Jiang; Tim P. Boyer; Christopher R. Paver; Hyelim Yoo; James R. Reagan; Simone R. Alin; Leticia Barbero; Brendan R. Carter; Richard A. Feely; Rik Wanninkhof</dd><dt><span>creator_email :</span></dt><dd>Liqing.Jiang@noaa.gov</dd><dt><span>creator_institution :</span></dt><dd>Cooperative Institute for Satellite Earth System Studies, University of Maryland, and NOAA</dd><dt><span>publisher_name :</span></dt><dd>NOAA National Centers for Environmental Information (NCEI)</dd><dt><span>publisher_url :</span></dt><dd>https://www.ncei.noaa.gov</dd><dt><span>publisher_email :</span></dt><dd>NCEI.info@noaa.gov</dd><dt><span>citation :</span></dt><dd>Jiang, Li-Qing; Boyer, Tim P.; Paver, Christopher R.; Reagan, James R.; Alin, Simone R.; Barbero, Leticia; Carter, Brendan R.; Feely, Richard A.; Wanninkhof, Rik (2022). Climatological distribution of ocean acidification indicators from surface to 500 meters water depth on the North American ocean margins from 2003-12-06 to 2018-11-22 (NCEI Accession 0270962). NOAA National Centers for Environmental Information. Dataset. https://doi.org/10.25921/g8pb-zy76.</dd><dt><span>doi :</span></dt><dd>10.25921/g8pb-zy76</dd><dt><span>references :</span></dt><dd>https://doi.org/10.25921/g8pb-zy76; https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0270962.html; https://doi.org/10.5194/essd-13-2777-2021; https://doi.org/10.5194/essd-13-5565-2021; https://doi.org/10.1002/lom3.10461</dd><dt><span>license :</span></dt><dd>NCEI states no use restrictions for accession 0270962. Please credit the source using the `citation` attribute.</dd><dt><span>product_version :</span></dt><dd>NCEI accession 0270962, revision date 2024-02-16</dd><dt><span>date_created :</span></dt><dd>2024-02-14</dd><dt><span>cdm_data_type :</span></dt><dd>Grid</dd><dt><span>geospatial_lat_min :</span></dt><dd>10.5</dd><dt><span>geospatial_lat_max :</span></dt><dd>85.5</dd><dt><span>geospatial_lon_min :</span></dt><dd>-179.5</dd><dt><span>geospatial_lon_max :</span></dt><dd>-39.5</dd><dt><span>geospatial_vertical_min :</span></dt><dd>0.0</dd><dt><span>geospatial_vertical_max :</span></dt><dd>500.0</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>geospatial_vertical_units :</span></dt><dd>m</dd><dt><span>geospatial_vertical_positive :</span></dt><dd>down</dd><dt><span>time_coverage_start :</span></dt><dd>2003-12-06</dd><dt><span>time_coverage_end :</span></dt><dd>2018-11-22</dd><dt><span>comment :</span></dt><dd>A climatology: there is no time dimension. The contributing observations span 2003-12-06 to 2018-11-22 and were adjusted to the year 2010 with ESPER (Carter et al. 2021) before gridding. NCEI recommends the objectively analysed mean fields (the _an suffix).</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+<section id="map-the-saturation-horizon" class="level2">
+<h2 class="anchored" data-anchor-id="map-the-saturation-horizon">Map the saturation horizon</h2>
+<p><code>OmegaA_an</code> is the analysed aragonite saturation state, 1.2 MB for the whole 3-D field. For each grid cell, find the shallowest depth where it drops below 1.</p>
+<div id="fdb28215" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> ds.OmegaA_an.load()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>corrosive <span class="op">=</span> omega <span class="op">&lt;</span> <span class="dv">1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>horizon <span class="op">=</span> corrosive.idxmax(<span class="st">"depth"</span>).where(corrosive.<span class="bu">any</span>(<span class="st">"depth"</span>))   <span class="co"># first depth with Ω &lt; 1</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>not_reached <span class="op">=</span> omega.notnull().<span class="bu">any</span>(<span class="st">"depth"</span>) <span class="op">&amp;</span> <span class="op">~</span>corrosive.<span class="bu">any</span>(<span class="st">"depth"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>ax.set_facecolor(<span class="st">"0.9"</span>)                                   <span class="co"># land, and cells with no data</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>not_reached.where(not_reached).plot(ax<span class="op">=</span>ax, cmap<span class="op">=</span><span class="st">"Blues"</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">3</span>, add_colorbar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>horizon.plot(ax<span class="op">=</span>ax, cmap<span class="op">=</span><span class="st">"magma"</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>             cbar_kwargs<span class="op">=</span>{<span class="st">"label"</span>: <span class="st">"depth where Ω_A first falls below 1 (m)"</span>})</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>[Patch(color<span class="op">=</span>plt.cm.Blues(<span class="dv">1</span> <span class="op">/</span> <span class="dv">3</span>), label<span class="op">=</span><span class="st">"Ω_A &gt; 1 at every sampled depth"</span>),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                   Patch(color<span class="op">=</span><span class="st">"0.9"</span>, label<span class="op">=</span><span class="st">"land or no data"</span>)],</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>          loc<span class="op">=</span><span class="st">"upper center"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.12</span>), ncols<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Aragonite saturation horizon"</span>, xlabel<span class="op">=</span><span class="st">"longitude"</span>, ylabel<span class="op">=</span><span class="st">"latitude"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>       xlim<span class="op">=</span>(<span class="op">-</span><span class="dv">180</span>, <span class="op">-</span><span class="dv">40</span>), ylim<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">75</span>))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-oa-saturation-horizon_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Pacific coast, Mexico to Alaska:</strong> corrosive water sits only 100–150 m down, on or just off the shelf. Offshore, in the subtropical gyre, the horizon deepens to 400 m and below 500 m.</li>
+<li><strong>Atlantic, Gulf of Mexico, Caribbean:</strong> Ω<sub>A</sub> stays above 1 at every depth sampled, down to 500 m.</li>
+<li><strong>Two shallow spots:</strong> off southern Mexico and Central America, where an oxygen-poor, CO₂-rich layer lies close under the surface, and Hudson Bay, whose river-fed water is low in carbonate; in both, Ω<sub>A</sub> is below 1 within 10–50 m of the surface.</li>
+</ul>
+</section>
+<section id="two-profiles" class="level2">
+<h2 class="anchored" data-anchor-id="two-profiles">Two profiles</h2>
+<p>Oregon’s shelf edge against the open Gulf of Mexico. Both start supersaturated at the surface; only one crosses Ω<sub>A</sub> = 1.</p>
+<div id="eb41ac32" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, lat, lon <span class="kw">in</span> [(<span class="st">"Oregon"</span>, <span class="fl">44.5</span>, <span class="op">-</span><span class="fl">125.5</span>), (<span class="st">"Gulf of Mexico"</span>, <span class="fl">26.5</span>, <span class="op">-</span><span class="fl">90.5</span>)]:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> omega.sel(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon, method<span class="op">=</span><span class="st">"nearest"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(p, p.depth, <span class="st">"o-"</span>, label<span class="op">=</span>name)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ax.axvline(<span class="dv">1</span>, color<span class="op">=</span><span class="st">"k"</span>, ls<span class="op">=</span><span class="st">"--"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">0.95</span>, <span class="dv">30</span>, <span class="st">"corrosive</span><span class="ch">\n</span><span class="st">Ω_A &lt; 1"</span>, ha<span class="op">=</span><span class="st">"right"</span>, va<span class="op">=</span><span class="st">"top"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="dv">500</span>, <span class="dv">0</span>), xlabel<span class="op">=</span><span class="st">"Ω_A (aragonite saturation state)"</span>, ylabel<span class="op">=</span><span class="st">"depth (m)"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-oa-saturation-horizon_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Caveats.</strong> This is a climatology: observations from 2003–2018, adjusted to the year 2010 and gridded at 1°, so it smooths seasons and upwelling events, and the horizon is only as fine as the depth levels (100, 125, 150 m …). <code>OmegaA_dd</code> gives the number of observations behind each cell, useful for judging where the map is well constrained.</p>
+<p><strong>More:</strong> the <a href="https://github.com/ocean-icechunks/icechunks/tree/main/oa-indicators">store’s README</a> lists all 72 variables (pH, DIC, alkalinity, pCO₂, Revelle factor, …) and how to cite the data.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ocean-icechunks\.github\.io\/2026-ioos-hackathon");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../examples/02-pacioos-aloha-profiles.html" class="pagination-link" aria-label="2 · PacIOOS: seasons and water masses at ALOHA">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2 · PacIOOS: seasons and water masses at ALOHA</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/03-oa-saturation-horizon.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

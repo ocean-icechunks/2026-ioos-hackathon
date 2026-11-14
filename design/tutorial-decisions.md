@@ -34,6 +34,12 @@ does not undo something deliberate. Decisions are Eli Holmes's, from
   reach, and water masses in T–S) was chosen by Eli from five ideas as
   "textbook material". A mixed-layer-depth calculation was dropped as too much
   code; a plain plot of temperature at four depths replaced it.
+  Example 3 (NCEI OA indicators: aragonite saturation horizon map, as a
+  textbook acidification example) was chosen by Eli after being told the store
+  has no time axis and is only 82 MB, so its selling point is one usable grid
+  (the source files' coordinates are placeholder zeros), not saved downloads.
+  A time-heavy example would need another store; `noaa_oisst` was suggested
+  and not examined.
   It reads one 02:00 HST profile on the 15th of each month, 2009–2020,
   because each chunk is one depth at one time step and long series are costly.
   The rendered figures sit in `docs/examples/*_files/`, which `.gitignore`

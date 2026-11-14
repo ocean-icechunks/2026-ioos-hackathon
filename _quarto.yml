@@ -71,6 +71,8 @@ website:
               text: "1 · HYCOM: bottom temp in snow crab region"
             - href: examples/02-pacioos-aloha-profiles.ipynb
               text: "2 · PacIOOS: seasons and water masses at ALOHA"
+            - href: examples/03-oa-saturation-horizon.ipynb
+              text: "3 · OA indicators: aragonite saturation horizon"
         - text: "---"
         - href: resources.qmd
           text: Resources
