@@ -10,3 +10,4 @@ repo: "github.com/ocean-icechunks/2026-ioos-hackathon"
 footer: "{{< meta title >}}"
 headings: sans
 date-format: "D MMMM YYYY"
+css: slides.css

@@ -1,0 +1,8 @@
+/* Code blocks hug their code: never stretch a code box to fill the slide. */
+.reveal .slides section div.sourceCode,
+.reveal .slides section pre,
+.reveal .slides section pre code {
+  height: auto !important;
+  min-height: 0 !important;
+  flex: none !important;
+}

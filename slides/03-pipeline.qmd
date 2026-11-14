@@ -20,19 +20,6 @@ already done all six steps. The code on the next slides was run end to end on
 2026-11-13 (icechunk 2.3.1, virtualizarr 2.8.0).
 :::
 
-## Two places, two sets of credentials
-
-| | **Source** | **Destination** |
-|---|---|---|
-| What lives there | The NetCDF bytes, never copied | The Icechunk store: metadata and chunk references |
-| NDVI example | `s3://noaa-cdr-ndvi-pds/` (NOAA, public) | A local folder, the scratch bucket, or Source Cooperative |
-| Who needs access | Every reader | Writers, to build it; readers, to open it |
-
-::: {.takeaway}
-A reader needs access to **both**. Keep the two configurations separate in your
-code. One never implies the other.
-:::
-
 ## 1 · Find the files {.code}
 
 ```python
@@ -152,7 +139,8 @@ Only step 5's storage line changes.
 | Where the store lives | Storage |
 |---|---|
 | A local folder | `icechunk.local_filesystem_storage("ndvi-icechunk")` |
-| The hub's scratch bucket | `icechunk.s3_storage(bucket=..., prefix=..., ...)`: see [The scratch bucket](../setup/05-scratch-bucket.qmd) |
+| Amazon S3 | `icechunk.s3_storage(bucket="my-bucket", prefix="ndvi-icechunk", region="us-west-2", from_env=True)` |
+| Google Cloud Storage | `icechunk.gcs_storage(bucket="my-bucket", prefix="ndvi-icechunk", from_env=True)` |
 | Published on Source Cooperative | Write with `icechunk.s3_storage(...)` and your write keys; readers open it with `icechunk.http_storage("https://data.source.coop/<account>/<store>")` |
 
 The NetCDF files never move.

@@ -511,13 +511,6 @@
     "text": "Six steps\n\n\n\n\n\n\n\n\n\nStep\nWhat happens\n\n\n\n\n1\nFind the files\nList the NetCDF files you want in the store\n\n\n2\nSay how to reach them\nAn object store, a registry and a parser for the file format\n\n\n3\nOpen one file virtually\nRead its metadata only. The big arrays stay where they are\n\n\n4\nCombine compatible files\nJoin them along time into one virtual dataset\n\n\n5\nWrite and commit\nSave the chunk references to an Icechunk repository\n\n\n6\nReopen and read\nOpen the store as a reader would, and read real values\n\n\n\n\nThis is exactly the NDVI notebook from chapter 1, so anyone who ran it has already done all six steps. The code on the next slides was run end to end on 2026-11-13 (icechunk 2.3.1, virtualizarr 2.8.0)."
   },
   {
-    "objectID": "slides/03-pipeline.html#two-places-two-sets-of-credentials",
-    "href": "slides/03-pipeline.html#two-places-two-sets-of-credentials",
-    "title": "The basic pipeline",
-    "section": "Two places, two sets of credentials",
-    "text": "Two places, two sets of credentials\n\n\n\n\n\n\n\n\n\nSource\nDestination\n\n\n\n\nWhat lives there\nThe NetCDF bytes, never copied\nThe Icechunk store: metadata and chunk references\n\n\nNDVI example\ns3://noaa-cdr-ndvi-pds/ (NOAA, public)\nA local folder, the scratch bucket, or Source Cooperative\n\n\nWho needs access\nEvery reader\nWriters, to build it; readers, to open it\n\n\n\n\nA reader needs access to both. Keep the two configurations separate in your code. One never implies the other."
-  },
-  {
     "objectID": "slides/03-pipeline.html#find-the-files",
     "href": "slides/03-pipeline.html#find-the-files",
     "title": "The basic pipeline",
@@ -564,7 +557,7 @@
     "href": "slides/03-pipeline.html#from-your-laptop-to-the-cloud",
     "title": "The basic pipeline",
     "section": "From your laptop to the cloud",
-    "text": "From your laptop to the cloud\nOnly step 5’s storage line changes.\n\n\n\nWhere the store lives\nStorage\n\n\n\n\nA local folder\nicechunk.local_filesystem_storage(\"ndvi-icechunk\")\n\n\nThe hub’s scratch bucket\nicechunk.s3_storage(bucket=..., prefix=..., ...): see The scratch bucket\n\n\nPublished on Source Cooperative\nWrite with icechunk.s3_storage(...) and your write keys; readers open it with icechunk.http_storage(\"https://data.source.coop/&lt;account&gt;/&lt;store&gt;\")\n\n\n\nThe NetCDF files never move."
+    "text": "From your laptop to the cloud\nOnly step 5’s storage line changes.\n\n\n\n\n\n\n\nWhere the store lives\nStorage\n\n\n\n\nA local folder\nicechunk.local_filesystem_storage(\"ndvi-icechunk\")\n\n\nAmazon S3\nicechunk.s3_storage(bucket=\"my-bucket\", prefix=\"ndvi-icechunk\", region=\"us-west-2\", from_env=True)\n\n\nGoogle Cloud Storage\nicechunk.gcs_storage(bucket=\"my-bucket\", prefix=\"ndvi-icechunk\", from_env=True)\n\n\nPublished on Source Cooperative\nWrite with icechunk.s3_storage(...) and your write keys; readers open it with icechunk.http_storage(\"https://data.source.coop/&lt;account&gt;/&lt;store&gt;\")\n\n\n\nThe NetCDF files never move."
   },
   {
     "objectID": "slides/03-pipeline.html#try-it",

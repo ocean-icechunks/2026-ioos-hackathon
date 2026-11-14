@@ -96,6 +96,7 @@
     code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2203a4f6ac1ba7367e1838bf177e702f.css">
+  <link rel="stylesheet" href="slides.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -287,43 +288,6 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="two-places-two-sets-of-credentials" class="slide level2">
-<h2>Two places, two sets of credentials</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th><strong>Source</strong></th>
-<th><strong>Destination</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>What lives there</td>
-<td>The NetCDF bytes, never copied</td>
-<td>The Icechunk store: metadata and chunk references</td>
-</tr>
-<tr class="even">
-<td>NDVI example</td>
-<td><code>s3://noaa-cdr-ndvi-pds/</code> (NOAA, public)</td>
-<td>A local folder, the scratch bucket, or Source Cooperative</td>
-</tr>
-<tr class="odd">
-<td>Who needs access</td>
-<td>Every reader</td>
-<td>Writers, to build it; readers, to open it</td>
-</tr>
-</tbody>
-</table>
-<div class="takeaway">
-<p>A reader needs access to <strong>both</strong>. Keep the two configurations separate in your code. One never implies the other.</p>
-</div>
-</section>
 <section id="find-the-files" class="slide level2 code">
 <h2>1 · Find the files</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
@@ -438,6 +402,10 @@
 <h2>From your laptop to the cloud</h2>
 <p>Only step 5’s storage line changes.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Where the store lives</th>
@@ -450,10 +418,14 @@
 <td><code>icechunk.local_filesystem_storage("ndvi-icechunk")</code></td>
 </tr>
 <tr class="even">
-<td>The hub’s scratch bucket</td>
-<td><code>icechunk.s3_storage(bucket=..., prefix=..., ...)</code>: see <a href="../setup/05-scratch-bucket.html">The scratch bucket</a></td>
+<td>Amazon S3</td>
+<td><code>icechunk.s3_storage(bucket="my-bucket", prefix="ndvi-icechunk", region="us-west-2", from_env=True)</code></td>
 </tr>
 <tr class="odd">
+<td>Google Cloud Storage</td>
+<td><code>icechunk.gcs_storage(bucket="my-bucket", prefix="ndvi-icechunk", from_env=True)</code></td>
+</tr>
+<tr class="even">
 <td>Published on Source Cooperative</td>
 <td>Write with <code>icechunk.s3_storage(...)</code> and your write keys; readers open it with <code>icechunk.http_storage("https://data.source.coop/&lt;account&gt;/&lt;store&gt;")</code></td>
 </tr>
