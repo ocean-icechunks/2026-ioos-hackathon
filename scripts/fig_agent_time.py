@@ -5,7 +5,6 @@ Run from anywhere: python scripts/fig_agent_time.py
 Writes slides/images/fig_agent_time.png.
 """
 
-import math
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -14,45 +13,47 @@ from talk_style import FULL, INK, INK_SOFT, SERIES, apply_style
 
 OUT = Path(__file__).resolve().parents[1] / "slides" / "images" / "fig_agent_time.png"
 
-# The two pies share no activities, so each is a self-contained chart:
-# colours run in the theme's fixed categorical order within each pie, and
-# every slice is labelled with its name, so identity never rests on colour.
-WITHOUT = {
-    "Planning the approach": 20,
-    "Writing code": 45,
-    "Debugging": 35,
+# One fixed colour per activity, in the theme's categorical order, so the same
+# activity has the same colour in both pies.
+ACTIVITIES = {
+    "Writing and debugging code": SERIES[0],
+    "Defining the task and approach": SERIES[1],
+    "Reviewing code and text": SERIES[2],
+    "Directing and refining the work": SERIES[3],
 }
-WITH = {
-    "Defining the task\nand approach": 35,
-    "Directing and\nrefining the work": 25,
-    "Discussing and\nplanning tests": 25,
-    "Reviewing code\nor text": 15,
+
+BEFORE = {"Writing and debugging code": 80, "Defining the task and approach": 20}
+AFTER = {
+    "Defining the task and approach": 50,
+    "Directing and refining the work": 35,
+    "Reviewing code and text": 15,
 }
 
 apply_style()
 fig, axes = plt.subplots(1, 2, figsize=FULL)
 
-for ax, (title, shares) in zip(axes, [("Without an agent", WITHOUT), ("With an agent", WITH)]):
+for ax, (title, shares) in zip(axes, [("Without an agent", BEFORE), ("With an agent", AFTER)]):
+    labels = list(shares)
     wedges, _ = ax.pie(
         list(shares.values()),
-        colors=SERIES[: len(shares)],
+        colors=[ACTIVITIES[k] for k in labels],
         startangle=90,
         counterclock=False,
-        radius=0.8,
-        wedgeprops={"edgecolor": "white", "linewidth": 2},  # 2 px surface gap
+        wedgeprops={"edgecolor": "white", "linewidth": 2},  # 2 px surface gap between slices
     )
+    # Direct labels: the share inside each slice, in white on the fill.
     for w, (name, pct) in zip(wedges, shares.items()):
-        ang = math.radians((w.theta1 + w.theta2) / 2)
-        # Share inside the slice, name just outside it.
-        ax.text(0.5 * math.cos(ang), 0.5 * math.sin(ang), f"{pct}%", ha="center",
-                va="center", color="white", fontsize=12, fontweight=600)
-        x, y = 0.93 * math.cos(ang), 0.93 * math.sin(ang)
-        ax.text(x, y, name, ha="left" if x >= 0 else "right", va="center",
-                color=INK_SOFT, fontsize=9.5, linespacing=1.15)
-    ax.set_title(title, loc="center", fontsize=14, color=INK, pad=4)
-    ax.set_xlim(-1.75, 1.75)
-    ax.set_ylim(-1.0, 1.0)
+        ang = (w.theta1 + w.theta2) / 2
+        import math
+        x, y = 0.62 * math.cos(math.radians(ang)), 0.62 * math.sin(math.radians(ang))
+        ax.text(x, y, f"{pct}%", ha="center", va="center", color="white", fontsize=13, fontweight=600)
+    ax.set_title(title, loc="center", fontsize=14, color=INK, pad=6)
     ax.set_aspect("equal")
+
+# One shared legend names every activity, so identity never rests on colour alone.
+handles = [plt.Rectangle((0, 0), 1, 1, color=c) for c in ACTIVITIES.values()]
+fig.legend(handles, list(ACTIVITIES), loc="outside lower center", ncol=2, frameon=False,
+           fontsize=10.5, labelcolor=INK_SOFT, handlelength=1.2)
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 fig.savefig(OUT)

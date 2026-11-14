@@ -102,7 +102,7 @@
     "href": "slides/02-agent-and-skills.html#from-writing-the-code-to-directing-the-work",
     "title": "Working with an agent",
     "section": "From writing the code to directing the work",
-    "text": "From writing the code to directing the work\n\n\nMy own rough estimate, not a measurement. Without an agent, 80% of my time went to writing and debugging code. With one, I write almost none. My time goes to defining the task, directing and refining the work, deciding how to test it, and reviewing what comes back."
+    "text": "From writing the code to directing the work\n\n\nMy own rough estimate, not a measurement. Without an agent, 80% of my time went to writing and debugging code. With one, I write almost none. Half my time is defining the task and the approach; the rest is directing and refining the work, and reviewing the code and text that come back."
   },
   {
     "objectID": "slides/02-agent-and-skills.html#an-agent-is-not-a-chatbot",
