@@ -103,6 +103,7 @@ config.set_virtual_chunk_container(icechunk.VirtualChunkContainer(
 storage = icechunk.local_filesystem_storage("ndvi-icechunk")
 repo = icechunk.Repository.create(storage, config)
 repo.save_config()
+combined["time"].encoding["chunks"] = (len(combined.time),)   # one chunk for time
 session = repo.writable_session("main")
 combined.vz.to_icechunk(session.store)
 session.commit("Five days of NDVI CDR, January 2000")

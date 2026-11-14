@@ -333,7 +333,7 @@
     "href": "index.html#chapters",
     "title": "Virtual Icechunk",
     "section": "Chapters",
-    "text": "Chapters\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nFirst the code, then the prompts; demos to try\n\n\n6\nVisualizing\nxarray, hvplot and gridlook\n\n\n\nSee Resources for links to everything mentioned in the decks."
+    "text": "Chapters\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, hvplot and gridlook\n\n\n\nSee Resources for links to everything mentioned in the decks."
   },
   {
     "objectID": "resources.html",
@@ -557,7 +557,7 @@
     "href": "slides/03-pipeline.html#write-and-commit",
     "title": "The basic pipeline",
     "section": "5 · Write and commit",
-    "text": "5 · Write and commit\nimport icechunk\n\nconfig = icechunk.RepositoryConfig.default()\nconfig.set_virtual_chunk_container(icechunk.VirtualChunkContainer(\n    url_prefix=bucket, store=icechunk.s3_store(region=\"us-east-1\", anonymous=True)))\n\nstorage = icechunk.local_filesystem_storage(\"ndvi-icechunk\")\nrepo = icechunk.Repository.create(storage, config)\nrepo.save_config()\nsession = repo.writable_session(\"main\")\ncombined.vz.to_icechunk(session.store)\nsession.commit(\"Five days of NDVI CDR, January 2000\")\n\nThe virtual chunk container tells Icechunk that some chunks live outside the store, under this prefix, and how to reach them. save_config makes that setting part of the store, so readers get it too. Commits work like git: each one is a snapshot you can go back to."
+    "text": "5 · Write and commit\nimport icechunk\n\nconfig = icechunk.RepositoryConfig.default()\nconfig.set_virtual_chunk_container(icechunk.VirtualChunkContainer(\n    url_prefix=bucket, store=icechunk.s3_store(region=\"us-east-1\", anonymous=True)))\n\nstorage = icechunk.local_filesystem_storage(\"ndvi-icechunk\")\nrepo = icechunk.Repository.create(storage, config)\nrepo.save_config()\ncombined[\"time\"].encoding[\"chunks\"] = (len(combined.time),)   # one chunk for time\nsession = repo.writable_session(\"main\")\ncombined.vz.to_icechunk(session.store)\nsession.commit(\"Five days of NDVI CDR, January 2000\")\n\nThe virtual chunk container tells Icechunk that some chunks live outside the store, under this prefix, and how to reach them. save_config makes that setting part of the store, so readers get it too. Commits work like git: each one is a snapshot you can go back to."
   },
   {
     "objectID": "slides/03-pipeline.html#reopen-and-read-real-data",
@@ -588,67 +588,32 @@
     "text": "Next: auditing your files\nChapter 4 · Auditing your files"
   },
   {
-    "objectID": "slides/05-build.html#building-a-store-is-mostly-deciding",
-    "href": "slides/05-build.html#building-a-store-is-mostly-deciding",
-    "title": "Building a virtual Icechunk store",
-    "section": "Building a store is mostly deciding",
-    "text": "Building a store is mostly deciding\nThe code is short. The choices behind it are what make a store good to use.\n\nChapter 3 showed the code. This chapter is the decisions an agent will ask you about, or should. Each one is cheap to get right before the build and expensive to change after it."
-  },
-  {
-    "objectID": "slides/05-build.html#one-store-groups-or-several-stores",
-    "href": "slides/05-build.html#one-store-groups-or-several-stores",
-    "title": "Building a virtual Icechunk store",
-    "section": "One store, groups, or several stores?",
-    "text": "One store, groups, or several stores?\nPrefer, in this order:\n\nOne store, one group, many variables: easiest for users\nOne store, several groups: when encodings differ but it is one product\nSeparate stores: when the products are independent, or the grids differ\n\n\nCoastWatch OHC: one store per region (different grids), each with three groups (daily, 14day_v1, 14day) because their encodings differ."
-  },
-  {
-    "objectID": "slides/05-build.html#join-along-time-or-merge-variables",
-    "href": "slides/05-build.html#join-along-time-or-merge-variables",
-    "title": "Building a virtual Icechunk store",
-    "section": "Join along time, or merge variables?",
-    "text": "Join along time, or merge variables?\n\nConcatenate when each file is a different time: same variables, next days\nMerge when each file is a different variable: same grid, same times\nMany archives need both\n\n\nNCEI ocean acidification indicators: one NetCDF per indicator, twelve files on one grid. Merged, they make one store of 72 variables: 35 kB of metadata pointing at 82 MB that stays at NCEI."
-  },
-  {
-    "objectID": "slides/05-build.html#what-to-load-and-what-to-keep-virtual",
-    "href": "slides/05-build.html#what-to-load-and-what-to-keep-virtual",
-    "title": "Building a virtual Icechunk store",
-    "section": "What to load, and what to keep virtual",
-    "text": "What to load, and what to keep virtual\n\nLoad small coordinates (time, lat, lon, depth) into the store\nKeep virtual the big science arrays. Their chunks stay the provider’s\nChunk the loaded time coordinate deliberately, as one chunk, or a store of many files opens slowly\n\nvds[\"time\"].encoding[\"chunks\"] = (len(vds.time),)   # one chunk, not one per file\nvds.vz.to_icechunk(session.store)"
-  },
-  {
-    "objectID": "slides/05-build.html#where-the-store-lives-and-who-reads-it",
-    "href": "slides/05-build.html#where-the-store-lives-and-who-reads-it",
-    "title": "Building a virtual Icechunk store",
-    "section": "Where the store lives, and who reads it",
-    "text": "Where the store lives, and who reads it\n\nDestination: a bucket you can write to (S3, Google Cloud, Source Cooperative). Its read URL is what users open\nReaders’ access to the source: s3:// references in one AWS region can be slow or blocked elsewhere. Is the source readable by everyone?\nBrowsers (gridlook) need CORS on both hosts: the store, and the source\n\n\nOA indicators draws in a browser: NCEI sends CORS headers. CoastWatch OHC shows axes but no data: CoastWatch does not."
-  },
-  {
-    "objectID": "slides/05-build.html#which-metadata-to-fix",
-    "href": "slides/05-build.html#which-metadata-to-fix",
-    "title": "Building a virtual Icechunk store",
-    "section": "Which metadata to fix",
-    "text": "Which metadata to fix\n\nMetadata is the one thing a virtual store can change\nMake it follow CF conventions: units, standard_name, axis, positive\nRemove attributes that contradict the real encoding\nWrite down every change, in the README"
-  },
-  {
-    "objectID": "slides/05-build.html#build-once-or-keep-it-growing",
-    "href": "slides/05-build.html#build-once-or-keep-it-growing",
-    "title": "Building a virtual Icechunk store",
-    "section": "Build once, or keep it growing?",
-    "text": "Build once, or keep it growing?\n\nOnce: one build, then an immutable tag naming the last date covered\nGrowing: append new files in batches, and commit each batch\nRestart from the store itself: read the last committed time and match it to the file list, never a hand-typed start index\n\n\nNOAA OISST (built by NERACOOS / GMRI) is appended about daily from NOAA’s files on AWS."
-  },
-  {
     "objectID": "slides/05-build.html#our-skill-builds-up-to-production",
     "href": "slides/05-build.html#our-skill-builds-up-to-production",
     "title": "Building a virtual Icechunk store",
     "section": "Our skill builds up to production",
-    "text": "Our skill builds up to production\n\n\n\n\n\n\n\n\nStep\nYou get\nIt must\n\n\n\n\n1 · Plan\nplan.md: files, partition, decisions\nBe reviewed by you before any code\n\n\n2 · Smoke test\nA notebook that builds a local store from a few files\nReopen it read-only and read real values\n\n\n3 · Production\nA build script: settings at the top, batches, commits, restart\nSurvive being interrupted; tag the result\n\n\n4 · Docs\nA README, a loading example, the tested environment\nLet a stranger open the store with no help\n\n\n\nIt stops for your review between steps."
+    "text": "Our skill builds up to production\n\n\n\n\n\n\n\n\nStep\nYou get\nIt must\n\n\n\n\n1 · Plan\nplan.md: files, layout, decisions\nBe reviewed by you before any code\n\n\n2 · Smoke test\nA notebook that builds a local store from a few files\nReopen it read-only and read real values\n\n\n3 · Production\nA build script: settings at the top, batches, commits, restart\nSurvive being interrupted; tag the result\n\n\n4 · Docs\nA README, a loading example, the tested environment\nLet a stranger open the store with no help\n\n\n\nIt stops for your review between steps."
+  },
+  {
+    "objectID": "slides/05-build.html#what-the-agent-needs-from-you",
+    "href": "slides/05-build.html#what-the-agent-needs-from-you",
+    "title": "Building a virtual Icechunk store",
+    "section": "What the agent needs from you",
+    "text": "What the agent needs from you\nIt cannot guess these. Put them in your first prompt:\n\nWhere the files are, and how to get in: a bucket, a THREDDS catalog, an API; public or which credentials\nWhich files: products, variables, years\nWhere the store goes: a bucket you can write to. Write credentials go in the environment, never in the chat\nWho will read it: Python users, a browser viewer, users outside one cloud region\nBuilt once, or kept up to date as new files arrive"
+  },
+  {
+    "objectID": "slides/05-build.html#what-the-skill-works-out-from-your-files",
+    "href": "slides/05-build.html#what-the-skill-works-out-from-your-files",
+    "title": "Building a virtual Icechunk store",
+    "section": "What the skill works out from your files",
+    "text": "What the skill works out from your files\nIt will propose these, and ask you to confirm:\n\nOne store, or several? The goal is one store with all the variables. Files on different grids or encodings force groups or separate stores\nHow the files fit together: joined along time, variables in separate files merged\nWhat to load, what to keep virtual: coordinates loaded, science arrays left virtual\nMetadata fixes to follow CF conventions\n\n\nThe files usually decide these. You can still ask “why?”, and override."
   },
   {
     "objectID": "slides/05-build.html#telling-the-agent-to-build-it",
     "href": "slides/05-build.html#telling-the-agent-to-build-it",
     "title": "Building a virtual Icechunk store",
     "section": "Telling the agent to build it",
-    "text": "Telling the agent to build it\nGive it what it cannot guess: where the files are and how to get in, which files, where the store goes, and who will read it.\n\n“Build a virtual Icechunk store of the NDVI files in s3://noaa-cdr-ndvi-pds/data/ for January 2000. Start with the plan.”\n\nThen, one session per step:\n\n“The plan is approved. Write the smoke-test notebook.”\n“The smoke test passed. Write the production build script.”\n“Write the README and a loading example.”\n\n\nCredentials for the destination go in the environment, never in the notebook or the chat. The skill refuses to put them anywhere else, and never points a test at a production store."
+    "text": "Telling the agent to build it\n\n“Build a virtual Icechunk store of the NDVI files in s3://noaa-cdr-ndvi-pds/data/ (public, us-east-1) for January 2000. Write it to a local folder; Python users will read it. Start with the plan.”\n\nThen, one session per step:\n\n“The plan is approved. Write the smoke-test notebook.”\n“The smoke test passed. Write the production build script.”\n“Write the README and a loading example.”\n\n\nThe skill never points a test at a production store, and refuses to put credentials in a notebook."
   },
   {
     "objectID": "slides/05-build.html#worked-examples",

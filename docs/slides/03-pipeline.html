@@ -368,9 +368,10 @@
 <span id="cb6-7"><a aria-hidden="true" tabindex="-1"></a>storage <span class="op">=</span> icechunk.local_filesystem_storage(<span class="st">"ndvi-icechunk"</span>)</span>
 <span id="cb6-8"><a aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> icechunk.Repository.create(storage, config)</span>
 <span id="cb6-9"><a aria-hidden="true" tabindex="-1"></a>repo.save_config()</span>
-<span id="cb6-10"><a aria-hidden="true" tabindex="-1"></a>session <span class="op">=</span> repo.writable_session(<span class="st">"main"</span>)</span>
-<span id="cb6-11"><a aria-hidden="true" tabindex="-1"></a>combined.vz.to_icechunk(session.store)</span>
-<span id="cb6-12"><a aria-hidden="true" tabindex="-1"></a>session.commit(<span class="st">"Five days of NDVI CDR, January 2000"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-10"><a aria-hidden="true" tabindex="-1"></a>combined[<span class="st">"time"</span>].encoding[<span class="st">"chunks"</span>] <span class="op">=</span> (<span class="bu">len</span>(combined.time),)   <span class="co"># one chunk for time</span></span>
+<span id="cb6-11"><a aria-hidden="true" tabindex="-1"></a>session <span class="op">=</span> repo.writable_session(<span class="st">"main"</span>)</span>
+<span id="cb6-12"><a aria-hidden="true" tabindex="-1"></a>combined.vz.to_icechunk(session.store)</span>
+<span id="cb6-13"><a aria-hidden="true" tabindex="-1"></a>session.commit(<span class="st">"Five days of NDVI CDR, January 2000"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <p>The virtual chunk container tells Icechunk that some chunks live outside the store, under this prefix, and how to reach them. save_config makes that setting part of the store, so readers get it too. Commits work like git: each one is a snapshot you can go back to.</p>
 <style type="text/css">
