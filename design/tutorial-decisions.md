@@ -30,8 +30,10 @@ does not undo something deliberate. Decisions are Eli Holmes's, from
   cleared, because it prints the venv path). Example 1 is a copy of
   `ocean-icechunks/hycom`'s `bering-sea-snow-crab-demo.ipynb` with an
   "adapted from" link; the copy here is the one to edit for the site.
-  Example 2 (PacIOOS ROMS reanalysis at Station ALOHA: seasonal mixed layer
-  and water masses) was chosen by Eli from five ideas as "textbook material".
+  Example 2 (PacIOOS ROMS reanalysis at Station ALOHA: how deep the seasons
+  reach, and water masses in T–S) was chosen by Eli from five ideas as
+  "textbook material". A mixed-layer-depth calculation was dropped as too much
+  code; a plain plot of temperature at four depths replaced it.
   It reads one 02:00 HST profile on the 15th of each month, 2009–2020,
   because each chunk is one depth at one time step and long series are costly.
   The rendered figures sit in `docs/examples/*_files/`, which `.gitignore`
