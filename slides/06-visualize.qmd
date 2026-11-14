@@ -3,18 +3,82 @@ title: "Visualizing Icechunk stores"
 subtitle: "From xarray in a notebook to a globe in the browser"
 ---
 
-## Open a published store
+## Open a store in xarray {.code}
 
-## Plot with hvplot
+```python
+import icechunk, xarray as xr
 
-## gridlook: a store on a globe, no install
+url = "https://data.source.coop/ocean-icechunks/hycom/hycom-gofs-3pt1-reanalysis"
+repo = icechunk.Repository.open(icechunk.http_storage(url))
 
-## Try it
+# The data live in HYCOM's bucket, outside the store: allow reads from there.
+auth = {p: icechunk.credentials.HttpAccess for p in repo.config.virtual_chunk_containers}
+repo = repo.reopen(authorize_virtual_chunk_access=auth)
+
+ds = xr.open_zarr(repo.readonly_session(tag="v1").store, consolidated=False, chunks=None)
+```
 
 ::: notes
-DRAFT: NDVI and OA-indicators viewer links.
+From the snow crab notebook in chapter 1, which ran end to end on 2026-11-13.
+Opening the 306 TB store takes about a second, because only metadata is read.
 :::
 
-## Axes but no data? It's CORS
+## Then it is just xarray {.visual}
 
-## Takeaways {.dark}
+![Bottom temperature in the Bering Sea, 15 July 2010, from the HYCOM store. The black line is 2 °C; the magenta box is the snow crab grounds.](images/snowcrab-1.png){fig-alt="Map of HYCOM bottom temperature in the Bering Sea on 15 July 2010, with the 2 degree C cold pool outlined and the snow crab box in magenta"}
+
+## Icechunk is built on Zarr
+
+- **Zarr** is an open format for chunked arrays in object storage. Each chunk is
+  fetched on its own, with a simple web request
+- **Icechunk** stores Zarr arrays, and adds versions and commits on top
+- So any **Zarr reader with Icechunk support** can open these stores, in any
+  language, straight from the bucket. No server in between
+
+| Where | Libraries |
+|---|---|
+| **Python** | `icechunk` + `zarr` + `xarray`, as in this tutorial |
+| **JavaScript** (browsers) | `zarrita` + `icechunk-js` |
+
+## zarrita and icechunk-js
+
+- **[zarrita](https://github.com/manzt/zarrita.js)** reads Zarr arrays in
+  JavaScript: in a web page or in Node. It fetches only the chunks a view needs
+- **[icechunk-js](https://github.com/EarthyScience/icechunk-js)** reads an
+  Icechunk repository and hands it to zarrita as a store, including **virtual**
+  chunks that live in the original NetCDF files
+
+```typescript
+const store = await IcechunkStore.open("https://data.source.coop/<account>/<store>");
+const temp = await open(store.resolve("/water_temp"), { kind: "array" });
+```
+
+::: notes
+Together they let a web page read a virtual store directly from object storage,
+the same way xarray does in Python. That is what the viewer on the next slide
+is built on.
+:::
+
+## gridlook: a store on a globe
+
+**[gridlook](https://github.com/d70-t/gridlook)** is a WebGL viewer for Earth
+system model output, built on zarrita and icechunk-js. Give it a store's URL,
+and it draws the data on a globe in your browser, with nothing to install.
+
+[**Open the ocean acidification indicators in gridlook →**](https://data.source.coop/ocean-icechunks/oa-indicators/viewer/index.html#icechunk+https://data.source.coop/ocean-icechunks/oa-indicators/climatology::varname=OmegaA_an::px=0::py=0::alt=95910936::lat=48::lon=-110::dimIndices_depth=0){.lead}
+
+::: {.takeaway}
+**Axes but no data?** The browser also needs CORS on the **source** host. NCEI
+and the NDVI bucket send it; HYCOM's bucket on AWS does not.
+:::
+
+::: notes
+The OA indicators store is virtual: metadata from Source Cooperative, data
+from NCEI. Use the Depth slider to move through its 14 levels. The HYCOM viewer
+shows axes but no data in an ordinary browser for this reason.
+:::
+
+## That's the tour {.dark}
+
+- [Back to the start](../index.qmd), and the [Resources](../resources.qmd) page
+- Build your own: open a terminal, start your agent, and ask it for a plan

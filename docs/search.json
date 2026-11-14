@@ -1,45 +1,45 @@
 [
   {
-    "objectID": "slides/06-visualize.html#open-a-published-store",
-    "href": "slides/06-visualize.html#open-a-published-store",
+    "objectID": "slides/06-visualize.html#open-a-store-in-xarray",
+    "href": "slides/06-visualize.html#open-a-store-in-xarray",
     "title": "Visualizing Icechunk stores",
-    "section": "Open a published store",
-    "text": "Open a published store"
+    "section": "Open a store in xarray",
+    "text": "Open a store in xarray\nimport icechunk, xarray as xr\n\nurl = \"https://data.source.coop/ocean-icechunks/hycom/hycom-gofs-3pt1-reanalysis\"\nrepo = icechunk.Repository.open(icechunk.http_storage(url))\n\n# The data live in HYCOM's bucket, outside the store: allow reads from there.\nauth = {p: icechunk.credentials.HttpAccess for p in repo.config.virtual_chunk_containers}\nrepo = repo.reopen(authorize_virtual_chunk_access=auth)\n\nds = xr.open_zarr(repo.readonly_session(tag=\"v1\").store, consolidated=False, chunks=None)\n\nFrom the snow crab notebook in chapter 1, which ran end to end on 2026-11-13. Opening the 306 TB store takes about a second, because only metadata is read."
   },
   {
-    "objectID": "slides/06-visualize.html#plot-with-hvplot",
-    "href": "slides/06-visualize.html#plot-with-hvplot",
+    "objectID": "slides/06-visualize.html#then-it-is-just-xarray",
+    "href": "slides/06-visualize.html#then-it-is-just-xarray",
     "title": "Visualizing Icechunk stores",
-    "section": "Plot with hvplot",
-    "text": "Plot with hvplot"
+    "section": "Then it is just xarray",
+    "text": "Then it is just xarray\n\nBottom temperature in the Bering Sea, 15 July 2010, from the HYCOM store. The black line is 2 °C; the magenta box is the snow crab grounds."
   },
   {
-    "objectID": "slides/06-visualize.html#gridlook-a-store-on-a-globe-no-install",
-    "href": "slides/06-visualize.html#gridlook-a-store-on-a-globe-no-install",
+    "objectID": "slides/06-visualize.html#icechunk-is-built-on-zarr",
+    "href": "slides/06-visualize.html#icechunk-is-built-on-zarr",
     "title": "Visualizing Icechunk stores",
-    "section": "gridlook: a store on a globe, no install",
-    "text": "gridlook: a store on a globe, no install"
+    "section": "Icechunk is built on Zarr",
+    "text": "Icechunk is built on Zarr\n\nZarr is an open format for chunked arrays in object storage. Each chunk is fetched on its own, with a simple web request\nIcechunk stores Zarr arrays, and adds versions and commits on top\nSo any Zarr reader with Icechunk support can open these stores, in any language, straight from the bucket. No server in between\n\n\n\n\nWhere\nLibraries\n\n\n\n\nPython\nicechunk + zarr + xarray, as in this tutorial\n\n\nJavaScript (browsers)\nzarrita + icechunk-js"
   },
   {
-    "objectID": "slides/06-visualize.html#try-it",
-    "href": "slides/06-visualize.html#try-it",
+    "objectID": "slides/06-visualize.html#zarrita-and-icechunk-js",
+    "href": "slides/06-visualize.html#zarrita-and-icechunk-js",
     "title": "Visualizing Icechunk stores",
-    "section": "Try it",
-    "text": "Try it\n\nDRAFT: NDVI and OA-indicators viewer links."
+    "section": "zarrita and icechunk-js",
+    "text": "zarrita and icechunk-js\n\nzarrita reads Zarr arrays in JavaScript: in a web page or in Node. It fetches only the chunks a view needs\nicechunk-js reads an Icechunk repository and hands it to zarrita as a store, including virtual chunks that live in the original NetCDF files\n\nconst store = await IcechunkStore.open(\"https://data.source.coop/&lt;account&gt;/&lt;store&gt;\");\nconst temp = await open(store.resolve(\"/water_temp\"), { kind: \"array\" });\n\nTogether they let a web page read a virtual store directly from object storage, the same way xarray does in Python. That is what the viewer on the next slide is built on."
   },
   {
-    "objectID": "slides/06-visualize.html#axes-but-no-data-its-cors",
-    "href": "slides/06-visualize.html#axes-but-no-data-its-cors",
+    "objectID": "slides/06-visualize.html#gridlook-a-store-on-a-globe",
+    "href": "slides/06-visualize.html#gridlook-a-store-on-a-globe",
     "title": "Visualizing Icechunk stores",
-    "section": "Axes but no data? It’s CORS",
-    "text": "Axes but no data? It’s CORS"
+    "section": "gridlook: a store on a globe",
+    "text": "gridlook: a store on a globe\ngridlook is a WebGL viewer for Earth system model output, built on zarrita and icechunk-js. Give it a store’s URL, and it draws the data on a globe in your browser, with nothing to install.\nOpen the ocean acidification indicators in gridlook →\n\nAxes but no data? The browser also needs CORS on the source host. NCEI and the NDVI bucket send it; HYCOM’s bucket on AWS does not.\n\n\nThe OA indicators store is virtual: metadata from Source Cooperative, data from NCEI. Use the Depth slider to move through its 14 levels. The HYCOM viewer shows axes but no data in an ordinary browser for this reason."
   },
   {
-    "objectID": "slides/06-visualize.html#takeaways",
-    "href": "slides/06-visualize.html#takeaways",
+    "objectID": "slides/06-visualize.html#thats-the-tour",
+    "href": "slides/06-visualize.html#thats-the-tour",
     "title": "Visualizing Icechunk stores",
-    "section": "Takeaways",
-    "text": "Takeaways"
+    "section": "That’s the tour",
+    "text": "That’s the tour\n\nBack to the start, and the Resources page\nBuild your own: open a terminal, start your agent, and ask it for a plan"
   },
   {
     "objectID": "slides/04-audit.html#a-virtual-store-is-only-as-consistent-as-its-files",
@@ -333,7 +333,7 @@
     "href": "index.html#chapters",
     "title": "Virtual Icechunk",
     "section": "Chapters",
-    "text": "Chapters\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, hvplot and gridlook\n\n\n\nSee Resources for links to everything mentioned in the decks."
+    "text": "Chapters\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook\n\n\n\nSee Resources for links to everything mentioned in the decks."
   },
   {
     "objectID": "resources.html",
@@ -616,6 +616,13 @@
     "text": "Telling the agent to build it\n\n“Build a virtual Icechunk store of the NDVI files in s3://noaa-cdr-ndvi-pds/data/ (public, us-east-1) for 2000–2024. Publish it to my Source Cooperative repository my-org/ndvi; my write keys are in environment variables. Python users and a browser viewer will read it. Start with the plan.”\n\nThen, one session per step:\n\n“The plan is approved. Write the smoke-test notebook.” (builds a local test store)\n“The smoke test passed. Write the production build script.” (writes to your bucket)\n“Write the README and a loading example.”"
   },
   {
+    "objectID": "slides/05-build.html#authenticating-to-your-bucket",
+    "href": "slides/05-build.html#authenticating-to-your-bucket",
+    "title": "Building a virtual Icechunk store",
+    "section": "Authenticating to your bucket",
+    "text": "Authenticating to your bucket\nThe agent writes to your bucket with your credentials. Tell it where they are:\n\n\n\n\n\n\n\nDestination\nTypical credentials\n\n\n\n\nAmazon S3\nAn AWS profile, or AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in the environment\n\n\nGoogle Cloud Storage\nA service-account key file, named in GOOGLE_APPLICATION_CREDENTIALS\n\n\nSource Cooperative\nTemporary S3 keys from your repository’s View credentials page. They expire\n\n\n\nNot sure? Ask it:\n\n“Help me set up write access to my Source Cooperative repository. Do not print my keys, and do not save them in any file in this repository.”\n\n\nThe smoke test always writes to a local store first: the skill never points a test at the real destination. Only the production build writes to the bucket. Keys go in environment variables or a credentials file outside the repository, and never into a notebook, a script or the chat."
+  },
+  {
     "objectID": "slides/05-build.html#worked-examples",
     "href": "slides/05-build.html#worked-examples",
     "title": "Building a virtual Icechunk store",
@@ -628,12 +635,5 @@
     "title": "Building a virtual Icechunk store",
     "section": "Next: visualizing",
     "text": "Next: visualizing\nChapter 6 · Visualizing"
-  },
-  {
-    "objectID": "slides/05-build.html#authenticating-to-your-bucket",
-    "href": "slides/05-build.html#authenticating-to-your-bucket",
-    "title": "Building a virtual Icechunk store",
-    "section": "Authenticating to your bucket",
-    "text": "Authenticating to your bucket\nThe agent writes to your bucket with your credentials. Tell it where they are:\n\n\n\n\n\n\n\nDestination\nTypical credentials\n\n\n\n\nAmazon S3\nAn AWS profile, or AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in the environment\n\n\nGoogle Cloud Storage\nA service-account key file, named in GOOGLE_APPLICATION_CREDENTIALS\n\n\nSource Cooperative\nTemporary S3 keys from your repository’s View credentials page. They expire\n\n\n\nNot sure? Ask it:\n\n“Help me set up write access to my Source Cooperative repository. Do not print my keys, and do not save them in any file in this repository.”\n\n\nThe smoke test always writes to a local store first: the skill never points a test at the real destination. Only the production build writes to the bucket. Keys go in environment variables or a credentials file outside the repository, and never into a notebook, a script or the chat."
   }
 ]
