@@ -18,6 +18,8 @@ slides/images/     figures used by the decks
 notebooks/         Colab-ready notebooks
 _extensions/eeholmes/talk/   the deck format, from eeholmes/quarto-talk-template
 docs/              the rendered site, committed: GitHub Pages serves main /docs
+agent/handoff.md   rolling session state: read this first
+design/*.md        design notes: decisions and why (not docs/design: docs/ is Quarto's output)
 ```
 
 ## Run `quarto render` before every commit
