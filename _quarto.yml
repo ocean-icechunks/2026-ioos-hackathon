@@ -15,41 +15,55 @@ website:
   site-url: https://ocean-icechunks.github.io/2026-ioos-hackathon
   repo-url: https://github.com/ocean-icechunks/2026-ioos-hackathon
   repo-actions: [source, issue]
+  page-navigation: true
+  favicon: images/ioos-code-sprint-logo.png
   navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - text: JupyterHub Skills
-        menu:
-          - href: setup/01-jupyterhub.qmd
-            text: "Log in to the JupyterHub"
-          - href: setup/02-jupyterlab.qmd
-            text: "Find your way around JupyterLab"
-          - href: setup/03-start-your-agent.qmd
-            text: "Start your coding agent"
-          - href: setup/04-git-with-agent.qmd
-            text: "Git and GitHub, with an agent"
-          - href: setup/05-scratch-bucket.qmd
-            text: "The scratch bucket"
-      - text: Chapters
-        menu:
-          - href: slides/01-why-virtual.qmd
-            text: "1 · Why virtual Icechunk"
-          - href: slides/02-agent-and-skills.qmd
-            text: "2 · Working with an agent"
-          - href: slides/03-pipeline.qmd
-            text: "3 · The basic pipeline"
-          - href: slides/04-audit.qmd
-            text: "4 · Auditing your files"
-          - href: slides/05-build.qmd
-            text: "5 · Building a store"
-          - href: slides/06-visualize.qmd
-            text: "6 · Visualizing"
-      - href: resources.qmd
-        text: Resources
+    background: primary
+    search: true
     right:
       - icon: github
         href: https://github.com/ocean-icechunks/2026-ioos-hackathon
+        text: "repo"
+  # Chapter list on the left, docked like NMFSHackDays-2026.
+  sidebar:
+    - id: home
+      logo: images/ioos-code-sprint-logo.png
+      logo-alt: "IOOS Code Sprint logo"
+      style: docked
+      collapse-level: 1
+      pinned: true
+      align: left
+      contents:
+        - href: index.qmd
+          text: Home
+        - section: JupyterHub Skills
+          contents:
+            - href: setup/01-jupyterhub.qmd
+              text: "Log in to the JupyterHub"
+            - href: setup/02-jupyterlab.qmd
+              text: "Find your way around JupyterLab"
+            - href: setup/03-start-your-agent.qmd
+              text: "Start your coding agent"
+            - href: setup/04-git-with-agent.qmd
+              text: "Git and GitHub, with an agent"
+            - href: setup/05-scratch-bucket.qmd
+              text: "The scratch bucket"
+        - text: "---"
+        - href: slides/01-why-virtual.qmd
+          text: "1 · Why virtual Icechunk"
+        - href: slides/02-agent-and-skills.qmd
+          text: "2 · Working with an agent"
+        - href: slides/03-pipeline.qmd
+          text: "3 · The basic pipeline"
+        - href: slides/04-audit.qmd
+          text: "4 · Auditing your files"
+        - href: slides/05-build.qmd
+          text: "5 · Building a store"
+        - href: slides/06-visualize.qmd
+          text: "6 · Visualizing"
+        - text: "---"
+        - href: resources.qmd
+          text: Resources
 
 format:
   html:

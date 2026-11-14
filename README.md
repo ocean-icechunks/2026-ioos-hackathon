@@ -5,18 +5,47 @@ virtual Icechunk stores, built and checked mostly with a coding agent.
 
 **Site:** <https://ocean-icechunks.github.io/2026-ioos-hackathon>
 
-## Build the site
+## Make changes
 
-You need [Quarto](https://quarto.org) 1.6 or later.
+The site is [Quarto](https://quarto.org) source (`.qmd` files) rendered into
+`docs/`, which GitHub Pages serves from `main` as it is committed. Nothing
+renders it on GitHub, so **every change needs a `quarto render` before it is
+pushed**, or the live site goes out of date.
+
+### 1. Install Quarto
+
+On a laptop, use the installer from <https://quarto.org/docs/get-started/>.
+On a JupyterHub or other Linux machine without admin rights:
 
 ```bash
-quarto render      # writes the site to docs/
-quarto preview     # live preview while editing
+QV=1.7.34
+curl -sL -o /tmp/quarto.tar.gz \
+  https://github.com/quarto-dev/quarto-cli/releases/download/v$QV/quarto-$QV-linux-amd64.tar.gz
+mkdir -p ~/.local/opt && tar -xzf /tmp/quarto.tar.gz -C ~/.local/opt
+mkdir -p ~/.local/bin && ln -sf ~/.local/opt/quarto-$QV/bin/quarto ~/.local/bin/quarto
+quarto --version   # open a new terminal if it is not found
 ```
 
-GitHub Pages serves `docs/` from `main`, so **run `quarto render` and commit
-`docs/` along with every source change.** Otherwise the live site goes out of
-date.
+### 2. Edit, preview, render, push
+
+Work on a branch and open a pull request.
+
+```bash
+quarto preview                          # live preview while you edit
+quarto render && touch docs/.nojekyll   # rebuild docs/ (a full render deletes .nojekyll)
+git add -A                              # commit the source *and* docs/ together
+```
+
+Where things live: the sidebar is in `_quarto.yml`, the chapter decks are
+`slides/*.qmd`, and the setup pages are `setup/*.qmd`.
+
+### Working with a coding agent
+
+Agents read [`AGENTS.md`](AGENTS.md) (Claude Code reads it through
+`CLAUDE.md`). It tells them to run `quarto render`, keep `docs/.nojekyll`,
+and commit `docs/` before pushing, so you do not have to repeat it. If an
+agent pushes a `.qmd` change without the matching `docs/` change, ask it to
+render and push again.
 
 ## Reuse and citation
 

@@ -9,7 +9,8 @@ The virtual Icechunk tutorial for the 2026 IOOS Hackathon: a Quarto website
 served by GitHub Pages.
 
 ```text
-_quarto.yml        website config, with the navbar (chapter list)
+_quarto.yml        website config, with the left sidebar (chapter list)
+images/            site logo (IOOS Code Sprint) and favicon
 _variables.yml     hub URLs, used as {{< var hub.url >}}
 index.qmd          landing page
 setup/*.qmd        JupyterHub Skills pages (ordinary HTML pages)

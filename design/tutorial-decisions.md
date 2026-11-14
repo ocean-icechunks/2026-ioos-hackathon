@@ -16,6 +16,16 @@ does not undo something deliberate. Decisions are Eli Holmes's, from
   branch, it only looks at `/` or `/docs`, so `_site/` would not be served.
   This matches NMFSHackDays-2026. The other option, a GitHub Action that renders
   on push, was offered and not chosen.
+- **Navigation is a docked left sidebar** (modeled on NMFSHackDays-2026's
+  `_quarto.yml`), with the IOOS Code Sprint logo, a local copy in `images/`.
+  The decks are full-screen pages and do not show the sidebar. Wrapping each
+  deck in an HTML chapter page with an iframe was offered and declined
+  (2026-11-14); instead every deck's footer has a **⌂ Home** link, shown on the
+  title slide too (`slides/slides.css` overrides the theme hiding it there).
+- **Mermaid on slides uses `htmlLabels: false` and `fig-width: 11`.** HTML
+  labels were clipped (the deck's fonts change the text after Mermaid measures
+  it) and the default size was tiny. Eli rejected a two-row layout made with
+  subgraphs (2026-11-14): keep flowcharts on one row.
 - **Design notes live in `design/`, not `docs/design/`.** Here `docs/` is Quarto's
   output folder, and a render rewrites it.
 - **Figures follow the template's convention:** a script per generated figure

@@ -34,10 +34,11 @@ Claude Code, Codex or Antigravity and the ocean-icechunks skills.
 ## One task, one session, one handoff
 
 ```{mermaid}
+%%| fig-width: 11
+%%{init: {"flowchart": {"htmlLabels": false, "padding": 14}, "themeVariables": {"fontSize": "20px", "fontFamily": "Inter, sans-serif"}}}%%
 flowchart LR
-  A["Pick a task"] --> B["Plan first"] --> C["Build small"] --> D{"Done or<br/>switching?"}
-  D -- "keep going" --> C
-  D -- "yes" --> E["Write a<br/>handoff note"] --> F["/clear"] --> A
+  A["Pick a task"] --> B["Plan first"] --> C["Build small"]
+  C -- "done?" --> E["Write a<br/>handoff note"] --> F["/clear"] --> A
 ```
 
 ::: notes
@@ -107,6 +108,8 @@ work with Claude Code, Codex, Copilot and Antigravity.
 ## The skill builds in a set order
 
 ```{mermaid}
+%%| fig-width: 11
+%%{init: {"flowchart": {"htmlLabels": false, "padding": 14}, "themeVariables": {"fontSize": "20px", "fontFamily": "Inter, sans-serif"}}}%%
 flowchart LR
   A["1 · Research<br/>and plan"] --> B["2 · Smoke-test<br/>notebook"] --> C["3 · Production<br/>build"] --> D["4 · README and<br/>loading example"]
 ```
