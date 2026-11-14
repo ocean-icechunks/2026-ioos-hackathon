@@ -14,9 +14,10 @@ images/            site logo (IOOS Code Sprint) and favicon
 _variables.yml     hub URLs, used as {{< var hub.url >}}
 index.qmd          landing page
 setup/*.qmd        JupyterHub Skills pages (ordinary HTML pages)
-slides/*.qmd       one talk-revealjs deck per chapter (format set in slides/_metadata.yml)
+slides/*.qmd       one talk-revealjs deck per lecture (format set in slides/_metadata.yml)
 slides/images/     figures used by the decks
 notebooks/         Colab-ready notebooks
+examples/*.ipynb   short worked examples, rendered as HTML pages from their stored outputs
 _extensions/eeholmes/talk/   the deck format, from eeholmes/quarto-talk-template
 docs/              the rendered site, committed: GitHub Pages serves main /docs
 agent/handoff.md   rolling session state: read this first

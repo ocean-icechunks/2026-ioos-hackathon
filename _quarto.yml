@@ -1,6 +1,8 @@
-# Website project: the landing page and resources are HTML pages; each chapter
-# in slides/ is a talk-revealjs deck (see slides/_metadata.yml). Quarto's book
-# type cannot render revealjs chapters, which is why this is a website.
+# Website project: the landing page, resources and examples/*.ipynb are HTML
+# pages; each lecture in slides/ is a talk-revealjs deck (see
+# slides/_metadata.yml). Quarto's book type cannot render revealjs chapters,
+# which is why this is a website. Notebooks render with their stored outputs
+# (Quarto does not execute .ipynb files by default).
 project:
   type: website
   output-dir: docs
@@ -9,6 +11,7 @@ project:
     - resources.qmd
     - setup/*.qmd
     - slides/*.qmd
+    - examples/*.ipynb
 
 website:
   title: "Virtual Icechunk"
@@ -48,19 +51,24 @@ website:
               text: "Git and GitHub, with an agent"
             - href: setup/05-scratch-bucket.qmd
               text: "The scratch bucket"
-        - text: "---"
-        - href: slides/01-why-virtual.qmd
-          text: "1 · Why virtual Icechunk"
-        - href: slides/02-agent-and-skills.qmd
-          text: "2 · Working with an agent"
-        - href: slides/03-pipeline.qmd
-          text: "3 · The basic pipeline"
-        - href: slides/04-audit.qmd
-          text: "4 · Auditing your files"
-        - href: slides/05-build.qmd
-          text: "5 · Building a store"
-        - href: slides/06-visualize.qmd
-          text: "6 · Visualizing"
+        - section: Lectures
+          contents:
+            - href: slides/01-why-virtual.qmd
+              text: "1 · Why virtual Icechunk"
+            - href: slides/02-agent-and-skills.qmd
+              text: "2 · Working with an agent"
+            - href: slides/03-pipeline.qmd
+              text: "3 · The basic pipeline"
+            - href: slides/04-audit.qmd
+              text: "4 · Auditing your files"
+            - href: slides/05-build.qmd
+              text: "5 · Building a store"
+            - href: slides/06-visualize.qmd
+              text: "6 · Visualizing"
+        - section: Examples
+          contents:
+            - href: examples/01-hycom-snow-crab.ipynb
+              text: "1 · HYCOM: bottom temp in snow crab region"
         - text: "---"
         - href: resources.qmd
           text: Resources

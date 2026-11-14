@@ -22,6 +22,14 @@ does not undo something deliberate. Decisions are Eli Holmes's, from
   deck in an HTML chapter page with an iframe was offered and declined
   (2026-11-14); instead every deck's footer has a **⌂ Home** link, shown on the
   title slide too (`slides/slides.css` overrides the theme hiding it there).
+- **Sidebar sections (revision 3, 2026-11-14):** JupyterHub Skills, Lectures
+  (the six decks), Examples, then Resources. Examples are notebooks in
+  `examples/` that render as ordinary HTML pages beside the sidebar, not as
+  decks. Quarto does not execute `.ipynb` files, so each example is run once in
+  a clean venv and committed with its outputs (the `%pip` cell's output is
+  cleared, because it prints the venv path). Example 1 is a copy of
+  `ocean-icechunks/hycom`'s `bering-sea-snow-crab-demo.ipynb` with an
+  "adapted from" link; the copy here is the one to edit for the site.
 - **Mermaid on slides uses `htmlLabels: false` and `fig-width: 11`.** HTML
   labels were clipped (the deck's fonts change the text after Mermaid measures
   it) and the default size was tiny. Eli rejected a two-row layout made with
