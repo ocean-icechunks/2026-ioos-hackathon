@@ -12,6 +12,7 @@ title: "Resources"
 
 ## Background reading
 
+- [Bridging NOAA ocean model files and cloud-native access](resources/ESIP-2026-Holmes-NOAA-Ocean-Model-Data.pdf) (Holmes, ESIP, July 2026; PDF of the talk several chapter 1 figures come from)
 - [AI-ready scientific data archives](https://www.earthmover.io/blog/ai-ready-scientific-data-archives) (Earthmover, 2026)
 - [Rich Signell on the state of cloud-native geospatial](https://youtu.be/OPLZQpBADow) (March 2026)
 
