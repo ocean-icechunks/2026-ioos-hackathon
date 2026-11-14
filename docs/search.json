@@ -684,21 +684,21 @@
     ]
   },
   {
-    "objectID": "index.html#two-quick-wins-chapter-1",
-    "href": "index.html#two-quick-wins-chapter-1",
+    "objectID": "index.html#lectures",
+    "href": "index.html#lectures",
     "title": "Virtual Icechunk",
-    "section": "Two quick wins (chapter 1)",
-    "text": "Two quick wins (chapter 1)\n\nOpen 306 TB in about a second. Bering Sea bottom temperature on the snow crab grounds, 1994–2015, from the HYCOM reanalysis. Open in Colab\nMake your own virtual store. Five NOAA NDVI files on AWS become one local Icechunk store. Open in Colab",
+    "section": "Lectures",
+    "text": "Lectures\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook",
     "crumbs": [
       "Home"
     ]
   },
   {
-    "objectID": "index.html#chapters",
-    "href": "index.html#chapters",
+    "objectID": "index.html#examples",
+    "href": "index.html#examples",
     "title": "Virtual Icechunk",
-    "section": "Chapters",
-    "text": "Chapters\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook\n\n\n\nSee Resources for links to everything mentioned in the decks.",
+    "section": "Examples",
+    "text": "Examples\nEach example opens a large ocean dataset as a virtual Icechunk store and answers one question with it in a few seconds or minutes. You download nothing in advance, even when the dataset is hundreds of terabytes or thousands of files. Use them to see how a store opens, how much a read costs, and what kind of analysis becomes easy. Each one has an Open in Colab button.\nSee Resources for links to everything mentioned in the decks.",
     "crumbs": [
       "Home"
     ]
