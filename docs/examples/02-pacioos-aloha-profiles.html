@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.34">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PacIOOS: seasons and water masses at Station ALOHA – Virtual Icechunk</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../examples/03-oa-saturation-horizon.html" rel="next">
+<link href="../examples/01-hycom-snow-crab.html" rel="prev">
+<link href="../images/ioos-code-sprint-logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-55e293e7e8c3c3332286285459f7de79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Virtual Icechunk</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ocean-icechunks/2026-ioos-hackathon"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">repo</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../examples/index.html">Examples</a></li><li class="breadcrumb-item"><a href="../examples/02-pacioos-aloha-profiles.html">2 · PacIOOS: seasons and water masses at ALOHA</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/ioos-code-sprint-logo.png" alt="IOOS Code Sprint logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">JupyterHub Skills</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/01-jupyterhub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Log in to the JupyterHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/02-jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Find your way around JupyterLab</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/03-start-your-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Start your coding agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/04-git-with-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Git and GitHub, with an agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/05-scratch-bucket.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The scratch bucket</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/01-why-virtual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Why virtual Icechunk</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/02-agent-and-skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Working with an agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/03-pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · The basic pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/04-audit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Auditing your files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/05-build.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · Building a store</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/06-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · Visualizing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../examples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/01-hycom-snow-crab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · HYCOM: bottom temp in snow crab region</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/02-pacioos-aloha-profiles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">2 · PacIOOS: seasons and water masses at ALOHA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/03-oa-saturation-horizon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · OA indicators: aragonite saturation horizon</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/04-oisst-world-sst.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · OISST: world SST since 1981</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/05-oisst-gulf-of-maine-heatwaves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · OISST: Gulf of Maine marine heatwaves</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/06-gobai-oxygen-minimum-zone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · GOBAI: the oxygen minimum zone</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#open-the-dataset" id="toc-open-the-dataset" class="nav-link active" data-scroll-target="#open-the-dataset">Open the dataset</a></li>
+  <li><a href="#read-profiles-at-station-aloha" id="toc-read-profiles-at-station-aloha" class="nav-link" data-scroll-target="#read-profiles-at-station-aloha">Read profiles at Station ALOHA</a></li>
+  <li><a href="#seasons-reach-only-the-top-100-m" id="toc-seasons-reach-only-the-top-100-m" class="nav-link" data-scroll-target="#seasons-reach-only-the-top-100-m">Seasons reach only the top ~100 m</a></li>
+  <li><a href="#water-masses-in-the-profile" id="toc-water-masses-in-the-profile" class="nav-link" data-scroll-target="#water-masses-in-the-profile">Water masses in the profile</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/02-pacioos-aloha-profiles.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../examples/index.html">Examples</a></li><li class="breadcrumb-item"><a href="../examples/02-pacioos-aloha-profiles.html">2 · PacIOOS: seasons and water masses at ALOHA</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">PacIOOS: seasons and water masses at Station ALOHA</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/02-pacioos-aloha-profiles.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img"></a></p>
+<figcaption>Open In Colab</figcaption>
+</figure>
+</div>
+<p>Two textbook pictures of the open ocean north of Oʻahu, from the <a href="https://github.com/ocean-icechunks/pacioos/tree/main/stores/roms_hiig_reanalysis">PacIOOS ROMS Hawaiʻi reanalysis</a> (3-hourly, 2009–2020, ~4 km, 36 depth levels) as a virtual Icechunk store:</p>
+<ol type="1">
+<li>how deep the <strong>seasonal cycle</strong> reaches, and</li>
+<li>the <strong>water masses</strong> in the temperature and salinity profiles.</li>
+</ol>
+<p>The point is <a href="https://hahana.soest.hawaii.edu/hot/">Station ALOHA</a> (22.75 °N, 158 °W), where the Hawaii Ocean Time-series has sampled monthly since 1988. No credentials needed. Runs on Google Colab (Python 3.12).</p>
+<div id="2099ec20" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>q <span class="st">"icechunk&gt;=2.3"</span> <span class="st">"xarray&gt;=2026.7"</span> <span class="st">"zarr&gt;=3.4"</span> matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="open-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="open-the-dataset">Open the dataset</h2>
+<p>The store holds only metadata; every value is read by byte range from the NetCDF files on Source Cooperative. <code>chunks=None</code> keeps it lazy until we select.</p>
+<div id="4efb199f" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> icechunk, xarray <span class="im">as</span> xr, zarr</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>zarr.config.<span class="bu">set</span>({<span class="st">"async.concurrency"</span>: <span class="dv">128</span>})   <span class="co"># many small chunks: read lots at once</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://data.source.coop/ocean-icechunks/pacioos/roms_hiig_reanalysis/icechunk"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> icechunk.Repository.<span class="bu">open</span>(icechunk.http_storage(url))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Authorize anonymous reads of the NetCDF files, where the data actually live.</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> {p: icechunk.credentials.HttpAccess <span class="cf">for</span> p <span class="kw">in</span> repo.config.virtual_chunk_containers}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> repo.reopen(authorize_virtual_chunk_access<span class="op">=</span>auth)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_zarr(repo.readonly_session(tag<span class="op">=</span><span class="st">"v2.0"</span>).store, consolidated<span class="op">=</span><span class="va">False</span>, chunks<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
+
+:root {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
+}
+
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+body.vscode-dark {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+  line-height: 1.6;
+  padding-bottom: 4px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.xr-header {
+  border-bottom: solid 1px var(--xr-border-color);
+  margin-bottom: 4px;
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-obj-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type,
+.xr-group-box-contents > label {
+  color: var(--xr-font-color2);
+  display: block;
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item > input,
+.xr-group-box-contents > input,
+.xr-array-wrap > input {
+  display: block;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
+
+.xr-section-item > input + label,
+.xr-var-item > input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item > input:enabled + label,
+.xr-var-item > input:enabled + label,
+.xr-array-wrap > input:enabled + label,
+.xr-group-box-contents > input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item > input:focus-visible + label,
+.xr-var-item > input:focus-visible + label,
+.xr-array-wrap > input:focus-visible + label,
+.xr-group-box-contents > input:focus-visible + label {
+  outline: auto;
+}
+
+.xr-section-item > input:enabled + label:hover,
+.xr-var-item > input:enabled + label:hover,
+.xr-array-wrap > input:enabled + label:hover,
+.xr-group-box-contents > input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.xr-section-summary > em {
+  font-weight: normal;
+}
+
+.xr-span-grid {
+  grid-column-end: -1;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label > span {
+  display: inline-block;
+  padding-left: 0.6em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: "►";
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: "▼";
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details,
+.xr-group-box-contents > label {
+  padding-top: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in ~ .xr-section-details {
+  display: none;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-children {
+  display: inline-grid;
+  grid-template-columns: 100%;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 30px auto;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 26px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
+  padding-bottom: 4px;
+}
+
+.xr-group-box-contents > label::before {
+  content: "📂";
+  padding-right: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label::before {
+  content: "📁";
+}
+
+.xr-group-box-contents > input:checked + label {
+  padding-bottom: 0px;
+}
+
+.xr-group-box-contents > input:checked ~ .xr-sections {
+  display: none;
+}
+
+.xr-group-box-contents > input + label > span {
+  display: none;
+}
+
+.xr-group-box-ellipsis {
+  font-size: 1.4em;
+  font-weight: 900;
+  color: var(--xr-font-color2);
+  letter-spacing: 0.15em;
+  cursor: default;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: "(";
+}
+
+.xr-dim-list:after {
+  content: ")";
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ",";
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt; Size: 1TB
+Dimensions:  (lat: 195, lon: 295, time: 35040, depth: 36)
+Coordinates:
+  * lat      (lat) float32 780B 17.02 17.05 17.09 17.13 ... 23.91 23.95 23.98
+  * lon      (lon) float32 1kB -163.8 -163.8 -163.8 ... -152.6 -152.6 -152.5
+  * time     (time) datetime64[ns] 280kB 2009-01-01 ... 2020-12-28T21:00:00
+  * depth    (depth) float32 144B 0.25 1.0 2.0 5.0 ... 4.5e+03 5e+03 5.5e+03
+Data variables:
+    mask     (lat, lon) int16 115kB ...
+    u        (time, depth, lat, lon) float32 290GB ...
+    salt     (time, depth, lat, lon) float32 290GB ...
+    zeta     (time, lat, lon) float32 8GB ...
+    v        (time, depth, lat, lon) float32 290GB ...
+    temp     (time, depth, lat, lon) float32 290GB ...
+Attributes: (12/54)
+    acknowledgement:            The Pacific Islands Ocean Observing System (P...
+    comment:                    Model runs produced by Brian Powell (powellb@...
+    Conventions:                CF-1.6, ACDD-1.3
+    creator_email:              powellb@hawaii.edu
+    creator_institution:        University of Hawaii at Manoa
+    creator_name:               Brian S. Powell
+    ...                         ...
+    summary:                    Regional Ocean Modeling System (ROMS) 3-hourl...
+    time_coverage_resolution:   PT3H
+    title:                      Regional Ocean Modeling System (ROMS): Main H...
+    time_coverage_start:        2009-01-01T00:00:00Z
+    time_coverage_end:          2020-12-28T21:00:00Z
+    source_files:               https://data.source.coop/ocean-icechunks/paci...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-6754c02c-83ff-4bd8-8a98-989dfee35c77" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-6754c02c-83ff-4bd8-8a98-989dfee35c77" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 195</li><li><span class="xr-has-index">lon</span>: 295</li><li><span class="xr-has-index">time</span>: 35040</li><li><span class="xr-has-index">depth</span>: 36</li></ul></div></li><li class="xr-section-item"><input id="section-df6c5862-a4e4-401a-8acd-71ab4bdf07e7" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-df6c5862-a4e4-401a-8acd-71ab4bdf07e7" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">17.02 17.05 17.09 ... 23.95 23.98</div><input id="attrs-21827b00-9d38-466e-87e1-997c15dbd52f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-21827b00-9d38-466e-87e1-997c15dbd52f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3e3ed79b-2e4b-4f82-a3c4-6052be6fd73d" class="xr-var-data-in" type="checkbox"><label for="data-3e3ed79b-2e4b-4f82-a3c4-6052be6fd73d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data"><pre>array([17.018433, 17.054329, 17.090227, 17.126123, 17.16202 , 17.197916,
+       17.233812, 17.26971 , 17.305607, 17.341503, 17.3774  , 17.413296,
+       17.449194, 17.48509 , 17.520987, 17.556883, 17.59278 , 17.628677,
+       17.664574, 17.70047 , 17.736366, 17.772263, 17.80816 , 17.844057,
+       17.879953, 17.91585 , 17.951746, 17.987644, 18.02354 , 18.059437,
+       18.095333, 18.13123 , 18.167128, 18.203024, 18.23892 , 18.274817,
+       18.310713, 18.346611, 18.382507, 18.418404, 18.4543  , 18.490196,
+       18.526094, 18.56199 , 18.597887, 18.633783, 18.66968 , 18.705578,
+       18.741474, 18.77737 , 18.813267, 18.849163, 18.885061, 18.920958,
+       18.956854, 18.99275 , 19.028646, 19.064545, 19.100441, 19.136337,
+       19.172234, 19.20813 , 19.244028, 19.279924, 19.31582 , 19.351717,
+       19.387613, 19.423512, 19.459408, 19.495304, 19.5312  , 19.567097,
+       19.602995, 19.638891, 19.674788, 19.710684, 19.74658 , 19.782478,
+       19.818375, 19.85427 , 19.890167, 19.926064, 19.961962, 19.997858,
+       20.033754, 20.06965 , 20.105547, 20.141445, 20.177341, 20.213238,
+       20.249134, 20.28503 , 20.320929, 20.356825, 20.392721, 20.428617,
+       20.464514, 20.500412, 20.536308, 20.572205, 20.6081  , 20.643997,
+       20.679895, 20.715792, 20.751688, 20.787584, 20.82348 , 20.859377,
+       20.895275, 20.931171, 20.967068, 21.002964, 21.03886 , 21.074759,
+       21.110655, 21.146551, 21.182447, 21.218344, 21.254242, 21.290138,
+       21.326035, 21.36193 , 21.397827, 21.433725, 21.469622, 21.505518,
+       21.541414, 21.57731 , 21.613209, 21.649105, 21.685001, 21.720898,
+       21.756794, 21.792692, 21.828588, 21.864485, 21.900381, 21.936277,
+       21.972176, 22.008072, 22.043968, 22.079865, 22.11576 , 22.151659,
+       22.187555, 22.223452, 22.259348, 22.295244, 22.331142, 22.367039,
+       22.402935, 22.438831, 22.474728, 22.510626, 22.546522, 22.582418,
+       22.618315, 22.654211, 22.69011 , 22.726006, 22.761902, 22.797798,
+       22.833694, 22.869593, 22.905489, 22.941385, 22.977282, 23.013178,
+       23.049076, 23.084972, 23.120869, 23.156765, 23.192661, 23.22856 ,
+       23.264456, 23.300352, 23.336248, 23.372145, 23.408043, 23.44394 ,
+       23.479836, 23.515732, 23.551628, 23.587526, 23.623423, 23.659319,
+       23.695215, 23.731112, 23.76701 , 23.802906, 23.838802, 23.874699,
+       23.910595, 23.946493, 23.98239 ], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-163.8 -163.8 ... -152.6 -152.5</div><input id="attrs-b7c67029-7f3a-446c-acec-c427b8b91bb9" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b7c67029-7f3a-446c-acec-c427b8b91bb9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-88ec1ac7-d1ac-417c-8cf8-10d42193d98d" class="xr-var-data-in" type="checkbox"><label for="data-88ec1ac7-d1ac-417c-8cf8-10d42193d98d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data"><pre>array([-163.8307 , -163.79222, -163.75375, ..., -152.59625, -152.55777,
+       -152.5193 ], shape=(295,), dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2009-01-01 ... 2020-12-28T21:00:00</div><input id="attrs-1a62fcaf-c634-4424-b15a-1477ad02cdd3" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1a62fcaf-c634-4424-b15a-1477ad02cdd3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c984439a-4af4-4a42-8baa-a65ead00b0a8" class="xr-var-data-in" type="checkbox"><label for="data-c984439a-4af4-4a42-8baa-a65ead00b0a8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>T</dd><dt><span>long_name :</span></dt><dd>time since initialization</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>array(['2009-01-01T00:00:00.000000000', '2009-01-01T03:00:00.000000000',
+       '2009-01-01T06:00:00.000000000', ..., '2020-12-28T15:00:00.000000000',
+       '2020-12-28T18:00:00.000000000', '2020-12-28T21:00:00.000000000'],
+      shape=(35040,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">depth</span></div><div class="xr-var-dims">(depth)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">0.25 1.0 2.0 ... 5e+03 5.5e+03</div><input id="attrs-e265f555-ef13-4f3b-aceb-74a3cbde8174" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e265f555-ef13-4f3b-aceb-74a3cbde8174" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2af42be8-d430-4138-8025-fa1ac7cc2d9a" class="xr-var-data-in" type="checkbox"><label for="data-2af42be8-d430-4138-8025-fa1ac7cc2d9a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Z</dd><dt><span>long_name :</span></dt><dd>Depth</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>standard_name :</span></dt><dd>depth</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([2.50e-01, 1.00e+00, 2.00e+00, 5.00e+00, 1.00e+01, 2.00e+01, 3.00e+01,
+       5.00e+01, 7.50e+01, 1.00e+02, 1.25e+02, 1.50e+02, 2.00e+02, 2.50e+02,
+       3.00e+02, 4.00e+02, 5.00e+02, 6.00e+02, 7.00e+02, 8.00e+02, 9.00e+02,
+       1.00e+03, 1.10e+03, 1.20e+03, 1.30e+03, 1.40e+03, 1.50e+03, 1.75e+03,
+       2.00e+03, 2.50e+03, 3.00e+03, 3.50e+03, 4.00e+03, 4.50e+03, 5.00e+03,
+       5.50e+03], dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-05199d7d-5b9a-4d56-a776-b6dcd67d0417" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-05199d7d-5b9a-4d56-a776-b6dcd67d0417" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>mask</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">int16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-f633df20-142d-4ed4-bcd7-0176277d3e35" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f633df20-142d-4ed4-bcd7-0176277d3e35" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9891ecfa-e531-47a0-8ef4-8abcad76453f" class="xr-var-data-in" type="checkbox"><label for="data-9891ecfa-e531-47a0-8ef4-8abcad76453f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>field mask</dd><dt><span>value :</span></dt><dd>0-land, 1-water</dd></dl></div><div class="xr-var-data"><pre>[57525 values with dtype=int16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>u</span></div><div class="xr-var-dims">(time, depth, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c9aad1c5-c359-4d39-9572-0ddfbf7853fd" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c9aad1c5-c359-4d39-9572-0ddfbf7853fd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-69f7d369-cdd8-4905-8a4f-759a5237853a" class="xr-var-data-in" type="checkbox"><label for="data-69f7d369-cdd8-4905-8a4f-759a5237853a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>u-velocity component</dd><dt><span>standard_name :</span></dt><dd>eastward_sea_water_velocity</dd><dt><span>units :</span></dt><dd>meter second-1</dd></dl></div><div class="xr-var-data"><pre>[72564336000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>salt</span></div><div class="xr-var-dims">(time, depth, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-03617690-00cb-4625-b305-9b120843a39a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-03617690-00cb-4625-b305-9b120843a39a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fe41e4a3-3867-4ccb-b440-c68883d553ac" class="xr-var-data-in" type="checkbox"><label for="data-fe41e4a3-3867-4ccb-b440-c68883d553ac" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>salinity</dd><dt><span>standard_name :</span></dt><dd>sea_water_salinity</dd><dt><span>units :</span></dt><dd>1e-3</dd></dl></div><div class="xr-var-data"><pre>[72564336000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>zeta</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-d40f8387-aee4-4316-8f51-6d9eb1aea1b6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d40f8387-aee4-4316-8f51-6d9eb1aea1b6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-57ac23c0-2a49-4679-bad4-0fafca8d8f02" class="xr-var-data-in" type="checkbox"><label for="data-57ac23c0-2a49-4679-bad4-0fafca8d8f02" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>free-surface</dd><dt><span>standard_name :</span></dt><dd>sea_surface_height</dd><dt><span>units :</span></dt><dd>meter</dd></dl></div><div class="xr-var-data"><pre>[2015676000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>v</span></div><div class="xr-var-dims">(time, depth, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-36aedc94-8631-46c9-bfb8-de2fd66882a3" class="xr-var-attrs-in" type="checkbox"><label for="attrs-36aedc94-8631-46c9-bfb8-de2fd66882a3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-48372584-5334-4007-aa73-a52afeb162d4" class="xr-var-data-in" type="checkbox"><label for="data-48372584-5334-4007-aa73-a52afeb162d4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>v-velocity component</dd><dt><span>standard_name :</span></dt><dd>northward_sea_water_velocity</dd><dt><span>units :</span></dt><dd>meter second-1</dd></dl></div><div class="xr-var-data"><pre>[72564336000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>temp</span></div><div class="xr-var-dims">(time, depth, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1d5ee49f-4847-4903-b2ea-154a7a4aa89a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1d5ee49f-4847-4903-b2ea-154a7a4aa89a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-aa2436f3-3108-46e3-9d51-a56486cf986d" class="xr-var-data-in" type="checkbox"><label for="data-aa2436f3-3108-46e3-9d51-a56486cf986d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>potential temperature</dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>Celsius</dd></dl></div><div class="xr-var-data"><pre>[72564336000 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-7aa43cf9-10b6-47c5-a3eb-49dbb79a1a31" class="xr-section-summary-in" type="checkbox"><label for="section-7aa43cf9-10b6-47c5-a3eb-49dbb79a1a31" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(54)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>acknowledgement :</span></dt><dd>The Pacific Islands Ocean Observing System (PacIOOS) is funded through the National Oceanic and Atmospheric Administration (NOAA) as a Regional Association within the U.S. Integrated Ocean Observing System (IOOS). PacIOOS is coordinated by the University of Hawaii School of Ocean and Earth Science and Technology (SOEST).</dd><dt><span>comment :</span></dt><dd>Model runs produced by Brian Powell (powellb@hawaii.edu).</dd><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD-1.3</dd><dt><span>creator_email :</span></dt><dd>powellb@hawaii.edu</dd><dt><span>creator_institution :</span></dt><dd>University of Hawaii at Manoa</dd><dt><span>creator_name :</span></dt><dd>Brian S. Powell</dd><dt><span>creator_type :</span></dt><dd>person</dd><dt><span>creator_url :</span></dt><dd>https://www.soest.hawaii.edu/oceanography/faculty/powell.html</dd><dt><span>date_created :</span></dt><dd>2018-11-27</dd><dt><span>date_issued :</span></dt><dd>2018-11-27</dd><dt><span>date_metadata_modified :</span></dt><dd>2023-03-08</dd><dt><span>date_modified :</span></dt><dd>2023-03-08</dd><dt><span>geospatial_bounds :</span></dt><dd>POLYGON ((17.0184 -163.831, 23.9824 -163.831, 23.9824 -152.519, 17.0184 -152.519, 17.0184 -163.831))</dd><dt><span>geospatial_bounds_crs :</span></dt><dd>EPSG:4326</dd><dt><span>geospatial_lat_max :</span></dt><dd>23.98239</dd><dt><span>geospatial_lat_min :</span></dt><dd>17.01843</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.03589670103092783</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_max :</span></dt><dd>-152.5193</dd><dt><span>geospatial_lon_min :</span></dt><dd>-163.8307</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.03847414965986402</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>history :</span></dt><dd>2018-11-27T00:00:00Z New dataset.
+2023-03-08T16:32:00Z Dataset replaced with new version (v2); prior (v1) time coverage: 2007-07-11T00:00:00Z to 2017-05-04T21:00:00Z; new (v2) time coverage: 2009-01-01T00:00:00Z to 2020-12-28T21:00:00Z.
+2026-11-14T01:26:50Z Virtual Icechunk store over unchanged copies of the v2.0 NetCDF files; metadata from PacIOOS ERDDAP, no data values changed.</dd><dt><span>id :</span></dt><dd>roms_hiig_reanalysis</dd><dt><span>institution :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>instrument :</span></dt><dd>Not Applicable &gt; Not Applicable</dd><dt><span>instrument_vocabulary :</span></dt><dd>GCMD Instrument Keywords</dd><dt><span>ISO_Topic_Categories :</span></dt><dd>oceans</dd><dt><span>keywords :</span></dt><dd>Earth Science &gt; Oceans &gt; Ocean Circulation &gt; Ocean Currents, Earth Science &gt; Oceans &gt; Ocean Temperature &gt; Potential Temperature, Earth Science &gt; Oceans &gt; Salinity/Density &gt; Salinity, Earth Science &gt; Oceans &gt; Sea Surface Topography &gt; Sea Surface Height, Earth Science Services &gt; Models &gt; Ocean General Circulation Models (OGCM)/Regional Ocean Models, Earth Science Services &gt; Models &gt; Weather Research/Forecast Models</dd><dt><span>keywords_vocabulary :</span></dt><dd>GCMD Science Keywords</dd><dt><span>license :</span></dt><dd>The data may be used and redistributed for free but is not intended for legal use, since it may contain inaccuracies. Neither the data Contributor, University of Hawaii, PacIOOS, NOAA, State of Hawaii nor the United States Government, nor any of their employees or contractors, makes any warranty, express or implied, including warranties of merchantability and fitness for a particular purpose, or assumes any legal liability for the accuracy, completeness, or usefulness, of this information.</dd><dt><span>locations :</span></dt><dd>Continent &gt; North America &gt; United States Of America &gt; Hawaii, Ocean &gt; Pacific Ocean &gt; Central Pacific Ocean &gt; Hawaiian Islands</dd><dt><span>locations_vocabulary :</span></dt><dd>GCMD Location Keywords</dd><dt><span>metadata_link :</span></dt><dd>https://www.pacioos.hawaii.edu/metadata/roms_hiig_reanalysis.html</dd><dt><span>naming_authority :</span></dt><dd>org.pacioos</dd><dt><span>platform :</span></dt><dd>Models/Analyses &gt; &gt; Reanalysis Models</dd><dt><span>platform_vocabulary :</span></dt><dd>GCMD Platform Keywords</dd><dt><span>product_version :</span></dt><dd>2.0</dd><dt><span>program :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>project :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>publisher_email :</span></dt><dd>info@pacioos.org</dd><dt><span>publisher_institution :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>publisher_name :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>publisher_type :</span></dt><dd>institution</dd><dt><span>publisher_url :</span></dt><dd>http://www.pacioos.hawaii.edu</dd><dt><span>references :</span></dt><dd>https://www.myroms.org</dd><dt><span>source :</span></dt><dd>Regional Ocean Modeling System (ROMS), https://www.myroms.org</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v39</dd><dt><span>summary :</span></dt><dd>Regional Ocean Modeling System (ROMS) 3-hourly data assimilating reanalysis for the region surrounding the main Hawaiian Islands at approximately 4-km resolution. Boundary conditions provided by the global, 1/12-degree (~9-km) HYbrid Coordinate Ocean Model (HYCOM). Atmospheric forcing generated by the Weather Research and Forecasting (WRF) model for the region surrounding the main Hawaiian Islands (wrf_hi) at approximately 6-km resolution. Tide forcing uses the Oregon State University (OSU) Tidal Prediction Software (OTPS) TOPEX/Poseidon global inverse solution (TPXO) to derive barotropic tidal elevation and velocity. Data are assimilated over the previous 3 days using all available observations to improve the model estimate of current ocean state (its nowcast). Assimilated observations may include satellite-based sea surface temperatures from MODIS, AVHRR, or OSTIA; satellite-based sea surface height from AVISO; surface currents from PacIOOS high-frequency radios (HFR); and in-situ water temperature and salinity profiles from ARGO floats and ocean glider autonomous underwater vehicles (AUV). While considerable effort has been made to implement all model components in a thorough, correct, and accurate manner, numerous sources of error are possible. As such, please use these data with the caution appropriate for any ocean related activity.</dd><dt><span>time_coverage_resolution :</span></dt><dd>PT3H</dd><dt><span>title :</span></dt><dd>Regional Ocean Modeling System (ROMS): Main Hawaiian Islands: Reanalysis</dd><dt><span>time_coverage_start :</span></dt><dd>2009-01-01T00:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2020-12-28T21:00:00Z</dd><dt><span>source_files :</span></dt><dd>https://data.source.coop/ocean-icechunks/pacioos/roms_hiig_reanalysis/netcdf/v2.0/</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+<section id="read-profiles-at-station-aloha" class="level2">
+<h2 class="anchored" data-anchor-id="read-profiles-at-station-aloha">Read profiles at Station ALOHA</h2>
+<p>One profile per month, 2009–2020: the 15th at 12Z (02:00 in Hawaiʻi, so the afternoon warm skin is not in it), top 1,500 m, temperature and salinity. Each chunk in this store is one depth level at one time step, so this is 144 times × 27 levels × 2 variables ≈ 7,800 reads, about 1.8 GB. That took about 15 s on a JupyterHub in AWS us-west-2.</p>
+<div id="427004b8" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>m<span class="sc">:02d}</span><span class="ss">-15T12"</span> <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2009</span>, <span class="dv">2021</span>) <span class="cf">for</span> m <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">13</span>)]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>aloha <span class="op">=</span> (ds[[<span class="st">"temp"</span>, <span class="st">"salt"</span>]]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         .sel(lat<span class="op">=</span><span class="fl">22.75</span>, lon<span class="op">=-</span><span class="fl">158.0</span>, method<span class="op">=</span><span class="st">"nearest"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>         .sel(time<span class="op">=</span>times, depth<span class="op">=</span><span class="bu">slice</span>(<span class="dv">0</span>, <span class="dv">1500</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>         .load())</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>aloha</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
+
+:root {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
+}
+
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+body.vscode-dark {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+  line-height: 1.6;
+  padding-bottom: 4px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.xr-header {
+  border-bottom: solid 1px var(--xr-border-color);
+  margin-bottom: 4px;
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-obj-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type,
+.xr-group-box-contents > label {
+  color: var(--xr-font-color2);
+  display: block;
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item > input,
+.xr-group-box-contents > input,
+.xr-array-wrap > input {
+  display: block;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
+
+.xr-section-item > input + label,
+.xr-var-item > input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item > input:enabled + label,
+.xr-var-item > input:enabled + label,
+.xr-array-wrap > input:enabled + label,
+.xr-group-box-contents > input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item > input:focus-visible + label,
+.xr-var-item > input:focus-visible + label,
+.xr-array-wrap > input:focus-visible + label,
+.xr-group-box-contents > input:focus-visible + label {
+  outline: auto;
+}
+
+.xr-section-item > input:enabled + label:hover,
+.xr-var-item > input:enabled + label:hover,
+.xr-array-wrap > input:enabled + label:hover,
+.xr-group-box-contents > input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.xr-section-summary > em {
+  font-weight: normal;
+}
+
+.xr-span-grid {
+  grid-column-end: -1;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label > span {
+  display: inline-block;
+  padding-left: 0.6em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: "►";
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: "▼";
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details,
+.xr-group-box-contents > label {
+  padding-top: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in ~ .xr-section-details {
+  display: none;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-children {
+  display: inline-grid;
+  grid-template-columns: 100%;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 30px auto;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 26px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
+  padding-bottom: 4px;
+}
+
+.xr-group-box-contents > label::before {
+  content: "📂";
+  padding-right: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label::before {
+  content: "📁";
+}
+
+.xr-group-box-contents > input:checked + label {
+  padding-bottom: 0px;
+}
+
+.xr-group-box-contents > input:checked ~ .xr-sections {
+  display: none;
+}
+
+.xr-group-box-contents > input + label > span {
+  display: none;
+}
+
+.xr-group-box-ellipsis {
+  font-size: 1.4em;
+  font-weight: 900;
+  color: var(--xr-font-color2);
+  letter-spacing: 0.15em;
+  cursor: default;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: "(";
+}
+
+.xr-dim-list:after {
+  content: ")";
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ",";
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt; Size: 32kB
+Dimensions:  (time: 144, depth: 27)
+Coordinates:
+  * time     (time) datetime64[ns] 1kB 2009-01-15T12:00:00 ... 2020-12-15T12:...
+  * depth    (depth) float32 108B 0.25 1.0 2.0 5.0 ... 1.3e+03 1.4e+03 1.5e+03
+    lat      float32 4B 22.76
+    lon      float32 4B -158.0
+Data variables:
+    temp     (time, depth) float32 16kB 23.7 23.7 23.7 ... 3.239 3.043 2.847
+    salt     (time, depth) float32 16kB 35.22 35.22 35.22 ... 34.51 34.53 34.55
+Attributes: (12/54)
+    acknowledgement:            The Pacific Islands Ocean Observing System (P...
+    comment:                    Model runs produced by Brian Powell (powellb@...
+    Conventions:                CF-1.6, ACDD-1.3
+    creator_email:              powellb@hawaii.edu
+    creator_institution:        University of Hawaii at Manoa
+    creator_name:               Brian S. Powell
+    ...                         ...
+    summary:                    Regional Ocean Modeling System (ROMS) 3-hourl...
+    time_coverage_resolution:   PT3H
+    title:                      Regional Ocean Modeling System (ROMS): Main H...
+    time_coverage_start:        2009-01-01T00:00:00Z
+    time_coverage_end:          2020-12-28T21:00:00Z
+    source_files:               https://data.source.coop/ocean-icechunks/paci...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-329ea362-4db5-4657-a082-a6e3263fa4d4" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-329ea362-4db5-4657-a082-a6e3263fa4d4" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 144</li><li><span class="xr-has-index">depth</span>: 27</li></ul></div></li><li class="xr-section-item"><input id="section-7bd38d3d-75d3-4ba6-9565-b6dc92033dab" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-7bd38d3d-75d3-4ba6-9565-b6dc92033dab" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2009-01-15T12:00:00 ... 2020-12-...</div><input id="attrs-a7091379-bd54-48ac-b96a-64f4aaab719c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a7091379-bd54-48ac-b96a-64f4aaab719c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f0f15b74-5395-42e2-8f0c-6639b7cf15b0" class="xr-var-data-in" type="checkbox"><label for="data-f0f15b74-5395-42e2-8f0c-6639b7cf15b0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>T</dd><dt><span>long_name :</span></dt><dd>time since initialization</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>array(['2009-01-15T12:00:00.000000000', '2009-02-15T12:00:00.000000000',
+       '2009-03-15T12:00:00.000000000', '2009-04-15T12:00:00.000000000',
+       '2009-05-15T12:00:00.000000000', '2009-06-15T12:00:00.000000000',
+       '2009-07-15T12:00:00.000000000', '2009-08-15T12:00:00.000000000',
+       '2009-09-15T12:00:00.000000000', '2009-10-15T12:00:00.000000000',
+       '2009-11-15T12:00:00.000000000', '2009-12-15T12:00:00.000000000',
+       '2010-01-15T12:00:00.000000000', '2010-02-15T12:00:00.000000000',
+       '2010-03-15T12:00:00.000000000', '2010-04-15T12:00:00.000000000',
+       '2010-05-15T12:00:00.000000000', '2010-06-15T12:00:00.000000000',
+       '2010-07-15T12:00:00.000000000', '2010-08-15T12:00:00.000000000',
+       '2010-09-15T12:00:00.000000000', '2010-10-15T12:00:00.000000000',
+       '2010-11-15T12:00:00.000000000', '2010-12-15T12:00:00.000000000',
+       '2011-01-15T12:00:00.000000000', '2011-02-15T12:00:00.000000000',
+       '2011-03-15T12:00:00.000000000', '2011-04-15T12:00:00.000000000',
+       '2011-05-15T12:00:00.000000000', '2011-06-15T12:00:00.000000000',
+       '2011-07-15T12:00:00.000000000', '2011-08-15T12:00:00.000000000',
+       '2011-09-15T12:00:00.000000000', '2011-10-15T12:00:00.000000000',
+       '2011-11-15T12:00:00.000000000', '2011-12-15T12:00:00.000000000',
+       '2012-01-15T12:00:00.000000000', '2012-02-15T12:00:00.000000000',
+       '2012-03-15T12:00:00.000000000', '2012-04-15T12:00:00.000000000',
+       '2012-05-15T12:00:00.000000000', '2012-06-15T12:00:00.000000000',
+       '2012-07-15T12:00:00.000000000', '2012-08-15T12:00:00.000000000',
+       '2012-09-15T12:00:00.000000000', '2012-10-15T12:00:00.000000000',
+       '2012-11-15T12:00:00.000000000', '2012-12-15T12:00:00.000000000',
+       '2013-01-15T12:00:00.000000000', '2013-02-15T12:00:00.000000000',
+       '2013-03-15T12:00:00.000000000', '2013-04-15T12:00:00.000000000',
+       '2013-05-15T12:00:00.000000000', '2013-06-15T12:00:00.000000000',
+       '2013-07-15T12:00:00.000000000', '2013-08-15T12:00:00.000000000',
+       '2013-09-15T12:00:00.000000000', '2013-10-15T12:00:00.000000000',
+       '2013-11-15T12:00:00.000000000', '2013-12-15T12:00:00.000000000',
+       '2014-01-15T12:00:00.000000000', '2014-02-15T12:00:00.000000000',
+       '2014-03-15T12:00:00.000000000', '2014-04-15T12:00:00.000000000',
+       '2014-05-15T12:00:00.000000000', '2014-06-15T12:00:00.000000000',
+       '2014-07-15T12:00:00.000000000', '2014-08-15T12:00:00.000000000',
+       '2014-09-15T12:00:00.000000000', '2014-10-15T12:00:00.000000000',
+       '2014-11-15T12:00:00.000000000', '2014-12-15T12:00:00.000000000',
+       '2015-01-15T12:00:00.000000000', '2015-02-15T12:00:00.000000000',
+       '2015-03-15T12:00:00.000000000', '2015-04-15T12:00:00.000000000',
+       '2015-05-15T12:00:00.000000000', '2015-06-15T12:00:00.000000000',
+       '2015-07-15T12:00:00.000000000', '2015-08-15T12:00:00.000000000',
+       '2015-09-15T12:00:00.000000000', '2015-10-15T12:00:00.000000000',
+       '2015-11-15T12:00:00.000000000', '2015-12-15T12:00:00.000000000',
+       '2016-01-15T12:00:00.000000000', '2016-02-15T12:00:00.000000000',
+       '2016-03-15T12:00:00.000000000', '2016-04-15T12:00:00.000000000',
+       '2016-05-15T12:00:00.000000000', '2016-06-15T12:00:00.000000000',
+       '2016-07-15T12:00:00.000000000', '2016-08-15T12:00:00.000000000',
+       '2016-09-15T12:00:00.000000000', '2016-10-15T12:00:00.000000000',
+       '2016-11-15T12:00:00.000000000', '2016-12-15T12:00:00.000000000',
+       '2017-01-15T12:00:00.000000000', '2017-02-15T12:00:00.000000000',
+       '2017-03-15T12:00:00.000000000', '2017-04-15T12:00:00.000000000',
+       '2017-05-15T12:00:00.000000000', '2017-06-15T12:00:00.000000000',
+       '2017-07-15T12:00:00.000000000', '2017-08-15T12:00:00.000000000',
+       '2017-09-15T12:00:00.000000000', '2017-10-15T12:00:00.000000000',
+       '2017-11-15T12:00:00.000000000', '2017-12-15T12:00:00.000000000',
+       '2018-01-15T12:00:00.000000000', '2018-02-15T12:00:00.000000000',
+       '2018-03-15T12:00:00.000000000', '2018-04-15T12:00:00.000000000',
+       '2018-05-15T12:00:00.000000000', '2018-06-15T12:00:00.000000000',
+       '2018-07-15T12:00:00.000000000', '2018-08-15T12:00:00.000000000',
+       '2018-09-15T12:00:00.000000000', '2018-10-15T12:00:00.000000000',
+       '2018-11-15T12:00:00.000000000', '2018-12-15T12:00:00.000000000',
+       '2019-01-15T12:00:00.000000000', '2019-02-15T12:00:00.000000000',
+       '2019-03-15T12:00:00.000000000', '2019-04-15T12:00:00.000000000',
+       '2019-05-15T12:00:00.000000000', '2019-06-15T12:00:00.000000000',
+       '2019-07-15T12:00:00.000000000', '2019-08-15T12:00:00.000000000',
+       '2019-09-15T12:00:00.000000000', '2019-10-15T12:00:00.000000000',
+       '2019-11-15T12:00:00.000000000', '2019-12-15T12:00:00.000000000',
+       '2020-01-15T12:00:00.000000000', '2020-02-15T12:00:00.000000000',
+       '2020-03-15T12:00:00.000000000', '2020-04-15T12:00:00.000000000',
+       '2020-05-15T12:00:00.000000000', '2020-06-15T12:00:00.000000000',
+       '2020-07-15T12:00:00.000000000', '2020-08-15T12:00:00.000000000',
+       '2020-09-15T12:00:00.000000000', '2020-10-15T12:00:00.000000000',
+       '2020-11-15T12:00:00.000000000', '2020-12-15T12:00:00.000000000'],
+      dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">depth</span></div><div class="xr-var-dims">(depth)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">0.25 1.0 2.0 ... 1.4e+03 1.5e+03</div><input id="attrs-4ee1c236-40a2-4079-b62e-24305658da23" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4ee1c236-40a2-4079-b62e-24305658da23" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1c5a9613-63f4-47d9-bf9a-99ed49b56858" class="xr-var-data-in" type="checkbox"><label for="data-1c5a9613-63f4-47d9-bf9a-99ed49b56858" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Z</dd><dt><span>long_name :</span></dt><dd>Depth</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>standard_name :</span></dt><dd>depth</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([2.50e-01, 1.00e+00, 2.00e+00, 5.00e+00, 1.00e+01, 2.00e+01, 3.00e+01,
+       5.00e+01, 7.50e+01, 1.00e+02, 1.25e+02, 1.50e+02, 2.00e+02, 2.50e+02,
+       3.00e+02, 4.00e+02, 5.00e+02, 6.00e+02, 7.00e+02, 8.00e+02, 9.00e+02,
+       1.00e+03, 1.10e+03, 1.20e+03, 1.30e+03, 1.40e+03, 1.50e+03],
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>lat</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">22.76</div><input id="attrs-d5491d1f-ee40-4838-896b-6cd624a584a0" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d5491d1f-ee40-4838-896b-6cd624a584a0" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bc21ce80-1d88-419b-b1de-5c5bfa7cdbe6" class="xr-var-data-in" type="checkbox"><label for="data-bc21ce80-1d88-419b-b1de-5c5bfa7cdbe6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data"><pre>array(22.761902, dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>lon</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-158.0</div><input id="attrs-546b034c-1c7e-4cfc-87d7-768112d20b17" class="xr-var-attrs-in" type="checkbox"><label for="attrs-546b034c-1c7e-4cfc-87d7-768112d20b17" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bf50d8dd-f8f9-45a2-9e2d-50e42e26835d" class="xr-var-data-in" type="checkbox"><label for="data-bf50d8dd-f8f9-45a2-9e2d-50e42e26835d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data"><pre>array(-157.98264, dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-d02ce0dd-8ce4-4f32-885f-b5887833c72a" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d02ce0dd-8ce4-4f32-885f-b5887833c72a" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>temp</span></div><div class="xr-var-dims">(time, depth)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">23.7 23.7 23.7 ... 3.043 2.847</div><input id="attrs-f79e510c-1dd0-4600-a02a-af1e0a75c3e8" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f79e510c-1dd0-4600-a02a-af1e0a75c3e8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ab61ee04-1636-4a00-8fdf-b01b5fbc9091" class="xr-var-data-in" type="checkbox"><label for="data-ab61ee04-1636-4a00-8fdf-b01b5fbc9091" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>potential temperature</dd><dt><span>standard_name :</span></dt><dd>sea_water_potential_temperature</dd><dt><span>units :</span></dt><dd>Celsius</dd></dl></div><div class="xr-var-data"><pre>array([[23.69841  , 23.69841  , 23.700228 , ...,  3.067097 ,  2.8947728,
+         2.7224486],
+       [23.31755  , 23.31755  , 23.318249 , ...,  3.0543287,  2.8737357,
+         2.6931427],
+       [22.552317 , 22.552317 , 22.553629 , ...,  2.9252536,  2.7578495,
+         2.590445 ],
+       ...,
+       [27.951632 , 27.951632 , 27.952314 , ...,  3.7389555,  3.4347343,
+         3.1305134],
+       [27.229282 , 27.229282 , 27.230532 , ...,  3.6088548,  3.324483 ,
+         3.0401113],
+       [26.035526 , 26.035526 , 26.03658  , ...,  3.2389271,  3.0429187,
+         2.8469102]], shape=(144, 27), dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>salt</span></div><div class="xr-var-dims">(time, depth)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">35.22 35.22 35.22 ... 34.53 34.55</div><input id="attrs-f1c0ff3d-79a1-4c78-945c-47d485541177" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f1c0ff3d-79a1-4c78-945c-47d485541177" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2603383a-cbd6-41cb-9e6a-11e91e50a854" class="xr-var-data-in" type="checkbox"><label for="data-2603383a-cbd6-41cb-9e6a-11e91e50a854" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>salinity</dd><dt><span>standard_name :</span></dt><dd>sea_water_salinity</dd><dt><span>units :</span></dt><dd>1e-3</dd></dl></div><div class="xr-var-data"><pre>array([[35.216316, 35.216316, 35.216187, ..., 34.532654, 34.545616,
+        34.55858 ],
+       [35.295425, 35.295425, 35.29532 , ..., 34.513515, 34.53032 ,
+        34.547127],
+       [35.182915, 35.182915, 35.182835, ..., 34.526134, 34.54077 ,
+        34.555405],
+       ...,
+       [34.80034 , 34.80034 , 34.800488, ..., 34.463993, 34.485813,
+        34.507637],
+       [34.66648 , 34.66648 , 34.66636 , ..., 34.464195, 34.48824 ,
+        34.512283],
+       [34.876545, 34.876545, 34.876446, ..., 34.50673 , 34.527637,
+        34.548546]], shape=(144, 27), dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-5ccbcf3b-c0fa-4512-af41-50d611e08310" class="xr-section-summary-in" type="checkbox"><label for="section-5ccbcf3b-c0fa-4512-af41-50d611e08310" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(54)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>acknowledgement :</span></dt><dd>The Pacific Islands Ocean Observing System (PacIOOS) is funded through the National Oceanic and Atmospheric Administration (NOAA) as a Regional Association within the U.S. Integrated Ocean Observing System (IOOS). PacIOOS is coordinated by the University of Hawaii School of Ocean and Earth Science and Technology (SOEST).</dd><dt><span>comment :</span></dt><dd>Model runs produced by Brian Powell (powellb@hawaii.edu).</dd><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD-1.3</dd><dt><span>creator_email :</span></dt><dd>powellb@hawaii.edu</dd><dt><span>creator_institution :</span></dt><dd>University of Hawaii at Manoa</dd><dt><span>creator_name :</span></dt><dd>Brian S. Powell</dd><dt><span>creator_type :</span></dt><dd>person</dd><dt><span>creator_url :</span></dt><dd>https://www.soest.hawaii.edu/oceanography/faculty/powell.html</dd><dt><span>date_created :</span></dt><dd>2018-11-27</dd><dt><span>date_issued :</span></dt><dd>2018-11-27</dd><dt><span>date_metadata_modified :</span></dt><dd>2023-03-08</dd><dt><span>date_modified :</span></dt><dd>2023-03-08</dd><dt><span>geospatial_bounds :</span></dt><dd>POLYGON ((17.0184 -163.831, 23.9824 -163.831, 23.9824 -152.519, 17.0184 -152.519, 17.0184 -163.831))</dd><dt><span>geospatial_bounds_crs :</span></dt><dd>EPSG:4326</dd><dt><span>geospatial_lat_max :</span></dt><dd>23.98239</dd><dt><span>geospatial_lat_min :</span></dt><dd>17.01843</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>0.03589670103092783</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_max :</span></dt><dd>-152.5193</dd><dt><span>geospatial_lon_min :</span></dt><dd>-163.8307</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>0.03847414965986402</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>history :</span></dt><dd>2018-11-27T00:00:00Z New dataset.
+2023-03-08T16:32:00Z Dataset replaced with new version (v2); prior (v1) time coverage: 2007-07-11T00:00:00Z to 2017-05-04T21:00:00Z; new (v2) time coverage: 2009-01-01T00:00:00Z to 2020-12-28T21:00:00Z.
+2026-11-14T01:26:50Z Virtual Icechunk store over unchanged copies of the v2.0 NetCDF files; metadata from PacIOOS ERDDAP, no data values changed.</dd><dt><span>id :</span></dt><dd>roms_hiig_reanalysis</dd><dt><span>institution :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>instrument :</span></dt><dd>Not Applicable &gt; Not Applicable</dd><dt><span>instrument_vocabulary :</span></dt><dd>GCMD Instrument Keywords</dd><dt><span>ISO_Topic_Categories :</span></dt><dd>oceans</dd><dt><span>keywords :</span></dt><dd>Earth Science &gt; Oceans &gt; Ocean Circulation &gt; Ocean Currents, Earth Science &gt; Oceans &gt; Ocean Temperature &gt; Potential Temperature, Earth Science &gt; Oceans &gt; Salinity/Density &gt; Salinity, Earth Science &gt; Oceans &gt; Sea Surface Topography &gt; Sea Surface Height, Earth Science Services &gt; Models &gt; Ocean General Circulation Models (OGCM)/Regional Ocean Models, Earth Science Services &gt; Models &gt; Weather Research/Forecast Models</dd><dt><span>keywords_vocabulary :</span></dt><dd>GCMD Science Keywords</dd><dt><span>license :</span></dt><dd>The data may be used and redistributed for free but is not intended for legal use, since it may contain inaccuracies. Neither the data Contributor, University of Hawaii, PacIOOS, NOAA, State of Hawaii nor the United States Government, nor any of their employees or contractors, makes any warranty, express or implied, including warranties of merchantability and fitness for a particular purpose, or assumes any legal liability for the accuracy, completeness, or usefulness, of this information.</dd><dt><span>locations :</span></dt><dd>Continent &gt; North America &gt; United States Of America &gt; Hawaii, Ocean &gt; Pacific Ocean &gt; Central Pacific Ocean &gt; Hawaiian Islands</dd><dt><span>locations_vocabulary :</span></dt><dd>GCMD Location Keywords</dd><dt><span>metadata_link :</span></dt><dd>https://www.pacioos.hawaii.edu/metadata/roms_hiig_reanalysis.html</dd><dt><span>naming_authority :</span></dt><dd>org.pacioos</dd><dt><span>platform :</span></dt><dd>Models/Analyses &gt; &gt; Reanalysis Models</dd><dt><span>platform_vocabulary :</span></dt><dd>GCMD Platform Keywords</dd><dt><span>product_version :</span></dt><dd>2.0</dd><dt><span>program :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>project :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>publisher_email :</span></dt><dd>info@pacioos.org</dd><dt><span>publisher_institution :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>publisher_name :</span></dt><dd>Pacific Islands Ocean Observing System (PacIOOS)</dd><dt><span>publisher_type :</span></dt><dd>institution</dd><dt><span>publisher_url :</span></dt><dd>http://www.pacioos.hawaii.edu</dd><dt><span>references :</span></dt><dd>https://www.myroms.org</dd><dt><span>source :</span></dt><dd>Regional Ocean Modeling System (ROMS), https://www.myroms.org</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table v39</dd><dt><span>summary :</span></dt><dd>Regional Ocean Modeling System (ROMS) 3-hourly data assimilating reanalysis for the region surrounding the main Hawaiian Islands at approximately 4-km resolution. Boundary conditions provided by the global, 1/12-degree (~9-km) HYbrid Coordinate Ocean Model (HYCOM). Atmospheric forcing generated by the Weather Research and Forecasting (WRF) model for the region surrounding the main Hawaiian Islands (wrf_hi) at approximately 6-km resolution. Tide forcing uses the Oregon State University (OSU) Tidal Prediction Software (OTPS) TOPEX/Poseidon global inverse solution (TPXO) to derive barotropic tidal elevation and velocity. Data are assimilated over the previous 3 days using all available observations to improve the model estimate of current ocean state (its nowcast). Assimilated observations may include satellite-based sea surface temperatures from MODIS, AVHRR, or OSTIA; satellite-based sea surface height from AVISO; surface currents from PacIOOS high-frequency radios (HFR); and in-situ water temperature and salinity profiles from ARGO floats and ocean glider autonomous underwater vehicles (AUV). While considerable effort has been made to implement all model components in a thorough, correct, and accurate manner, numerous sources of error are possible. As such, please use these data with the caution appropriate for any ocean related activity.</dd><dt><span>time_coverage_resolution :</span></dt><dd>PT3H</dd><dt><span>title :</span></dt><dd>Regional Ocean Modeling System (ROMS): Main Hawaiian Islands: Reanalysis</dd><dt><span>time_coverage_start :</span></dt><dd>2009-01-01T00:00:00Z</dd><dt><span>time_coverage_end :</span></dt><dd>2020-12-28T21:00:00Z</dd><dt><span>source_files :</span></dt><dd>https://data.source.coop/ocean-icechunks/pacioos/roms_hiig_reanalysis/netcdf/v2.0/</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+<section id="seasons-reach-only-the-top-100-m" class="level2">
+<h2 class="anchored" data-anchor-id="seasons-reach-only-the-top-100-m">Seasons reach only the top ~100 m</h2>
+<p>Sun and wind warm and stir the top of the ocean, so its temperature follows the seasons. Deeper down, the thermocline is shielded from them. Plot temperature at four depths through the 12 years.</p>
+<div id="3a2c4204" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>aloha.temp.sel(depth<span class="op">=</span>[<span class="fl">0.25</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>]).plot.line(ax<span class="op">=</span>ax, x<span class="op">=</span><span class="st">"time"</span>, hue<span class="op">=</span><span class="st">"depth"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">""</span>, ylabel<span class="op">=</span><span class="st">"temperature (°C)"</span>, title<span class="op">=</span><span class="st">"Temperature at Station ALOHA, one profile per month"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-pacioos-aloha-profiles_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The surface swings about 4 °C each year, coolest in March and warmest in September. At 50 m the swing is nearly as large and peaks a month later, as the summer heat is mixed down. At 100 and 200 m the seasonal cycle is only about 1 °C. What you see there instead is irregular: eddies passing ALOHA move the thermocline up and down by tens of metres, which at 200 m changes the temperature by 2–4 °C.</p>
+</section>
+<section id="water-masses-in-the-profile" class="level2">
+<h2 class="anchored" data-anchor-id="water-masses-in-the-profile">Water masses in the profile</h2>
+<p>Below the mixed layer, salinity tells you where the water came from:</p>
+<ul>
+<li>a <strong>salinity maximum</strong> near 75–100 m: North Pacific Tropical Water, salty water formed under the evaporation-dominated subtropical gyre to the northeast, that sinks and spreads south below the surface;</li>
+<li>a <strong>salinity minimum</strong> near 500 m: North Pacific Intermediate Water, fresh water formed far to the north in the subpolar Pacific.</li>
+</ul>
+<p>In a T–S diagram each water mass is a bend in the curve.</p>
+<div id="701c967e" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> aloha.mean(<span class="st">"time"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>smax <span class="op">=</span> mean.salt.sel(depth<span class="op">=</span><span class="bu">slice</span>(<span class="dv">0</span>, <span class="dv">300</span>)).idxmax().item()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>smin <span class="op">=</span> mean.salt.sel(depth<span class="op">=</span><span class="bu">slice</span>(<span class="dv">300</span>, <span class="dv">1000</span>)).idxmin().item()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2, ax3) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>), gridspec_kw<span class="op">=</span>{<span class="st">"width_ratios"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">1.3</span>]})</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ax1.plot(mean.temp, mean.depth, <span class="st">"o-"</span>, color<span class="op">=</span><span class="st">"tab:red"</span>, ms<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ax1.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="dv">1500</span>, <span class="dv">0</span>), xlabel<span class="op">=</span><span class="st">"temperature (°C)"</span>, ylabel<span class="op">=</span><span class="st">"depth (m)"</span>, title<span class="op">=</span><span class="st">"Temperature"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ax2.plot(mean.salt, mean.depth, <span class="st">"o-"</span>, color<span class="op">=</span><span class="st">"tab:blue"</span>, ms<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>ax2.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="dv">1500</span>, <span class="dv">0</span>), xlabel<span class="op">=</span><span class="st">"salinity"</span>, title<span class="op">=</span><span class="st">"Salinity"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> z, name <span class="kw">in</span> [(smax, <span class="st">"S max"</span>), (smin, <span class="st">"S min"</span>)]:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    ax2.axhline(z, color<span class="op">=</span><span class="st">"0.5"</span>, lw<span class="op">=</span><span class="fl">0.8</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    ax2.text(<span class="fl">34.2</span>, z <span class="op">-</span> <span class="dv">15</span>, <span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>z<span class="sc">:.0f}</span><span class="ss"> m"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> aloha.depth.broadcast_like(aloha.temp)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> ax3.scatter(aloha.salt, aloha.temp, c<span class="op">=</span>d, s<span class="op">=</span><span class="dv">4</span>, cmap<span class="op">=</span><span class="st">"viridis_r"</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">1500</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>ax3.plot(mean.salt, mean.temp, <span class="st">"k-"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> z, name, xy <span class="kw">in</span> [(smax, <span class="st">"N. Pacific</span><span class="ch">\n</span><span class="st">Tropical Water"</span>, (<span class="fl">34.3</span>, <span class="dv">26</span>)),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                    (smin, <span class="st">"N. Pacific</span><span class="ch">\n</span><span class="st">Intermediate Water"</span>, (<span class="fl">34.6</span>, <span class="dv">10</span>))]:</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    ax3.annotate(name, (mean.salt.sel(depth<span class="op">=</span>z), mean.temp.sel(depth<span class="op">=</span>z)), xytext<span class="op">=</span>xy,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                 fontsize<span class="op">=</span><span class="dv">9</span>, arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-&gt;"</span>))</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>ax3.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"salinity"</span>, ylabel<span class="op">=</span><span class="st">"potential temperature (°C)"</span>, title<span class="op">=</span><span class="st">"T–S, all 144 profiles"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>fig.colorbar(sc, ax<span class="op">=</span>ax3, label<span class="op">=</span><span class="st">"depth (m)"</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-pacioos-aloha-profiles_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatter at the warm end is the seasonal and year-to-year change in the surface water; below about 300 m the 144 profiles fall in a narrow band, because deep water changes slowly.</p>
+<p>This is a data-assimilating model reanalysis, not observations. To check it, compare with the HOT program’s own ALOHA profiles.</p>
+<p><strong>More:</strong> the <a href="https://github.com/ocean-icechunks/pacioos/tree/main/stores/roms_hiig_reanalysis">store’s README</a> lists the variables and what reads cost.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ocean-icechunks\.github\.io\/2026-ioos-hackathon");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../examples/01-hycom-snow-crab.html" class="pagination-link" aria-label="1 · HYCOM: bottom temp in snow crab region">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1 · HYCOM: bottom temp in snow crab region</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../examples/03-oa-saturation-horizon.html" class="pagination-link" aria-label="3 · OA indicators: aragonite saturation horizon">
+        <span class="nav-page-text">3 · OA indicators: aragonite saturation horizon</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/02-pacioos-aloha-profiles.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

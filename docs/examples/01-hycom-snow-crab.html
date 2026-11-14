@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.34">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>HYCOM: bottom temperature in the snow crab region – Virtual Icechunk</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../examples/02-pacioos-aloha-profiles.html" rel="next">
+<link href="../examples/index.html" rel="prev">
+<link href="../images/ioos-code-sprint-logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-55e293e7e8c3c3332286285459f7de79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Virtual Icechunk</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ocean-icechunks/2026-ioos-hackathon"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">repo</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../examples/index.html">Examples</a></li><li class="breadcrumb-item"><a href="../examples/01-hycom-snow-crab.html">1 · HYCOM: bottom temp in snow crab region</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/ioos-code-sprint-logo.png" alt="IOOS Code Sprint logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">JupyterHub Skills</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/01-jupyterhub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Log in to the JupyterHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/02-jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Find your way around JupyterLab</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/03-start-your-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Start your coding agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/04-git-with-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Git and GitHub, with an agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup/05-scratch-bucket.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The scratch bucket</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/01-why-virtual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Why virtual Icechunk</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/02-agent-and-skills.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Working with an agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/03-pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · The basic pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/04-audit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Auditing your files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/05-build.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · Building a store</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/06-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · Visualizing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../examples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/01-hycom-snow-crab.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">1 · HYCOM: bottom temp in snow crab region</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/02-pacioos-aloha-profiles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · PacIOOS: seasons and water masses at ALOHA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/03-oa-saturation-horizon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · OA indicators: aragonite saturation horizon</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/04-oisst-world-sst.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · OISST: world SST since 1981</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/05-oisst-gulf-of-maine-heatwaves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · OISST: Gulf of Maine marine heatwaves</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../examples/06-gobai-oxygen-minimum-zone.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · GOBAI: the oxygen minimum zone</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#open-the-dataset" id="toc-open-the-dataset" class="nav-link active" data-scroll-target="#open-the-dataset">Open the dataset</a></li>
+  <li><a href="#map-bering-sea-bottom-temperature" id="toc-map-bering-sea-bottom-temperature" class="nav-link" data-scroll-target="#map-bering-sea-bottom-temperature">Map: Bering Sea bottom temperature</a></li>
+  <li><a href="#time-series-bottom-temperature-on-the-snow-crab-grounds" id="toc-time-series-bottom-temperature-on-the-snow-crab-grounds" class="nav-link" data-scroll-target="#time-series-bottom-temperature-on-the-snow-crab-grounds">Time series: bottom temperature on the snow crab grounds</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/01-hycom-snow-crab.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../examples/index.html">Examples</a></li><li class="breadcrumb-item"><a href="../examples/01-hycom-snow-crab.html">1 · HYCOM: bottom temp in snow crab region</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">HYCOM: bottom temperature in the snow crab region</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/01-hycom-snow-crab.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img"></a></p>
+<figcaption>Open In Colab</figcaption>
+</figure>
+</div>
+<p>A short demo of the <a href="https://github.com/ocean-icechunks/hycom/tree/main/hycom-gofs-3pt1-reanalysis">HYCOM GOFS 3.1 global reanalysis</a> (1/12°, 3-hourly, 1994–2015) as a virtual Icechunk store: open 306 TB in about a second, cut out the Bering Sea, map it, then build a time series of <strong>bottom temperature on the snow crab grounds</strong> of the eastern Bering Sea shelf.</p>
+<p>No credentials needed. Runs on Google Colab (Python 3.12).</p>
+<p><em>Adapted from <a href="https://github.com/ocean-icechunks/hycom/blob/main/hycom-gofs-3pt1-reanalysis/bering-sea-snow-crab-demo.ipynb"><code>bering-sea-snow-crab-demo.ipynb</code></a> in ocean-icechunks/hycom.</em></p>
+<div id="f45f43a4" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>q <span class="st">"icechunk&gt;=2.2"</span> <span class="st">"xarray&gt;=2026.7"</span> <span class="st">"zarr&gt;=3.4"</span> <span class="st">"dask[array]"</span> matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="open-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="open-the-dataset">Open the dataset</h2>
+<p>The store holds only metadata; every value is read by byte range from the NetCDF files in the HYCOM bucket on AWS Open Data. <code>chunks=None</code> keeps it lazy without building a huge dask graph — we select first and add dask only to what we select.</p>
+<div id="4d93143e" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> icechunk, xarray <span class="im">as</span> xr, zarr</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt, matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>zarr.config.<span class="bu">set</span>({<span class="st">"async.concurrency"</span>: <span class="dv">64</span>})</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://data.source.coop/ocean-icechunks/hycom/hycom-gofs-3pt1-reanalysis"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> icechunk.Repository.<span class="bu">open</span>(icechunk.http_storage(url))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Authorize anonymous reads from the HYCOM bucket, where the data actually live.</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> {p: icechunk.credentials.HttpAccess <span class="cf">for</span> p <span class="kw">in</span> repo.config.virtual_chunk_containers}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> repo.reopen(authorize_virtual_chunk_access<span class="op">=</span>auth)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_zarr(repo.readonly_session(tag<span class="op">=</span><span class="st">"v1"</span>).store, consolidated<span class="op">=</span><span class="va">False</span>, chunks<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
+
+:root {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
+}
+
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+body.vscode-dark {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+  line-height: 1.6;
+  padding-bottom: 4px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.xr-header {
+  border-bottom: solid 1px var(--xr-border-color);
+  margin-bottom: 4px;
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-obj-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type,
+.xr-group-box-contents > label {
+  color: var(--xr-font-color2);
+  display: block;
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item > input,
+.xr-group-box-contents > input,
+.xr-array-wrap > input {
+  display: block;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
+
+.xr-section-item > input + label,
+.xr-var-item > input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item > input:enabled + label,
+.xr-var-item > input:enabled + label,
+.xr-array-wrap > input:enabled + label,
+.xr-group-box-contents > input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item > input:focus-visible + label,
+.xr-var-item > input:focus-visible + label,
+.xr-array-wrap > input:focus-visible + label,
+.xr-group-box-contents > input:focus-visible + label {
+  outline: auto;
+}
+
+.xr-section-item > input:enabled + label:hover,
+.xr-var-item > input:enabled + label:hover,
+.xr-array-wrap > input:enabled + label:hover,
+.xr-group-box-contents > input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.xr-section-summary > em {
+  font-weight: normal;
+}
+
+.xr-span-grid {
+  grid-column-end: -1;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label > span {
+  display: inline-block;
+  padding-left: 0.6em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: "►";
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: "▼";
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details,
+.xr-group-box-contents > label {
+  padding-top: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in ~ .xr-section-details {
+  display: none;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-children {
+  display: inline-grid;
+  grid-template-columns: 100%;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 30px auto;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 26px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
+  padding-bottom: 4px;
+}
+
+.xr-group-box-contents > label::before {
+  content: "📂";
+  padding-right: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label::before {
+  content: "📁";
+}
+
+.xr-group-box-contents > input:checked + label {
+  padding-bottom: 0px;
+}
+
+.xr-group-box-contents > input:checked ~ .xr-sections {
+  display: none;
+}
+
+.xr-group-box-contents > input + label > span {
+  display: none;
+}
+
+.xr-group-box-ellipsis {
+  font-size: 1.4em;
+  font-weight: 900;
+  color: var(--xr-font-color2);
+  letter-spacing: 0.15em;
+  cursor: default;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: "(";
+}
+
+.xr-dim-list:after {
+  content: ")";
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ",";
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt; Size: 1PB
+Dimensions:            (time: 64272, depth: 40, lat: 3251, lon: 4500)
+Coordinates:
+  * time               (time) datetime64[ns] 514kB 1994-01-01T12:00:00 ... 20...
+    experiment         (time) int16 129kB ...
+    tau                (time) float64 514kB ...
+  * depth              (depth) float64 320B 0.0 2.0 4.0 ... 3e+03 4e+03 5e+03
+  * lat                (lat) float64 26kB -80.0 -79.96 -79.92 ... 89.96 90.0
+  * lon                (lon) float64 36kB -180.0 -179.9 -179.8 ... 179.8 179.9
+Data variables:
+    salinity           (time, depth, lat, lon) float64 301TB ...
+    surf_el            (time, lat, lon) float64 8TB ...
+    water_temp_bottom  (time, lat, lon) float64 8TB ...
+    water_temp         (time, depth, lat, lon) float64 301TB ...
+    water_v            (time, depth, lat, lon) float64 301TB ...
+    salinity_bottom    (time, lat, lon) float64 8TB ...
+    water_u_bottom     (time, lat, lon) float64 8TB ...
+    water_u            (time, depth, lat, lon) float64 301TB ...
+    water_v_bottom     (time, lat, lon) float64 8TB ...
+Attributes: (12/15)
+    classification_level:      UNCLASSIFIED
+    distribution_statement:    Approved for public release. Distribution unli...
+    downgrade_date:            not applicable
+    classification_authority:  not applicable
+    institution:               Naval Oceanographic Office
+    source:                    HYCOM archive file
+    ...                        ...
+    title:                     HYCOM GOFS 3.1 Global Ocean Reanalysis, GLBv0....
+    experiment_id:             GLBv0.08 expt_53.X
+    source_Conventions:        CF-1.6 NAVO_netcdf_v1.1
+    references:                https://www.hycom.org/dataserver/gofs-3pt1/rea...
+    source_data:               s3://hycom-gofs-3pt1-reanalysis (us-west-2), N...
+    comment:                   Virtual Icechunk store: Zarr metadata and byte...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-4a3cb747-799b-4063-8c4d-6738b0a95efe" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-4a3cb747-799b-4063-8c4d-6738b0a95efe" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 64272</li><li><span class="xr-has-index">depth</span>: 40</li><li><span class="xr-has-index">lat</span>: 3251</li><li><span class="xr-has-index">lon</span>: 4500</li></ul></div></li><li class="xr-section-item"><input id="section-b4a04f49-8022-47ff-9bcb-1b4a3056ff4c" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-b4a04f49-8022-47ff-9bcb-1b4a3056ff4c" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">1994-01-01T12:00:00 ... 2015-12-...</div><input id="attrs-ffbcc91b-0b2e-4a28-973c-b935d0a5b2e1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ffbcc91b-0b2e-4a28-973c-b935d0a5b2e1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2564dfca-f1a9-42f7-b0f8-f28695a79ec9" class="xr-var-data-in" type="checkbox"><label for="data-2564dfca-f1a9-42f7-b0f8-f28695a79ec9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Valid Time</dd><dt><span>axis :</span></dt><dd>T</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>units_metadata :</span></dt><dd>leap_seconds: unknown</dd></dl></div><div class="xr-var-data"><pre>array(['1994-01-01T12:00:00.000000000', '1994-01-01T15:00:00.000000000',
+       '1994-01-01T18:00:00.000000000', ..., '2015-12-31T03:00:00.000000000',
+       '2015-12-31T06:00:00.000000000', '2015-12-31T09:00:00.000000000'],
+      shape=(64272,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>experiment</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">int16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-3e9ebd4c-33f7-4ef2-a152-599dc87dc008" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3e9ebd4c-33f7-4ef2-a152-599dc87dc008" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-76f10d1b-2439-4a7a-9a89-3a797cd9f3e6" class="xr-var-data-in" type="checkbox"><label for="data-76f10d1b-2439-4a7a-9a89-3a797cd9f3e6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>HYCOM experiment the source file came from (53.X written 53X, as in the filenames)</dd><dt><span>flag_values :</span></dt><dd>[0, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539]</dd><dt><span>flag_meanings :</span></dt><dd>no_source_file expt_53.0 expt_53.1 expt_53.2 expt_53.3 expt_53.4 expt_53.5 expt_53.6 expt_53.7 expt_53.8 expt_53.9</dd></dl></div><div class="xr-var-data"><pre>[64272 values with dtype=int16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>tau</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-5945246e-f585-42ec-a516-4fa1dfb57d52" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5945246e-f585-42ec-a516-4fa1dfb57d52" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d7000b7b-1148-489a-90fb-727969ade230" class="xr-var-data-in" type="checkbox"><label for="data-d7000b7b-1148-489a-90fb-727969ade230" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Tau: hours since the analysis that this time step was run from</dd><dt><span>standard_name :</span></dt><dd>forecast_period</dd><dt><span>units :</span></dt><dd>hours</dd><dt><span>NAVO_code :</span></dt><dd>56</dd><dt><span>comment :</span></dt><dd>0 is the analysis, 3-21 are forecast hours. NaN where the archive has no file for this time step, so `tau.notnull()` selects the steps that exist.</dd></dl></div><div class="xr-var-data"><pre>[64272 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">depth</span></div><div class="xr-var-dims">(depth)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 2.0 4.0 ... 3e+03 4e+03 5e+03</div><input id="attrs-465a1fda-cb34-4701-adb5-0e71df730da9" class="xr-var-attrs-in" type="checkbox"><label for="attrs-465a1fda-cb34-4701-adb5-0e71df730da9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ce428e57-5820-4cc5-a666-4ebd77dedcd0" class="xr-var-data-in" type="checkbox"><label for="data-ce428e57-5820-4cc5-a666-4ebd77dedcd0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Depth</dd><dt><span>standard_name :</span></dt><dd>depth</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>axis :</span></dt><dd>Z</dd><dt><span>NAVO_code :</span></dt><dd>5</dd></dl></div><div class="xr-var-data"><pre>array([0.00e+00, 2.00e+00, 4.00e+00, 6.00e+00, 8.00e+00, 1.00e+01, 1.20e+01,
+       1.50e+01, 2.00e+01, 2.50e+01, 3.00e+01, 3.50e+01, 4.00e+01, 4.50e+01,
+       5.00e+01, 6.00e+01, 7.00e+01, 8.00e+01, 9.00e+01, 1.00e+02, 1.25e+02,
+       1.50e+02, 2.00e+02, 2.50e+02, 3.00e+02, 3.50e+02, 4.00e+02, 5.00e+02,
+       6.00e+02, 7.00e+02, 8.00e+02, 9.00e+02, 1.00e+03, 1.25e+03, 1.50e+03,
+       2.00e+03, 2.50e+03, 3.00e+03, 4.00e+03, 5.00e+03])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-80.0 -79.96 -79.92 ... 89.96 90.0</div><input id="attrs-e0b218f5-d1b9-4f41-85a6-cb511a5768c8" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e0b218f5-d1b9-4f41-85a6-cb511a5768c8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-54366c24-f6d3-41d6-a45d-45c9c0a216ef" class="xr-var-data-in" type="checkbox"><label for="data-54366c24-f6d3-41d6-a45d-45c9c0a216ef" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>NAVO_code :</span></dt><dd>1</dd></dl></div><div class="xr-var-data"><pre>array([-80.      , -79.959999, -79.919998, ...,  89.919998,  89.959999,
+        90.      ], shape=(3251,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-180.0 -179.9 ... 179.8 179.9</div><input id="attrs-a1b58cae-6b5f-4d34-8960-e3b433d1aba4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a1b58cae-6b5f-4d34-8960-e3b433d1aba4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-572eb0e1-ae36-49d6-9ca1-45c72d6dfb20" class="xr-var-data-in" type="checkbox"><label for="data-572eb0e1-ae36-49d6-9ca1-45c72d6dfb20" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>point_spacing :</span></dt><dd>even</dd><dt><span>modulo :</span></dt><dd>360 degrees</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>NAVO_code :</span></dt><dd>2</dd></dl></div><div class="xr-var-data"><pre>array([-180.      , -179.919983, -179.839966, ...,  179.76001 ,  179.839966,
+        179.920044], shape=(4500,))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-0a969b63-d240-403d-a3f5-46868999bec4" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-0a969b63-d240-403d-a3f5-46868999bec4" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(9)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>salinity</span></div><div class="xr-var-dims">(time, depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-61223727-b071-44c3-934a-f1a9e5f32fcf" class="xr-var-attrs-in" type="checkbox"><label for="attrs-61223727-b071-44c3-934a-f1a9e5f32fcf" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a62af656-9e2b-4455-bd7b-2b5f375e60c7" class="xr-var-data-in" type="checkbox"><label for="data-a62af656-9e2b-4455-bd7b-2b5f375e60c7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Sea Water Salinity</dd><dt><span>standard_name :</span></dt><dd>sea_water_salinity</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>NAVO_code :</span></dt><dd>16</dd><dt><span>source_units :</span></dt><dd>psu</dd></dl></div><div class="xr-var-data"><pre>[37610688960000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>surf_el</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-af8475ce-a556-4d82-97fc-33353f20fa95" class="xr-var-attrs-in" type="checkbox"><label for="attrs-af8475ce-a556-4d82-97fc-33353f20fa95" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f3f01149-e01f-42f1-8e94-7bd358f8e6a9" class="xr-var-data-in" type="checkbox"><label for="data-f3f01149-e01f-42f1-8e94-7bd358f8e6a9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Water Surface Elevation</dd><dt><span>standard_name :</span></dt><dd>sea_surface_height_above_geoid</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>NAVO_code :</span></dt><dd>32</dd></dl></div><div class="xr-var-data"><pre>[940267224000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>water_temp_bottom</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1ca7a2f5-7b99-4bf0-bfd2-4cdea4cd8245" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1ca7a2f5-7b99-4bf0-bfd2-4cdea4cd8245" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c5ed0d98-a506-4357-8eb1-82344f4b8357" class="xr-var-data-in" type="checkbox"><label for="data-c5ed0d98-a506-4357-8eb1-82344f4b8357" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Water Temperature</dd><dt><span>standard_name :</span></dt><dd>sea_water_temperature_at_sea_floor</dd><dt><span>units :</span></dt><dd>degC</dd><dt><span>NAVO_code :</span></dt><dd>15</dd><dt><span>comment :</span></dt><dd>in-situ temperature</dd><dt><span>units_metadata :</span></dt><dd>temperature: on_scale</dd></dl></div><div class="xr-var-data"><pre>[940267224000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>water_temp</span></div><div class="xr-var-dims">(time, depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-509b9778-3a2c-49d4-8b7e-2fd2b734e177" class="xr-var-attrs-in" type="checkbox"><label for="attrs-509b9778-3a2c-49d4-8b7e-2fd2b734e177" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a0781667-49fb-4331-be03-de70e8ed119c" class="xr-var-data-in" type="checkbox"><label for="data-a0781667-49fb-4331-be03-de70e8ed119c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Water Temperature</dd><dt><span>standard_name :</span></dt><dd>sea_water_temperature</dd><dt><span>units :</span></dt><dd>degC</dd><dt><span>NAVO_code :</span></dt><dd>15</dd><dt><span>comment :</span></dt><dd>in-situ temperature</dd><dt><span>units_metadata :</span></dt><dd>temperature: on_scale</dd></dl></div><div class="xr-var-data"><pre>[37610688960000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>water_v</span></div><div class="xr-var-dims">(time, depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-0b979591-5273-4d5a-bdf8-6ade48f63e4e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0b979591-5273-4d5a-bdf8-6ade48f63e4e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bfda0c52-7c7f-485e-982b-bbba7ccfd85b" class="xr-var-data-in" type="checkbox"><label for="data-bfda0c52-7c7f-485e-982b-bbba7ccfd85b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Northward Water Velocity</dd><dt><span>standard_name :</span></dt><dd>northward_sea_water_velocity</dd><dt><span>units :</span></dt><dd>m/s</dd><dt><span>NAVO_code :</span></dt><dd>18</dd></dl></div><div class="xr-var-data"><pre>[37610688960000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>salinity_bottom</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-dbdd4a78-2a88-4ea1-8c33-0a2007f279cb" class="xr-var-attrs-in" type="checkbox"><label for="attrs-dbdd4a78-2a88-4ea1-8c33-0a2007f279cb" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3cf3ef22-2ae4-4d7a-a169-e300f1dd9d8c" class="xr-var-data-in" type="checkbox"><label for="data-3cf3ef22-2ae4-4d7a-a169-e300f1dd9d8c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Sea Water Salinity at Sea Floor</dd><dt><span>standard_name :</span></dt><dd>sea_water_salinity_at_sea_floor</dd><dt><span>units :</span></dt><dd>1e-3</dd><dt><span>NAVO_code :</span></dt><dd>16</dd><dt><span>source_units :</span></dt><dd>psu</dd></dl></div><div class="xr-var-data"><pre>[940267224000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>water_u_bottom</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1d338e7e-0282-4f2e-a0db-8e319173a714" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1d338e7e-0282-4f2e-a0db-8e319173a714" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d68213f4-ec41-4913-bb3e-5761ccf146cb" class="xr-var-data-in" type="checkbox"><label for="data-d68213f4-ec41-4913-bb3e-5761ccf146cb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Eastward Water Velocity</dd><dt><span>standard_name :</span></dt><dd>eastward_sea_water_velocity_at_sea_floor</dd><dt><span>units :</span></dt><dd>m/s</dd><dt><span>NAVO_code :</span></dt><dd>17</dd></dl></div><div class="xr-var-data"><pre>[940267224000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>water_u</span></div><div class="xr-var-dims">(time, depth, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-ffb56662-51f5-41c0-b253-920feddc8855" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ffb56662-51f5-41c0-b253-920feddc8855" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5c7671ae-a9dc-4efc-8be0-38dd78c555bf" class="xr-var-data-in" type="checkbox"><label for="data-5c7671ae-a9dc-4efc-8be0-38dd78c555bf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Eastward Water Velocity</dd><dt><span>standard_name :</span></dt><dd>eastward_sea_water_velocity</dd><dt><span>units :</span></dt><dd>m/s</dd><dt><span>NAVO_code :</span></dt><dd>17</dd></dl></div><div class="xr-var-data"><pre>[37610688960000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>water_v_bottom</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1eb06994-8760-4caa-bd26-426624328920" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1eb06994-8760-4caa-bd26-426624328920" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-218dbc67-614e-4592-a30f-601d99b65a62" class="xr-var-data-in" type="checkbox"><label for="data-218dbc67-614e-4592-a30f-601d99b65a62" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Northward Water Velocity</dd><dt><span>standard_name :</span></dt><dd>northward_sea_water_velocity_at_sea_floor</dd><dt><span>units :</span></dt><dd>m/s</dd><dt><span>NAVO_code :</span></dt><dd>18</dd></dl></div><div class="xr-var-data"><pre>[940267224000 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-27cfd372-6978-48e3-aac5-dcfc65095718" class="xr-section-summary-in" type="checkbox"><label for="section-27cfd372-6978-48e3-aac5-dcfc65095718" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(15)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>classification_level :</span></dt><dd>UNCLASSIFIED</dd><dt><span>distribution_statement :</span></dt><dd>Approved for public release. Distribution unlimited.</dd><dt><span>downgrade_date :</span></dt><dd>not applicable</dd><dt><span>classification_authority :</span></dt><dd>not applicable</dd><dt><span>institution :</span></dt><dd>Naval Oceanographic Office</dd><dt><span>source :</span></dt><dd>HYCOM archive file</dd><dt><span>history :</span></dt><dd>archv2ncdf3z</dd><dt><span>field_type :</span></dt><dd>instantaneous</dd><dt><span>Conventions :</span></dt><dd>CF-1.11</dd><dt><span>title :</span></dt><dd>HYCOM GOFS 3.1 Global Ocean Reanalysis, GLBv0.08 expt_53.X, 3-hourly, 1994–2015</dd><dt><span>experiment_id :</span></dt><dd>GLBv0.08 expt_53.X</dd><dt><span>source_Conventions :</span></dt><dd>CF-1.6 NAVO_netcdf_v1.1</dd><dt><span>references :</span></dt><dd>https://www.hycom.org/dataserver/gofs-3pt1/reanalysis https://registry.opendata.aws/hycom-gofs-3pt1-reanalysis/</dd><dt><span>source_data :</span></dt><dd>s3://hycom-gofs-3pt1-reanalysis (us-west-2), NetCDF 64-bit offset, one file per time step</dd><dt><span>comment :</span></dt><dd>Virtual Icechunk store: Zarr metadata and byte-range references only. The arrays stay in the source NetCDF files and are read from there. Time steps with no source file are present on the time axis and read as missing; `tau` is NaN and `experiment` is 0 at those steps.</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+<section id="map-bering-sea-bottom-temperature" class="level2">
+<h2 class="anchored" data-anchor-id="map-bering-sea-bottom-temperature">Map: Bering Sea bottom temperature</h2>
+<p><code>water_temp_bottom</code> is the temperature at the sea floor — the water crabs actually sit in. The Bering Sea straddles the dateline and the store runs −180…180, so take the two sides separately and put them together on a 0–360 longitude axis. (Each side is <code>.load()</code>ed before joining: <code>xr.concat</code> on the lazy store would otherwise try to read everything.)</p>
+<p>On the map, the blue tongue on the shelf inside the black 2 °C line is the <strong>cold pool</strong>. The deep basin to the southwest is also just under 2 °C, so the same line traces the shelf break as well.</p>
+<div id="e451e1a3" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>when <span class="op">=</span> <span class="st">"2010-07-15T12"</span>   <span class="co"># mid-July, when NOAA's summer bottom-trawl survey is at sea</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> ds.water_temp_bottom.sel(time<span class="op">=</span>when, lat<span class="op">=</span><span class="bu">slice</span>(<span class="dv">50</span>, <span class="dv">67</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>bering <span class="op">=</span> xr.concat([da.sel(lon<span class="op">=</span><span class="bu">slice</span>(<span class="dv">160</span>, <span class="dv">180</span>)).load(),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                    da.sel(lon<span class="op">=</span><span class="bu">slice</span>(<span class="op">-</span><span class="dv">180</span>, <span class="op">-</span><span class="dv">155</span>)).load()], dim<span class="op">=</span><span class="st">"lon"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>bering <span class="op">=</span> bering.assign_coords(lon<span class="op">=</span>bering.lon <span class="op">%</span> <span class="dv">360</span>)   <span class="co"># 160°E … 205° (= 155°W)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The snow crab box used below: eastern Bering Sea middle/outer shelf.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>box <span class="op">=</span> <span class="bu">dict</span>(lat<span class="op">=</span>(<span class="dv">57</span>, <span class="dv">61</span>), lon<span class="op">=</span>(<span class="op">-</span><span class="dv">173</span>, <span class="op">-</span><span class="dv">165</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>bering.plot(ax<span class="op">=</span>ax, cmap<span class="op">=</span><span class="st">"RdYlBu_r"</span>, vmin<span class="op">=-</span><span class="dv">2</span>, vmax<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            cbar_kwargs<span class="op">=</span>{<span class="st">"label"</span>: <span class="st">"bottom temperature (°C)"</span>})</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>bering.plot.contour(ax<span class="op">=</span>ax, levels<span class="op">=</span>[<span class="dv">2</span>], colors<span class="op">=</span><span class="st">"k"</span>, linewidths<span class="op">=</span><span class="fl">0.8</span>)   <span class="co"># the 2 °C "cold pool" edge</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>ax.add_patch(mpatches.Rectangle((box[<span class="st">"lon"</span>][<span class="dv">0</span>] <span class="op">%</span> <span class="dv">360</span>, box[<span class="st">"lat"</span>][<span class="dv">0</span>]),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                                box[<span class="st">"lon"</span>][<span class="dv">1</span>] <span class="op">-</span> box[<span class="st">"lon"</span>][<span class="dv">0</span>], box[<span class="st">"lat"</span>][<span class="dv">1</span>] <span class="op">-</span> box[<span class="st">"lat"</span>][<span class="dv">0</span>],</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                                fill<span class="op">=</span><span class="va">False</span>, ec<span class="op">=</span><span class="st">"magenta"</span>, lw<span class="op">=</span><span class="dv">2</span>))</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="ss">f"HYCOM bottom temperature, </span><span class="sc">{</span>when[:<span class="dv">10</span>]<span class="sc">}</span><span class="ss"> (black: 2 °C; magenta: snow crab box)"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>       xlabel<span class="op">=</span><span class="st">"longitude (°E, 0–360)"</span>, ylabel<span class="op">=</span><span class="st">"latitude"</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>ax.set_facecolor(<span class="st">"0.8"</span>)   <span class="co"># land is NaN</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-hycom-snow-crab_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="time-series-bottom-temperature-on-the-snow-crab-grounds" class="level2">
+<h2 class="anchored" data-anchor-id="time-series-bottom-temperature-on-the-snow-crab-grounds">Time series: bottom temperature on the snow crab grounds</h2>
+<p>Snow crab live on the eastern Bering Sea shelf in cold bottom water; the juveniles depend on the <strong>cold pool</strong>, water below 2 °C left on the bottom after winter sea ice. Here is one mid-July snapshot per year, 1994–2015, over the box above: the box-mean bottom temperature and the fraction of the box inside the cold pool.</p>
+<p>Each snapshot is the 12Z analysis nearest 15 July (a few analyses are missing from the archive, so the nearest present one is used). Note that <strong>any read inside a map fetches the whole 29 MB global level</strong>, so this is 22 reads, about 0.6 GB — seconds in AWS us-west-2, somewhat longer elsewhere. A long daily or 3-hourly series would be thousands of reads.</p>
+<div id="ff6d990d" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask, numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>analyses <span class="op">=</span> ds.time[(ds.tau <span class="op">==</span> <span class="dv">0</span>).values]          <span class="co"># 12Z analyses that exist in the archive</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> [analyses.sel(time<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">-07-15T12"</span>, method<span class="op">=</span><span class="st">"nearest"</span>).values <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1994</span>, <span class="dv">2016</span>)]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>crab <span class="op">=</span> ds.water_temp_bottom.sel(time<span class="op">=</span>times, lat<span class="op">=</span><span class="bu">slice</span>(<span class="op">*</span>box[<span class="st">"lat"</span>]), lon<span class="op">=</span><span class="bu">slice</span>(<span class="op">*</span>box[<span class="st">"lon"</span>]))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>crab <span class="op">=</span> crab.chunk({<span class="st">"time"</span>: <span class="dv">1</span>})                    <span class="co"># stream one time step at a time, in parallel</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> np.cos(np.deg2rad(crab.lat))            <span class="co"># grid cells shrink toward the pole</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ocean <span class="op">=</span> crab.notnull()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>mean_temp <span class="op">=</span> crab.weighted(weights).mean([<span class="st">"lat"</span>, <span class="st">"lon"</span>])</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>cold_frac <span class="op">=</span> (crab <span class="op">&lt;</span> <span class="dv">2</span>).where(ocean).weighted(weights).mean([<span class="st">"lat"</span>, <span class="st">"lon"</span>])</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>mean_temp, cold_frac <span class="op">=</span> dask.compute(mean_temp, cold_frac)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>mean_temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
+
+:root {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
+}
+
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+body.vscode-dark {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+  line-height: 1.6;
+  padding-bottom: 4px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.xr-header {
+  border-bottom: solid 1px var(--xr-border-color);
+  margin-bottom: 4px;
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-obj-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type,
+.xr-group-box-contents > label {
+  color: var(--xr-font-color2);
+  display: block;
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item > input,
+.xr-group-box-contents > input,
+.xr-array-wrap > input {
+  display: block;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
+
+.xr-section-item > input + label,
+.xr-var-item > input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item > input:enabled + label,
+.xr-var-item > input:enabled + label,
+.xr-array-wrap > input:enabled + label,
+.xr-group-box-contents > input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item > input:focus-visible + label,
+.xr-var-item > input:focus-visible + label,
+.xr-array-wrap > input:focus-visible + label,
+.xr-group-box-contents > input:focus-visible + label {
+  outline: auto;
+}
+
+.xr-section-item > input:enabled + label:hover,
+.xr-var-item > input:enabled + label:hover,
+.xr-array-wrap > input:enabled + label:hover,
+.xr-group-box-contents > input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.xr-section-summary > em {
+  font-weight: normal;
+}
+
+.xr-span-grid {
+  grid-column-end: -1;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label > span {
+  display: inline-block;
+  padding-left: 0.6em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: "►";
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: "▼";
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details,
+.xr-group-box-contents > label {
+  padding-top: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in ~ .xr-section-details {
+  display: none;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-children {
+  display: inline-grid;
+  grid-template-columns: 100%;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 30px auto;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 26px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
+  padding-bottom: 4px;
+}
+
+.xr-group-box-contents > label::before {
+  content: "📂";
+  padding-right: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label::before {
+  content: "📁";
+}
+
+.xr-group-box-contents > input:checked + label {
+  padding-bottom: 0px;
+}
+
+.xr-group-box-contents > input:checked ~ .xr-sections {
+  display: none;
+}
+
+.xr-group-box-contents > input + label > span {
+  display: none;
+}
+
+.xr-group-box-ellipsis {
+  font-size: 1.4em;
+  font-weight: 900;
+  color: var(--xr-font-color2);
+  letter-spacing: 0.15em;
+  cursor: default;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: "(";
+}
+
+.xr-dim-list:after {
+  content: ")";
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ",";
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'water_temp_bottom' (time: 22)&gt; Size: 176B
+array([2.51213641, 2.01436553, 3.6235869 , 2.68578106, 3.38307284,
+       1.0767102 , 2.71902263, 2.45100718, 3.46485532, 4.28402676,
+       3.23857526, 4.03764555, 2.87527712, 1.61261083, 2.08411859,
+       2.96470531, 2.20018629, 2.74792432, 2.13244323, 3.58775514,
+       3.33446937, 4.28218323])
+Coordinates:
+  * time        (time) datetime64[ns] 176B 1994-07-15T12:00:00 ... 2015-07-16...
+    experiment  (time) int16 44B 530 530 530 530 530 531 ... 537 537 538 538 539
+    tau         (time) float64 176B 0.0 0.0 0.0 0.0 0.0 ... 0.0 0.0 0.0 0.0 0.0
+Attributes:
+    long_name:       Water Temperature
+    standard_name:   sea_water_temperature_at_sea_floor
+    units:           degC
+    NAVO_code:       15
+    comment:         in-situ temperature
+    units_metadata:  temperature: on_scale</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name">'water_temp_bottom'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 22</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-2c985d54-898b-48d7-99f9-1504bc84dc13" class="xr-array-in" type="checkbox" checked=""><label for="section-2c985d54-898b-48d7-99f9-1504bc84dc13" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>2.512 2.014 3.624 2.686 3.383 1.077 ... 2.748 2.132 3.588 3.334 4.282</span></div><div class="xr-array-data"><pre>array([2.51213641, 2.01436553, 3.6235869 , 2.68578106, 3.38307284,
+       1.0767102 , 2.71902263, 2.45100718, 3.46485532, 4.28402676,
+       3.23857526, 4.03764555, 2.87527712, 1.61261083, 2.08411859,
+       2.96470531, 2.20018629, 2.74792432, 2.13244323, 3.58775514,
+       3.33446937, 4.28218323])</pre></div></div></li><li class="xr-section-item"><input id="section-d9cbf94a-8a0c-4e77-84bc-6b418739272d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d9cbf94a-8a0c-4e77-84bc-6b418739272d" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">1994-07-15T12:00:00 ... 2015-07-...</div><input id="attrs-916d70af-7d3a-4837-89d6-83c548528e6c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-916d70af-7d3a-4837-89d6-83c548528e6c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-924c53c4-1974-41b4-90b2-af281657120d" class="xr-var-data-in" type="checkbox"><label for="data-924c53c4-1974-41b4-90b2-af281657120d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Valid Time</dd><dt><span>axis :</span></dt><dd>T</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>units_metadata :</span></dt><dd>leap_seconds: unknown</dd></dl></div><div class="xr-var-data"><pre>array(['1994-07-15T12:00:00.000000000', '1995-07-15T12:00:00.000000000',
+       '1996-07-15T12:00:00.000000000', '1997-07-15T12:00:00.000000000',
+       '1998-07-15T12:00:00.000000000', '1999-07-15T12:00:00.000000000',
+       '2000-07-15T12:00:00.000000000', '2001-07-15T12:00:00.000000000',
+       '2002-07-15T12:00:00.000000000', '2003-07-15T12:00:00.000000000',
+       '2004-07-15T12:00:00.000000000', '2005-07-16T12:00:00.000000000',
+       '2006-07-15T12:00:00.000000000', '2007-07-15T12:00:00.000000000',
+       '2008-07-15T12:00:00.000000000', '2009-07-15T12:00:00.000000000',
+       '2010-07-15T12:00:00.000000000', '2011-07-15T12:00:00.000000000',
+       '2012-07-15T12:00:00.000000000', '2013-07-15T12:00:00.000000000',
+       '2014-07-15T12:00:00.000000000', '2015-07-16T12:00:00.000000000'],
+      dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>experiment</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">int16</div><div class="xr-var-preview xr-preview">530 530 530 530 ... 537 538 538 539</div><input id="attrs-ee64fd81-77b9-478e-853d-78cb613a59af" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ee64fd81-77b9-478e-853d-78cb613a59af" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-73394722-a67a-43b5-8a7b-d8b070b59ecc" class="xr-var-data-in" type="checkbox"><label for="data-73394722-a67a-43b5-8a7b-d8b070b59ecc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>HYCOM experiment the source file came from (53.X written 53X, as in the filenames)</dd><dt><span>flag_values :</span></dt><dd>[0, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539]</dd><dt><span>flag_meanings :</span></dt><dd>no_source_file expt_53.0 expt_53.1 expt_53.2 expt_53.3 expt_53.4 expt_53.5 expt_53.6 expt_53.7 expt_53.8 expt_53.9</dd></dl></div><div class="xr-var-data"><pre>array([530, 530, 530, 530, 530, 531, 531, 532, 532, 533, 533, 534, 534,
+       535, 535, 536, 536, 537, 537, 538, 538, 539], dtype=int16)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>tau</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 0.0 0.0 0.0 ... 0.0 0.0 0.0 0.0</div><input id="attrs-a23d2c23-d7e3-441d-a1ab-ea5044c807aa" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a23d2c23-d7e3-441d-a1ab-ea5044c807aa" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-79bcb865-943b-4873-b29f-1362ab60d74d" class="xr-var-data-in" type="checkbox"><label for="data-79bcb865-943b-4873-b29f-1362ab60d74d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Tau: hours since the analysis that this time step was run from</dd><dt><span>standard_name :</span></dt><dd>forecast_period</dd><dt><span>units :</span></dt><dd>hours</dd><dt><span>NAVO_code :</span></dt><dd>56</dd><dt><span>comment :</span></dt><dd>0 is the analysis, 3-21 are forecast hours. NaN where the archive has no file for this time step, so `tau.notnull()` selects the steps that exist.</dd></dl></div><div class="xr-var-data"><pre>array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.])</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-d6ea7fe6-0d5d-4f7f-8a5d-fba8e208fe26" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d6ea7fe6-0d5d-4f7f-8a5d-fba8e208fe26" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Water Temperature</dd><dt><span>standard_name :</span></dt><dd>sea_water_temperature_at_sea_floor</dd><dt><span>units :</span></dt><dd>degC</dd><dt><span>NAVO_code :</span></dt><dd>15</dd><dt><span>comment :</span></dt><dd>in-situ temperature</dd><dt><span>units_metadata :</span></dt><dd>temperature: on_scale</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+<div id="9091e77f" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> mean_temp.time.dt.year</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ax1.plot(years, mean_temp, <span class="st">"o-"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ax1.axhline(<span class="dv">2</span>, color<span class="op">=</span><span class="st">"k"</span>, lw<span class="op">=</span><span class="fl">0.8</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ax1.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"mean bottom temp (°C)"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="ss">f"Mid-July bottom temperature, </span><span class="sc">{</span>box[<span class="st">'lat'</span>][<span class="dv">0</span>]<span class="sc">}</span><span class="ss">–</span><span class="sc">{</span>box[<span class="st">'lat'</span>][<span class="dv">1</span>]<span class="sc">}</span><span class="ss">°N, "</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"</span><span class="sc">{</span><span class="op">-</span>box[<span class="st">'lon'</span>][<span class="dv">1</span>]<span class="sc">}</span><span class="ss">–</span><span class="sc">{</span><span class="op">-</span>box[<span class="st">'lon'</span>][<span class="dv">0</span>]<span class="sc">}</span><span class="ss">°W"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ax2.bar(years, <span class="dv">100</span> <span class="op">*</span> cold_frac, color<span class="op">=</span><span class="st">"tab:blue"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>ax2.<span class="bu">set</span>(ylabel<span class="op">=</span><span class="st">"</span><span class="sc">% o</span><span class="st">f box below 2 °C"</span>, xlabel<span class="op">=</span><span class="st">"year"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-hycom-snow-crab_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Warm years (2001–2005, 2014–2015) shrink the cold pool on the crab grounds; cold years (1999, 2007–2012) spread it across most of the box. This broadly matches the warm and cold stanzas seen in NOAA’s summer survey bottom temperatures. HYCOM is a model reanalysis: it is a physically consistent estimate constrained by observations, not a measurement at each point.</p>
+<p><strong>More:</strong> the <a href="https://github.com/ocean-icechunks/hycom/tree/main/hycom-gofs-3pt1-reanalysis">dataset README</a> covers the full variable list, missing time steps, and what reads cost.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ocean-icechunks\.github\.io\/2026-ioos-hackathon");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../examples/index.html" class="pagination-link" aria-label="Examples">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Examples</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../examples/02-pacioos-aloha-profiles.html" class="pagination-link" aria-label="2 · PacIOOS: seasons and water masses at ALOHA">
+        <span class="nav-page-text">2 · PacIOOS: seasons and water masses at ALOHA</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/01-hycom-snow-crab.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

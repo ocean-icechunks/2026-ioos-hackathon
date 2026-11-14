@@ -22,6 +22,47 @@ does not undo something deliberate. Decisions are Eli Holmes's, from
   deck in an HTML chapter page with an iframe was offered and declined
   (2026-11-14); instead every deck's footer has a **⌂ Home** link, shown on the
   title slide too (`slides/slides.css` overrides the theme hiding it there).
+- **Sidebar sections (revision 3, 2026-11-14):** JupyterHub Skills, Lectures
+  (the six decks), Examples, then Resources. Examples are notebooks in
+  `examples/` that render as ordinary HTML pages beside the sidebar, not as
+  decks. Quarto does not execute `.ipynb` files, so each example is run once in
+  a clean venv and committed with its outputs (the `%pip` cell's output is
+  cleared, because it prints the venv path). Example 1 is a copy of
+  `ocean-icechunks/hycom`'s `bering-sea-snow-crab-demo.ipynb` with an
+  "adapted from" link; the copy here is the one to edit for the site.
+  Example 2 (PacIOOS ROMS reanalysis at Station ALOHA: how deep the seasons
+  reach, and water masses in T–S) was chosen by Eli from five ideas as
+  "textbook material". A mixed-layer-depth calculation was dropped as too much
+  code; a plain plot of temperature at four depths replaced it.
+  Example 3 (NCEI OA indicators: aragonite saturation horizon map, as a
+  textbook acidification example) was chosen by Eli after being told the store
+  has no time axis and is only 82 MB, so its selling point is one usable grid
+  (the source files' coordinates are placeholder zeros), not saved downloads.
+  Eli wanted a time-heavy example too, which led to examples 4 and 5.
+- **Examples 4 and 5 read OISST's `daily/` group on purpose** (Eli: "doing
+  something fast with 16,000 daily files is the real wow example"), not the
+  cheaper `monthly/` group. Each daily chunk is NOAA's whole global map, so a
+  point, a box and the globe cost the same reads. Example 4 reads every 7th day
+  (`step = 7`, ~40 s; `step = 1` is ~5 min), at Eli's request. Example 5 must
+  read every day (heatwaves are 5 consecutive days) and takes ~2.5–3 min; it
+  reads a year at a time with retries, because two of four long runs died on
+  one dropped S3 connection ("connection closed before message completed").
+  The OISST container is S3, so it needs
+  `containers_credentials({...: s3_anonymous_credentials()})`, not `HttpAccess`.
+- **`examples/index.qmd` is the Examples section's landing page** (the sidebar
+  section has `href:`). Eli asked for: what the examples show, questions to
+  try, store URLs, and a sample agent prompt. The prompt asks the agent to say
+  what it will read before reading and to explain the chunking; its Cape Cod
+  question has a cheap path (`monthly/sst_max` for the year) and an expensive
+  one (every daily file), on purpose.
+- **Example 6 (GOBAI HR oxygen minimum zone)** measures the northern edge along
+  130 °W, not 120 °W: at 120 °W the < 60 µmol/kg water reaches the coast
+  (32.9 °N) and the "edge" just tracked land. GOBAI HR is preliminary, so the
+  notebook presents its expansion as something to check, not a result.
+  It reads one 02:00 HST profile on the 15th of each month, 2009–2020,
+  because each chunk is one depth at one time step and long series are costly.
+  The rendered figures sit in `docs/examples/*_files/`, which `.gitignore`
+  un-ignores; before that exception, Example 1's figures were not committed.
 - **Mermaid on slides uses `htmlLabels: false` and `fig-width: 11`.** HTML
   labels were clipped (the deck's fonts change the text after Mermaid measures
   it) and the default size was tiny. Eli rejected a two-row layout made with
