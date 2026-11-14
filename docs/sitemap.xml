@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/06-gobai-oxygen-minimum-zone.html</loc>
-    <lastmod>2026-11-14T04:27:50.590Z</lastmod>
+    <lastmod>2026-11-14T05:05:18.974Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/04-oisst-world-sst.html</loc>
-    <lastmod>2026-11-14T04:31:28.757Z</lastmod>
+    <lastmod>2026-11-14T05:05:18.908Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/02-pacioos-aloha-profiles.html</loc>
-    <lastmod>2026-11-14T03:50:20.536Z</lastmod>
+    <lastmod>2026-11-14T05:05:18.839Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/index.html</loc>
-    <lastmod>2026-11-14T04:40:39.513Z</lastmod>
+    <lastmod>2026-11-14T04:53:25.132Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/05-build.html</loc>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
-    <lastmod>2026-11-14T04:43:49.678Z</lastmod>
+    <lastmod>2026-11-14T04:53:25.137Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
@@ -70,14 +70,14 @@
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/01-hycom-snow-crab.html</loc>
-    <lastmod>2026-11-14T03:23:32.759Z</lastmod>
+    <lastmod>2026-11-14T05:05:18.797Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/03-oa-saturation-horizon.html</loc>
-    <lastmod>2026-11-14T04:00:48.785Z</lastmod>
+    <lastmod>2026-11-14T05:05:18.867Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/05-oisst-gulf-of-maine-heatwaves.html</loc>
-    <lastmod>2026-11-14T04:30:42.307Z</lastmod>
+    <lastmod>2026-11-14T05:05:18.937Z</lastmod>
   </url>
 </urlset>

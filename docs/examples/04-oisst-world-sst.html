@@ -347,12 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/04-oisst-world-sst.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid figure-img"></a></p>
-<figcaption>Open In Colab</figcaption>
-</figure>
-</div>
+<p><a href="https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/examples/04-oisst-world-sst.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
 <p>Rebuild the well-known <a href="https://climatereanalyzer.org/clim/sst_daily/">Climate Reanalyzer</a> chart of daily world sea surface temperature from NOAA’s <a href="https://www.ncei.noaa.gov/products/optimum-interpolation-sst">OISST v2.1</a>: the area-weighted mean from 60 °S to 60 °N, one line per year.</p>
 <p>The data are NOAA’s daily files on AWS, <strong>one NetCDF per day, about 16,500 of them</strong>. The <a href="https://source.coop/ocean-icechunks/noaa-oisst">virtual Icechunk store</a>, maintained by NERACOOS / GMRI, makes them one dataset with one time axis, so the whole record is a single <code>sel()</code> and <code>mean()</code>. No credentials needed.</p>
 <div id="cc4a8242" class="cell">

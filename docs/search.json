@@ -4,7 +4,7 @@
     "href": "examples/06-gobai-oxygen-minimum-zone.html",
     "title": "GOBAI: the oxygen minimum zone of the eastern tropical North Pacific",
     "section": "",
-    "text": "Open In Colab\nMap the oxygen minimum zone off Mexico and Central America, and track how far it reaches, every week from 1993 to 2025, from NOAA’s GOBAI HR (Gridded Ocean Biogeochemistry from Artificial Intelligence): dissolved oxygen on a ¼° grid, 58 pressure levels, weekly.\nThe product is 1,719 weekly fields per variable, in netCDF files of 1.4–7.3 GB each on Google Cloud. The virtual Icechunk store makes them one dataset. No credentials needed.",
+    "text": "Map the oxygen minimum zone off Mexico and Central America, and track how far it reaches, every week from 1993 to 2025, from NOAA’s GOBAI HR (Gridded Ocean Biogeochemistry from Artificial Intelligence): dissolved oxygen on a ¼° grid, 58 pressure levels, weekly.\nThe product is 1,719 weekly fields per variable, in netCDF files of 1.4–7.3 GB each on Google Cloud. The virtual Icechunk store makes them one dataset. No credentials needed.",
     "crumbs": [
       "Examples",
       "6 · GOBAI: the oxygen minimum zone"
@@ -70,7 +70,7 @@
     "href": "examples/04-oisst-world-sst.html",
     "title": "OISST: world sea surface temperature since 1981",
     "section": "",
-    "text": "Open In Colab\nRebuild the well-known Climate Reanalyzer chart of daily world sea surface temperature from NOAA’s OISST v2.1: the area-weighted mean from 60 °S to 60 °N, one line per year.\nThe data are NOAA’s daily files on AWS, one NetCDF per day, about 16,500 of them. The virtual Icechunk store, maintained by NERACOOS / GMRI, makes them one dataset with one time axis, so the whole record is a single sel() and mean(). No credentials needed.\n%pip install -q \"icechunk&gt;=2.3\" \"xarray&gt;=2026.7\" \"zarr&gt;=3.4\" \"dask[array]\" matplotlib",
+    "text": "Rebuild the well-known Climate Reanalyzer chart of daily world sea surface temperature from NOAA’s OISST v2.1: the area-weighted mean from 60 °S to 60 °N, one line per year.\nThe data are NOAA’s daily files on AWS, one NetCDF per day, about 16,500 of them. The virtual Icechunk store, maintained by NERACOOS / GMRI, makes them one dataset with one time axis, so the whole record is a single sel() and mean(). No credentials needed.\n%pip install -q \"icechunk&gt;=2.3\" \"xarray&gt;=2026.7\" \"zarr&gt;=3.4\" \"dask[array]\" matplotlib",
     "crumbs": [
       "Examples",
       "4 · OISST: world SST since 1981"
@@ -114,7 +114,7 @@
     "href": "examples/02-pacioos-aloha-profiles.html",
     "title": "PacIOOS: seasons and water masses at Station ALOHA",
     "section": "",
-    "text": "Open In Colab\nTwo textbook pictures of the open ocean north of Oʻahu, from the PacIOOS ROMS Hawaiʻi reanalysis (3-hourly, 2009–2020, ~4 km, 36 depth levels) as a virtual Icechunk store:\nThe point is Station ALOHA (22.75 °N, 158 °W), where the Hawaii Ocean Time-series has sampled monthly since 1988. No credentials needed. Runs on Google Colab (Python 3.12).\n%pip install -q \"icechunk&gt;=2.3\" \"xarray&gt;=2026.7\" \"zarr&gt;=3.4\" matplotlib",
+    "text": "Two textbook pictures of the open ocean north of Oʻahu, from the PacIOOS ROMS Hawaiʻi reanalysis (3-hourly, 2009–2020, ~4 km, 36 depth levels) as a virtual Icechunk store:\nThe point is Station ALOHA (22.75 °N, 158 °W), where the Hawaii Ocean Time-series has sampled monthly since 1988. No credentials needed. Runs on Google Colab (Python 3.12).\n%pip install -q \"icechunk&gt;=2.3\" \"xarray&gt;=2026.7\" \"zarr&gt;=3.4\" matplotlib",
     "crumbs": [
       "Examples",
       "2 · PacIOOS: seasons and water masses at ALOHA"
@@ -1192,7 +1192,7 @@
     "href": "examples/01-hycom-snow-crab.html",
     "title": "HYCOM: bottom temperature in the snow crab region",
     "section": "",
-    "text": "Open In Colab\nA short demo of the HYCOM GOFS 3.1 global reanalysis (1/12°, 3-hourly, 1994–2015) as a virtual Icechunk store: open 306 TB in about a second, cut out the Bering Sea, map it, then build a time series of bottom temperature on the snow crab grounds of the eastern Bering Sea shelf.\nNo credentials needed. Runs on Google Colab (Python 3.12).\nAdapted from bering-sea-snow-crab-demo.ipynb in ocean-icechunks/hycom.\n%pip install -q \"icechunk&gt;=2.2\" \"xarray&gt;=2026.7\" \"zarr&gt;=3.4\" \"dask[array]\" matplotlib",
+    "text": "A short demo of the HYCOM GOFS 3.1 global reanalysis (1/12°, 3-hourly, 1994–2015) as a virtual Icechunk store: open 306 TB in about a second, cut out the Bering Sea, map it, then build a time series of bottom temperature on the snow crab grounds of the eastern Bering Sea shelf.\nNo credentials needed. Runs on Google Colab (Python 3.12).\nAdapted from bering-sea-snow-crab-demo.ipynb in ocean-icechunks/hycom.\n%pip install -q \"icechunk&gt;=2.2\" \"xarray&gt;=2026.7\" \"zarr&gt;=3.4\" \"dask[array]\" matplotlib",
     "crumbs": [
       "Examples",
       "1 · HYCOM: bottom temp in snow crab region"
@@ -1236,7 +1236,7 @@
     "href": "examples/03-oa-saturation-horizon.html",
     "title": "NCEI OA indicators: the aragonite saturation horizon",
     "section": "",
-    "text": "Open In Colab\nA textbook ocean acidification picture from NCEI’s climatology of ocean acidification indicators on the North American margins (1° grid, surface to 500 m, observations 2003–2018 adjusted to 2010), as a virtual Icechunk store. No credentials needed. Runs on Google Colab (Python 3.12).",
+    "text": "A textbook ocean acidification picture from NCEI’s climatology of ocean acidification indicators on the North American margins (1° grid, surface to 500 m, observations 2003–2018 adjusted to 2010), as a virtual Icechunk store. No credentials needed. Runs on Google Colab (Python 3.12).",
     "crumbs": [
       "Examples",
       "3 · OA indicators: aragonite saturation horizon"
@@ -1291,7 +1291,7 @@
     "href": "examples/05-oisst-gulf-of-maine-heatwaves.html",
     "title": "OISST: marine heatwaves in the Gulf of Maine",
     "section": "",
-    "text": "Open In Colab\nThe Gulf of Maine is one of the fastest-warming patches of ocean on Earth, and its 2012 marine heatwave upended the lobster season (Mills et al. 2013). Here we count marine heatwave days in every year since 1982, from NOAA’s daily OISST v2.1.\nThat takes the full daily record, about 16,500 NetCDF files. The virtual Icechunk store, maintained by NERACOOS / GMRI, makes them one dataset, so it is one sel(). No credentials needed.",
+    "text": "The Gulf of Maine is one of the fastest-warming patches of ocean on Earth, and its 2012 marine heatwave upended the lobster season (Mills et al. 2013). Here we count marine heatwave days in every year since 1982, from NOAA’s daily OISST v2.1.\nThat takes the full daily record, about 16,500 NetCDF files. The virtual Icechunk store, maintained by NERACOOS / GMRI, makes them one dataset, so it is one sel(). No credentials needed.",
     "crumbs": [
       "Examples",
       "5 · OISST: Gulf of Maine marine heatwaves"
