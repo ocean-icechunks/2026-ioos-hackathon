@@ -28,6 +28,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2203a4f6ac1ba7367e1838bf177e702f.css">
   <link rel="stylesheet" href="slides.css">
@@ -149,7 +215,7 @@
   <div class="talk-title-main">
     <p class="talk-kicker">Virtual Icechunk · IOOS Hackathon 2026</p>
     <h1 class="title">Building a virtual Icechunk store</h1>
-    <p class="subtitle">First the code, then the prompts</p>
+    <p class="subtitle">The decisions are yours; the agent writes the code</p>
   </div>
   <div class="talk-title-meta">
     <div class="talk-authors">
@@ -160,31 +226,11 @@
     <p class="talk-event"></p>
   </div>
 </section>
-<section id="the-basic-code" class="slide level2 code">
-<h2>The basic code</h2>
-</section>
-<section id="writing-to-the-cloud-instead-of-your-laptop" class="slide level2">
-<h2>Writing to the cloud instead of your laptop</h2>
-</section>
-<section id="same-job-done-by-prompting" class="slide level2">
-<h2>Same job, done by prompting</h2>
-</section>
-<section id="gate-1-the-plan" class="slide level2">
-<h2>Gate 1 · The plan</h2>
-</section>
-<section id="gate-2-the-smoke-test-notebook" class="slide level2">
-<h2>Gate 2 · The smoke-test notebook</h2>
-</section>
-<section id="gate-3-production" class="slide level2">
-<h2>Gate 3 · Production</h2>
-</section>
-<section id="gate-4-readme-and-loading-example" class="slide level2">
-<h2>Gate 4 · README and loading example</h2>
-</section>
-<section id="demos-to-try" class="slide level2">
-<h2>Demos to try</h2>
+<section id="building-a-store-is-mostly-deciding" class="slide level2 statement">
+<h2>Building a store is mostly deciding</h2>
+<p>The code is short. The choices behind it are what make a store good to use.</p>
 <aside class="notes">
-<p>DRAFT: June 5 concat and append notebooks; CoastWatch OHC, OA indicators, HYCOM stores.</p>
+<p>Chapter 3 showed the code. This chapter is the decisions an agent will ask you about, or should. Each one is cheap to get right before the build and expensive to change after it.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -197,8 +243,159 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="takeaways" class="slide level2 dark" data-state="talk-dark" data-background-color="#0F1C26">
-<h2>Takeaways</h2>
+<section id="one-store-groups-or-several-stores" class="slide level2">
+<h2>One store, groups, or several stores?</h2>
+<p>Prefer, in this order:</p>
+<ol type="1">
+<li><strong>One store, one group, many variables:</strong> easiest for users</li>
+<li><strong>One store, several groups:</strong> when encodings differ but it is one product</li>
+<li><strong>Separate stores:</strong> when the products are independent, or the grids differ</li>
+</ol>
+<div class="takeaway">
+<p><strong>CoastWatch OHC:</strong> one store per region (different grids), each with three groups (<code>daily</code>, <code>14day_v1</code>, <code>14day</code>) because their encodings differ.</p>
+</div>
+</section>
+<section id="join-along-time-or-merge-variables" class="slide level2">
+<h2>Join along time, or merge variables?</h2>
+<ul>
+<li><strong>Concatenate</strong> when each file is a different <strong>time</strong>: same variables, next days</li>
+<li><strong>Merge</strong> when each file is a different <strong>variable</strong>: same grid, same times</li>
+<li>Many archives need both</li>
+</ul>
+<div class="takeaway">
+<p><strong>NCEI ocean acidification indicators:</strong> one NetCDF per indicator, twelve files on one grid. Merged, they make <strong>one store of 72 variables</strong>: 35 kB of metadata pointing at 82 MB that stays at NCEI.</p>
+</div>
+</section>
+<section id="what-to-load-and-what-to-keep-virtual" class="slide level2">
+<h2>What to load, and what to keep virtual</h2>
+<ul>
+<li><strong>Load</strong> small coordinates (<code>time</code>, <code>lat</code>, <code>lon</code>, <code>depth</code>) into the store</li>
+<li><strong>Keep virtual</strong> the big science arrays. Their chunks stay the provider’s</li>
+<li><strong>Chunk the loaded time coordinate</strong> deliberately, as one chunk, or a store of many files opens slowly</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>vds[<span class="st">"time"</span>].encoding[<span class="st">"chunks"</span>] <span class="op">=</span> (<span class="bu">len</span>(vds.time),)   <span class="co"># one chunk, not one per file</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>vds.vz.to_icechunk(session.store)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="where-the-store-lives-and-who-reads-it" class="slide level2">
+<h2>Where the store lives, and who reads it</h2>
+<ul>
+<li><strong>Destination:</strong> a bucket you can write to (S3, Google Cloud, Source Cooperative). Its read URL is what users open</li>
+<li><strong>Readers’ access to the source:</strong> <code>s3://</code> references in one AWS region can be slow or blocked elsewhere. Is the source readable by everyone?</li>
+<li><strong>Browsers</strong> (gridlook) need CORS on <strong>both</strong> hosts: the store, and the source</li>
+</ul>
+<div class="takeaway">
+<p><strong>OA indicators</strong> draws in a browser: NCEI sends CORS headers. <strong>CoastWatch OHC</strong> shows axes but no data: CoastWatch does not.</p>
+</div>
+</section>
+<section id="which-metadata-to-fix" class="slide level2">
+<h2>Which metadata to fix</h2>
+<ul>
+<li>Metadata is the one thing a virtual store <strong>can</strong> change</li>
+<li>Make it follow <strong>CF conventions</strong>: <code>units</code>, <code>standard_name</code>, <code>axis</code>, <code>positive</code></li>
+<li>Remove attributes that contradict the real encoding</li>
+<li><strong>Write down every change</strong>, in the README</li>
+</ul>
+</section>
+<section id="build-once-or-keep-it-growing" class="slide level2">
+<h2>Build once, or keep it growing?</h2>
+<ul>
+<li><strong>Once:</strong> one build, then an immutable <strong>tag</strong> naming the last date covered</li>
+<li><strong>Growing:</strong> append new files in batches, and <strong>commit each batch</strong></li>
+<li><strong>Restart from the store itself:</strong> read the last committed time and match it to the file list, never a hand-typed start index</li>
+</ul>
+<div class="takeaway">
+<p><strong>NOAA OISST</strong> (built by NERACOOS / GMRI) is appended about daily from NOAA’s files on AWS.</p>
+</div>
+</section>
+<section id="our-skill-builds-up-to-production" class="slide level2">
+<h2>Our skill builds up to production</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>You get</th>
+<th>It must</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1 · Plan</strong></td>
+<td><code>plan.md</code>: files, partition, decisions</td>
+<td>Be reviewed by you before any code</td>
+</tr>
+<tr class="even">
+<td><strong>2 · Smoke test</strong></td>
+<td>A notebook that builds a <strong>local</strong> store from a few files</td>
+<td>Reopen it read-only and read <strong>real values</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>3 · Production</strong></td>
+<td>A build script: settings at the top, batches, commits, restart</td>
+<td>Survive being interrupted; tag the result</td>
+</tr>
+<tr class="even">
+<td><strong>4 · Docs</strong></td>
+<td>A README, a loading example, the tested environment</td>
+<td>Let a stranger open the store with no help</td>
+</tr>
+</tbody>
+</table>
+<p>It <strong>stops for your review</strong> between steps.</p>
+</section>
+<section id="telling-the-agent-to-build-it" class="slide level2">
+<h2>Telling the agent to build it</h2>
+<p><strong>Give it what it cannot guess:</strong> where the files are and how to get in, which files, where the store goes, and who will read it.</p>
+<blockquote>
+<p><em>“Build a virtual Icechunk store of the NDVI files in <code>s3://noaa-cdr-ndvi-pds/data/</code> for January 2000. Start with the plan.”</em></p>
+</blockquote>
+<p>Then, one session per step:</p>
+<blockquote>
+<p><em>“The plan is approved. Write the smoke-test notebook.”</em></p>
+<p><em>“The smoke test passed. Write the production build script.”</em></p>
+<p><em>“Write the README and a loading example.”</em></p>
+</blockquote>
+<aside class="notes">
+<p>Credentials for the destination go in the environment, never in the notebook or the chat. The skill refuses to put them anywhere else, and never points a test at a production store.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="worked-examples" class="slide level2">
+<h2>Worked examples</h2>
+<ul>
+<li><strong>The NDVI notebooks from June 5:</strong> <a href="https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_concat.html">concatenate</a>, <a href="https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_append.html">append</a>, <a href="https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_append-cloud.html">write to cloud storage</a></li>
+<li><strong>Published stores, with their build code:</strong> <a href="https://github.com/ocean-icechunks/icechunks">CoastWatch OHC, OA indicators</a>, <a href="https://github.com/ocean-icechunks/hycom">HYCOM</a></li>
+</ul>
+<aside class="notes">
+<p>The June 5 notebooks use older patterns in places, for example try-create-except-open. They are good for seeing the steps. The ocean-icechunks repositories show a full layout: a small test notebook, the production pipeline, and a README published beside each store.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="next-visualizing" class="slide level2 dark" data-state="talk-dark" data-background-color="#0F1C26">
+<h2>Next: visualizing</h2>
+<p><a href="../slides/06-visualize.html" class="lead">Chapter 6 · Visualizing</a></p>
 
 
 </section>

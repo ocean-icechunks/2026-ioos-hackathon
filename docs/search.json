@@ -588,66 +588,80 @@
     "text": "Next: auditing your files\nChapter 4 · Auditing your files"
   },
   {
-    "objectID": "slides/05-build.html#the-basic-code",
-    "href": "slides/05-build.html#the-basic-code",
+    "objectID": "slides/05-build.html#building-a-store-is-mostly-deciding",
+    "href": "slides/05-build.html#building-a-store-is-mostly-deciding",
     "title": "Building a virtual Icechunk store",
-    "section": "The basic code",
-    "text": "The basic code"
+    "section": "Building a store is mostly deciding",
+    "text": "Building a store is mostly deciding\nThe code is short. The choices behind it are what make a store good to use.\n\nChapter 3 showed the code. This chapter is the decisions an agent will ask you about, or should. Each one is cheap to get right before the build and expensive to change after it."
   },
   {
-    "objectID": "slides/05-build.html#writing-to-the-cloud-instead-of-your-laptop",
-    "href": "slides/05-build.html#writing-to-the-cloud-instead-of-your-laptop",
+    "objectID": "slides/05-build.html#one-store-groups-or-several-stores",
+    "href": "slides/05-build.html#one-store-groups-or-several-stores",
     "title": "Building a virtual Icechunk store",
-    "section": "Writing to the cloud instead of your laptop",
-    "text": "Writing to the cloud instead of your laptop"
+    "section": "One store, groups, or several stores?",
+    "text": "One store, groups, or several stores?\nPrefer, in this order:\n\nOne store, one group, many variables: easiest for users\nOne store, several groups: when encodings differ but it is one product\nSeparate stores: when the products are independent, or the grids differ\n\n\nCoastWatch OHC: one store per region (different grids), each with three groups (daily, 14day_v1, 14day) because their encodings differ."
   },
   {
-    "objectID": "slides/05-build.html#same-job-done-by-prompting",
-    "href": "slides/05-build.html#same-job-done-by-prompting",
+    "objectID": "slides/05-build.html#join-along-time-or-merge-variables",
+    "href": "slides/05-build.html#join-along-time-or-merge-variables",
     "title": "Building a virtual Icechunk store",
-    "section": "Same job, done by prompting",
-    "text": "Same job, done by prompting"
+    "section": "Join along time, or merge variables?",
+    "text": "Join along time, or merge variables?\n\nConcatenate when each file is a different time: same variables, next days\nMerge when each file is a different variable: same grid, same times\nMany archives need both\n\n\nNCEI ocean acidification indicators: one NetCDF per indicator, twelve files on one grid. Merged, they make one store of 72 variables: 35 kB of metadata pointing at 82 MB that stays at NCEI."
   },
   {
-    "objectID": "slides/05-build.html#gate-1-the-plan",
-    "href": "slides/05-build.html#gate-1-the-plan",
+    "objectID": "slides/05-build.html#what-to-load-and-what-to-keep-virtual",
+    "href": "slides/05-build.html#what-to-load-and-what-to-keep-virtual",
     "title": "Building a virtual Icechunk store",
-    "section": "Gate 1 · The plan",
-    "text": "Gate 1 · The plan"
+    "section": "What to load, and what to keep virtual",
+    "text": "What to load, and what to keep virtual\n\nLoad small coordinates (time, lat, lon, depth) into the store\nKeep virtual the big science arrays. Their chunks stay the provider’s\nChunk the loaded time coordinate deliberately, as one chunk, or a store of many files opens slowly\n\nvds[\"time\"].encoding[\"chunks\"] = (len(vds.time),)   # one chunk, not one per file\nvds.vz.to_icechunk(session.store)"
   },
   {
-    "objectID": "slides/05-build.html#gate-2-the-smoke-test-notebook",
-    "href": "slides/05-build.html#gate-2-the-smoke-test-notebook",
+    "objectID": "slides/05-build.html#where-the-store-lives-and-who-reads-it",
+    "href": "slides/05-build.html#where-the-store-lives-and-who-reads-it",
     "title": "Building a virtual Icechunk store",
-    "section": "Gate 2 · The smoke-test notebook",
-    "text": "Gate 2 · The smoke-test notebook"
+    "section": "Where the store lives, and who reads it",
+    "text": "Where the store lives, and who reads it\n\nDestination: a bucket you can write to (S3, Google Cloud, Source Cooperative). Its read URL is what users open\nReaders’ access to the source: s3:// references in one AWS region can be slow or blocked elsewhere. Is the source readable by everyone?\nBrowsers (gridlook) need CORS on both hosts: the store, and the source\n\n\nOA indicators draws in a browser: NCEI sends CORS headers. CoastWatch OHC shows axes but no data: CoastWatch does not."
   },
   {
-    "objectID": "slides/05-build.html#gate-3-production",
-    "href": "slides/05-build.html#gate-3-production",
+    "objectID": "slides/05-build.html#which-metadata-to-fix",
+    "href": "slides/05-build.html#which-metadata-to-fix",
     "title": "Building a virtual Icechunk store",
-    "section": "Gate 3 · Production",
-    "text": "Gate 3 · Production"
+    "section": "Which metadata to fix",
+    "text": "Which metadata to fix\n\nMetadata is the one thing a virtual store can change\nMake it follow CF conventions: units, standard_name, axis, positive\nRemove attributes that contradict the real encoding\nWrite down every change, in the README"
   },
   {
-    "objectID": "slides/05-build.html#gate-4-readme-and-loading-example",
-    "href": "slides/05-build.html#gate-4-readme-and-loading-example",
+    "objectID": "slides/05-build.html#build-once-or-keep-it-growing",
+    "href": "slides/05-build.html#build-once-or-keep-it-growing",
     "title": "Building a virtual Icechunk store",
-    "section": "Gate 4 · README and loading example",
-    "text": "Gate 4 · README and loading example"
+    "section": "Build once, or keep it growing?",
+    "text": "Build once, or keep it growing?\n\nOnce: one build, then an immutable tag naming the last date covered\nGrowing: append new files in batches, and commit each batch\nRestart from the store itself: read the last committed time and match it to the file list, never a hand-typed start index\n\n\nNOAA OISST (built by NERACOOS / GMRI) is appended about daily from NOAA’s files on AWS."
   },
   {
-    "objectID": "slides/05-build.html#demos-to-try",
-    "href": "slides/05-build.html#demos-to-try",
+    "objectID": "slides/05-build.html#our-skill-builds-up-to-production",
+    "href": "slides/05-build.html#our-skill-builds-up-to-production",
     "title": "Building a virtual Icechunk store",
-    "section": "Demos to try",
-    "text": "Demos to try\n\nDRAFT: June 5 concat and append notebooks; CoastWatch OHC, OA indicators, HYCOM stores."
+    "section": "Our skill builds up to production",
+    "text": "Our skill builds up to production\n\n\n\n\n\n\n\n\nStep\nYou get\nIt must\n\n\n\n\n1 · Plan\nplan.md: files, partition, decisions\nBe reviewed by you before any code\n\n\n2 · Smoke test\nA notebook that builds a local store from a few files\nReopen it read-only and read real values\n\n\n3 · Production\nA build script: settings at the top, batches, commits, restart\nSurvive being interrupted; tag the result\n\n\n4 · Docs\nA README, a loading example, the tested environment\nLet a stranger open the store with no help\n\n\n\nIt stops for your review between steps."
   },
   {
-    "objectID": "slides/05-build.html#takeaways",
-    "href": "slides/05-build.html#takeaways",
+    "objectID": "slides/05-build.html#telling-the-agent-to-build-it",
+    "href": "slides/05-build.html#telling-the-agent-to-build-it",
     "title": "Building a virtual Icechunk store",
-    "section": "Takeaways",
-    "text": "Takeaways"
+    "section": "Telling the agent to build it",
+    "text": "Telling the agent to build it\nGive it what it cannot guess: where the files are and how to get in, which files, where the store goes, and who will read it.\n\n“Build a virtual Icechunk store of the NDVI files in s3://noaa-cdr-ndvi-pds/data/ for January 2000. Start with the plan.”\n\nThen, one session per step:\n\n“The plan is approved. Write the smoke-test notebook.”\n“The smoke test passed. Write the production build script.”\n“Write the README and a loading example.”\n\n\nCredentials for the destination go in the environment, never in the notebook or the chat. The skill refuses to put them anywhere else, and never points a test at a production store."
+  },
+  {
+    "objectID": "slides/05-build.html#worked-examples",
+    "href": "slides/05-build.html#worked-examples",
+    "title": "Building a virtual Icechunk store",
+    "section": "Worked examples",
+    "text": "Worked examples\n\nThe NDVI notebooks from June 5: concatenate, append, write to cloud storage\nPublished stores, with their build code: CoastWatch OHC, OA indicators, HYCOM\n\n\nThe June 5 notebooks use older patterns in places, for example try-create-except-open. They are good for seeing the steps. The ocean-icechunks repositories show a full layout: a small test notebook, the production pipeline, and a README published beside each store."
+  },
+  {
+    "objectID": "slides/05-build.html#next-visualizing",
+    "href": "slides/05-build.html#next-visualizing",
+    "title": "Building a virtual Icechunk store",
+    "section": "Next: visualizing",
+    "text": "Next: visualizing\nChapter 6 · Visualizing"
   }
 ]

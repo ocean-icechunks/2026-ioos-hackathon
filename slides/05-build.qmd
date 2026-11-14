@@ -1,26 +1,132 @@
 ---
 title: "Building a virtual Icechunk store"
-subtitle: "First the code, then the prompts"
+subtitle: "The decisions are yours; the agent writes the code"
 ---
 
-## The basic code {.code}
+## Building a store is mostly deciding {.statement}
 
-## Writing to the cloud instead of your laptop
-
-## Same job, done by prompting
-
-## Gate 1 · The plan
-
-## Gate 2 · The smoke-test notebook
-
-## Gate 3 · Production
-
-## Gate 4 · README and loading example
-
-## Demos to try
+The code is short. The choices behind it are what make a store good to use.
 
 ::: notes
-DRAFT: June 5 concat and append notebooks; CoastWatch OHC, OA indicators, HYCOM stores.
+Chapter 3 showed the code. This chapter is the decisions an agent will ask
+you about, or should. Each one is cheap to get right before the build and
+expensive to change after it.
 :::
 
-## Takeaways {.dark}
+## One store, groups, or several stores?
+
+Prefer, in this order:
+
+1. **One store, one group, many variables:** easiest for users
+2. **One store, several groups:** when encodings differ but it is one product
+3. **Separate stores:** when the products are independent, or the grids differ
+
+::: {.takeaway}
+**CoastWatch OHC:** one store per region (different grids), each with three
+groups (`daily`, `14day_v1`, `14day`) because their encodings differ.
+:::
+
+## Join along time, or merge variables?
+
+- **Concatenate** when each file is a different **time**: same variables, next days
+- **Merge** when each file is a different **variable**: same grid, same times
+- Many archives need both
+
+::: {.takeaway}
+**NCEI ocean acidification indicators:** one NetCDF per indicator, twelve files
+on one grid. Merged, they make **one store of 72 variables**: 35 kB of
+metadata pointing at 82 MB that stays at NCEI.
+:::
+
+## What to load, and what to keep virtual
+
+- **Load** small coordinates (`time`, `lat`, `lon`, `depth`) into the store
+- **Keep virtual** the big science arrays. Their chunks stay the provider's
+- **Chunk the loaded time coordinate** deliberately, as one chunk, or a store of
+  many files opens slowly
+
+```python
+vds["time"].encoding["chunks"] = (len(vds.time),)   # one chunk, not one per file
+vds.vz.to_icechunk(session.store)
+```
+
+## Where the store lives, and who reads it
+
+- **Destination:** a bucket you can write to (S3, Google Cloud, Source
+  Cooperative). Its read URL is what users open
+- **Readers' access to the source:** `s3://` references in one AWS region can be
+  slow or blocked elsewhere. Is the source readable by everyone?
+- **Browsers** (gridlook) need CORS on **both** hosts: the store, and the source
+
+::: {.takeaway}
+**OA indicators** draws in a browser: NCEI sends CORS headers. **CoastWatch
+OHC** shows axes but no data: CoastWatch does not.
+:::
+
+## Which metadata to fix
+
+- Metadata is the one thing a virtual store **can** change
+- Make it follow **CF conventions**: `units`, `standard_name`, `axis`, `positive`
+- Remove attributes that contradict the real encoding
+- **Write down every change**, in the README
+
+## Build once, or keep it growing?
+
+- **Once:** one build, then an immutable **tag** naming the last date covered
+- **Growing:** append new files in batches, and **commit each batch**
+- **Restart from the store itself:** read the last committed time and match it
+  to the file list, never a hand-typed start index
+
+::: {.takeaway}
+**NOAA OISST** (built by NERACOOS / GMRI) is appended about daily from NOAA's
+files on AWS.
+:::
+
+## Our skill builds up to production
+
+| Step | You get | It must |
+|---|---|---|
+| **1 · Plan** | `plan.md`: files, partition, decisions | Be reviewed by you before any code |
+| **2 · Smoke test** | A notebook that builds a **local** store from a few files | Reopen it read-only and read **real values** |
+| **3 · Production** | A build script: settings at the top, batches, commits, restart | Survive being interrupted; tag the result |
+| **4 · Docs** | A README, a loading example, the tested environment | Let a stranger open the store with no help |
+
+It **stops for your review** between steps.
+
+## Telling the agent to build it
+
+**Give it what it cannot guess:** where the files are and how to get in, which
+files, where the store goes, and who will read it.
+
+> *"Build a virtual Icechunk store of the NDVI files in
+> `s3://noaa-cdr-ndvi-pds/data/` for January 2000. Start with the plan."*
+
+Then, one session per step:
+
+> *"The plan is approved. Write the smoke-test notebook."*
+>
+> *"The smoke test passed. Write the production build script."*
+>
+> *"Write the README and a loading example."*
+
+::: notes
+Credentials for the destination go in the environment, never in the notebook
+or the chat. The skill refuses to put them anywhere else, and never points a
+test at a production store.
+:::
+
+## Worked examples
+
+- **The NDVI notebooks from June 5:** [concatenate](https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_concat.html), [append](https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_append.html), [write to cloud storage](https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_append-cloud.html)
+- **Published stores, with their build code:** [CoastWatch OHC, OA indicators](https://github.com/ocean-icechunks/icechunks), [HYCOM](https://github.com/ocean-icechunks/hycom)
+
+::: notes
+The June 5 notebooks use older patterns in places, for example
+try-create-except-open. They are good for seeing the steps. The ocean-icechunks
+repositories show a full layout: a small test notebook, the production
+pipeline, and a README published beside each store.
+:::
+
+## Next: visualizing {.dark}
+
+[Chapter 6 · Visualizing](06-visualize.qmd){.lead}
