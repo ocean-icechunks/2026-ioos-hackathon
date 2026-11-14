@@ -1,0 +1,4 @@
+# Change these in one place; pages use {{< var hub.url >}} etc.
+hub:
+  url: https://workshop.nmfs-openscapes.2i2c.cloud/
+  home: https://workshop.nmfs-openscapes.2i2c.cloud/hub/home

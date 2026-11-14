@@ -1,0 +1,92 @@
+---
+title: "Building a virtual Icechunk store"
+subtitle: "The skill does the building; you supply what it cannot know"
+---
+
+## Our skill builds up to production
+
+| Step | You get | It must |
+|---|---|---|
+| **1 · Plan** | `plan.md`: files, layout, decisions | Be reviewed by you before any code |
+| **2 · Smoke test** | A notebook that builds a **local** store from a few files | Reopen it read-only and read **real values** |
+| **3 · Production** | A build script: settings at the top, batches, commits, restart | Survive being interrupted; tag the result |
+| **4 · Docs** | A README, a loading example, the tested environment | Let a stranger open the store with no help |
+
+It **stops for your review** between steps.
+
+## What the agent needs from you
+
+It cannot guess these. Put them in your first prompt:
+
+- **Where the files are,** and how to get in: a bucket, a THREDDS catalog, an API; public or which credentials
+- **Which files:** products, variables, years
+- **Where the store goes:** a bucket you can write to. Write credentials go in the environment, never in the chat
+- **Who will read it:** Python users, a browser viewer, users outside one cloud region
+- **Built once, or kept up to date** as new files arrive
+
+## What the skill works out from your files
+
+It will propose these, and ask you to confirm:
+
+- **One store, or several?** The goal is one store with all the variables. Files on different grids or encodings force groups or separate stores
+- **How the files fit together:** joined along time, variables in separate files merged
+- **What to load, what to keep virtual:** coordinates loaded, science arrays left virtual
+- **Metadata fixes** to follow CF conventions
+
+::: {.takeaway}
+The files usually decide these. You can still ask *"why?"*, and override.
+:::
+
+## Telling the agent to build it
+
+> *"Build a virtual Icechunk store of the NDVI files in
+> `s3://noaa-cdr-ndvi-pds/data/` (public, us-east-1) for 2000–2024. Publish it
+> to my Source Cooperative repository `my-org/ndvi`; my write keys are in
+> environment variables. Python users and a browser viewer will read it. Start
+> with the plan."*
+
+Then, one session per step:
+
+> *"The plan is approved. Write the smoke-test notebook."* (builds a local test store)
+>
+> *"The smoke test passed. Write the production build script."* (writes to your bucket)
+>
+> *"Write the README and a loading example."*
+
+## Authenticating to your bucket
+
+The agent writes to your bucket with **your** credentials. Tell it where they are:
+
+| Destination | Typical credentials |
+|---|---|
+| **Amazon S3** | An AWS profile, or `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in the environment |
+| **Google Cloud Storage** | A service-account key file, named in `GOOGLE_APPLICATION_CREDENTIALS` |
+| **Source Cooperative** | Temporary S3 keys from your repository's *View credentials* page. They expire |
+
+Not sure? Ask it:
+
+> *"Help me set up write access to my Source Cooperative repository. Do not
+> print my keys, and do not save them in any file in this repository."*
+
+::: notes
+The smoke test always writes to a local store first: the skill never points a
+test at the real destination. Only the production build writes to the bucket.
+Keys go in environment variables or a credentials file outside the repository,
+and never into a notebook, a script or the chat.
+:::
+
+## Worked examples
+
+- **The NDVI notebooks from June 5:** [concatenate](https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_concat.html), [append](https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_append.html), [write to cloud storage](https://nmfs-opensci.github.io/NMFSHackDays-2026/topics/2026-06-05/virtualizarr_ndvi_cdr_append-cloud.html)
+- **Published stores, with their build code:** [CoastWatch OHC, OA indicators](https://github.com/ocean-icechunks/icechunks), [HYCOM](https://github.com/ocean-icechunks/hycom)
+
+::: notes
+The June 5 notebooks use older patterns in places, for example
+try-create-except-open. They are good for seeing the steps. The ocean-icechunks
+repositories show a full layout: a small test notebook, the production
+pipeline, and a README published beside each store.
+:::
+
+## Next: visualizing {.dark}
+
+[Chapter 6 · Visualizing](06-visualize.qmd){.lead}

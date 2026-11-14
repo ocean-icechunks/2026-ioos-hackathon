@@ -1,0 +1,138 @@
+---
+title: "Auditing your files"
+subtitle: "What to check before anyone writes build code"
+---
+
+## A virtual store is only as consistent as its files {.statement}
+
+Nothing is rewritten, so the files' layout *is* the store's layout.
+
+::: notes
+A virtual store copies no data. So it can fix metadata, but it cannot fix how
+the bytes are laid out: the grid, the chunks, the compression. An audit tells
+you, before you build, whether the files will make a good store, a slow one,
+or several stores.
+:::
+
+## Consistent grids
+
+- Same **dimensions, shape and coordinate values** in every file, apart from
+  the time dimension you join along
+- Files on different grids **cannot share one array.** They become separate
+  groups, or separate stores
+
+::: {.takeaway}
+**CoastWatch Ocean Heat Content:** three regions on three different lat/lon
+grids, so three separate stores.
+:::
+
+## Consistent chunking
+
+- A chunk is the **smallest piece a reader can fetch.** Virtual stores keep the
+  provider's chunks exactly
+- Every file needs the **same chunk shape** for a variable
+- **Unchunked** arrays mean every read pulls the whole array
+
+::: {.takeaway}
+**NOAA NDVI:** `NDVI` is chunked 1 × 1200 × 2400, but `QA` in the same file is
+unchunked, so any read of `QA` pulls all 3600 × 7200 values.
+:::
+
+## Consistent encoding
+
+- Same **dtype, compression, fill value** and **file format** in every file
+- NetCDF-3 and NetCDF-4/HDF5 need different parsers, and cannot be mixed in one array
+- **Check the file's own header.** Catalogs and servers get this wrong
+
+::: {.takeaway}
+**PacIOOS:** the servers implied HDF5, but the files were NetCDF-3. About 3,200
+"replacement" files were compressed HDF5 under the same names.
+:::
+
+## Built to be appended
+
+- **New files arrive the same way:** same naming, same folder pattern, same grid
+- **Each file's length along time is a whole number of chunks.** If not, an
+  append can put data in the wrong place without any error
+- **One time step per file** works, but the time coordinate needs explicit
+  chunking or the store opens slowly
+
+::: {.takeaway}
+**CEFI daily files:** 365 or 366 days each, chunked 100 days. In a test with
+that layout, appending put 430 of 730 values in the wrong place, with no error.
+:::
+
+## Bugs in the data
+
+- **Missing time steps.** Is it a real gap, or the product's normal cadence?
+- **Duplicated or out-of-order** time steps
+- **Empty, truncated or unreadable** files
+- Coordinates that are **all zero or all NaN**
+
+::: {.takeaway}
+**HYCOM GOFS 3.1:** a few analyses are missing from the archive, so the snow
+crab notebook takes the nearest time that exists.
+:::
+
+## Missing or wrong metadata
+
+This is the one thing a virtual store **can** fix, without touching the data.
+
+- Missing `units`, `standard_name`, `long_name`, or a vertical `positive`
+- Attributes that cannot be saved as JSON, such as a `NaN` fill value on a coordinate
+- No version recorded anywhere in the files
+
+::: {.takeaway}
+Fix it in the store, write down every change, and make the result follow CF
+conventions.
+:::
+
+## Look for yourself {.code}
+
+```python
+import h5py, s3fs
+
+fs = s3fs.S3FileSystem(anon=True)
+url = sorted(fs.ls("noaa-cdr-ndvi-pds/data/2000"))[0]   # one day's file
+with fs.open(url) as f, h5py.File(f) as h:
+    for name, v in h.items():
+        print(name, v.dtype, v.shape, "chunks:", v.chunks, v.compression)
+```
+
+```text
+...
+NDVI int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip
+TIMEOFDAY int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip
+QA int16 (1, 3600, 7200) chunks: None None
+```
+
+::: notes
+Run on the first NDVI file on 2026-11-13. This reads only the header, a few
+kilobytes. Do this on files from the start, the middle and the end of the
+archive, and on both sides of any change in instrument, version or format.
+:::
+
+## Let the agent write the audit report
+
+**First, tell it how to find the files.** It cannot guess:
+
+- **Where** they are: a bucket and prefix, a THREDDS catalog, an API
+- **How to get in:** public, or which credentials
+- **What to include:** products, variables, years
+
+Then ask:
+
+> *"Audit the NOAA CDR NDVI files in `s3://noaa-cdr-ndvi-pds/data/` (public,
+> us-east-1, one NetCDF per day) for a virtual Icechunk store. Check grids,
+> chunking, encoding, whether they can be appended, missing days and metadata.
+> Read headers only. Write the findings to `audit/report.md`. No build code."*
+
+::: notes
+The virtual-icechunk skill's research-and-plan step does this audit. For a big
+archive, or files on a provider's own server, the archive-to-cloud skill's
+source audit scans everything resumably and reports what nobody asked about.
+:::
+
+## Next: building a store {.dark}
+
+[Chapter 5 · Building a store](05-build.qmd){.lead}

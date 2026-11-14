@@ -1,0 +1,13 @@
+# Every file in slides/ is a deck in the talk-revealjs format
+# (eeholmes/quarto-talk-template, installed in _extensions/eeholmes/talk).
+format: talk-revealjs
+kicker: "Virtual Icechunk · IOOS Hackathon 2026"
+author:
+  - name: Eli Holmes
+    affiliations:
+      - name: NOAA Fisheries
+repo: "github.com/ocean-icechunks/2026-ioos-hackathon"
+footer: "{{< meta title >}}"
+headings: sans
+date-format: "D MMMM YYYY"
+css: slides.css

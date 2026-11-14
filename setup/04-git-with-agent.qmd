@@ -1,0 +1,117 @@
+---
+title: "Git and GitHub, with an agent"
+description: "Log in once with gh, then let the agent do the git commands for you."
+---
+
+Your hackathon work lives in a GitHub repository, so you need a
+[GitHub account](https://github.com/signup). That matters more than usual here:
+the workshop hub is deleted a week after the hackathon, and GitHub is where your
+work survives. Git is a lot to learn in one
+week, and you do not have to: **your agent can run the git commands for you.**
+You make the decisions (what to save, when to share it, and whether a change is
+right), and the agent types the commands.
+
+To do that, the agent needs to reach GitHub as you. You set that up once, with
+`gh auth login`.
+
+## Why `gh auth login`?
+
+`gh` is GitHub's command-line tool, and it is already installed on the hub.
+Logging in with it does two things:
+
+- **`git` can push and pull** over HTTPS without asking you for a password,
+  because `gh` stores the credential for it.
+- **`gh` itself** can open pull requests, read issues and check on a repository.
+  Agents use it all the time.
+
+Everything the agent does through `gh` is done **in your name**, so decide how
+much it can reach.
+
+## Choose how much access
+
+::: {.panel-tabset}
+
+### Token for one repository (safer)
+
+The agent can push to your hackathon repository and nothing else.
+
+1. Go to <https://github.com/settings/personal-access-tokens/new>.
+2. **Token name:** `JupyterHub agent, IOOS hackathon`.
+   **Expiration:** a few days after the hackathon.
+3. **Repository access:** *Only select repositories*, then pick your project
+   repository.
+4. **Repository permissions:** set **Contents**, **Pull requests** and
+   **Issues** to *Read and write*. Leave the rest at *No access*.
+5. Click **Generate token** and copy it. GitHub shows it only once.
+
+Then, in a terminal, run `gh auth login` and answer:
+
+- **Where do you use GitHub?** GitHub.com
+- **Preferred protocol?** HTTPS
+- **Authenticate Git with your GitHub credentials?** Yes
+- **How would you like to authenticate?** Paste an authentication token
+
+### Full access
+
+The agent can do anything you can on GitHub, in every repository you can reach,
+including private ones.
+
+In a terminal, run `gh auth login` and answer:
+
+- **Where do you use GitHub?** GitHub.com
+- **Preferred protocol?** HTTPS
+- **Authenticate Git with your GitHub credentials?** Yes
+- **How would you like to authenticate?** Login with a web browser
+
+It prints a one-time code. Open the link, paste the code, and approve.
+
+:::
+
+Check that it worked:
+
+```bash
+gh auth status
+```
+
+## Tell git who you are
+
+Commits need a name and an email. Do this once:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
+Use the email on your GitHub account. If you would rather keep it private, use
+the `noreply` address shown at <https://github.com/settings/emails>.
+
+## Let the agent do git
+
+Ask for the outcome you want, not the command. For example:
+
+| You want to… | Say to the agent |
+|---|---|
+| Get a copy of a repository | *"Clone github.com/ocean-icechunks/2026-ioos-hackathon into my home folder."* |
+| See what you changed | *"What have I changed since the last commit?"* |
+| Save your work | *"Make a new branch and commit these changes with a clear message."* |
+| Share it | *"Push the branch and open a pull request. Explain what changed in the description."* |
+| Catch up with your team | *"Pull the latest changes from main and tell me what is new."* |
+| Recover from a mess | *"Git says there is a merge conflict. Explain what happened before you fix anything."* |
+
+Three habits keep this safe:
+
+- **Work on a branch, and merge through a pull request.** Ask the agent never to
+  push to `main`.
+- **Read the change before it is committed.** Ask *"show me the diff"* if the
+  agent does not.
+- **Never let credentials into a commit.** Keys and tokens belong in
+  environment variables or in a file listed in `.gitignore`. The
+  ocean-icechunks skill already insists on this.
+
+## Learn the basics anyway
+
+It helps to know what the agent is doing on your behalf: clone, commit, push
+and pull. The NMFS HackDays lesson
+[Basic Git/GitHub skills in the terminal](https://nmfs-opensci.github.io/NMFSHackDays-2025/topics-skills/02-git-terminal.html)
+walks through all four in about 20 minutes. Or ask your agent to explain each
+command as it runs it.

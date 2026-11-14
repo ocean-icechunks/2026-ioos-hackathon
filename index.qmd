@@ -1,0 +1,44 @@
+---
+title: "Virtual Icechunk"
+subtitle: "A short tutorial for the 2026 IOOS Hackathon"
+toc: false
+---
+
+This tutorial gives you a quick overview of virtual Icechunk stores: what they
+are, how one gets built, and what to check before building one. During the
+hackathon you will mostly hand the actual work to a coding agent that has the
+[ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills)
+installed. Each chapter is a short slide deck. Click through it, or press **S**
+for the speaker notes.
+
+## Before you start: get set up
+
+New to the hub? Work through **JupyterHub Skills** first (about 30 minutes):
+
+1. [Log in to the JupyterHub](setup/01-jupyterhub.qmd)
+2. [Find your way around JupyterLab](setup/02-jupyterlab.qmd)
+3. [Start your coding agent](setup/03-start-your-agent.qmd): Claude Code, Codex or Antigravity, with your own subscription
+4. [Git and GitHub, with an agent](setup/04-git-with-agent.qmd): log in once with `gh`, then let the agent run git for you
+5. [The scratch bucket](setup/05-scratch-bucket.qmd): cloud storage for test stores
+
+## Two quick wins (chapter 1)
+
+1. **Open 306 TB in about a second.** Bering Sea bottom temperature on the snow
+   crab grounds, 1994–2015, from the HYCOM reanalysis.
+   [Open in Colab](https://colab.research.google.com/github/ocean-icechunks/hycom/blob/main/hycom-gofs-3pt1-reanalysis/bering-sea-snow-crab-demo.ipynb)
+2. **Make your own virtual store.** Five NOAA NDVI files on AWS become one
+   local Icechunk store.
+   [Open in Colab](https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/simple-virtual-icechunk.ipynb)
+
+## Chapters
+
+| | Deck | What it covers |
+|---|---|---|
+| 1 | [Why virtual Icechunk](slides/01-why-virtual.qmd) | A product, not a pile of files; both quick wins |
+| 2 | [Working with an agent](slides/02-agent-and-skills.qmd) | One task per session; installing and using ocean-icechunks-skills |
+| 3 | [The basic pipeline](slides/03-pipeline.qmd) | Six steps from NetCDF files to a store anyone can open |
+| 4 | [Auditing your files](slides/04-audit.qmd) | What to check before anyone writes build code |
+| 5 | [Building a store](slides/05-build.qmd) | What the skill needs from you, what it works out, and how to prompt it |
+| 6 | [Visualizing](slides/06-visualize.qmd) | xarray, then Zarr in the browser: zarrita, icechunk-js and gridlook |
+
+See [Resources](resources.qmd) for links to everything mentioned in the decks.
