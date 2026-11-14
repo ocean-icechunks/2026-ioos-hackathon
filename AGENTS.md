@@ -29,12 +29,12 @@ on push, so a commit that changes a `.qmd` file without re-rendering leaves the
 live site out of date.
 
 ```bash
-quarto render          # rebuilds docs/
-git add -A docs        # commit the rendered output with the source change
+quarto render && touch docs/.nojekyll   # rebuild docs/, keep .nojekyll
+git add -A docs                         # commit the rendered output with the source change
 ```
 
-`docs/.nojekyll` must stay. A full `rm -rf docs` deletes it, so recreate it
-with `touch docs/.nojekyll`.
+`docs/.nojekyll` must stay. **A full `quarto render` deletes it** (observed
+2026-11-14), so always follow a full render with `touch docs/.nojekyll`.
 
 ## Conventions
 
