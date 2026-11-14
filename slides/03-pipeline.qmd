@@ -3,22 +3,170 @@ title: "The basic pipeline"
 subtitle: "Six steps from NetCDF files to a store anyone can open"
 ---
 
-## The whole pipeline on one slide
+## Six steps
+
+| | Step | What happens |
+|-|------------|----------------------------|
+| 1 | **Find the files** | List the NetCDF files you want in the store |
+| 2 | **Say how to reach them** | An object store, a registry and a parser for the file format |
+| 3 | **Open one file virtually** | Read its metadata only. The big arrays stay where they are |
+| 4 | **Combine compatible files** | Join them along time into one virtual dataset |
+| 5 | **Write and commit** | Save the chunk references to an Icechunk repository |
+| 6 | **Reopen and read** | Open the store as a reader would, and read real values |
 
 ::: notes
-DRAFT: mermaid diagram: find files → source access → open one file → combine → write and commit → reopen and read.
+This is exactly the NDVI notebook from chapter 1, so anyone who ran it has
+already done all six steps. The code on the next slides was run end to end on
+2026-11-13 (icechunk 2.3.1, virtualizarr 2.8.0).
 :::
 
-## 1 · Find the files
+## Two places, two sets of credentials
 
-## 2 · Tell VirtualiZarr how to reach them
+| | **Source** | **Destination** |
+|---|---|---|
+| What lives there | The NetCDF bytes, never copied | The Icechunk store: metadata and chunk references |
+| NDVI example | `s3://noaa-cdr-ndvi-pds/` (NOAA, public) | A local folder, the scratch bucket, or Source Cooperative |
+| Who needs access | Every reader | Writers, to build it; readers, to open it |
 
-## 3 · Open one file virtually
+::: {.takeaway}
+A reader needs access to **both**. Keep the two configurations separate in your
+code. One never implies the other.
+:::
 
-## 4 · Combine compatible files
+## 1 · Find the files {.code}
 
-## 5 · Write and commit
+```python
+import s3fs
 
-## 6 · Reopen as a reader and read real data
+fs = s3fs.S3FileSystem(anon=True)          # public bucket, no credentials
+urls = [f"s3://{p}" for p in sorted(fs.ls("noaa-cdr-ndvi-pds/data/2000"))[:5]]
+```
 
-## Takeaways {.dark}
+Five daily files of the NOAA AVHRR NDVI Climate Data Record, January 1–5, 2000.
+
+## 2 · Say how to reach them {.code}
+
+```python
+from obstore.store import from_url
+from obspec_utils.registry import ObjectStoreRegistry
+from virtualizarr.parsers import HDFParser
+
+bucket = "s3://noaa-cdr-ndvi-pds/"
+store = from_url(bucket, region="us-east-1", skip_signature=True)
+registry = ObjectStoreRegistry({bucket: store})   # URLs starting with bucket -> this store
+parser = HDFParser()                              # NetCDF4 is HDF5 inside
+```
+
+::: notes
+Pick the parser that matches the file format: HDFParser for NetCDF4/HDF5,
+NetCDF3Parser for classic NetCDF, and others for DMR++, Zarr and FITS. The
+audit in chapter 4 tells you which one.
+:::
+
+## 3 · Open one file virtually {.code}
+
+```python
+from virtualizarr import open_virtual_dataset
+
+coords = ["time", "latitude", "longitude"]
+vds = open_virtual_dataset(url=urls[0], parser=parser, registry=registry,
+                           loadable_variables=coords)
+```
+
+```text
+NDVI   (time, latitude, longitude) int16 52MB ManifestArray<shape=(1, 3600, 7200) ...>
+```
+
+::: {.takeaway}
+Small coordinates are loaded. Big arrays become **ManifestArrays**: lists of
+where each chunk sits (file, byte offset, length). No data is downloaded.
+:::
+
+## 4 · Combine compatible files {.code}
+
+```python
+import xarray as xr
+
+vds_list = [
+    open_virtual_dataset(url=u, parser=parser, registry=registry, loadable_variables=coords)
+    .drop_vars(["nv", "ncrs", "crs"], errors="ignore")
+    for u in urls
+]
+combined = xr.concat(vds_list, dim="time", data_vars="minimal", coords="minimal",
+                     compat="override", combine_attrs="override")
+```
+
+::: notes
+"Compatible" means the same dimensions, shape apart from time, chunk grid,
+dtype and codecs. Files that differ cannot share one virtual array. The keyword
+arguments stop xarray from trying to compare virtual arrays, which it cannot
+do. The dropped variables are small CRS and bounds-dimension variables that get
+in the way of the join.
+:::
+
+## 5 · Write and commit {.code}
+
+```python
+import icechunk
+
+config = icechunk.RepositoryConfig.default()
+config.set_virtual_chunk_container(icechunk.VirtualChunkContainer(
+    url_prefix=bucket, store=icechunk.s3_store(region="us-east-1", anonymous=True)))
+
+storage = icechunk.local_filesystem_storage("ndvi-icechunk")
+repo = icechunk.Repository.create(storage, config)
+repo.save_config()
+session = repo.writable_session("main")
+combined.vz.to_icechunk(session.store)
+session.commit("Five days of NDVI CDR, January 2000")
+```
+
+::: notes
+The virtual chunk container tells Icechunk that some chunks live outside the
+store, under this prefix, and how to reach them. save_config makes that
+setting part of the store, so readers get it too. Commits work like git: each
+one is a snapshot you can go back to.
+:::
+
+## 6 · Reopen and read real data {.code}
+
+```python
+creds = icechunk.containers_credentials(
+    {bucket: icechunk.s3_credentials(anonymous=True)})
+reader = icechunk.Repository.open(icechunk.local_filesystem_storage("ndvi-icechunk"),
+                                  authorize_virtual_chunk_access=creds)
+ds = xr.open_zarr(reader.readonly_session("main").store, consolidated=False, chunks={})
+
+ds["NDVI"].sel(latitude=slice(50, 40), longitude=slice(-126, -114)).isel(time=0).plot()
+```
+
+::: {.takeaway}
+Always check from a **fresh read-only session**, and read **real values**, not
+just metadata. That is the reader's path, and it is where problems show up.
+:::
+
+## From your laptop to the cloud
+
+Only step 5's storage line changes.
+
+| Where the store lives | Storage |
+|---|---|
+| A local folder | `icechunk.local_filesystem_storage("ndvi-icechunk")` |
+| The hub's scratch bucket | `icechunk.s3_storage(bucket=..., prefix=..., ...)`: see [The scratch bucket](../setup/05-scratch-bucket.qmd) |
+| Published on Source Cooperative | Write with `icechunk.s3_storage(...)` and your write keys; readers open it with `icechunk.http_storage("https://data.source.coop/<account>/<store>")` |
+
+The NetCDF files never move.
+
+## Try it
+
+[**Open the NDVI notebook in Colab →**](https://colab.research.google.com/github/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/simple-virtual-icechunk.ipynb){.lead}
+
+Or open it on the hub and ask your agent:
+
+> *"Walk me through `simple-virtual-icechunk.ipynb` one step at a time. For
+> each step, tell me what is read from the source and what is written to the
+> store."*
+
+## Next: auditing your files {.dark}
+
+[Chapter 4 · Auditing your files](04-audit.qmd){.lead}

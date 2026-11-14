@@ -504,60 +504,81 @@
     "text": "Next: put an agent to work\nChapter 2 · Working with an agent"
   },
   {
-    "objectID": "slides/03-pipeline.html#the-whole-pipeline-on-one-slide",
-    "href": "slides/03-pipeline.html#the-whole-pipeline-on-one-slide",
+    "objectID": "slides/03-pipeline.html#six-steps",
+    "href": "slides/03-pipeline.html#six-steps",
     "title": "The basic pipeline",
-    "section": "The whole pipeline on one slide",
-    "text": "The whole pipeline on one slide\n\nDRAFT: mermaid diagram: find files → source access → open one file → combine → write and commit → reopen and read."
+    "section": "Six steps",
+    "text": "Six steps\n\n\n\n\n\n\n\n\n\nStep\nWhat happens\n\n\n\n\n1\nFind the files\nList the NetCDF files you want in the store\n\n\n2\nSay how to reach them\nAn object store, a registry and a parser for the file format\n\n\n3\nOpen one file virtually\nRead its metadata only. The big arrays stay where they are\n\n\n4\nCombine compatible files\nJoin them along time into one virtual dataset\n\n\n5\nWrite and commit\nSave the chunk references to an Icechunk repository\n\n\n6\nReopen and read\nOpen the store as a reader would, and read real values\n\n\n\n\nThis is exactly the NDVI notebook from chapter 1, so anyone who ran it has already done all six steps. The code on the next slides was run end to end on 2026-11-13 (icechunk 2.3.1, virtualizarr 2.8.0)."
+  },
+  {
+    "objectID": "slides/03-pipeline.html#two-places-two-sets-of-credentials",
+    "href": "slides/03-pipeline.html#two-places-two-sets-of-credentials",
+    "title": "The basic pipeline",
+    "section": "Two places, two sets of credentials",
+    "text": "Two places, two sets of credentials\n\n\n\n\n\n\n\n\n\nSource\nDestination\n\n\n\n\nWhat lives there\nThe NetCDF bytes, never copied\nThe Icechunk store: metadata and chunk references\n\n\nNDVI example\ns3://noaa-cdr-ndvi-pds/ (NOAA, public)\nA local folder, the scratch bucket, or Source Cooperative\n\n\nWho needs access\nEvery reader\nWriters, to build it; readers, to open it\n\n\n\n\nA reader needs access to both. Keep the two configurations separate in your code. One never implies the other."
   },
   {
     "objectID": "slides/03-pipeline.html#find-the-files",
     "href": "slides/03-pipeline.html#find-the-files",
     "title": "The basic pipeline",
     "section": "1 · Find the files",
-    "text": "1 · Find the files"
+    "text": "1 · Find the files\nimport s3fs\n\nfs = s3fs.S3FileSystem(anon=True)          # public bucket, no credentials\nurls = [f\"s3://{p}\" for p in sorted(fs.ls(\"noaa-cdr-ndvi-pds/data/2000\"))[:5]]\nFive daily files of the NOAA AVHRR NDVI Climate Data Record, January 1–5, 2000."
   },
   {
-    "objectID": "slides/03-pipeline.html#tell-virtualizarr-how-to-reach-them",
-    "href": "slides/03-pipeline.html#tell-virtualizarr-how-to-reach-them",
+    "objectID": "slides/03-pipeline.html#say-how-to-reach-them",
+    "href": "slides/03-pipeline.html#say-how-to-reach-them",
     "title": "The basic pipeline",
-    "section": "2 · Tell VirtualiZarr how to reach them",
-    "text": "2 · Tell VirtualiZarr how to reach them"
+    "section": "2 · Say how to reach them",
+    "text": "2 · Say how to reach them\nfrom obstore.store import from_url\nfrom obspec_utils.registry import ObjectStoreRegistry\nfrom virtualizarr.parsers import HDFParser\n\nbucket = \"s3://noaa-cdr-ndvi-pds/\"\nstore = from_url(bucket, region=\"us-east-1\", skip_signature=True)\nregistry = ObjectStoreRegistry({bucket: store})   # URLs starting with bucket -&gt; this store\nparser = HDFParser()                              # NetCDF4 is HDF5 inside\n\nPick the parser that matches the file format: HDFParser for NetCDF4/HDF5, NetCDF3Parser for classic NetCDF, and others for DMR++, Zarr and FITS. The audit in chapter 4 tells you which one."
   },
   {
     "objectID": "slides/03-pipeline.html#open-one-file-virtually",
     "href": "slides/03-pipeline.html#open-one-file-virtually",
     "title": "The basic pipeline",
     "section": "3 · Open one file virtually",
-    "text": "3 · Open one file virtually"
+    "text": "3 · Open one file virtually\nfrom virtualizarr import open_virtual_dataset\n\ncoords = [\"time\", \"latitude\", \"longitude\"]\nvds = open_virtual_dataset(url=urls[0], parser=parser, registry=registry,\n                           loadable_variables=coords)\nNDVI   (time, latitude, longitude) int16 52MB ManifestArray&lt;shape=(1, 3600, 7200) ...&gt;\n\nSmall coordinates are loaded. Big arrays become ManifestArrays: lists of where each chunk sits (file, byte offset, length). No data is downloaded."
   },
   {
     "objectID": "slides/03-pipeline.html#combine-compatible-files",
     "href": "slides/03-pipeline.html#combine-compatible-files",
     "title": "The basic pipeline",
     "section": "4 · Combine compatible files",
-    "text": "4 · Combine compatible files"
+    "text": "4 · Combine compatible files\nimport xarray as xr\n\nvds_list = [\n    open_virtual_dataset(url=u, parser=parser, registry=registry, loadable_variables=coords)\n    .drop_vars([\"nv\", \"ncrs\", \"crs\"], errors=\"ignore\")\n    for u in urls\n]\ncombined = xr.concat(vds_list, dim=\"time\", data_vars=\"minimal\", coords=\"minimal\",\n                     compat=\"override\", combine_attrs=\"override\")\n\n“Compatible” means the same dimensions, shape apart from time, chunk grid, dtype and codecs. Files that differ cannot share one virtual array. The keyword arguments stop xarray from trying to compare virtual arrays, which it cannot do. The dropped variables are small CRS and bounds-dimension variables that get in the way of the join."
   },
   {
     "objectID": "slides/03-pipeline.html#write-and-commit",
     "href": "slides/03-pipeline.html#write-and-commit",
     "title": "The basic pipeline",
     "section": "5 · Write and commit",
-    "text": "5 · Write and commit"
+    "text": "5 · Write and commit\nimport icechunk\n\nconfig = icechunk.RepositoryConfig.default()\nconfig.set_virtual_chunk_container(icechunk.VirtualChunkContainer(\n    url_prefix=bucket, store=icechunk.s3_store(region=\"us-east-1\", anonymous=True)))\n\nstorage = icechunk.local_filesystem_storage(\"ndvi-icechunk\")\nrepo = icechunk.Repository.create(storage, config)\nrepo.save_config()\nsession = repo.writable_session(\"main\")\ncombined.vz.to_icechunk(session.store)\nsession.commit(\"Five days of NDVI CDR, January 2000\")\n\nThe virtual chunk container tells Icechunk that some chunks live outside the store, under this prefix, and how to reach them. save_config makes that setting part of the store, so readers get it too. Commits work like git: each one is a snapshot you can go back to."
   },
   {
-    "objectID": "slides/03-pipeline.html#reopen-as-a-reader-and-read-real-data",
-    "href": "slides/03-pipeline.html#reopen-as-a-reader-and-read-real-data",
+    "objectID": "slides/03-pipeline.html#reopen-and-read-real-data",
+    "href": "slides/03-pipeline.html#reopen-and-read-real-data",
     "title": "The basic pipeline",
-    "section": "6 · Reopen as a reader and read real data",
-    "text": "6 · Reopen as a reader and read real data"
+    "section": "6 · Reopen and read real data",
+    "text": "6 · Reopen and read real data\ncreds = icechunk.containers_credentials(\n    {bucket: icechunk.s3_credentials(anonymous=True)})\nreader = icechunk.Repository.open(icechunk.local_filesystem_storage(\"ndvi-icechunk\"),\n                                  authorize_virtual_chunk_access=creds)\nds = xr.open_zarr(reader.readonly_session(\"main\").store, consolidated=False, chunks={})\n\nds[\"NDVI\"].sel(latitude=slice(50, 40), longitude=slice(-126, -114)).isel(time=0).plot()\n\nAlways check from a fresh read-only session, and read real values, not just metadata. That is the reader’s path, and it is where problems show up."
   },
   {
-    "objectID": "slides/03-pipeline.html#takeaways",
-    "href": "slides/03-pipeline.html#takeaways",
+    "objectID": "slides/03-pipeline.html#from-your-laptop-to-the-cloud",
+    "href": "slides/03-pipeline.html#from-your-laptop-to-the-cloud",
     "title": "The basic pipeline",
-    "section": "Takeaways",
-    "text": "Takeaways"
+    "section": "From your laptop to the cloud",
+    "text": "From your laptop to the cloud\nOnly step 5’s storage line changes.\n\n\n\nWhere the store lives\nStorage\n\n\n\n\nA local folder\nicechunk.local_filesystem_storage(\"ndvi-icechunk\")\n\n\nThe hub’s scratch bucket\nicechunk.s3_storage(bucket=..., prefix=..., ...): see The scratch bucket\n\n\nPublished on Source Cooperative\nWrite with icechunk.s3_storage(...) and your write keys; readers open it with icechunk.http_storage(\"https://data.source.coop/&lt;account&gt;/&lt;store&gt;\")\n\n\n\nThe NetCDF files never move."
+  },
+  {
+    "objectID": "slides/03-pipeline.html#try-it",
+    "href": "slides/03-pipeline.html#try-it",
+    "title": "The basic pipeline",
+    "section": "Try it",
+    "text": "Try it\nOpen the NDVI notebook in Colab →\nOr open it on the hub and ask your agent:\n\n“Walk me through simple-virtual-icechunk.ipynb one step at a time. For each step, tell me what is read from the source and what is written to the store.”"
+  },
+  {
+    "objectID": "slides/03-pipeline.html#next-auditing-your-files",
+    "href": "slides/03-pipeline.html#next-auditing-your-files",
+    "title": "The basic pipeline",
+    "section": "Next: auditing your files",
+    "text": "Next: auditing your files\nChapter 4 · Auditing your files"
   },
   {
     "objectID": "slides/05-build.html#the-basic-code",
