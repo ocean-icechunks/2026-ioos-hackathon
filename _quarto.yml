@@ -73,6 +73,12 @@ website:
               text: "2 · PacIOOS: seasons and water masses at ALOHA"
             - href: examples/03-oa-saturation-horizon.ipynb
               text: "3 · OA indicators: aragonite saturation horizon"
+            - href: examples/04-oisst-world-sst.ipynb
+              text: "4 · OISST: world SST since 1981"
+            - href: examples/05-oisst-gulf-of-maine-heatwaves.ipynb
+              text: "5 · OISST: Gulf of Maine marine heatwaves"
+            - href: examples/06-gobai-oxygen-minimum-zone.ipynb
+              text: "6 · GOBAI: the oxygen minimum zone"
         - text: "---"
         - href: resources.qmd
           text: Resources

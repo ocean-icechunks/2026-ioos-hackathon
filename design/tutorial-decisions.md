@@ -38,8 +38,21 @@ does not undo something deliberate. Decisions are Eli Holmes's, from
   textbook acidification example) was chosen by Eli after being told the store
   has no time axis and is only 82 MB, so its selling point is one usable grid
   (the source files' coordinates are placeholder zeros), not saved downloads.
-  A time-heavy example would need another store; `noaa_oisst` was suggested
-  and not examined.
+  Eli wanted a time-heavy example too, which led to examples 4 and 5.
+- **Examples 4 and 5 read OISST's `daily/` group on purpose** (Eli: "doing
+  something fast with 16,000 daily files is the real wow example"), not the
+  cheaper `monthly/` group. Each daily chunk is NOAA's whole global map, so a
+  point, a box and the globe cost the same reads. Example 4 reads every 7th day
+  (`step = 7`, ~40 s; `step = 1` is ~5 min), at Eli's request. Example 5 must
+  read every day (heatwaves are 5 consecutive days) and takes ~2.5–3 min; it
+  reads a year at a time with retries, because two of four long runs died on
+  one dropped S3 connection ("connection closed before message completed").
+  The OISST container is S3, so it needs
+  `containers_credentials({...: s3_anonymous_credentials()})`, not `HttpAccess`.
+- **Example 6 (GOBAI HR oxygen minimum zone)** measures the northern edge along
+  130 °W, not 120 °W: at 120 °W the < 60 µmol/kg water reaches the coast
+  (32.9 °N) and the "edge" just tracked land. GOBAI HR is preliminary, so the
+  notebook presents its expansion as something to check, not a result.
   It reads one 02:00 HST profile on the 15th of each month, 2009–2020,
   because each chunk is one depth at one time step and long series are costly.
   The rendered figures sit in `docs/examples/*_files/`, which `.gitignore`
