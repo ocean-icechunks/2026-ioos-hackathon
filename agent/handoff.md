@@ -39,11 +39,12 @@ Rolling state for agents. This is orientation, not a task list.
 - **Never seen by me:** the agents' first-start sign-in screens, and some slides
   headless Chrome never captured (chapter 2's Mermaid flowcharts, the chapter 5
   four-step table and prompt slides).
-- The merged `tutorial-book` branch still exists on GitHub. Delete it only if
-  Eli asks.
 
 ## Recently shipped
 
+- PR #2: this handoff, `design/tutorial-decisions.md`, and the `AGENTS.md`
+  note that a full `quarto render` deletes `docs/.nojekyll`. Merged branches
+  `tutorial-book` and `handoff` were deleted on 2026-11-14.
 - PR #1: setup pages, six slide-deck chapters, the NDVI Colab notebook,
   `AGENTS.md`, the ESIP July 2026 talk PDF in `resources/`, and the README
   "Reuse and citation" section (CC0, acknowledgement requested for Holmes and
