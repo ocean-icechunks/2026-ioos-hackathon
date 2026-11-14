@@ -98,6 +98,13 @@
     "text": "Takeaways"
   },
   {
+    "objectID": "slides/02-agent-and-skills.html#where-your-time-goes",
+    "href": "slides/02-agent-and-skills.html#where-your-time-goes",
+    "title": "Working with an agent",
+    "section": "Where your time goes",
+    "text": "Where your time goes\n\n\nMy own rough estimate, not a measurement. Without an agent, most of my time went to writing and debugging code. With one, I write almost no code. Half my time is deciding what to build and how, and most of the rest is checking what the agent says it did and steering it."
+  },
+  {
     "objectID": "slides/02-agent-and-skills.html#an-agent-is-not-a-chatbot",
     "href": "slides/02-agent-and-skills.html#an-agent-is-not-a-chatbot",
     "title": "Working with an agent",
@@ -144,7 +151,7 @@
     "href": "slides/02-agent-and-skills.html#ocean-icechunks-skills",
     "title": "Working with an agent",
     "section": "ocean-icechunks-skills",
-    "text": "ocean-icechunks-skills\n\n\n\n\n\n\n\nSkill\nUse it to\n\n\n\n\nvirtual-icechunk\nResearch, build, validate, document and audit virtual Icechunk stores of NetCDF/HDF5 files\n\n\narchive-to-cloud\nCopy a provider’s files, unchanged, to object storage first, when they are not somewhere a store can reference\n\n\n\nBoth were written from lessons learned on real ocean-data builds, and they work with Claude Code, Codex, Copilot and Antigravity.\ngithub.com/ocean-icechunks/ocean-icechunks-skills"
+    "text": "ocean-icechunks-skills\n\n\n\n\n\n\n\nSkill\nUse it to\n\n\n\n\nvirtual-icechunk\nResearch, build, validate, document and audit virtual Icechunk stores of NetCDF/HDF5 files\n\n\narchive-to-cloud\nCopy a provider’s files, unchanged, to object storage first, when they are not somewhere a store can reference\n\n\n\nBoth were written from lessons learned on real ocean-data builds, and they work with Claude Code, Codex, Copilot and Antigravity.\nInstall them: Start your coding agent → Add the ocean-icechunks skills\ngithub.com/ocean-icechunks/ocean-icechunks-skills"
   },
   {
     "objectID": "slides/02-agent-and-skills.html#the-skill-builds-in-a-set-order",

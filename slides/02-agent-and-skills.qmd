@@ -3,6 +3,17 @@ title: "Working with an agent"
 subtitle: "The agent does the typing; you make the decisions"
 ---
 
+## Where your time goes {.visual}
+
+![](images/fig_agent_time.png){script="scripts/fig_agent_time.py" fig-alt="Two pie charts. Without an agent: 80% writing and debugging code, 20% planning and deciding. With an agent: 50% planning and deciding, 35% checking and adjusting what the agent did, 15% reading the agent's code, and no time writing code."}
+
+::: notes
+My own rough estimate, not a measurement. Without an agent, most of my time
+went to writing and debugging code. With one, I write almost no code. Half my
+time is deciding what to build and how, and most of the rest is checking what
+the agent says it did and steering it.
+:::
+
 ## An agent is not a chatbot
 
 - It **reads your files, runs commands and writes code** in the folder you
@@ -88,6 +99,8 @@ picks the skill. To ask for one directly, type `/virtual-icechunk` (in Codex, `$
 
 Both were written from lessons learned on real ocean-data builds, and they
 work with Claude Code, Codex, Copilot and Antigravity.
+
+**Install them:** [Start your coding agent → Add the ocean-icechunks skills](../setup/03-start-your-agent.qmd#add-the-ocean-icechunks-skills)
 
 [github.com/ocean-icechunks/ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills){.small}
 
