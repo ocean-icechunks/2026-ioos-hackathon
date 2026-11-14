@@ -27,7 +27,12 @@ Rolling state for agents. This is orientation, not a task list.
   notebook.
 - **Headless Chrome screenshots of the decks are unreliable.** They time out,
   lazy images are missing, and Mermaid did not draw. A failed screenshot is not
-  evidence of a broken slide. Ask Eli to check in a browser.
+  evidence of a broken slide. Ask Eli to check in a browser. Quarto's bundled
+  Chrome (`~/.local/share/quarto/chromium`, version 92) is too old to run the
+  site's Mermaid at all, and `npx mermaid-cli` was blocked by the permission
+  classifier.
+- **Mermaid on slides:** keep `htmlLabels: false` and a `fig-width`, and keep
+  flowcharts on one row. Eli rejected a two-row subgraph layout.
 
 ## Open threads
 
@@ -37,11 +42,17 @@ Rolling state for agents. This is orientation, not a task list.
 - **Never verified on the workshop hub:** scratch bucket, image, machine sizes.
   Only the main hub was checked.
 - **Never seen by me:** the agents' first-start sign-in screens, and some slides
-  headless Chrome never captured (chapter 2's Mermaid flowcharts, the chapter 5
-  four-step table and prompt slides).
+  headless Chrome never captured (the chapter 5 four-step table and prompt
+  slides). Eli checked chapter 2's flowcharts in a browser on 2026-11-14.
 
 ## Recently shipped
 
+- PR #4 (merged 2026-11-14, branch deleted): docked left sidebar with the
+  IOOS Code Sprint logo (`images/`), a ⌂ Home link in every deck's footer
+  (title slide included), readable chapter 2 flowcharts, and a README
+  "Make changes" section (Quarto install, render before push). Embedding the
+  decks in sidebar pages was offered and declined; see
+  `design/tutorial-decisions.md`.
 - PR #2: this handoff, `design/tutorial-decisions.md`, and the `AGENTS.md`
   note that a full `quarto render` deletes `docs/.nojekyll`. Merged branches
   `tutorial-book` and `handoff` were deleted on 2026-11-14.
