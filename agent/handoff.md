@@ -2,7 +2,7 @@
 
 Rolling state for agents. This is orientation, not a task list.
 
-## Repo state (2026-11-14, after PR #6)
+## Repo state (2026-11-14, after PR #8)
 
 - The virtual Icechunk tutorial site for the 2026 IOOS Hackathon. Eli Holmes and
   Rich Signell lead the project.
@@ -61,6 +61,14 @@ Rolling state for agents. This is orientation, not a task list.
   slides). Eli checked chapter 2's flowcharts in a browser on 2026-11-14.
 
 ## Recently shipped
+
+- PR #8 (merged 2026-11-14, branch deleted): the example notebooks' Colab
+  badge is an HTML `<a><img alt=...></a>` on purpose. Markdown `![Open In
+  Colab](...)` alone on a line becomes a centered figure with the alt text as
+  a caption. Each example also prints `ds.nbytes` after opening (HYCOM 1.24 PB,
+  four times the 306 TB of int16 files, because xarray counts decoded float64;
+  a note in the notebook says so). Only the setup, open and new cells were run
+  for that; the rest of each notebook's stored outputs predate it.
 
 - PR #6 (merged 2026-11-14, branch deleted): revision 3. Lectures and Examples
   sidebar sections; six examples (HYCOM snow crab, PacIOOS ALOHA seasons and
