@@ -28,6 +28,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2203a4f6ac1ba7367e1838bf177e702f.css">
   <link rel="stylesheet" href="slides.css">
@@ -160,13 +226,11 @@
     <p class="talk-event"></p>
   </div>
 </section>
-<section id="look-before-you-build" class="slide level2 statement">
-<h2>Look before you build</h2>
-</section>
-<section id="does-the-server-give-you-files" class="slide level2">
-<h2>Does the server give you files?</h2>
+<section id="a-virtual-store-is-only-as-consistent-as-its-files" class="slide level2 statement">
+<h2>A virtual store is only as consistent as its files</h2>
+<p>Nothing is rewritten, so the files’ layout <em>is</em> the store’s layout.</p>
 <aside class="notes">
-<p>DRAFT: THREDDS OPeNDAP/NCSS and ERDDAP generate responses; they cannot be referenced. archive-to-cloud skill if files must be copied first.</p>
+<p>A virtual store copies no data. So it can fix metadata, but it cannot fix how the bytes are laid out: the grid, the chunks, the compression. An audit tells you, before you build, whether the files will make a good store, a slow one, or several stores.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -179,13 +243,88 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="do-byte-range-reads-work" class="slide level2">
-<h2>Do byte-range reads work?</h2>
+<section id="consistent-grids" class="slide level2">
+<h2>Consistent grids</h2>
+<ul>
+<li>Same <strong>dimensions, shape and coordinate values</strong> in every file, apart from the time dimension you join along</li>
+<li>Files on different grids <strong>cannot share one array.</strong> They become separate groups, or separate stores</li>
+</ul>
+<div class="takeaway">
+<p><strong>CoastWatch Ocean Heat Content:</strong> three regions on three different lat/lon grids, so three separate stores.</p>
+</div>
 </section>
-<section id="format-chunks-and-compression" class="slide level2">
-<h2>Format, chunks and compression</h2>
+<section id="consistent-chunking" class="slide level2">
+<h2>Consistent chunking</h2>
+<ul>
+<li>A chunk is the <strong>smallest piece a reader can fetch.</strong> Virtual stores keep the provider’s chunks exactly</li>
+<li>Every file needs the <strong>same chunk shape</strong> for a variable</li>
+<li><strong>Unchunked</strong> arrays mean every read pulls the whole array</li>
+</ul>
+<div class="takeaway">
+<p><strong>NOAA NDVI:</strong> <code>NDVI</code> is chunked 1 × 1200 × 2400, but <code>QA</code> in the same file is unchunked, so any read of <code>QA</code> pulls all 3600 × 7200 values.</p>
+</div>
+</section>
+<section id="consistent-encoding" class="slide level2">
+<h2>Consistent encoding</h2>
+<ul>
+<li>Same <strong>dtype, compression, fill value</strong> and <strong>file format</strong> in every file</li>
+<li>NetCDF-3 and NetCDF-4/HDF5 need different parsers, and cannot be mixed in one array</li>
+<li><strong>Check the file’s own header.</strong> Catalogs and servers get this wrong</li>
+</ul>
+<div class="takeaway">
+<p><strong>PacIOOS:</strong> the servers implied HDF5, but the files were NetCDF-3. About 3,200 “replacement” files were compressed HDF5 under the same names.</p>
+</div>
+</section>
+<section id="built-to-be-appended" class="slide level2">
+<h2>Built to be appended</h2>
+<ul>
+<li><strong>New files arrive the same way:</strong> same naming, same folder pattern, same grid</li>
+<li><strong>Each file’s length along time is a whole number of chunks.</strong> If not, an append can put data in the wrong place without any error</li>
+<li><strong>One time step per file</strong> works, but the time coordinate needs explicit chunking or the store opens slowly</li>
+</ul>
+<div class="takeaway">
+<p><strong>CEFI daily files:</strong> 365 or 366 days each, chunked 100 days. In a test with that layout, appending put 430 of 730 values in the wrong place, with no error.</p>
+</div>
+</section>
+<section id="bugs-in-the-data" class="slide level2">
+<h2>Bugs in the data</h2>
+<ul>
+<li><strong>Missing time steps.</strong> Is it a real gap, or the product’s normal cadence?</li>
+<li><strong>Duplicated or out-of-order</strong> time steps</li>
+<li><strong>Empty, truncated or unreadable</strong> files</li>
+<li>Coordinates that are <strong>all zero or all NaN</strong></li>
+</ul>
+<div class="takeaway">
+<p><strong>HYCOM GOFS 3.1:</strong> a few analyses are missing from the archive, so the snow crab notebook takes the nearest time that exists.</p>
+</div>
+</section>
+<section id="missing-or-wrong-metadata" class="slide level2">
+<h2>Missing or wrong metadata</h2>
+<p>This is the one thing a virtual store <strong>can</strong> fix, without touching the data.</p>
+<ul>
+<li>Missing <code>units</code>, <code>standard_name</code>, <code>long_name</code>, or a vertical <code>positive</code></li>
+<li>Attributes that cannot be saved as JSON, such as a <code>NaN</code> fill value on a coordinate</li>
+<li>No version recorded anywhere in the files</li>
+</ul>
+<div class="takeaway">
+<p>Fix it in the store, write down every change, and make the result follow CF conventions.</p>
+</div>
+</section>
+<section id="look-for-yourself" class="slide level2 code">
+<h2>Look for yourself</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py, s3fs</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>fs <span class="op">=</span> s3fs.S3FileSystem(anon<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="bu">sorted</span>(fs.ls(<span class="st">"noaa-cdr-ndvi-pds/data/2000"</span>))[<span class="dv">0</span>]   <span class="co"># one day's file</span></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> fs.<span class="bu">open</span>(url) <span class="im">as</span> f, h5py.File(f) <span class="im">as</span> h:</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, v <span class="kw">in</span> h.items():</span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(name, v.dtype, v.shape, <span class="st">"chunks:"</span>, v.chunks, v.compression)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="text"><code>...
+NDVI int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip
+TIMEOFDAY int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip
+QA int16 (1, 3600, 7200) chunks: None None</code></pre>
 <aside class="notes">
-<p>DRAFT: the h5py snippet; NDVI is chunked (1, 1200, 2400) + gzip + shuffle, but QA is unchunked.</p>
+<p>Run on the first NDVI file on 2026-11-13. This reads only the header, a few kilobytes. Do this on files from the start, the middle and the end of the archive, and on both sides of any change in instrument, version or format.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -198,17 +337,35 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="can-these-files-be-combined" class="slide level2">
-<h2>Can these files be combined?</h2>
+<section id="let-the-agent-write-the-audit-report" class="slide level2">
+<h2>Let the agent write the audit report</h2>
+<p><strong>First, tell it how to find the files.</strong> It cannot guess:</p>
+<ul>
+<li><strong>Where</strong> they are: a bucket and prefix, a THREDDS catalog, an API</li>
+<li><strong>How to get in:</strong> public, or which credentials</li>
+<li><strong>What to include:</strong> products, variables, years</li>
+</ul>
+<p>Then ask:</p>
+<blockquote>
+<p><em>“Audit the NOAA CDR NDVI files in <code>s3://noaa-cdr-ndvi-pds/data/</code> (public, us-east-1, one NetCDF per day) for a virtual Icechunk store. Check grids, chunking, encoding, whether they can be appended, missing days and metadata. Read headers only. Write the findings to <code>audit/report.md</code>. No build code.”</em></p>
+</blockquote>
+<aside class="notes">
+<p>The virtual-icechunk skill’s research-and-plan step does this audit. For a big archive, or files on a provider’s own server, the archive-to-cloud skill’s source audit scans everything resumably and reports what nobody asked about.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="stable-urls-and-who-can-read-them" class="slide level2">
-<h2>Stable URLs and who can read them</h2>
-</section>
-<section id="ask-the-agent-to-audit" class="slide level2 code">
-<h2>Ask the agent to audit</h2>
-</section>
-<section id="takeaways" class="slide level2 dark" data-state="talk-dark" data-background-color="#0F1C26">
-<h2>Takeaways</h2>
+<section id="next-building-a-store" class="slide level2 dark" data-state="talk-dark" data-background-color="#0F1C26">
+<h2>Next: building a store</h2>
+<p><a href="../slides/05-build.html" class="lead">Chapter 5 · Building a store</a></p>
 
 
 </section>

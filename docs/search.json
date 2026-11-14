@@ -42,60 +42,74 @@
     "text": "Takeaways"
   },
   {
-    "objectID": "slides/04-audit.html#look-before-you-build",
-    "href": "slides/04-audit.html#look-before-you-build",
+    "objectID": "slides/04-audit.html#a-virtual-store-is-only-as-consistent-as-its-files",
+    "href": "slides/04-audit.html#a-virtual-store-is-only-as-consistent-as-its-files",
     "title": "Auditing your files",
-    "section": "Look before you build",
-    "text": "Look before you build"
+    "section": "A virtual store is only as consistent as its files",
+    "text": "A virtual store is only as consistent as its files\nNothing is rewritten, so the files’ layout is the store’s layout.\n\nA virtual store copies no data. So it can fix metadata, but it cannot fix how the bytes are laid out: the grid, the chunks, the compression. An audit tells you, before you build, whether the files will make a good store, a slow one, or several stores."
   },
   {
-    "objectID": "slides/04-audit.html#does-the-server-give-you-files",
-    "href": "slides/04-audit.html#does-the-server-give-you-files",
+    "objectID": "slides/04-audit.html#consistent-grids",
+    "href": "slides/04-audit.html#consistent-grids",
     "title": "Auditing your files",
-    "section": "Does the server give you files?",
-    "text": "Does the server give you files?\n\nDRAFT: THREDDS OPeNDAP/NCSS and ERDDAP generate responses; they cannot be referenced. archive-to-cloud skill if files must be copied first."
+    "section": "Consistent grids",
+    "text": "Consistent grids\n\nSame dimensions, shape and coordinate values in every file, apart from the time dimension you join along\nFiles on different grids cannot share one array. They become separate groups, or separate stores\n\n\nCoastWatch Ocean Heat Content: three regions on three different lat/lon grids, so three separate stores."
   },
   {
-    "objectID": "slides/04-audit.html#do-byte-range-reads-work",
-    "href": "slides/04-audit.html#do-byte-range-reads-work",
+    "objectID": "slides/04-audit.html#consistent-chunking",
+    "href": "slides/04-audit.html#consistent-chunking",
     "title": "Auditing your files",
-    "section": "Do byte-range reads work?",
-    "text": "Do byte-range reads work?"
+    "section": "Consistent chunking",
+    "text": "Consistent chunking\n\nA chunk is the smallest piece a reader can fetch. Virtual stores keep the provider’s chunks exactly\nEvery file needs the same chunk shape for a variable\nUnchunked arrays mean every read pulls the whole array\n\n\nNOAA NDVI: NDVI is chunked 1 × 1200 × 2400, but QA in the same file is unchunked, so any read of QA pulls all 3600 × 7200 values."
   },
   {
-    "objectID": "slides/04-audit.html#format-chunks-and-compression",
-    "href": "slides/04-audit.html#format-chunks-and-compression",
+    "objectID": "slides/04-audit.html#consistent-encoding",
+    "href": "slides/04-audit.html#consistent-encoding",
     "title": "Auditing your files",
-    "section": "Format, chunks and compression",
-    "text": "Format, chunks and compression\n\nDRAFT: the h5py snippet; NDVI is chunked (1, 1200, 2400) + gzip + shuffle, but QA is unchunked."
+    "section": "Consistent encoding",
+    "text": "Consistent encoding\n\nSame dtype, compression, fill value and file format in every file\nNetCDF-3 and NetCDF-4/HDF5 need different parsers, and cannot be mixed in one array\nCheck the file’s own header. Catalogs and servers get this wrong\n\n\nPacIOOS: the servers implied HDF5, but the files were NetCDF-3. About 3,200 “replacement” files were compressed HDF5 under the same names."
   },
   {
-    "objectID": "slides/04-audit.html#can-these-files-be-combined",
-    "href": "slides/04-audit.html#can-these-files-be-combined",
+    "objectID": "slides/04-audit.html#built-to-be-appended",
+    "href": "slides/04-audit.html#built-to-be-appended",
     "title": "Auditing your files",
-    "section": "Can these files be combined?",
-    "text": "Can these files be combined?"
+    "section": "Built to be appended",
+    "text": "Built to be appended\n\nNew files arrive the same way: same naming, same folder pattern, same grid\nEach file’s length along time is a whole number of chunks. If not, an append can put data in the wrong place without any error\nOne time step per file works, but the time coordinate needs explicit chunking or the store opens slowly\n\n\nCEFI daily files: 365 or 366 days each, chunked 100 days. In a test with that layout, appending put 430 of 730 values in the wrong place, with no error."
   },
   {
-    "objectID": "slides/04-audit.html#stable-urls-and-who-can-read-them",
-    "href": "slides/04-audit.html#stable-urls-and-who-can-read-them",
+    "objectID": "slides/04-audit.html#bugs-in-the-data",
+    "href": "slides/04-audit.html#bugs-in-the-data",
     "title": "Auditing your files",
-    "section": "Stable URLs and who can read them",
-    "text": "Stable URLs and who can read them"
+    "section": "Bugs in the data",
+    "text": "Bugs in the data\n\nMissing time steps. Is it a real gap, or the product’s normal cadence?\nDuplicated or out-of-order time steps\nEmpty, truncated or unreadable files\nCoordinates that are all zero or all NaN\n\n\nHYCOM GOFS 3.1: a few analyses are missing from the archive, so the snow crab notebook takes the nearest time that exists."
   },
   {
-    "objectID": "slides/04-audit.html#ask-the-agent-to-audit",
-    "href": "slides/04-audit.html#ask-the-agent-to-audit",
+    "objectID": "slides/04-audit.html#missing-or-wrong-metadata",
+    "href": "slides/04-audit.html#missing-or-wrong-metadata",
     "title": "Auditing your files",
-    "section": "Ask the agent to audit",
-    "text": "Ask the agent to audit"
+    "section": "Missing or wrong metadata",
+    "text": "Missing or wrong metadata\nThis is the one thing a virtual store can fix, without touching the data.\n\nMissing units, standard_name, long_name, or a vertical positive\nAttributes that cannot be saved as JSON, such as a NaN fill value on a coordinate\nNo version recorded anywhere in the files\n\n\nFix it in the store, write down every change, and make the result follow CF conventions."
   },
   {
-    "objectID": "slides/04-audit.html#takeaways",
-    "href": "slides/04-audit.html#takeaways",
+    "objectID": "slides/04-audit.html#look-for-yourself",
+    "href": "slides/04-audit.html#look-for-yourself",
     "title": "Auditing your files",
-    "section": "Takeaways",
-    "text": "Takeaways"
+    "section": "Look for yourself",
+    "text": "Look for yourself\nimport h5py, s3fs\n\nfs = s3fs.S3FileSystem(anon=True)\nurl = sorted(fs.ls(\"noaa-cdr-ndvi-pds/data/2000\"))[0]   # one day's file\nwith fs.open(url) as f, h5py.File(f) as h:\n    for name, v in h.items():\n        print(name, v.dtype, v.shape, \"chunks:\", v.chunks, v.compression)\n...\nNDVI int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip\nTIMEOFDAY int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip\nQA int16 (1, 3600, 7200) chunks: None None\n\nRun on the first NDVI file on 2026-11-13. This reads only the header, a few kilobytes. Do this on files from the start, the middle and the end of the archive, and on both sides of any change in instrument, version or format."
+  },
+  {
+    "objectID": "slides/04-audit.html#let-the-agent-write-the-audit-report",
+    "href": "slides/04-audit.html#let-the-agent-write-the-audit-report",
+    "title": "Auditing your files",
+    "section": "Let the agent write the audit report",
+    "text": "Let the agent write the audit report\nFirst, tell it how to find the files. It cannot guess:\n\nWhere they are: a bucket and prefix, a THREDDS catalog, an API\nHow to get in: public, or which credentials\nWhat to include: products, variables, years\n\nThen ask:\n\n“Audit the NOAA CDR NDVI files in s3://noaa-cdr-ndvi-pds/data/ (public, us-east-1, one NetCDF per day) for a virtual Icechunk store. Check grids, chunking, encoding, whether they can be appended, missing days and metadata. Read headers only. Write the findings to audit/report.md. No build code.”\n\n\nThe virtual-icechunk skill’s research-and-plan step does this audit. For a big archive, or files on a provider’s own server, the archive-to-cloud skill’s source audit scans everything resumably and reports what nobody asked about."
+  },
+  {
+    "objectID": "slides/04-audit.html#next-building-a-store",
+    "href": "slides/04-audit.html#next-building-a-store",
+    "title": "Auditing your files",
+    "section": "Next: building a store",
+    "text": "Next: building a store\nChapter 5 · Building a store"
   },
   {
     "objectID": "slides/02-agent-and-skills.html#from-writing-the-code-to-directing-the-work",
