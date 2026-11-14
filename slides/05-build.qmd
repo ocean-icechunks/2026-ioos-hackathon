@@ -40,20 +40,39 @@ The files usually decide these. You can still ask *"why?"*, and override.
 ## Telling the agent to build it
 
 > *"Build a virtual Icechunk store of the NDVI files in
-> `s3://noaa-cdr-ndvi-pds/data/` (public, us-east-1) for January 2000. Write it
-> to a local folder; Python users will read it. Start with the plan."*
+> `s3://noaa-cdr-ndvi-pds/data/` (public, us-east-1) for 2000–2024. Publish it
+> to my Source Cooperative repository `my-org/ndvi`; my write keys are in
+> environment variables. Python users and a browser viewer will read it. Start
+> with the plan."*
 
 Then, one session per step:
 
-> *"The plan is approved. Write the smoke-test notebook."*
+> *"The plan is approved. Write the smoke-test notebook."* (builds a local test store)
 >
-> *"The smoke test passed. Write the production build script."*
+> *"The smoke test passed. Write the production build script."* (writes to your bucket)
 >
 > *"Write the README and a loading example."*
 
+## Authenticating to your bucket
+
+The agent writes to your bucket with **your** credentials. Tell it where they are:
+
+| Destination | Typical credentials |
+|---|---|
+| **Amazon S3** | An AWS profile, or `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in the environment |
+| **Google Cloud Storage** | A service-account key file, named in `GOOGLE_APPLICATION_CREDENTIALS` |
+| **Source Cooperative** | Temporary S3 keys from your repository's *View credentials* page. They expire |
+
+Not sure? Ask it:
+
+> *"Help me set up write access to my Source Cooperative repository. Do not
+> print my keys, and do not save them in any file in this repository."*
+
 ::: notes
-The skill never points a test at a production store, and refuses to put
-credentials in a notebook.
+The smoke test always writes to a local store first: the skill never points a
+test at the real destination. Only the production build writes to the bucket.
+Keys go in environment variables or a credentials file outside the repository,
+and never into a notebook, a script or the chat.
 :::
 
 ## Worked examples

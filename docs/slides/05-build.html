@@ -227,16 +227,50 @@
 <section id="telling-the-agent-to-build-it" class="slide level2">
 <h2>Telling the agent to build it</h2>
 <blockquote>
-<p><em>“Build a virtual Icechunk store of the NDVI files in <code>s3://noaa-cdr-ndvi-pds/data/</code> (public, us-east-1) for January 2000. Write it to a local folder; Python users will read it. Start with the plan.”</em></p>
+<p><em>“Build a virtual Icechunk store of the NDVI files in <code>s3://noaa-cdr-ndvi-pds/data/</code> (public, us-east-1) for 2000–2024. Publish it to my Source Cooperative repository <code>my-org/ndvi</code>; my write keys are in environment variables. Python users and a browser viewer will read it. Start with the plan.”</em></p>
 </blockquote>
 <p>Then, one session per step:</p>
 <blockquote>
-<p><em>“The plan is approved. Write the smoke-test notebook.”</em></p>
-<p><em>“The smoke test passed. Write the production build script.”</em></p>
+<p><em>“The plan is approved. Write the smoke-test notebook.”</em> (builds a local test store)</p>
+<p><em>“The smoke test passed. Write the production build script.”</em> (writes to your bucket)</p>
 <p><em>“Write the README and a loading example.”</em></p>
 </blockquote>
+</section>
+<section id="authenticating-to-your-bucket" class="slide level2">
+<h2>Authenticating to your bucket</h2>
+<p>The agent writes to your bucket with <strong>your</strong> credentials. Tell it where they are:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Destination</th>
+<th>Typical credentials</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Amazon S3</strong></td>
+<td>An AWS profile, or <code>AWS_ACCESS_KEY_ID</code> and <code>AWS_SECRET_ACCESS_KEY</code> in the environment</td>
+</tr>
+<tr class="even">
+<td><strong>Google Cloud Storage</strong></td>
+<td>A service-account key file, named in <code>GOOGLE_APPLICATION_CREDENTIALS</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Source Cooperative</strong></td>
+<td>Temporary S3 keys from your repository’s <em>View credentials</em> page. They expire</td>
+</tr>
+</tbody>
+</table>
+<p>Not sure? Ask it:</p>
+<blockquote>
+<p><em>“Help me set up write access to my Source Cooperative repository. Do not print my keys, and do not save them in any file in this repository.”</em></p>
+</blockquote>
 <aside class="notes">
-<p>The skill never points a test at a production store, and refuses to put credentials in a notebook.</p>
+<p>The smoke test always writes to a local store first: the skill never points a test at the real destination. Only the production build writes to the bucket. Keys go in environment variables or a credentials file outside the repository, and never into a notebook, a script or the chat.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
