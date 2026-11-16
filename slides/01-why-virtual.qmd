@@ -110,6 +110,35 @@ This is the big change. We used to have to convert everything to Zarr, which
 meant a second copy of petabytes. Virtual references point at the originals.
 :::
 
+## Why Icechunk, not Kerchunk?
+
+Kerchunk made virtual datasets possible. Icechunk makes them safe to share and keep up to date.
+
+- **Transactions.** Commits are atomic, with snapshots and rollback. Kerchunk
+  references are plain JSON or Parquet files that anyone can overwrite.
+- **Safe appends.** New files are added in a commit, and readers never see a
+  half-written store. With Kerchunk you rewrite the references yourself.
+- **Zarr-native.** The store is a real Zarr store, so any Zarr reader opens it.
+  Kerchunk needs an extra fsspec reference layer.
+- **Scale.** Chunk manifests are built for huge chunk counts. Very large JSON
+  reference sets are slow to load.
+- **Modern I/O.** The stack reads through Rust and obstore, not fsspec:
+  more flexible (S3, GCS, Azure, local, HTTP) and fast under many
+  concurrent requests.
+
+::: notes
+Kerchunk was the first way to get a virtual dataset, and it is still fine for a
+quick one-off. The problems show up when a dataset is shared and grows: there
+is no versioning, no atomic update, and no protection from two writers.
+
+On I/O: Icechunk's Rust core uses the Rust object_store crate. obstore is the
+Python binding to the same crate, and VirtualiZarr uses it to read NetCDF
+metadata (the ObjectStoreRegistry in the notebook). Kerchunk goes through
+fsspec. obstore's own benchmarks show large gains over fsspec for many
+concurrent requests; say "in our experience" unless you have timed your own
+case.
+:::
+
 ## New tools make this much easier
 
 - **VirtualiZarr 2:** reads NetCDF/HDF5 metadata and builds the chunk catalog
