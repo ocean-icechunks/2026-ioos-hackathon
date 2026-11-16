@@ -7,8 +7,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7ad8df1012cc34949a7a0ac4d54234c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.34">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b6e6edf6cb1293d7f667c2f39c143ab5.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Eli Holmes">
   <title>Virtual Icechunk – Why virtual Icechunk?</title>
@@ -283,6 +283,31 @@
 </div>
 <aside class="notes">
 <p>This is the big change. We used to have to convert everything to Zarr, which meant a second copy of petabytes. Virtual references point at the originals.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="why-icechunk-not-kerchunk" class="slide level2">
+<h2>Why Icechunk, not Kerchunk?</h2>
+<p>Kerchunk made virtual datasets possible. Icechunk makes them safe to share and keep up to date.</p>
+<ul>
+<li><strong>Transactions.</strong> Commits are atomic, with snapshots and rollback. Kerchunk references are plain JSON or Parquet files that anyone can overwrite.</li>
+<li><strong>Safe appends.</strong> New files are added in a commit, and readers never see a half-written store. With Kerchunk you rewrite the references yourself.</li>
+<li><strong>Zarr-native.</strong> The store is a real Zarr store, so any Zarr reader opens it. Kerchunk needs an extra fsspec reference layer.</li>
+<li><strong>Scale.</strong> Chunk manifests are built for huge chunk counts. Very large JSON reference sets are slow to load.</li>
+<li><strong>Modern I/O.</strong> The stack reads through Rust and obstore, not fsspec: more flexible (S3, GCS, Azure, local, HTTP) and fast under many concurrent requests.</li>
+</ul>
+<aside class="notes">
+<p>Kerchunk was the first way to get a virtual dataset, and it is still fine for a quick one-off. The problems show up when a dataset is shared and grows: there is no versioning, no atomic update, and no protection from two writers.</p>
+<p>On I/O: Icechunk’s Rust core uses the Rust object_store crate. obstore is the Python binding to the same crate, and VirtualiZarr uses it to read NetCDF metadata (the ObjectStoreRegistry in the notebook). Kerchunk goes through fsspec. obstore’s own benchmarks show large gains over fsspec for many concurrent requests; say “in our experience” unless you have timed your own case.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

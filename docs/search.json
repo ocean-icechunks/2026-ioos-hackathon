@@ -1340,5 +1340,16 @@
       "Examples",
       "5 · OISST: Gulf of Maine marine heatwaves"
     ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
+    "href": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
+    "title": "Why virtual Icechunk?",
+    "section": "Why Icechunk, not Kerchunk?",
+    "text": "Why Icechunk, not Kerchunk?\nKerchunk made virtual datasets possible. Icechunk makes them safe to share and keep up to date.\n\nTransactions. Commits are atomic, with snapshots and rollback. Kerchunk references are plain JSON or Parquet files that anyone can overwrite.\nSafe appends. New files are added in a commit, and readers never see a half-written store. With Kerchunk you rewrite the references yourself.\nZarr-native. The store is a real Zarr store, so any Zarr reader opens it. Kerchunk needs an extra fsspec reference layer.\nScale. Chunk manifests are built for huge chunk counts. Very large JSON reference sets are slow to load.\nModern I/O. The stack reads through Rust and obstore, not fsspec: more flexible (S3, GCS, Azure, local, HTTP) and fast under many concurrent requests.\n\n\nKerchunk was the first way to get a virtual dataset, and it is still fine for a quick one-off. The problems show up when a dataset is shared and grows: there is no versioning, no atomic update, and no protection from two writers.\nOn I/O: Icechunk’s Rust core uses the Rust object_store crate. obstore is the Python binding to the same crate, and VirtualiZarr uses it to read NetCDF metadata (the ObjectStoreRegistry in the notebook). Kerchunk goes through fsspec. obstore’s own benchmarks show large gains over fsspec for many concurrent requests; say “in our experience” unless you have timed your own case.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
   }
 ]
