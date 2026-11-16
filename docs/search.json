@@ -1351,5 +1351,16 @@
       "Lectures",
       "1 · Why virtual Icechunk"
     ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
+    "href": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
+    "title": "Why virtual Icechunk?",
+    "section": "Handling forecast model run collections",
+    "text": "Handling forecast model run collections\nA forecast model writes a new file every day. Keep every run, not just the latest.\n\nTwo time dimensions. time is the forecast reference time, one value per file. step is the lead time, the same in every file. Data are (time, step, ...).\nAppend along time. Each new file adds one entry. Nothing is rewritten.\nValid time is computed. It is time + step, never stored.\nPick a run, or a best estimate. Select one forecast, or stitch the newest hours from every run into one continuous series.\n\n\nOne store holds the whole history of every forecast.\n\n\nThe raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.\nIn the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per file before the concat: rename the time dimension to step, make the first valid time the scalar reference time, then concatenate along time. All files must have the same number of steps. Static variables (bathymetry, mesh connectivity) must be kept out of the concat, or they get stacked once per run.\nBest estimate is computed at read time, with Rolodex. Worked example: the Taranto SHYFEM forecast store in the MAGICA school notebooks.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
   }
 ]
