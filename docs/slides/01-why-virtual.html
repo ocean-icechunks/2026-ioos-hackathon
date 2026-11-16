@@ -320,6 +320,34 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="handling-forecast-model-run-collections" class="slide level2">
+<h2>Handling forecast model run collections</h2>
+<p>A forecast model writes a new file every day. Keep every run, not just the latest.</p>
+<ul>
+<li><strong>Two time dimensions.</strong> <code>time</code> is the forecast reference time, one value per file. <code>step</code> is the lead time, the same in every file. Data are <code>(time, step, ...)</code>.</li>
+<li><strong>Append along <code>time</code>.</strong> Each new file adds one entry. Nothing is rewritten.</li>
+<li><strong>Valid time is computed.</strong> It is <code>time + step</code>, never stored.</li>
+<li><strong>Pick a run, or a best estimate.</strong> Select one forecast, or stitch the newest hours from every run into one continuous series.</li>
+</ul>
+<div class="takeaway">
+<p>One store holds the whole history of every forecast.</p>
+</div>
+<aside class="notes">
+<p>The raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.</p>
+<p>In the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per file before the concat: rename the time dimension to step, make the first valid time the scalar reference time, then concatenate along time. All files must have the same number of steps. Static variables (bathymetry, mesh connectivity) must be kept out of the concat, or they get stacked once per run.</p>
+<p>Best estimate is computed at read time, with Rolodex. Worked example: the Taranto SHYFEM forecast store in the MAGICA school notebooks.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="new-tools-make-this-much-easier" class="slide level2">
 <h2>New tools make this much easier</h2>
 <ul>

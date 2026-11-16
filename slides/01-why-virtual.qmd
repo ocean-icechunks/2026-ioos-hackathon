@@ -139,6 +139,38 @@ concurrent requests; say "in our experience" unless you have timed your own
 case.
 :::
 
+## Handling forecast model run collections
+
+A forecast model writes a new file every day. Keep every run, not just the latest.
+
+- **Two time dimensions.** `time` is the forecast reference time, one value per
+  file. `step` is the lead time, the same in every file. Data are
+  `(time, step, ...)`.
+- **Append along `time`.** Each new file adds one entry. Nothing is rewritten.
+- **Valid time is computed.** It is `time + step`, never stored.
+- **Pick a run, or a best estimate.** Select one forecast, or stitch the newest
+  hours from every run into one continuous series.
+
+::: {.takeaway}
+One store holds the whole history of every forecast.
+:::
+
+::: notes
+The raw files each have a single time dimension of valid times. If we simply
+join them end to end, we throw away the older runs, and every update means
+trimming and rewriting the tail. Splitting time into the reference time and
+the lead time keeps every run, and a daily update is one append.
+
+In the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per
+file before the concat: rename the time dimension to step, make the first valid
+time the scalar reference time, then concatenate along time. All files must
+have the same number of steps. Static variables (bathymetry, mesh connectivity)
+must be kept out of the concat, or they get stacked once per run.
+
+Best estimate is computed at read time, with Rolodex. Worked example: the
+Taranto SHYFEM forecast store in the MAGICA school notebooks.
+:::
+
 ## New tools make this much easier
 
 - **VirtualiZarr 2:** reads NetCDF/HDF5 metadata and builds the chunk catalog
