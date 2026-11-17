@@ -884,7 +884,7 @@
     "href": "agent-skills/01-safe-agent-practices.html",
     "title": "Human in the loop: safe agent practices",
     "section": "",
-    "text": "A coding agent can read files, run commands and push to GitHub as you. That is what makes it useful, and it is also why you stay in the loop. You make the decisions and review the result; the agent does the typing. The six practices below keep it that way. None of them needs special software: most are a habit, or a line you put in your repository’s agent instructions.",
+    "text": "A coding agent can read files, run commands and push to GitHub as you. That is what makes it useful, and it is also why you stay in the loop. You make the decisions and review the result; the agent does the typing. The seven practices below keep it that way. None of them needs special software: most are a habit, or a line you put in your repository’s agent instructions.",
     "crumbs": [
       "Agent Skills",
       "Human in the loop"
@@ -939,7 +939,7 @@
     "href": "agent-skills/01-safe-agent-practices.html#keep-credentials-out-of-code",
     "title": "Human in the loop: safe agent practices",
     "section": "5 · Keep credentials out of code",
-    "text": "5 · Keep credentials out of code\n\nNever paste a key, token or password into a notebook, script or chat that ends up in a repository. On the hub, the scratch bucket uses the hub’s own credentials, so your code needs none.\nGive the agent a credential with the least access that works and an expiry date, like the fine-grained GitHub token in Git and GitHub, with an agent.\nYour prompts and code go to the company that runs your agent. Check your subscription’s privacy settings, and do not give the agent data you are not allowed to share with that company.",
+    "text": "5 · Keep credentials out of code\n\nNever paste a key, token or password into a notebook, script or chat that ends up in a repository. On the hub, the scratch bucket uses the hub’s own credentials, so your code needs none.\nGive the agent a credential with the least access that works and an expiry date, like the fine-grained GitHub token in Git and GitHub, with an agent.",
     "crumbs": [
       "Agent Skills",
       "Human in the loop"
@@ -949,8 +949,8 @@
     "objectID": "agent-skills/01-safe-agent-practices.html#mark-agent-written-work-as-such",
     "href": "agent-skills/01-safe-agent-practices.html#mark-agent-written-work-as-such",
     "title": "Human in the loop: safe agent practices",
-    "section": "6 · Mark agent-written work as such",
-    "text": "6 · Mark agent-written work as such\nSay where an agent helped, so reviewers know what they are looking at.\n\nAsk the agent to end each commit it makes with a co-author line, for example Co-Authored-By: Agent &lt;agent@noreply.invalid&gt;, and each pull request with a line saying it was generated with an AI coding agent.\nAdd a short “AI assistance” note to the README: parts of the code were written with AI coding agents, and every change was reviewed by a person before it was merged.",
+    "section": "7 · Mark agent-written work as such",
+    "text": "7 · Mark agent-written work as such\nSay where an agent helped, so reviewers know what they are looking at.\n\nAsk the agent to end each commit it makes with a co-author line, for example Co-Authored-By: Agent &lt;agent@noreply.invalid&gt;, and each pull request with a line saying it was generated with an AI coding agent.\nAdd a short “AI assistance” note to the README: parts of the code were written with AI coding agents, and every change was reviewed by a person before it was merged.",
     "crumbs": [
       "Agent Skills",
       "Human in the loop"
@@ -1449,6 +1449,17 @@
     "crumbs": [
       "Examples",
       "5 · OISST: Gulf of Maine marine heatwaves"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
+    "href": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
+    "title": "Human in the loop: safe agent practices",
+    "section": "6 · Keep non-public data away from the agent",
+    "text": "6 · Keep non-public data away from the agent\nYour prompts, your code, and any file the agent reads go to the company that runs your agent. Check your subscription’s privacy settings, and treat anything the agent can see as shared with that company.\nCompanies and government agencies commonly restrict this. A typical rule is: no non-public data, such as personally identifiable information (PII), controlled unclassified information (CUI), business identifiable information (BII), proprietary, medical, financial or classified data, information collected under the Paperwork Reduction Act, or anything else not already public, goes to an AI tool unless that tool runs in an environment approved for that kind of data. If you work for such an organization, its rule applies to what you do here too.\nIn practice:\n\nUse public data for hackathon work. The examples on this site all are.\nKeep restricted files out of any folder the agent works in. An agent reads whatever it decides is relevant, not only the files you point it at.\nIf you are not sure whether something is public, do not give it to the agent.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
     ]
   }
 ]

@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="You decide and review; the agent does the typing. Six practices that keep it that way.">
+<meta name="description" content="You decide and review; the agent does the typing. Seven practices that keep it that way.">
 
 <title>Human in the loop: safe agent practices – Virtual Icechunk</title>
 <style>
@@ -339,7 +339,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#check-every-new-package" id="toc-check-every-new-package" class="nav-link" data-scroll-target="#check-every-new-package">3 · Check every new package</a></li>
   <li><a href="#know-what-the-agent-can-reach-and-what-needs-your-approval" id="toc-know-what-the-agent-can-reach-and-what-needs-your-approval" class="nav-link" data-scroll-target="#know-what-the-agent-can-reach-and-what-needs-your-approval">4 · Know what the agent can reach, and what needs your approval</a></li>
   <li><a href="#keep-credentials-out-of-code" id="toc-keep-credentials-out-of-code" class="nav-link" data-scroll-target="#keep-credentials-out-of-code">5 · Keep credentials out of code</a></li>
-  <li><a href="#mark-agent-written-work-as-such" id="toc-mark-agent-written-work-as-such" class="nav-link" data-scroll-target="#mark-agent-written-work-as-such">6 · Mark agent-written work as such</a></li>
+  <li><a href="#keep-non-public-data-away-from-the-agent" id="toc-keep-non-public-data-away-from-the-agent" class="nav-link" data-scroll-target="#keep-non-public-data-away-from-the-agent">6 · Keep non-public data away from the agent</a></li>
+  <li><a href="#mark-agent-written-work-as-such" id="toc-mark-agent-written-work-as-such" class="nav-link" data-scroll-target="#mark-agent-written-work-as-such">7 · Mark agent-written work as such</a></li>
   <li><a href="#put-it-in-agents.md" id="toc-put-it-in-agents.md" class="nav-link" data-scroll-target="#put-it-in-agents.md">Put it in <code>AGENTS.md</code></a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/agent-skills/01-safe-agent-practices.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -354,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    You decide and review; the agent does the typing. Six practices that keep it that way.
+    You decide and review; the agent does the typing. Seven practices that keep it that way.
   </div>
 </div>
 
@@ -371,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>A coding agent can read files, run commands and push to GitHub as you. That is what makes it useful, and it is also why you stay in the loop. <strong>You make the decisions and review the result; the agent does the typing.</strong> The six practices below keep it that way. None of them needs special software: most are a habit, or a line you put in your repository’s agent instructions.</p>
+<p>A coding agent can read files, run commands and push to GitHub as you. That is what makes it useful, and it is also why you stay in the loop. <strong>You make the decisions and review the result; the agent does the typing.</strong> The seven practices below keep it that way. None of them needs special software: most are a habit, or a line you put in your repository’s agent instructions.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -388,6 +389,7 @@ On this page
 <li>Check every new package</li>
 <li>Know what the agent can reach, and what needs your approval</li>
 <li>Keep credentials out of code</li>
+<li>Keep non-public data away from the agent</li>
 <li>Mark agent-written work as such</li>
 </ul>
 </div>
@@ -433,11 +435,21 @@ On this page
 <ul>
 <li>Never paste a key, token or password into a notebook, script or chat that ends up in a repository. On the hub, the scratch bucket uses the hub’s own credentials, so your code needs none.</li>
 <li>Give the agent a credential with the least access that works and an expiry date, like the fine-grained GitHub token in <a href="../setup/04-git-with-agent.html">Git and GitHub, with an agent</a>.</li>
-<li>Your prompts and code go to the company that runs your agent. Check your subscription’s privacy settings, and do not give the agent data you are not allowed to share with that company.</li>
+</ul>
+</section>
+<section id="keep-non-public-data-away-from-the-agent" class="level2">
+<h2 class="anchored" data-anchor-id="keep-non-public-data-away-from-the-agent">6 · Keep non-public data away from the agent</h2>
+<p>Your prompts, your code, and any file the agent reads go to the company that runs your agent. Check your subscription’s privacy settings, and treat anything the agent can see as shared with that company.</p>
+<p>Companies and government agencies commonly restrict this. A typical rule is: no non-public data, such as personally identifiable information (PII), controlled unclassified information (CUI), business identifiable information (BII), proprietary, medical, financial or classified data, information collected under the Paperwork Reduction Act, or anything else not already public, goes to an AI tool unless that tool runs in an environment approved for that kind of data. If you work for such an organization, its rule applies to what you do here too.</p>
+<p>In practice:</p>
+<ul>
+<li>Use public data for hackathon work. The examples on this site all are.</li>
+<li>Keep restricted files out of any folder the agent works in. An agent reads whatever it decides is relevant, not only the files you point it at.</li>
+<li>If you are not sure whether something is public, do not give it to the agent.</li>
 </ul>
 </section>
 <section id="mark-agent-written-work-as-such" class="level2">
-<h2 class="anchored" data-anchor-id="mark-agent-written-work-as-such">6 · Mark agent-written work as such</h2>
+<h2 class="anchored" data-anchor-id="mark-agent-written-work-as-such">7 · Mark agent-written work as such</h2>
 <p>Say where an agent helped, so reviewers know what they are looking at.</p>
 <ul>
 <li>Ask the agent to end each commit it makes with a co-author line, for example <code>Co-Authored-By: Agent &lt;agent@noreply.invalid&gt;</code>, and each pull request with a line saying it was generated with an AI coding agent.</li>
