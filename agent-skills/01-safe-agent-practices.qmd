@@ -1,0 +1,152 @@
+---
+title: "Human in the loop: safe agent practices"
+description: "You decide and review; the agent does the typing. Seven practices that keep it that way."
+---
+
+A coding agent can read files, run commands and push to GitHub as you. That
+is what makes it useful, and it is also why you stay in the loop. **You make
+the decisions and review the result; the agent does the typing.** The seven
+practices below keep it that way. None of them needs special software: most are
+a habit, or a line you put in your repository's agent instructions.
+
+::: {.callout-note}
+## On this page
+
+- Review every change before it reaches `main`
+- Ask the agent to record its intent, and to prove its code works
+- Check every new package
+- Know what the agent can reach, and what needs your approval
+- Keep credentials out of code
+- Keep non-public data away from the agent
+- Mark agent-written work as such
+:::
+
+## 1 · Review every change before it reaches `main`
+
+Let the agent work on a branch and open a pull request. You read the pull
+request, try it if it matters, and merge it yourself. The agent does not push
+to `main` and does not merge.
+
+- Tell it so, at the start of the session or in `AGENTS.md`: *"Work on a branch
+  and open a pull request. Never push to main, and never merge."*
+- Before you merge, ask it to summarize what the pull request changes. If the
+  summary surprises you, read the diff more closely.
+- "Done" means done being written, not done being checked.
+
+## 2 · Ask for the intent, and for proof that it works
+
+A reviewer, you or another agent, can only check code against what it was
+meant to do. Ask the agent to write that down.
+
+- **Comments for the *why*.** Workarounds, non-obvious choices, things that look
+  wrong but are deliberate. Not a narration of every line, which makes code
+  harder to review.
+- **Notes for decisions.** Keep a short `AGENTS.md` with the repository's rules,
+  and a notes file for decisions and the evidence behind them. They also help
+  the next session, which starts with no memory of this one.
+- **Proof by running.** "I read it and it looks right" is not a test. Ask the
+  agent to run the code, ideally in a fresh environment that has only the
+  packages the repository declares, and to say in the pull request what it ran
+  and what it did not.
+
+## 3 · Check every new package
+
+Agents sometimes suggest packages that do not exist, or have a name one letter
+off from a real one. Installing the wrong one runs someone else's code on your
+account.
+
+- Before the agent installs a package by name (`pip install something`), have it
+  confirm the exact name on PyPI, conda-forge or npm, with a maintainer and
+  release history that make sense, and tell you why it is needed.
+- Prefer packages the project already uses.
+- New packages go into the repository's dependency file (`requirements.txt`,
+  `environment.yml`) and are listed in the pull request, so you review them with
+  the code.
+
+## 4 · Know what the agent can reach, and what needs your approval
+
+- **The hub is the sandbox.** Your agent runs on a cloud server that holds your
+  hackathon work, not on your laptop next to your email and documents. That is
+  a good place for an agent. Think twice before running one with broad
+  permissions on a machine that has sensitive files.
+- **Keep the approval prompts on.** Claude Code, Codex and Antigravity all ask
+  before running commands they are unsure of. Each also has a mode that skips
+  every prompt. Do not use it. Allow routine, read-only commands if the prompts
+  slow you down, but keep the prompts for anything that deletes, pushes,
+  installs or merges.
+- **Some actions always need you:** merging a pull request, deleting a branch or
+  repository, force-pushing or rewriting history, deleting files outside the
+  project, and installing a new package. Say so in `AGENTS.md`.
+- **One repository per session.** Ask the agent to work only in the repository
+  it started in, and to ask before touching any other.
+
+## 5 · Keep credentials out of code
+
+- Never paste a key, token or password into a notebook, script or chat that
+  ends up in a repository. On the hub, the scratch bucket uses the hub's own
+  credentials, so your code needs none.
+- Give the agent a credential with the least access that works and an
+  expiry date, like the fine-grained GitHub token in
+  [Git and GitHub, with an agent](../setup/04-git-with-agent.qmd).
+
+## 6 · Keep non-public data away from the agent
+
+Your prompts, your code, and any file the agent reads go to the company that
+runs your agent. Check your subscription's privacy settings, and treat anything
+the agent can see as shared with that company.
+
+Plenty of people paste their own personal information into chatbots. That is
+a bad idea, but it is their own information and their own risk. Work data is
+different. At NOAA, at any other agency, and at most companies, there are actual
+rules about where non-public data may go, and putting it into an AI tool that
+is not running in an environment approved for that data breaks them. The
+restricted data typically includes personally identifiable information (PII),
+controlled unclassified information (CUI), business identifiable information
+(BII), proprietary, medical, financial or classified data, information
+collected under the Paperwork Reduction Act, and anything else that is not
+already public. A personal subscription to a coding agent is not an approved
+environment. If you work for such an organization, its rules apply to what you
+do here too.
+
+In practice:
+
+- Use public data, and public or non-sensitive code, for hackathon work. The
+  examples on this site use only public data and public code.
+- Keep restricted files out of any folder the agent works in. An agent reads
+  whatever it decides is relevant, not only the files you point it at.
+- If you are not sure whether something is public, do not give it to the agent.
+
+## 7 · Mark agent-written work as such
+
+Say where an agent helped, so reviewers know what they are looking at.
+
+- Ask the agent to end each commit it makes with a co-author line, for example
+  `Co-Authored-By: Agent <agent@noreply.invalid>`, and each pull request with a
+  line saying it was generated with an AI coding agent.
+- Add a short "AI assistance" note to the README: parts of the code were written
+  with AI coding agents, and every change was reviewed by a person before it
+  was merged.
+
+## Put it in `AGENTS.md`
+
+Most of this fits in a few lines at the top of your repository's `AGENTS.md`,
+which Codex and Antigravity read at the start of every session. Claude Code
+reads `CLAUDE.md` instead, so add a `CLAUDE.md` holding the single line
+`@AGENTS.md`.
+
+```markdown
+## Working rules
+
+- Work on a branch and open a pull request. Never push to main; never merge.
+- Ask before deleting branches, rewriting history, or touching another repo.
+- Before installing a new package, confirm it exists on PyPI or conda-forge,
+  say why it is needed, and add it to requirements.txt.
+- Comment the why, not the what. Record decisions in agent/notes.md.
+- Test by running in a clean environment. Say in the PR what ran and what did not.
+- Never write a credential into a tracked file.
+- End commits with `Co-Authored-By: Agent <agent@noreply.invalid>`.
+```
+
+An instruction is something the agent follows, not something it is forced to
+follow. Your review of each pull request is the check that does not depend on
+the agent.

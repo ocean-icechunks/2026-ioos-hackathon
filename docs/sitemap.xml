@@ -33,23 +33,7 @@
     <lastmod>2026-11-17T16:15:17.508Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/04-git-with-agent.html</loc>
-    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/02-jupyterlab.html</loc>
-    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/resources.html</loc>
-    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
-    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/05-scratch-bucket.html</loc>
     <lastmod>2026-11-16T13:26:06.906Z</lastmod>
   </url>
   <url>
@@ -57,8 +41,28 @@
     <lastmod>2026-11-16T13:26:06.906Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/05-scratch-bucket.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
+    <lastmod>2026-11-17T16:45:47.074Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
+    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/resources.html</loc>
+    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/02-jupyterlab.html</loc>
     <lastmod>2026-11-16T13:26:06.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/04-git-with-agent.html</loc>
+    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/agent-skills/01-safe-agent-practices.html</loc>
+    <lastmod>2026-11-17T16:45:47.070Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/02-agent-and-skills.html</loc>
