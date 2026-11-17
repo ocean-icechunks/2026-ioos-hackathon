@@ -55,6 +55,8 @@ website:
               text: "The scratch bucket"
         - section: Agent Skills
           contents:
+            - href: agent-skills/00-set-up-your-agent.qmd
+              text: "Set up your agent"
             - href: agent-skills/01-safe-agent-practices.qmd
               text: "Human in the loop"
         - section: Lectures

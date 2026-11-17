@@ -29,32 +29,36 @@
     <lastmod>2026-11-16T16:56:46.664Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/05-scratch-bucket.html</loc>
-    <lastmod>2026-11-14T02:27:26.112Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/agent-skills/00-set-up-your-agent.html</loc>
+    <lastmod>2026-11-17T17:33:39.499Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/03-start-your-agent.html</loc>
-    <lastmod>2026-11-14T02:27:26.104Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
-    <lastmod>2026-11-17T15:57:50.247Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
-    <lastmod>2026-11-14T04:53:25.137Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/resources.html</loc>
-    <lastmod>2026-11-14T02:27:26.046Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/04-git-with-agent.html</loc>
+    <lastmod>2026-11-14T02:27:26.108Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/02-jupyterlab.html</loc>
     <lastmod>2026-11-14T02:27:26.100Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/04-git-with-agent.html</loc>
-    <lastmod>2026-11-14T02:27:26.108Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/resources.html</loc>
+    <lastmod>2026-11-14T02:27:26.046Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
+    <lastmod>2026-11-14T04:53:25.137Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
+    <lastmod>2026-11-17T15:57:50.247Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/03-start-your-agent.html</loc>
+    <lastmod>2026-11-14T02:27:26.104Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/05-scratch-bucket.html</loc>
+    <lastmod>2026-11-14T02:27:26.112Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/agent-skills/01-safe-agent-practices.html</loc>
