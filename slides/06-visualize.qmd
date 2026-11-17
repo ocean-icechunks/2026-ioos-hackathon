@@ -82,4 +82,5 @@ shows axes but no data in an ordinary browser for this reason.
 
 - [Back to the start](../index.qmd), and the [Resources](../resources.qmd) page
 - Build your own: open a terminal, start your agent, and ask it for a plan
-- Bonus, if you have time: [finding stores with STAC](07-bonus-stac.qmd)
+- Bonus, if you have time: [forecast model run collections](07-bonus-fmrc.qmd) and
+  [finding stores with STAC](08-bonus-stac.qmd)

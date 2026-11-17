@@ -17,19 +17,39 @@
     <lastmod>2026-11-16T13:26:06.894Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/06-visualize.html</loc>
-    <lastmod>2026-11-17T16:03:24.257Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/07-bonus-fmrc.html</loc>
+    <lastmod>2026-11-17T16:17:16.707Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/04-audit.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/05-build.html</loc>
     <lastmod>2026-11-16T13:26:06.907Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/02-agent-and-skills.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/03-pipeline.html</loc>
     <lastmod>2026-11-16T13:26:06.907Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/05-scratch-bucket.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/01-why-virtual.html</loc>
+    <lastmod>2026-11-17T16:15:17.508Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/04-git-with-agent.html</loc>
+    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/02-jupyterlab.html</loc>
+    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/resources.html</loc>
+    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
+    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
     <lastmod>2026-11-16T13:26:06.906Z</lastmod>
   </url>
   <url>
@@ -37,39 +57,23 @@
     <lastmod>2026-11-16T13:26:06.906Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/05-scratch-bucket.html</loc>
     <lastmod>2026-11-16T13:26:06.906Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
-    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/resources.html</loc>
-    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/02-jupyterlab.html</loc>
-    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/04-git-with-agent.html</loc>
-    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/01-why-virtual.html</loc>
-    <lastmod>2026-11-16T13:53:33.990Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/03-pipeline.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/02-agent-and-skills.html</loc>
     <lastmod>2026-11-16T13:26:06.907Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/05-build.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/04-audit.html</loc>
     <lastmod>2026-11-16T13:26:06.907Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/07-bonus-stac.html</loc>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/06-visualize.html</loc>
+    <lastmod>2026-11-17T16:15:17.508Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/08-bonus-stac.html</loc>
     <lastmod>2026-11-17T16:04:02.166Z</lastmod>
   </url>
   <url>

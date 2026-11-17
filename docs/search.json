@@ -195,179 +195,809 @@
     ]
   },
   {
-    "objectID": "slides/06-visualize.html#open-a-store-in-xarray",
-    "href": "slides/06-visualize.html#open-a-store-in-xarray",
-    "title": "Visualizing Icechunk stores",
-    "section": "Open a store in xarray",
-    "text": "Open a store in xarray\nimport icechunk, xarray as xr\n\nurl = \"https://data.source.coop/ocean-icechunks/hycom/hycom-gofs-3pt1-reanalysis\"\nrepo = icechunk.Repository.open(icechunk.http_storage(url))\n\n# The data live in HYCOM's bucket, outside the store: allow reads from there.\nauth = {p: icechunk.credentials.HttpAccess for p in repo.config.virtual_chunk_containers}\nrepo = repo.reopen(authorize_virtual_chunk_access=auth)\n\nds = xr.open_zarr(repo.readonly_session(tag=\"v1\").store, consolidated=False, chunks=None)\n\nFrom the snow crab notebook in chapter 1, which ran end to end on 2026-11-13. Opening the 306 TB store takes about a second, because only metadata is read.",
+    "objectID": "slides/07-bonus-fmrc.html#a-new-run-every-few-hours",
+    "href": "slides/07-bonus-fmrc.html#a-new-run-every-few-hours",
+    "title": "Bonus: forecast model run collections",
+    "section": "A new run every few hours",
+    "text": "A new run every few hours\nIf we have time and interest. Operational models write a new forecast run on a schedule. Each file is a time series of valid times: when the model says things will happen.\n\nJoin the files end to end, and the older runs are lost. Every update means trimming and rewriting the tail\nBut people ask for different things: the latest forecast, one specific run, or a best estimate, a continuous series that uses the newest run for every hour\nTo answer all three, the store must keep every run\n\n\nThis expands the slide in lecture 1. A run is also called a cycle, or a forecast model run collection (FMRC) once you keep them all. The skill is building-fmrc-virtual-icechunk in ocean-icechunks-skills.",
     "crumbs": [
       "Lectures",
-      "6 · Visualizing"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/06-visualize.html#then-it-is-just-xarray",
-    "href": "slides/06-visualize.html#then-it-is-just-xarray",
-    "title": "Visualizing Icechunk stores",
-    "section": "Then it is just xarray",
-    "text": "Then it is just xarray\n\nBottom temperature in the Bering Sea, 15 July 2010, from the HYCOM store. The black line is 2 °C; the magenta box is the snow crab grounds.",
+    "objectID": "slides/07-bonus-fmrc.html#two-time-dimensions",
+    "href": "slides/07-bonus-fmrc.html#two-time-dimensions",
+    "title": "Bonus: forecast model run collections",
+    "section": "Two time dimensions",
+    "text": "Two time dimensions\n\n\n\n\n\n\n\n\nDimension\nMeaning\nValues\n\n\n\n\ntime\nforecast reference time: when the run started\none per run, appended\n\n\nstep\nlead time: hours after the run started\nthe same in every run\n\n\n\n\nData variables are (time, step, ...), with one chunk per run\nValid time is time + step. It is computed when you read, never stored\n\n\nAppending a new run adds one entry along time. Nothing already in the store is rewritten.\n\n\nDo not flatten this to a single valid-time dimension, with each new file appended after the last. That is a different product, a best-estimate series. It discards the older runs.",
     "crumbs": [
       "Lectures",
-      "6 · Visualizing"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/06-visualize.html#icechunk-is-built-on-zarr",
-    "href": "slides/06-visualize.html#icechunk-is-built-on-zarr",
-    "title": "Visualizing Icechunk stores",
-    "section": "Icechunk is built on Zarr",
-    "text": "Icechunk is built on Zarr\n\nZarr is an open format for chunked arrays in object storage. Each chunk is fetched on its own, with a simple web request\nIcechunk stores Zarr arrays, and adds versions and commits on top\nSo any Zarr reader with Icechunk support can open these stores, in any language, straight from the bucket. No server in between\n\n\n\n\nWhere\nLibraries\n\n\n\n\nPython\nicechunk + zarr + xarray, as in this tutorial\n\n\nJavaScript (browsers)\nzarrita + icechunk-js",
+    "objectID": "slides/07-bonus-fmrc.html#our-example-gomofs",
+    "href": "slides/07-bonus-fmrc.html#our-example-gomofs",
+    "title": "Bonus: forecast model run collections",
+    "section": "Our example: GoMOFS",
+    "text": "Our example: GoMOFS\n\n3 runs: 10 to 12 November 2026, 00Z\n75 NetCDF files, 55 GB, left in place\n401 kB Icechunk store\n\nNOAA’s Gulf of Maine model runs four times a day. Each run is 25 files: the nowcast valid at the run time, and a forecast every 3 hours out to 72 hours.\n\nNumbers from running the notebook on 2026-11-17. The files are NOAA’s public GoMOFS output (noaa-nos-ofs-pds). We use the 00Z run of three days, to keep the notebook quick. The nowcast file n006 is valid at the run time, so it is lead 0.",
     "crumbs": [
       "Lectures",
-      "6 · Visualizing"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/06-visualize.html#zarrita-and-icechunk-js",
-    "href": "slides/06-visualize.html#zarrita-and-icechunk-js",
-    "title": "Visualizing Icechunk stores",
-    "section": "zarrita and icechunk-js",
-    "text": "zarrita and icechunk-js\n\nzarrita reads Zarr arrays in JavaScript: in a web page or in Node. It fetches only the chunks a view needs\nicechunk-js reads an Icechunk repository and hands it to zarrita as a store, including virtual chunks that live in the original NetCDF files\n\nconst store = await IcechunkStore.open(\"https://data.source.coop/&lt;account&gt;/&lt;store&gt;\");\nconst temp = await open(store.resolve(\"/water_temp\"), { kind: \"array\" });\n\nTogether they let a web page read a virtual store directly from object storage, the same way xarray does in Python. That is what the viewer on the next slide is built on.",
+    "objectID": "slides/07-bonus-fmrc.html#one-run-becomes-time-step",
+    "href": "slides/07-bonus-fmrc.html#one-run-becomes-time-step",
+    "title": "Bonus: forecast model run collections",
+    "section": "1 · One run becomes (time, step)",
+    "text": "1 · One run becomes (time, step)\n# ds: the 25 files of one run, joined along the valid time (ocean_time)\nref = pd.Timestamp(cycle)                         # the run's reference time\nvalid = pd.DatetimeIndex(ds[\"ocean_time\"].values)\n\nds = ds.rename_dims(ocean_time=\"step\").drop_vars(\"ocean_time\")\nds = ds.assign_coords(step=(\"step\", (valid - ref).values))      # lead time\n\nvarying = [v for v in ds.data_vars if \"step\" in ds[v].dims]\nstatic = ds.drop_vars(varying)                                  # grid, mask, ...\nds = xr.merge([ds[varying].expand_dims(time=[np.datetime64(ref)]), static],\n              compat=\"override\", combine_attrs=\"override\")\n\nAn excerpt of open_cycle in the notebook gomofs-fmrc-icechunk. The notebook also checks that the valid times in the files agree with the times in the file names, so the step axis cannot lie.",
     "crumbs": [
       "Lectures",
-      "6 · Visualizing"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/06-visualize.html#gridlook-a-store-on-a-globe",
-    "href": "slides/06-visualize.html#gridlook-a-store-on-a-globe",
-    "title": "Visualizing Icechunk stores",
-    "section": "gridlook: a store on a globe",
-    "text": "gridlook: a store on a globe\ngridlook is a WebGL viewer for Earth system model output, built on zarrita and icechunk-js. Give it a store’s URL, and it draws the data on a globe in your browser, with nothing to install.\nOpen the ocean acidification indicators in gridlook →\n\nAxes but no data? The browser also needs CORS on the source host. NCEI and the NDVI bucket send it; HYCOM’s bucket on AWS does not.\n\n\nThe OA indicators store is virtual: metadata from Source Cooperative, data from NCEI. Use the Depth slider to move through its 14 levels. The HYCOM viewer shows axes but no data in an ordinary browser for this reason.",
+    "objectID": "slides/07-bonus-fmrc.html#where-runs-go-wrong",
+    "href": "slides/07-bonus-fmrc.html#where-runs-go-wrong",
+    "title": "Bonus: forecast model run collections",
+    "section": "Where runs go wrong",
+    "text": "Where runs go wrong\n\nStatic variables. Grid and mask variables, like h and mask_rho, have no time. Add time only to variables that vary with step. Otherwise every run stores its own copy of the grid\nTime encoding. Pin the units of time and step. Left to xarray, they depend on each run’s own values, and a run appended later can decode to the wrong date\nSame steps in every run. step is one shared dimension. Check the lead times match before combining, with a clear error\nReference time from the file. Use the file’s own first time, not the date in its name. File names can be off by a day\n\n\nThe first two are the ones people hit. A static variable stacked per run looks fine until you notice the store is much larger than expected, and a wrongly encoded append gives dates that are off with no error.",
     "crumbs": [
       "Lectures",
-      "6 · Visualizing"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/06-visualize.html#thats-the-tour",
-    "href": "slides/06-visualize.html#thats-the-tour",
-    "title": "Visualizing Icechunk stores",
-    "section": "That’s the tour",
-    "text": "That’s the tour\n\nBack to the start, and the Resources page\nBuild your own: open a terminal, start your agent, and ask it for a plan\nBonus, if you have time: finding stores with STAC",
+    "objectID": "slides/07-bonus-fmrc.html#create-then-append",
+    "href": "slides/07-bonus-fmrc.html#create-then-append",
+    "title": "Bonus: forecast model run collections",
+    "section": "2 · Create, then append",
+    "text": "2 · Create, then append\ndef commit_cycle(repo, cycle, ds, append):\n    session = repo.writable_session(\"main\")\n    if append:\n        ds_time = ds.drop_vars([v for v in ds.variables if \"time\" not in ds[v].dims])\n        ds_time.vz.to_icechunk(session.store, append_dim=\"time\")\n    else:\n        ds.vz.to_icechunk(session.store)\n    session.commit(f\"GoMOFS cycle {cycle:%Y-%m-%d %Hz}\")\n\ncommit_cycle(repo, first, one_cycle, append=False)     # create\ncommit_cycle(repo, second, open_cycle(second, cycles[second]), append=True)   # append\n\nOne commit per run. An append carries only the variables that have a time dimension, because writing the static variables again would rewrite their metadata, which VirtualiZarr refuses. open_cycle takes a run’s reference time and its files: it is the reshaping on the previous slides, applied to the next run.",
     "crumbs": [
       "Lectures",
-      "6 · Visualizing"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#a-virtual-store-is-only-as-consistent-as-its-files",
-    "href": "slides/04-audit.html#a-virtual-store-is-only-as-consistent-as-its-files",
-    "title": "Auditing your files",
-    "section": "A virtual store is only as consistent as its files",
-    "text": "A virtual store is only as consistent as its files\nNothing is rewritten, so the files’ layout is the store’s layout.\n\nA virtual store copies no data. So it can fix metadata, but it cannot fix how the bytes are laid out: the grid, the chunks, the compression. An audit tells you, before you build, whether the files will make a good store, a slow one, or several stores.",
+    "objectID": "slides/07-bonus-fmrc.html#daily-updates-diff-on-reference-time",
+    "href": "slides/07-bonus-fmrc.html#daily-updates-diff-on-reference-time",
+    "title": "Bonus: forecast model run collections",
+    "section": "3 · Daily updates: diff on reference time",
+    "text": "3 · Daily updates: diff on reference time\nds = xr.open_zarr(repo.readonly_session(\"main\").store, consolidated=False, chunks={})\n\nset_repo = set(pd.to_datetime(ds.time.values).strftime(\"%Y%m%d\"))   # runs in the store\nnew = sorted(set_cloud - set_repo)                                  # only in the bucket\n\nCompare reference times, so a rerun never adds a run twice\nAppend in increasing time order, so sort the new runs first\n\n\nset_cloud is the set of complete runs found in the bucket, keyed the same way, as in section 1 of the notebook. If the bucket’s folder dates differ from the reference time, apply that offset in one place and comment on it. Run on the store from the notebook with a fourth run in the bucket, it returns just the fourth run.",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#consistent-grids",
-    "href": "slides/04-audit.html#consistent-grids",
-    "title": "Auditing your files",
-    "section": "Consistent grids",
-    "text": "Consistent grids\n\nSame dimensions, shape and coordinate values in every file, apart from the time dimension you join along\nFiles on different grids cannot share one array. They become separate groups, or separate stores\n\n\nCoastWatch Ocean Heat Content: three regions on three different lat/lon grids, so three separate stores.",
+    "objectID": "slides/07-bonus-fmrc.html#read-it-best-estimate-with-rolodex",
+    "href": "slides/07-bonus-fmrc.html#read-it-best-estimate-with-rolodex",
+    "title": "Bonus: forecast model run collections",
+    "section": "4 · Read it: best estimate with Rolodex",
+    "text": "4 · Read it: best estimate with Rolodex\nimport rolodex.forecast\nfrom rolodex.forecast import BestEstimate, ForecastIndex\n\nds.coords[\"valid_time\"] = rolodex.forecast.create_lazy_valid_time_variable(\n    reference_time=ds.time, period=ds.step)                    # time + step\nfmrc = ds.drop_indexes([\"time\", \"step\"]).set_xindex(\n    [\"time\", \"step\", \"valid_time\"], ForecastIndex)\n\nbest = fmrc.sel(valid_time=BestEstimate(offset=6))   # newest run for every hour\n\nRolodex (github.com/dcherian/rolodex) adds an xarray index. offset=6 starts each run at step 6, which is 18 hours in with 3-hour steps, so the first hours of every run, while the model settles, are skipped. The result has one dimension, valid_time, and time and step say which run and lead each value came from. For our three runs it has 35 valid times. The notebook pins Rolodex to commit 527bd42; main was the same commit on 2026-11-17.",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#consistent-chunking",
-    "href": "slides/04-audit.html#consistent-chunking",
-    "title": "Auditing your files",
-    "section": "Consistent chunking",
-    "text": "Consistent chunking\n\nA chunk is the smallest piece a reader can fetch. Virtual stores keep the provider’s chunks exactly\nEvery file needs the same chunk shape for a variable\nUnchunked arrays mean every read pulls the whole array\n\n\nNOAA NDVI: NDVI is chunked 1 × 1200 × 2400, but QA in the same file is unchunked, so any read of QA pulls all 3600 × 7200 values.",
+    "objectID": "slides/07-bonus-fmrc.html#best-estimate-and-the-runs",
+    "href": "slides/07-bonus-fmrc.html#best-estimate-and-the-runs",
+    "title": "Bonus: forecast model run collections",
+    "section": "Best estimate and the runs",
+    "text": "Best estimate and the runs\n\nSea surface height near NERACOOS buoy B01 from three GoMOFS runs (colored lines) and the best estimate (grey band), which uses the newest run for every hour.\nSame selection code as the Rolodex notebook, run on 2026-11-17, with the plot redrawn for the slide so the runs show through. The blue run (10 November) is used until 18:00 on 11 November, when the 11 November run takes over, and the 12 November run takes over a day later. The first 18 hours of the first run are not in the best estimate, because of offset=6. The runs agree closely in this window.",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#consistent-encoding",
-    "href": "slides/04-audit.html#consistent-encoding",
-    "title": "Auditing your files",
-    "section": "Consistent encoding",
-    "text": "Consistent encoding\n\nSame dtype, compression, fill value and file format in every file\nNetCDF-3 and NetCDF-4/HDF5 need different parsers, and cannot be mixed in one array\nCheck the file’s own header. Catalogs and servers get this wrong\n\n\nPacIOOS: the servers implied HDF5, but the files were NetCDF-3. About 3,200 “replacement” files were compressed HDF5 under the same names.",
+    "objectID": "slides/07-bonus-fmrc.html#try-it",
+    "href": "slides/07-bonus-fmrc.html#try-it",
+    "title": "Bonus: forecast model run collections",
+    "section": "Try it",
+    "text": "Try it\nBuild the store from NOAA’s GoMOFS files →\nRead it with Rolodex →\nRun the second notebook on the same machine and in the same folder, because it reads the store the first one writes. The first takes about four minutes.",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#built-to-be-appended",
-    "href": "slides/04-audit.html#built-to-be-appended",
-    "title": "Auditing your files",
-    "section": "Built to be appended",
-    "text": "Built to be appended\n\nNew files arrive the same way: same naming, same folder pattern, same grid\nEach file’s length along time is a whole number of chunks. If not, an append can put data in the wrong place without any error\nOne time step per file works, but the time coordinate needs explicit chunking or the store opens slowly\n\n\nCEFI daily files: 365 or 366 days each, chunked 100 days. In a test with that layout, appending put 430 of 730 values in the wrong place, with no error.",
+    "objectID": "slides/07-bonus-fmrc.html#back-to-the-start",
+    "href": "slides/07-bonus-fmrc.html#back-to-the-start",
+    "title": "Bonus: forecast model run collections",
+    "section": "Back to the start",
+    "text": "Back to the start\n\nBack to the start, and the Resources page\nNext, if you have time: finding stores with STAC",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "7 · Bonus: Forecast model run collections"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#bugs-in-the-data",
-    "href": "slides/04-audit.html#bugs-in-the-data",
-    "title": "Auditing your files",
-    "section": "Bugs in the data",
-    "text": "Bugs in the data\n\nMissing time steps. Is it a real gap, or the product’s normal cadence?\nDuplicated or out-of-order time steps\nEmpty, truncated or unreadable files\nCoordinates that are all zero or all NaN\n\n\nHYCOM GOFS 3.1: a few analyses are missing from the archive, so the snow crab notebook takes the nearest time that exists.",
+    "objectID": "slides/05-build.html#our-skill-builds-up-to-production",
+    "href": "slides/05-build.html#our-skill-builds-up-to-production",
+    "title": "Building a virtual Icechunk store",
+    "section": "Our skill builds up to production",
+    "text": "Our skill builds up to production\n\n\n\n\n\n\n\n\nStep\nYou get\nIt must\n\n\n\n\n1 · Plan\nplan.md: files, layout, decisions\nBe reviewed by you before any code\n\n\n2 · Smoke test\nA notebook that builds a local store from a few files\nReopen it read-only and read real values\n\n\n3 · Production\nA build script: settings at the top, batches, commits, restart\nSurvive being interrupted; tag the result\n\n\n4 · Docs\nA README, a loading example, the tested environment\nLet a stranger open the store with no help\n\n\n\nIt stops for your review between steps.",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "5 · Building a store"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#missing-or-wrong-metadata",
-    "href": "slides/04-audit.html#missing-or-wrong-metadata",
-    "title": "Auditing your files",
-    "section": "Missing or wrong metadata",
-    "text": "Missing or wrong metadata\nThis is the one thing a virtual store can fix, without touching the data.\n\nMissing units, standard_name, long_name, or a vertical positive\nAttributes that cannot be saved as JSON, such as a NaN fill value on a coordinate\nNo version recorded anywhere in the files\n\n\nFix it in the store, write down every change, and make the result follow CF conventions.",
+    "objectID": "slides/05-build.html#what-the-agent-needs-from-you",
+    "href": "slides/05-build.html#what-the-agent-needs-from-you",
+    "title": "Building a virtual Icechunk store",
+    "section": "What the agent needs from you",
+    "text": "What the agent needs from you\nIt cannot guess these. Put them in your first prompt:\n\nWhere the files are, and how to get in: a bucket, a THREDDS catalog, an API; public or which credentials\nWhich files: products, variables, years\nWhere the store goes: a bucket you can write to. Write credentials go in the environment, never in the chat\nWho will read it: Python users, a browser viewer, users outside one cloud region\nBuilt once, or kept up to date as new files arrive",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "5 · Building a store"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#look-for-yourself",
-    "href": "slides/04-audit.html#look-for-yourself",
-    "title": "Auditing your files",
-    "section": "Look for yourself",
-    "text": "Look for yourself\nimport h5py, s3fs\n\nfs = s3fs.S3FileSystem(anon=True)\nurl = sorted(fs.ls(\"noaa-cdr-ndvi-pds/data/2000\"))[0]   # one day's file\nwith fs.open(url) as f, h5py.File(f) as h:\n    for name, v in h.items():\n        print(name, v.dtype, v.shape, \"chunks:\", v.chunks, v.compression)\n...\nNDVI int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip\nTIMEOFDAY int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip\nQA int16 (1, 3600, 7200) chunks: None None\n\nRun on the first NDVI file on 2026-11-13. This reads only the header, a few kilobytes. Do this on files from the start, the middle and the end of the archive, and on both sides of any change in instrument, version or format.",
+    "objectID": "slides/05-build.html#what-the-skill-works-out-from-your-files",
+    "href": "slides/05-build.html#what-the-skill-works-out-from-your-files",
+    "title": "Building a virtual Icechunk store",
+    "section": "What the skill works out from your files",
+    "text": "What the skill works out from your files\nIt will propose these, and ask you to confirm:\n\nOne store, or several? The goal is one store with all the variables. Files on different grids or encodings force groups or separate stores\nHow the files fit together: joined along time, variables in separate files merged\nWhat to load, what to keep virtual: coordinates loaded, science arrays left virtual\nMetadata fixes to follow CF conventions\n\n\nThe files usually decide these. You can still ask “why?”, and override.",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "5 · Building a store"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#let-the-agent-write-the-audit-report",
-    "href": "slides/04-audit.html#let-the-agent-write-the-audit-report",
-    "title": "Auditing your files",
-    "section": "Let the agent write the audit report",
-    "text": "Let the agent write the audit report\nFirst, tell it how to find the files. It cannot guess:\n\nWhere they are: a bucket and prefix, a THREDDS catalog, an API\nHow to get in: public, or which credentials\nWhat to include: products, variables, years\n\nThen ask:\n\n“Audit the NOAA CDR NDVI files in s3://noaa-cdr-ndvi-pds/data/ (public, us-east-1, one NetCDF per day) for a virtual Icechunk store. Check grids, chunking, encoding, whether they can be appended, missing days and metadata. Read headers only. Write the findings to audit/report.md. No build code.”\n\n\nThe virtual-icechunk skill’s research-and-plan step does this audit. For a big archive, or files on a provider’s own server, the archive-to-cloud skill’s source audit scans everything resumably and reports what nobody asked about.",
+    "objectID": "slides/05-build.html#telling-the-agent-to-build-it",
+    "href": "slides/05-build.html#telling-the-agent-to-build-it",
+    "title": "Building a virtual Icechunk store",
+    "section": "Telling the agent to build it",
+    "text": "Telling the agent to build it\n\n“Build a virtual Icechunk store of the NDVI files in s3://noaa-cdr-ndvi-pds/data/ (public, us-east-1) for 2000–2024. Publish it to my Source Cooperative repository my-org/ndvi; my write keys are in environment variables. Python users and a browser viewer will read it. Start with the plan.”\n\nThen, one session per step:\n\n“The plan is approved. Write the smoke-test notebook.” (builds a local test store)\n“The smoke test passed. Write the production build script.” (writes to your bucket)\n“Write the README and a loading example.”",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "5 · Building a store"
     ]
   },
   {
-    "objectID": "slides/04-audit.html#next-building-a-store",
-    "href": "slides/04-audit.html#next-building-a-store",
-    "title": "Auditing your files",
-    "section": "Next: building a store",
-    "text": "Next: building a store\nChapter 5 · Building a store",
+    "objectID": "slides/05-build.html#authenticating-to-your-bucket",
+    "href": "slides/05-build.html#authenticating-to-your-bucket",
+    "title": "Building a virtual Icechunk store",
+    "section": "Authenticating to your bucket",
+    "text": "Authenticating to your bucket\nThe agent writes to your bucket with your credentials. Tell it where they are:\n\n\n\n\n\n\n\nDestination\nTypical credentials\n\n\n\n\nAmazon S3\nAn AWS profile, or AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in the environment\n\n\nGoogle Cloud Storage\nA service-account key file, named in GOOGLE_APPLICATION_CREDENTIALS\n\n\nSource Cooperative\nTemporary S3 keys from your repository’s View credentials page. They expire\n\n\n\nNot sure? Ask it:\n\n“Help me set up write access to my Source Cooperative repository. Do not print my keys, and do not save them in any file in this repository.”\n\n\nThe smoke test always writes to a local store first: the skill never points a test at the real destination. Only the production build writes to the bucket. Keys go in environment variables or a credentials file outside the repository, and never into a notebook, a script or the chat.",
     "crumbs": [
       "Lectures",
-      "4 · Auditing your files"
+      "5 · Building a store"
+    ]
+  },
+  {
+    "objectID": "slides/05-build.html#worked-examples",
+    "href": "slides/05-build.html#worked-examples",
+    "title": "Building a virtual Icechunk store",
+    "section": "Worked examples",
+    "text": "Worked examples\n\nThe NDVI notebooks from June 5: concatenate, append, write to cloud storage\nPublished stores, with their build code: CoastWatch OHC, OA indicators, HYCOM\n\n\nThe June 5 notebooks use older patterns in places, for example try-create-except-open. They are good for seeing the steps. The ocean-icechunks repositories show a full layout: a small test notebook, the production pipeline, and a README published beside each store.",
+    "crumbs": [
+      "Lectures",
+      "5 · Building a store"
+    ]
+  },
+  {
+    "objectID": "slides/05-build.html#next-visualizing",
+    "href": "slides/05-build.html#next-visualizing",
+    "title": "Building a virtual Icechunk store",
+    "section": "Next: visualizing",
+    "text": "Next: visualizing\nChapter 6 · Visualizing",
+    "crumbs": [
+      "Lectures",
+      "5 · Building a store"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#six-steps",
+    "href": "slides/03-pipeline.html#six-steps",
+    "title": "The basic pipeline",
+    "section": "Six steps",
+    "text": "Six steps\n\n\n\n\n\n\n\n\n\nStep\nWhat happens\n\n\n\n\n1\nFind the files\nList the NetCDF files you want in the store\n\n\n2\nSay how to reach them\nAn object store, a registry and a parser for the file format\n\n\n3\nOpen one file virtually\nRead its metadata only. The big arrays stay where they are\n\n\n4\nCombine compatible files\nJoin them along time into one virtual dataset\n\n\n5\nWrite and commit\nSave the chunk references to an Icechunk repository\n\n\n6\nReopen and read\nOpen the store as a reader would, and read real values\n\n\n\n\nThis is exactly the NDVI notebook from chapter 1, so anyone who ran it has already done all six steps. The code on the next slides was run end to end on 2026-11-13 (icechunk 2.3.1, virtualizarr 2.8.0).",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#find-the-files",
+    "href": "slides/03-pipeline.html#find-the-files",
+    "title": "The basic pipeline",
+    "section": "1 · Find the files",
+    "text": "1 · Find the files\nimport s3fs\n\nfs = s3fs.S3FileSystem(anon=True)          # public bucket, no credentials\nurls = [f\"s3://{p}\" for p in sorted(fs.ls(\"noaa-cdr-ndvi-pds/data/2000\"))[:5]]\nFive daily files of the NOAA AVHRR NDVI Climate Data Record, January 1–5, 2000.",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#say-how-to-reach-them",
+    "href": "slides/03-pipeline.html#say-how-to-reach-them",
+    "title": "The basic pipeline",
+    "section": "2 · Say how to reach them",
+    "text": "2 · Say how to reach them\nfrom obstore.store import from_url\nfrom obspec_utils.registry import ObjectStoreRegistry\nfrom virtualizarr.parsers import HDFParser\n\nbucket = \"s3://noaa-cdr-ndvi-pds/\"\nstore = from_url(bucket, region=\"us-east-1\", skip_signature=True)\nregistry = ObjectStoreRegistry({bucket: store})   # URLs starting with bucket -&gt; this store\nparser = HDFParser()                              # NetCDF4 is HDF5 inside\n\nPick the parser that matches the file format: HDFParser for NetCDF4/HDF5, NetCDF3Parser for classic NetCDF, and others for DMR++, Zarr and FITS. The audit in chapter 4 tells you which one.",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#open-one-file-virtually",
+    "href": "slides/03-pipeline.html#open-one-file-virtually",
+    "title": "The basic pipeline",
+    "section": "3 · Open one file virtually",
+    "text": "3 · Open one file virtually\nfrom virtualizarr import open_virtual_dataset\n\ncoords = [\"time\", \"latitude\", \"longitude\"]\nvds = open_virtual_dataset(url=urls[0], parser=parser, registry=registry,\n                           loadable_variables=coords)\nNDVI   (time, latitude, longitude) int16 52MB ManifestArray&lt;shape=(1, 3600, 7200) ...&gt;\n\nSmall coordinates are loaded. Big arrays become ManifestArrays: lists of where each chunk sits (file, byte offset, length). No data is downloaded.",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#combine-compatible-files",
+    "href": "slides/03-pipeline.html#combine-compatible-files",
+    "title": "The basic pipeline",
+    "section": "4 · Combine compatible files",
+    "text": "4 · Combine compatible files\nimport xarray as xr\n\nvds_list = [\n    open_virtual_dataset(url=u, parser=parser, registry=registry, loadable_variables=coords)\n    .drop_vars([\"nv\", \"ncrs\", \"crs\"], errors=\"ignore\")\n    for u in urls\n]\ncombined = xr.concat(vds_list, dim=\"time\", data_vars=\"minimal\", coords=\"minimal\",\n                     compat=\"override\", combine_attrs=\"override\")\n\n“Compatible” means the same dimensions, shape apart from time, chunk grid, dtype and codecs. Files that differ cannot share one virtual array. The keyword arguments stop xarray from trying to compare virtual arrays, which it cannot do. The dropped variables are small CRS and bounds-dimension variables that get in the way of the join.",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#write-and-commit",
+    "href": "slides/03-pipeline.html#write-and-commit",
+    "title": "The basic pipeline",
+    "section": "5 · Write and commit",
+    "text": "5 · Write and commit\nimport icechunk\n\nconfig = icechunk.RepositoryConfig.default()\nconfig.set_virtual_chunk_container(icechunk.VirtualChunkContainer(\n    url_prefix=bucket, store=icechunk.s3_store(region=\"us-east-1\", anonymous=True)))\n\nstorage = icechunk.local_filesystem_storage(\"ndvi-icechunk\")\nrepo = icechunk.Repository.create(storage, config)\nrepo.save_config()\ncombined[\"time\"].encoding[\"chunks\"] = (len(combined.time),)   # one chunk for time\nsession = repo.writable_session(\"main\")\ncombined.vz.to_icechunk(session.store)\nsession.commit(\"Five days of NDVI CDR, January 2000\")\n\nThe virtual chunk container tells Icechunk that some chunks live outside the store, under this prefix, and how to reach them. save_config makes that setting part of the store, so readers get it too. Commits work like git: each one is a snapshot you can go back to.",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#reopen-and-read-real-data",
+    "href": "slides/03-pipeline.html#reopen-and-read-real-data",
+    "title": "The basic pipeline",
+    "section": "6 · Reopen and read real data",
+    "text": "6 · Reopen and read real data\ncreds = icechunk.containers_credentials(\n    {bucket: icechunk.s3_credentials(anonymous=True)})\nreader = icechunk.Repository.open(icechunk.local_filesystem_storage(\"ndvi-icechunk\"),\n                                  authorize_virtual_chunk_access=creds)\nds = xr.open_zarr(reader.readonly_session(\"main\").store, consolidated=False, chunks={})\n\nds[\"NDVI\"].sel(latitude=slice(50, 40), longitude=slice(-126, -114)).isel(time=0).plot()\n\nAlways check from a fresh read-only session, and read real values, not just metadata. That is the reader’s path, and it is where problems show up.",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#from-your-laptop-to-the-cloud",
+    "href": "slides/03-pipeline.html#from-your-laptop-to-the-cloud",
+    "title": "The basic pipeline",
+    "section": "From your laptop to the cloud",
+    "text": "From your laptop to the cloud\nOnly step 5’s storage line changes.\n\n\n\n\n\n\n\nWhere the store lives\nStorage\n\n\n\n\nA local folder\nicechunk.local_filesystem_storage(\"ndvi-icechunk\")\n\n\nAmazon S3\nicechunk.s3_storage(bucket=\"my-bucket\", prefix=\"ndvi-icechunk\", region=\"us-west-2\", from_env=True)\n\n\nGoogle Cloud Storage\nicechunk.gcs_storage(bucket=\"my-bucket\", prefix=\"ndvi-icechunk\", from_env=True)\n\n\nPublished on Source Cooperative\nWrite with icechunk.s3_storage(...) and your write keys; readers open it with icechunk.http_storage(\"https://data.source.coop/&lt;account&gt;/&lt;store&gt;\")\n\n\n\nThe NetCDF files never move.",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#try-it",
+    "href": "slides/03-pipeline.html#try-it",
+    "title": "The basic pipeline",
+    "section": "Try it",
+    "text": "Try it\nOpen the NDVI notebook in Colab →\nOr open it on the hub and ask your agent:\n\n“Walk me through simple-virtual-icechunk.ipynb one step at a time. For each step, tell me what is read from the source and what is written to the store.”",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/03-pipeline.html#next-auditing-your-files",
+    "href": "slides/03-pipeline.html#next-auditing-your-files",
+    "title": "The basic pipeline",
+    "section": "Next: auditing your files",
+    "text": "Next: auditing your files\nChapter 4 · Auditing your files",
+    "crumbs": [
+      "Lectures",
+      "3 · The basic pipeline"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#so-many-netcdf-files",
+    "href": "slides/01-why-virtual.html#so-many-netcdf-files",
+    "title": "Why virtual Icechunk?",
+    "section": "So many NetCDF files",
+    "text": "So many NetCDF files\n\nCEFI MOM6 Northeast Pacific hindcast on the PSL THREDDS server: page 1 of 17.\n820 files, from one model, one hindcast, one region, and one release.\n\n\nOcean model output comes as thousands of NetCDF files, one per variable per year (or per day). Which files do I need? Which variables? A time series means opening hundreds of them.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#users-want-a-product-not-a-pile-of-files",
+    "href": "slides/01-why-virtual.html#users-want-a-product-not-a-pile-of-files",
+    "title": "Why virtual Icechunk?",
+    "section": "Users want a product, not a pile of files",
+    "text": "Users want a product, not a pile of files\n\n\nA cloud-optimized dataset that is linked to the underlying files hides the file structure. The user opens one dataset, with every variable and the full time range, and never sees a file name. We deliver a product.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#why-not-just-download-the-files-or-use-thredds",
+    "href": "slides/01-why-virtual.html#why-not-just-download-the-files-or-use-thredds",
+    "title": "Why virtual Icechunk?",
+    "section": "Why not just download the files, or use THREDDS?",
+    "text": "Why not just download the files, or use THREDDS?\n\n\nDownloading\n\nGigabytes to get the one slice you need\nCopies on every laptop, all out of date\nHours of scripting before any science\n\nData servers\n\nCap large requests (PSL THREDDS: 500 MB each)\nFail under load (“NetCDF: DAP failure”)\n\n\nObject storage (S3, Google Cloud, Azure)\n\nServes byte ranges, not whole files\nSpreads requests across many machines, so parallel readers do not queue behind each other\nIn practice, as many connections as you can throw at it\n\n\n\nTHREDDS has one server, and every request goes through it. Object storage is built to serve huge numbers of concurrent requests for pieces of objects. That is what a cloud-optimized reader needs.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#from-minutes-to-seconds",
+    "href": "slides/01-why-virtual.html#from-minutes-to-seconds",
+    "title": "Why virtual Icechunk?",
+    "section": "From minutes to seconds",
+    "text": "From minutes to seconds\n\n\nResampling a 2-D CEFI MOM6 NEP variable: THREDDS vs. a virtual store in Earthmover Arraylake. Holmes, ESIP, July 2026.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#bering-sea-snow-crab-19942015",
+    "href": "slides/01-why-virtual.html#bering-sea-snow-crab-19942015",
+    "title": "Why virtual Icechunk?",
+    "section": "Bering Sea snow crab, 1994–2015",
+    "text": "Bering Sea snow crab, 1994–2015\n306 TB of HYCOM reanalysis · opens in ~1 s · nothing downloaded\n\n\n\n\n\n\nOpen in Colab →\n\nRun all cells. The map is the cold pool on the eastern Bering Sea shelf. The time series is the box-mean bottom temperature and the fraction of the box below 2 °C. The metadata comes from Source Cooperative, and every value is read by byte range from HYCOM’s NetCDF files on AWS Open Data.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#virtualizarr-no-reprocessing",
+    "href": "slides/01-why-virtual.html#virtualizarr-no-reprocessing",
+    "title": "Why virtual Icechunk?",
+    "section": "VirtualiZarr: no reprocessing",
+    "text": "VirtualiZarr: no reprocessing\n\nKeep the data as it is. The NetCDF files stay where the provider put them.\nBuild a catalog of chunks. For every chunk: which file, at what byte offset, and how long.\nSave the catalog as one Zarr dataset. Readers open that, and read the bytes straight from the original files.\n\n\nIf the files are compatible (the same grid, chunking and encoding), there is nothing to rewrite.\n\n\nThis is the big change. We used to have to convert everything to Zarr, which meant a second copy of petabytes. Virtual references point at the originals.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
+    "href": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
+    "title": "Why virtual Icechunk?",
+    "section": "Why Icechunk, not Kerchunk?",
+    "text": "Why Icechunk, not Kerchunk?\nKerchunk made virtual datasets possible. Icechunk makes them safe to share and keep up to date.\n\nTransactions. Commits are atomic, with snapshots and rollback. Kerchunk references are plain JSON or Parquet files that anyone can overwrite.\nSafe appends. New files are added in a commit, and readers never see a half-written store. With Kerchunk you rewrite the references yourself.\nZarr-native. The store is a real Zarr store, so any Zarr reader opens it. Kerchunk needs an extra fsspec reference layer.\nScale. Chunk manifests are built for huge chunk counts. Very large JSON reference sets are slow to load.\nModern I/O. The stack reads through Rust and obstore, not fsspec: more flexible (S3, GCS, Azure, local, HTTP) and fast under many concurrent requests.\n\n\nKerchunk was the first way to get a virtual dataset, and it is still fine for a quick one-off. The problems show up when a dataset is shared and grows: there is no versioning, no atomic update, and no protection from two writers.\nOn I/O: Icechunk’s Rust core uses the Rust object_store crate. obstore is the Python binding to the same crate, and VirtualiZarr uses it to read NetCDF metadata (the ObjectStoreRegistry in the notebook). Kerchunk goes through fsspec. obstore’s own benchmarks show large gains over fsspec for many concurrent requests; say “in our experience” unless you have timed your own case.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
+    "href": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
+    "title": "Why virtual Icechunk?",
+    "section": "Handling forecast model run collections",
+    "text": "Handling forecast model run collections\nA forecast model writes a new file every day. Keep every run, not just the latest.\n\nTwo time dimensions. time is the forecast reference time, one value per file. step is the lead time, the same in every file. Data are (time, step, ...).\nAppend along time. Each new file adds one entry. Nothing is rewritten.\nValid time is computed. It is time + step, never stored.\nPick a run, or a best estimate. Select one forecast, or stitch the newest hours from every run into one continuous series.\n\n\nOne store holds the whole history of every forecast. Bonus lecture 7 builds one.\n\n\nThe raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.\nIn the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per file before the concat: rename the time dimension to step, make the first valid time the scalar reference time, then concatenate along time. All files must have the same number of steps. Static variables (bathymetry, mesh connectivity) must be kept out of the concat, or they get stacked once per run.\nBest estimate is computed at read time, with Rolodex. Worked example: the Taranto SHYFEM forecast store in the MAGICA school notebooks.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#new-tools-make-this-much-easier",
+    "href": "slides/01-why-virtual.html#new-tools-make-this-much-easier",
+    "title": "Why virtual Icechunk?",
+    "section": "New tools make this much easier",
+    "text": "New tools make this much easier\n\nVirtualiZarr 2: reads NetCDF/HDF5 metadata and builds the chunk catalog\nIcechunk 2: stores the catalog, with versions and commits, like git for data\nCoding agents + ocean-icechunks-skills: plan, build, check and document a store for you\n\n\nA year ago this took a specialist days of trial and error. Now the libraries handle the hard parts, and an agent with the skill knows the gotchas.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#make-your-own-virtual-store",
+    "href": "slides/01-why-virtual.html#make-your-own-virtual-store",
+    "title": "Why virtual Icechunk?",
+    "section": "Make your own virtual store",
+    "text": "Make your own virtual store\n\n5 NOAA NDVI NetCDF files on AWS\n303 MB of data, left in place\n54 kB Icechunk store\n\nOpen in Colab →\n\nSeven short steps: find the files, tell VirtualiZarr how to reach them, open one, combine five, write and commit, reopen as a reader, plot real data. Measured on 2026-11-13.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#resources",
+    "href": "slides/01-why-virtual.html#resources",
+    "title": "Why virtual Icechunk?",
+    "section": "Resources",
+    "text": "Resources\n\nThis tutorial: ocean-icechunks.github.io/2026-ioos-hackathon\nAgent skills: ocean-icechunks/ocean-icechunks-skills\nExample stores: ocean-icechunks/hycom, ocean-icechunks/icechunks\nBackground: AI-ready scientific data archives (Earthmover, 2026)\nDocs: VirtualiZarr, Icechunk",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#next-put-an-agent-to-work",
+    "href": "slides/01-why-virtual.html#next-put-an-agent-to-work",
+    "title": "Why virtual Icechunk?",
+    "section": "Next: put an agent to work",
+    "text": "Next: put an agent to work\nChapter 2 · Working with an agent",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html",
+    "href": "setup/04-git-with-agent.html",
+    "title": "Git and GitHub, with an agent",
+    "section": "",
+    "text": "Your hackathon work lives in a GitHub repository, so you need a GitHub account. That matters more than usual here: the workshop hub is deleted a week after the hackathon, and GitHub is where your work survives. Git is a lot to learn in one week, and you do not have to: your agent can run the git commands for you. You make the decisions (what to save, when to share it, and whether a change is right), and the agent types the commands.\nTo do that, the agent needs to reach GitHub as you. You set that up once, with gh auth login.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#why-gh-auth-login",
+    "href": "setup/04-git-with-agent.html#why-gh-auth-login",
+    "title": "Git and GitHub, with an agent",
+    "section": "Why gh auth login?",
+    "text": "Why gh auth login?\ngh is GitHub’s command-line tool, and it is already installed on the hub. Logging in with it does two things:\n\ngit can push and pull over HTTPS without asking you for a password, because gh stores the credential for it.\ngh itself can open pull requests, read issues and check on a repository. Agents use it all the time.\n\nEverything the agent does through gh is done in your name, so decide how much it can reach.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#choose-how-much-access",
+    "href": "setup/04-git-with-agent.html#choose-how-much-access",
+    "title": "Git and GitHub, with an agent",
+    "section": "Choose how much access",
+    "text": "Choose how much access\n\nToken for one repository (safer)Full access\n\n\nThe agent can push to your hackathon repository and nothing else.\n\nGo to https://github.com/settings/personal-access-tokens/new.\nToken name: JupyterHub agent, IOOS hackathon. Expiration: a few days after the hackathon.\nRepository access: Only select repositories, then pick your project repository.\nRepository permissions: set Contents, Pull requests and Issues to Read and write. Leave the rest at No access.\nClick Generate token and copy it. GitHub shows it only once.\n\nThen, in a terminal, run gh auth login and answer:\n\nWhere do you use GitHub? GitHub.com\nPreferred protocol? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate? Paste an authentication token\n\n\n\nThe agent can do anything you can on GitHub, in every repository you can reach, including private ones.\nIn a terminal, run gh auth login and answer:\n\nWhere do you use GitHub? GitHub.com\nPreferred protocol? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate? Login with a web browser\n\nIt prints a one-time code. Open the link, paste the code, and approve.\n\n\n\nCheck that it worked:\ngh auth status",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#tell-git-who-you-are",
+    "href": "setup/04-git-with-agent.html#tell-git-who-you-are",
+    "title": "Git and GitHub, with an agent",
+    "section": "Tell git who you are",
+    "text": "Tell git who you are\nCommits need a name and an email. Do this once:\ngit config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"\nUse the email on your GitHub account. If you would rather keep it private, use the noreply address shown at https://github.com/settings/emails.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#let-the-agent-do-git",
+    "href": "setup/04-git-with-agent.html#let-the-agent-do-git",
+    "title": "Git and GitHub, with an agent",
+    "section": "Let the agent do git",
+    "text": "Let the agent do git\nAsk for the outcome you want, not the command. For example:\n\n\n\n\n\n\n\nYou want to…\nSay to the agent\n\n\n\n\nGet a copy of a repository\n“Clone github.com/ocean-icechunks/2026-ioos-hackathon into my home folder.”\n\n\nSee what you changed\n“What have I changed since the last commit?”\n\n\nSave your work\n“Make a new branch and commit these changes with a clear message.”\n\n\nShare it\n“Push the branch and open a pull request. Explain what changed in the description.”\n\n\nCatch up with your team\n“Pull the latest changes from main and tell me what is new.”\n\n\nRecover from a mess\n“Git says there is a merge conflict. Explain what happened before you fix anything.”\n\n\n\nThree habits keep this safe:\n\nWork on a branch, and merge through a pull request. Ask the agent never to push to main.\nRead the change before it is committed. Ask “show me the diff” if the agent does not.\nNever let credentials into a commit. Keys and tokens belong in environment variables or in a file listed in .gitignore. The ocean-icechunks skill already insists on this.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#learn-the-basics-anyway",
+    "href": "setup/04-git-with-agent.html#learn-the-basics-anyway",
+    "title": "Git and GitHub, with an agent",
+    "section": "Learn the basics anyway",
+    "text": "Learn the basics anyway\nIt helps to know what the agent is doing on your behalf: clone, commit, push and pull. The NMFS HackDays lesson Basic Git/GitHub skills in the terminal walks through all four in about 20 minutes. Or ask your agent to explain each command as it runs it.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html",
+    "href": "setup/02-jupyterlab.html",
+    "title": "Find your way around JupyterLab",
+    "section": "",
+    "text": "You need three things in JupyterLab for this hackathon. The terminal is where your coding agent runs. The file browser shows what the agent changed. Notebooks are where you run and check its work.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-launcher",
+    "href": "setup/02-jupyterlab.html#the-launcher",
+    "title": "Find your way around JupyterLab",
+    "section": "The Launcher",
+    "text": "The Launcher\nThe Launcher opens notebooks, terminals and files. If you do not see it, choose File → New Launcher, or click the blue + at the top left.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-terminal",
+    "href": "setup/02-jupyterlab.html#the-terminal",
+    "title": "Find your way around JupyterLab",
+    "section": "The terminal",
+    "text": "The terminal\nClick Terminal in the Launcher, or choose File → New → Terminal. This is where you will start your agent. You only need a few commands yourself:\n\n\n\nCommand\nWhat it does\n\n\n\n\npwd\nShows which folder you are in\n\n\nls\nLists the files here (ls -a also shows hidden ones)\n\n\ncd folder\nMoves into a folder\n\n\ncd ..\nMoves up one folder\n\n\ncd ~\nGoes back to your home folder\n\n\n\nThe agent will run most other commands for you, and it asks before it runs anything risky. New to the shell? Try the Software Carpentry shell lesson.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-file-browser",
+    "href": "setup/02-jupyterlab.html#the-file-browser",
+    "title": "Find your way around JupyterLab",
+    "section": "The file browser",
+    "text": "The file browser\nThe folder icon at the far left opens the file browser. Use it to move between folders, make a new one (the folder icon with a +), and right-click a file to rename or delete it. When an agent writes a file, it shows up here. Open it and read it.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#notebooks",
+    "href": "setup/02-jupyterlab.html#notebooks",
+    "title": "Find your way around JupyterLab",
+    "section": "Notebooks",
+    "text": "Notebooks\nClick Python 3 in the Launcher to open a new notebook. A notebook is a list of cells, and each cell is either code or Markdown.\n\nRun a cell: press Shift + Enter.\nRun all cells: use the Run menu.\nAdd a cell: click the + in the notebook toolbar.\nChange the cell type: use the drop-down in the toolbar (Code / Markdown).\n\nTo open a notebook that someone else wrote, or that the agent wrote, double-click it in the file browser.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#installing-packages",
+    "href": "setup/02-jupyterlab.html#installing-packages",
+    "title": "Find your way around JupyterLab",
+    "section": "Installing packages",
+    "text": "Installing packages\n%pip install package in a notebook cell installs a package for the current session only. It will be gone the next time your server starts. If something should always be there, ask for it to be added to the hub image.\nAdapted from NMFS HackDays 2025: Intro to JupyterLab.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#skills-and-examples",
+    "href": "resources.html#skills-and-examples",
+    "title": "Resources",
+    "section": "",
+    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#background-reading",
+    "href": "resources.html#background-reading",
+    "title": "Resources",
+    "section": "Background reading",
+    "text": "Background reading\n\nBridging NOAA ocean model files and cloud-native access (Holmes, ESIP, July 2026; PDF of the talk several chapter 1 figures come from)\nAI-ready scientific data archives (Earthmover, 2026)\nRich Signell on the state of cloud-native geospatial (March 2026)",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#documentation",
+    "href": "resources.html#documentation",
+    "title": "Resources",
+    "section": "Documentation",
+    "text": "Documentation\n\nIcechunk\nVirtualiZarr\nXarray",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Virtual Icechunk",
+    "section": "",
+    "text": "This tutorial gives you a quick overview of virtual Icechunk stores: what they are, how one gets built, and what to check before building one. During the hackathon you will mostly hand the actual work to a coding agent that has the ocean-icechunks-skills installed. Each chapter is a short slide deck. Click through it, or press S for the speaker notes.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#before-you-start-get-set-up",
+    "href": "index.html#before-you-start-get-set-up",
+    "title": "Virtual Icechunk",
+    "section": "Before you start: get set up",
+    "text": "Before you start: get set up\nNew to the hub? Work through JupyterHub Skills first (about 30 minutes):\n\nLog in to the JupyterHub\nFind your way around JupyterLab\nStart your coding agent: Claude Code, Codex or Antigravity, with your own subscription\nGit and GitHub, with an agent: log in once with gh, then let the agent run git for you\nThe scratch bucket: cloud storage for test stores",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#lectures",
+    "href": "index.html#lectures",
+    "title": "Virtual Icechunk",
+    "section": "Lectures",
+    "text": "Lectures\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#examples",
+    "href": "index.html#examples",
+    "title": "Virtual Icechunk",
+    "section": "Examples",
+    "text": "Examples\nEach example opens a large ocean dataset as a virtual Icechunk store and answers one question with it in a few seconds or minutes. You download nothing in advance, even when the dataset is hundreds of terabytes or thousands of files. Use them to see how a store opens, how much a read costs, and what kind of analysis becomes easy. Each one has an Open in Colab button.\nSee Resources for links to everything mentioned in the decks.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "setup/01-jupyterhub.html",
+    "href": "setup/01-jupyterhub.html",
+    "title": "Log in to the JupyterHub",
+    "section": "",
+    "text": "Everything in this tutorial runs on a JupyterHub in the cloud. You do not need to install anything on your own computer.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Log in to the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "setup/01-jupyterhub.html#start-a-server",
+    "href": "setup/01-jupyterhub.html#start-a-server",
+    "title": "Log in to the JupyterHub",
+    "section": "Start a server",
+    "text": "Start a server\n\nGo to https://workshop.nmfs-openscapes.2i2c.cloud/.\nLog in. Your username is your email address. The password is the one the organizers give you at the start of the hackathon; everyone uses the same one. Do not post it anywhere public, including GitHub.\nImage: keep the default, a geospatial image with Python and R.\nSize: pick the smallest machine. That is plenty for everything here. Larger machines cost more, so choose one only if you run out of memory.\n\nClick Start. It can take a few minutes to start.\n\nWhen it is ready you land in JupyterLab, on the Launcher. Next: Find your way around JupyterLab.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Log in to the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "setup/01-jupyterhub.html#your-files",
+    "href": "setup/01-jupyterhub.html#your-files",
+    "title": "Log in to the JupyterHub",
+    "section": "Your files",
+    "text": "Your files\n\n/home/jovyan is your home directory. Everyone’s home is called /home/jovyan (that is the Jupyter default), but yours is private, and it persists between sessions.\nshared/ is read-only, with files the organizers have put there for you.\nshared-public/ is read-write and visible to everyone. Make a team folder there. Agree with your team who edits what, because anyone can change anything in it.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Log in to the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "setup/01-jupyterhub.html#stop-your-server",
+    "href": "setup/01-jupyterhub.html#stop-your-server",
+    "title": "Log in to the JupyterHub",
+    "section": "Stop your server",
+    "text": "Stop your server\nWhen you are done for the day, stop your server. It shuts down after 90 minutes idle anyway, but a running server costs money. Stopping does not delete your work. It is like turning off your computer.\nFrom the JupyterLab tab, choose one of these:\n\nFile → Log Out\nFile → Hub Control Panel → Stop My Server\n\n\n\n\n\n\n\nTip\n\n\n\nLost the JupyterLab tab? Go to https://workshop.nmfs-openscapes.2i2c.cloud/hub/home.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Log in to the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "setup/01-jupyterhub.html#if-the-server-crashes",
+    "href": "setup/01-jupyterhub.html#if-the-server-crashes",
+    "title": "Log in to the JupyterHub",
+    "section": "If the server crashes",
+    "text": "If the server crashes\nThis can happen when many people use a lot of memory at once. Go to File → Hub Control Panel, click Stop My Server, then Start My Server. You will not lose work, unless you were in the middle of uploading a file.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Log in to the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "setup/01-jupyterhub.html#getting-help",
+    "href": "setup/01-jupyterhub.html#getting-help",
+    "title": "Log in to the JupyterHub",
+    "section": "Getting help",
+    "text": "Getting help\n\nAsk in the hackathon channel, or ask a helper in the room.\nProblem with this tutorial? Open an issue in ocean-icechunks/2026-ioos-hackathon.\n\nAdapted from NMFS HackDays 2025: Intro to JupyterHubs.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Log in to the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "setup/03-start-your-agent.html",
+    "href": "setup/03-start-your-agent.html",
+    "title": "Start your coding agent",
+    "section": "",
+    "text": "In this hackathon you hand most of the work to a coding agent running in a hub terminal. Bring your own subscription. Any one of these works:\nYou install the agent once. It goes in ~/.local/bin, inside your home directory, so it is still there the next time your server starts. Your sign-in is saved there too.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Start your coding agent"
+    ]
+  },
+  {
+    "objectID": "setup/03-start-your-agent.html#install-and-sign-in",
+    "href": "setup/03-start-your-agent.html#install-and-sign-in",
+    "title": "Start your coding agent",
+    "section": "1 · Install and sign in",
+    "text": "1 · Install and sign in\nOpen a terminal (File → New → Terminal). Then follow the steps for your agent.\n\nClaude CodeCodexAntigravity\n\n\nInstall:\ncurl -fsSL https://claude.ai/install.sh | bash\nStart it:\ncd ~\nclaude\nThe first start asks you to pick a theme and a sign-in method. Choose Claude account with subscription. It prints a link: open it in your browser, sign in, and paste the code it gives you back into the terminal.\n\n\nInstall it into your home directory. Without --prefix, it is installed somewhere that is wiped when your server restarts.\nnpm install -g --prefix ~/.local @openai/codex\nSign in. The hub has no browser of its own, so use the device-code flow:\ncodex login --device-auth\nOpen the link it prints, sign in with your ChatGPT account, and enter the code. Then start it:\ncd ~\ncodex\n\n\nInstall:\ncurl -fsSL https://antigravity.google/cli/install.sh | bash\nStart it:\ncd ~\nagy\nOn the first start, sign in with the Google account that has your Antigravity access. It prints a link: open it, sign in, approve, and paste the code back into the terminal.\n\n\n\nWhen you see the agent’s prompt, type /exit to leave. You only needed it installed and signed in.\n\n\n\n\n\n\n“Command not found”?\n\n\n\nOpen a new terminal, so it picks up ~/.local/bin. If that does not help, run export PATH=\"$HOME/.local/bin:$PATH\" and try again.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Start your coding agent"
+    ]
+  },
+  {
+    "objectID": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
+    "href": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
+    "title": "Start your coding agent",
+    "section": "2 · Add the ocean-icechunks skills",
+    "text": "2 · Add the ocean-icechunks skills\nThe ocean-icechunks-skills teach your agent how to build, check and document virtual Icechunk stores. This installs them for all three agents at once:\ngit clone https://github.com/ocean-icechunks/ocean-icechunks-skills ~/ocean-icechunks-skills\n\nfor dir in ~/.claude/skills ~/.agents/skills ~/.gemini/config/skills; do\n  mkdir -p \"$dir\"\n  for skill in virtual-icechunk archive-to-cloud; do\n    ln -sfn ~/ocean-icechunks-skills/skills/$skill \"$dir/$skill\"\n  done\ndone\nTo update them later, run git -C ~/ocean-icechunks-skills pull.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Start your coding agent"
+    ]
+  },
+  {
+    "objectID": "setup/03-start-your-agent.html#start-it-where-you-work",
+    "href": "setup/03-start-your-agent.html#start-it-where-you-work",
+    "title": "Start your coding agent",
+    "section": "3 · Start it where you work",
+    "text": "3 · Start it where you work\nAn agent works in the folder you start it from. So always cd into your project first:\ncd ~/my-project\nclaude        # or codex, or agy\nThe first time you start it in a new folder, it asks whether you trust the folder. Say yes for your own project folders.\nCheck that the skills loaded. Type /skills (in Claude Code or Codex) or / (in Antigravity) and look for virtual-icechunk. Or just ask: “What skills do you have for Icechunk?”\nChapter 2, Working with an agent, covers how to get good work out of it.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Start your coding agent"
+    ]
+  },
+  {
+    "objectID": "setup/05-scratch-bucket.html",
+    "href": "setup/05-scratch-bucket.html",
+    "title": "The scratch bucket",
+    "section": "",
+    "text": "The hub comes with an S3 scratch bucket. It is a good place to write a test Icechunk store to cloud storage, rather than to your home directory. You do not need to set up any credentials, because the hub already has them.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "The scratch bucket"
+    ]
+  },
+  {
+    "objectID": "setup/05-scratch-bucket.html#your-folder",
+    "href": "setup/05-scratch-bucket.html#your-folder",
+    "title": "The scratch bucket",
+    "section": "Your folder",
+    "text": "Your folder\nThe hub sets an environment variable, SCRATCH_BUCKET, that points to a folder named after your GitHub username:\nimport os\nscratch = os.environ[\"SCRATCH_BUCKET\"]\nscratch    # 's3://&lt;scratch-bucket&gt;/&lt;your-github-username&gt;'",
+    "crumbs": [
+      "JupyterHub Skills",
+      "The scratch bucket"
+    ]
+  },
+  {
+    "objectID": "setup/05-scratch-bucket.html#write-list-read-and-delete",
+    "href": "setup/05-scratch-bucket.html#write-list-read-and-delete",
+    "title": "The scratch bucket",
+    "section": "Write, list, read and delete",
+    "text": "Write, list, read and delete\nimport s3fs\n\nfs = s3fs.S3FileSystem()             # uses the hub's credentials\n\nfs.pipe(f\"{scratch}/hello.txt\", b\"hello\")   # write a small file\nfs.ls(scratch)                              # list your folder\nfs.cat(f\"{scratch}/hello.txt\")              # read it back\nfs.rm(f\"{scratch}/hello.txt\")               # delete it\nTo upload a local file or folder, use fs.put(\"local.nc\", f\"{scratch}/local.nc\"). For a folder, add recursive=True. fs.ls raises an error on an empty folder, so write something first.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "The scratch bucket"
+    ]
+  },
+  {
+    "objectID": "setup/05-scratch-bucket.html#an-icechunk-store-in-the-scratch-bucket",
+    "href": "setup/05-scratch-bucket.html#an-icechunk-store-in-the-scratch-bucket",
+    "title": "The scratch bucket",
+    "section": "An Icechunk store in the scratch bucket",
+    "text": "An Icechunk store in the scratch bucket\nYou can write an Icechunk store here almost as easily as to a local folder. Only the storage setup changes:\nimport boto3\nimport icechunk\n\nbucket, prefix = scratch.removeprefix(\"s3://\").split(\"/\", 1)\ncreds = boto3.Session().get_credentials().get_frozen_credentials()   # the hub's credentials\n\nstorage = icechunk.s3_storage(\n    bucket=bucket,\n    prefix=f\"{prefix}/my-store\",\n    region=\"us-west-2\",\n    access_key_id=creds.access_key,\n    secret_access_key=creds.secret_key,\n    session_token=creds.token,\n)\n\n\n\n\n\n\nNote\n\n\n\nWhy not from_env=True? On this hub, Icechunk does not pick up the hub’s credentials by itself, and you get AccessDenied (tested 2026-11-13 with icechunk 2.3.1). Passing them from boto3 works. They expire after about an hour, so rerun the cell if a long session starts failing.\n\n\nChapter 5, Building a store, covers the rest. Or ask your agent: “write the smoke-test store to my scratch bucket instead of a local folder.”\nAdapted from NMFS HackDays 2025: Using the S3 Scratch Bucket.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "The scratch bucket"
     ]
   },
   {
@@ -525,754 +1155,245 @@
     ]
   },
   {
-    "objectID": "setup/05-scratch-bucket.html",
-    "href": "setup/05-scratch-bucket.html",
-    "title": "The scratch bucket",
-    "section": "",
-    "text": "The hub comes with an S3 scratch bucket. It is a good place to write a test Icechunk store to cloud storage, rather than to your home directory. You do not need to set up any credentials, because the hub already has them.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "The scratch bucket"
-    ]
-  },
-  {
-    "objectID": "setup/05-scratch-bucket.html#your-folder",
-    "href": "setup/05-scratch-bucket.html#your-folder",
-    "title": "The scratch bucket",
-    "section": "Your folder",
-    "text": "Your folder\nThe hub sets an environment variable, SCRATCH_BUCKET, that points to a folder named after your GitHub username:\nimport os\nscratch = os.environ[\"SCRATCH_BUCKET\"]\nscratch    # 's3://&lt;scratch-bucket&gt;/&lt;your-github-username&gt;'",
-    "crumbs": [
-      "JupyterHub Skills",
-      "The scratch bucket"
-    ]
-  },
-  {
-    "objectID": "setup/05-scratch-bucket.html#write-list-read-and-delete",
-    "href": "setup/05-scratch-bucket.html#write-list-read-and-delete",
-    "title": "The scratch bucket",
-    "section": "Write, list, read and delete",
-    "text": "Write, list, read and delete\nimport s3fs\n\nfs = s3fs.S3FileSystem()             # uses the hub's credentials\n\nfs.pipe(f\"{scratch}/hello.txt\", b\"hello\")   # write a small file\nfs.ls(scratch)                              # list your folder\nfs.cat(f\"{scratch}/hello.txt\")              # read it back\nfs.rm(f\"{scratch}/hello.txt\")               # delete it\nTo upload a local file or folder, use fs.put(\"local.nc\", f\"{scratch}/local.nc\"). For a folder, add recursive=True. fs.ls raises an error on an empty folder, so write something first.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "The scratch bucket"
-    ]
-  },
-  {
-    "objectID": "setup/05-scratch-bucket.html#an-icechunk-store-in-the-scratch-bucket",
-    "href": "setup/05-scratch-bucket.html#an-icechunk-store-in-the-scratch-bucket",
-    "title": "The scratch bucket",
-    "section": "An Icechunk store in the scratch bucket",
-    "text": "An Icechunk store in the scratch bucket\nYou can write an Icechunk store here almost as easily as to a local folder. Only the storage setup changes:\nimport boto3\nimport icechunk\n\nbucket, prefix = scratch.removeprefix(\"s3://\").split(\"/\", 1)\ncreds = boto3.Session().get_credentials().get_frozen_credentials()   # the hub's credentials\n\nstorage = icechunk.s3_storage(\n    bucket=bucket,\n    prefix=f\"{prefix}/my-store\",\n    region=\"us-west-2\",\n    access_key_id=creds.access_key,\n    secret_access_key=creds.secret_key,\n    session_token=creds.token,\n)\n\n\n\n\n\n\nNote\n\n\n\nWhy not from_env=True? On this hub, Icechunk does not pick up the hub’s credentials by itself, and you get AccessDenied (tested 2026-11-13 with icechunk 2.3.1). Passing them from boto3 works. They expire after about an hour, so rerun the cell if a long session starts failing.\n\n\nChapter 5, Building a store, covers the rest. Or ask your agent: “write the smoke-test store to my scratch bucket instead of a local folder.”\nAdapted from NMFS HackDays 2025: Using the S3 Scratch Bucket.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "The scratch bucket"
-    ]
-  },
-  {
-    "objectID": "setup/03-start-your-agent.html",
-    "href": "setup/03-start-your-agent.html",
-    "title": "Start your coding agent",
-    "section": "",
-    "text": "In this hackathon you hand most of the work to a coding agent running in a hub terminal. Bring your own subscription. Any one of these works:\nYou install the agent once. It goes in ~/.local/bin, inside your home directory, so it is still there the next time your server starts. Your sign-in is saved there too.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
-    ]
-  },
-  {
-    "objectID": "setup/03-start-your-agent.html#install-and-sign-in",
-    "href": "setup/03-start-your-agent.html#install-and-sign-in",
-    "title": "Start your coding agent",
-    "section": "1 · Install and sign in",
-    "text": "1 · Install and sign in\nOpen a terminal (File → New → Terminal). Then follow the steps for your agent.\n\nClaude CodeCodexAntigravity\n\n\nInstall:\ncurl -fsSL https://claude.ai/install.sh | bash\nStart it:\ncd ~\nclaude\nThe first start asks you to pick a theme and a sign-in method. Choose Claude account with subscription. It prints a link: open it in your browser, sign in, and paste the code it gives you back into the terminal.\n\n\nInstall it into your home directory. Without --prefix, it is installed somewhere that is wiped when your server restarts.\nnpm install -g --prefix ~/.local @openai/codex\nSign in. The hub has no browser of its own, so use the device-code flow:\ncodex login --device-auth\nOpen the link it prints, sign in with your ChatGPT account, and enter the code. Then start it:\ncd ~\ncodex\n\n\nInstall:\ncurl -fsSL https://antigravity.google/cli/install.sh | bash\nStart it:\ncd ~\nagy\nOn the first start, sign in with the Google account that has your Antigravity access. It prints a link: open it, sign in, approve, and paste the code back into the terminal.\n\n\n\nWhen you see the agent’s prompt, type /exit to leave. You only needed it installed and signed in.\n\n\n\n\n\n\n“Command not found”?\n\n\n\nOpen a new terminal, so it picks up ~/.local/bin. If that does not help, run export PATH=\"$HOME/.local/bin:$PATH\" and try again.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
-    ]
-  },
-  {
-    "objectID": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
-    "href": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
-    "title": "Start your coding agent",
-    "section": "2 · Add the ocean-icechunks skills",
-    "text": "2 · Add the ocean-icechunks skills\nThe ocean-icechunks-skills teach your agent how to build, check and document virtual Icechunk stores. This installs them for all three agents at once:\ngit clone https://github.com/ocean-icechunks/ocean-icechunks-skills ~/ocean-icechunks-skills\n\nfor dir in ~/.claude/skills ~/.agents/skills ~/.gemini/config/skills; do\n  mkdir -p \"$dir\"\n  for skill in virtual-icechunk archive-to-cloud; do\n    ln -sfn ~/ocean-icechunks-skills/skills/$skill \"$dir/$skill\"\n  done\ndone\nTo update them later, run git -C ~/ocean-icechunks-skills pull.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
-    ]
-  },
-  {
-    "objectID": "setup/03-start-your-agent.html#start-it-where-you-work",
-    "href": "setup/03-start-your-agent.html#start-it-where-you-work",
-    "title": "Start your coding agent",
-    "section": "3 · Start it where you work",
-    "text": "3 · Start it where you work\nAn agent works in the folder you start it from. So always cd into your project first:\ncd ~/my-project\nclaude        # or codex, or agy\nThe first time you start it in a new folder, it asks whether you trust the folder. Say yes for your own project folders.\nCheck that the skills loaded. Type /skills (in Claude Code or Codex) or / (in Antigravity) and look for virtual-icechunk. Or just ask: “What skills do you have for Icechunk?”\nChapter 2, Working with an agent, covers how to get good work out of it.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
-    ]
-  },
-  {
-    "objectID": "setup/01-jupyterhub.html",
-    "href": "setup/01-jupyterhub.html",
-    "title": "Log in to the JupyterHub",
-    "section": "",
-    "text": "Everything in this tutorial runs on a JupyterHub in the cloud. You do not need to install anything on your own computer.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Log in to the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "setup/01-jupyterhub.html#start-a-server",
-    "href": "setup/01-jupyterhub.html#start-a-server",
-    "title": "Log in to the JupyterHub",
-    "section": "Start a server",
-    "text": "Start a server\n\nGo to https://workshop.nmfs-openscapes.2i2c.cloud/.\nLog in. Your username is your email address. The password is the one the organizers give you at the start of the hackathon; everyone uses the same one. Do not post it anywhere public, including GitHub.\nImage: keep the default, a geospatial image with Python and R.\nSize: pick the smallest machine. That is plenty for everything here. Larger machines cost more, so choose one only if you run out of memory.\n\nClick Start. It can take a few minutes to start.\n\nWhen it is ready you land in JupyterLab, on the Launcher. Next: Find your way around JupyterLab.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Log in to the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "setup/01-jupyterhub.html#your-files",
-    "href": "setup/01-jupyterhub.html#your-files",
-    "title": "Log in to the JupyterHub",
-    "section": "Your files",
-    "text": "Your files\n\n/home/jovyan is your home directory. Everyone’s home is called /home/jovyan (that is the Jupyter default), but yours is private, and it persists between sessions.\nshared/ is read-only, with files the organizers have put there for you.\nshared-public/ is read-write and visible to everyone. Make a team folder there. Agree with your team who edits what, because anyone can change anything in it.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Log in to the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "setup/01-jupyterhub.html#stop-your-server",
-    "href": "setup/01-jupyterhub.html#stop-your-server",
-    "title": "Log in to the JupyterHub",
-    "section": "Stop your server",
-    "text": "Stop your server\nWhen you are done for the day, stop your server. It shuts down after 90 minutes idle anyway, but a running server costs money. Stopping does not delete your work. It is like turning off your computer.\nFrom the JupyterLab tab, choose one of these:\n\nFile → Log Out\nFile → Hub Control Panel → Stop My Server\n\n\n\n\n\n\n\nTip\n\n\n\nLost the JupyterLab tab? Go to https://workshop.nmfs-openscapes.2i2c.cloud/hub/home.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Log in to the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "setup/01-jupyterhub.html#if-the-server-crashes",
-    "href": "setup/01-jupyterhub.html#if-the-server-crashes",
-    "title": "Log in to the JupyterHub",
-    "section": "If the server crashes",
-    "text": "If the server crashes\nThis can happen when many people use a lot of memory at once. Go to File → Hub Control Panel, click Stop My Server, then Start My Server. You will not lose work, unless you were in the middle of uploading a file.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Log in to the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "setup/01-jupyterhub.html#getting-help",
-    "href": "setup/01-jupyterhub.html#getting-help",
-    "title": "Log in to the JupyterHub",
-    "section": "Getting help",
-    "text": "Getting help\n\nAsk in the hackathon channel, or ask a helper in the room.\nProblem with this tutorial? Open an issue in ocean-icechunks/2026-ioos-hackathon.\n\nAdapted from NMFS HackDays 2025: Intro to JupyterHubs.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Log in to the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Virtual Icechunk",
-    "section": "",
-    "text": "This tutorial gives you a quick overview of virtual Icechunk stores: what they are, how one gets built, and what to check before building one. During the hackathon you will mostly hand the actual work to a coding agent that has the ocean-icechunks-skills installed. Each chapter is a short slide deck. Click through it, or press S for the speaker notes.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#before-you-start-get-set-up",
-    "href": "index.html#before-you-start-get-set-up",
-    "title": "Virtual Icechunk",
-    "section": "Before you start: get set up",
-    "text": "Before you start: get set up\nNew to the hub? Work through JupyterHub Skills first (about 30 minutes):\n\nLog in to the JupyterHub\nFind your way around JupyterLab\nStart your coding agent: Claude Code, Codex or Antigravity, with your own subscription\nGit and GitHub, with an agent: log in once with gh, then let the agent run git for you\nThe scratch bucket: cloud storage for test stores",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#lectures",
-    "href": "index.html#lectures",
-    "title": "Virtual Icechunk",
-    "section": "Lectures",
-    "text": "Lectures\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#examples",
-    "href": "index.html#examples",
-    "title": "Virtual Icechunk",
-    "section": "Examples",
-    "text": "Examples\nEach example opens a large ocean dataset as a virtual Icechunk store and answers one question with it in a few seconds or minutes. You download nothing in advance, even when the dataset is hundreds of terabytes or thousands of files. Use them to see how a store opens, how much a read costs, and what kind of analysis becomes easy. Each one has an Open in Colab button.\nSee Resources for links to everything mentioned in the decks.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "resources.html",
-    "href": "resources.html",
-    "title": "Resources",
-    "section": "",
-    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#skills-and-examples",
-    "href": "resources.html#skills-and-examples",
-    "title": "Resources",
-    "section": "",
-    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#background-reading",
-    "href": "resources.html#background-reading",
-    "title": "Resources",
-    "section": "Background reading",
-    "text": "Background reading\n\nBridging NOAA ocean model files and cloud-native access (Holmes, ESIP, July 2026; PDF of the talk several chapter 1 figures come from)\nAI-ready scientific data archives (Earthmover, 2026)\nRich Signell on the state of cloud-native geospatial (March 2026)",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#documentation",
-    "href": "resources.html#documentation",
-    "title": "Resources",
-    "section": "Documentation",
-    "text": "Documentation\n\nIcechunk\nVirtualiZarr\nXarray",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html",
-    "href": "setup/02-jupyterlab.html",
-    "title": "Find your way around JupyterLab",
-    "section": "",
-    "text": "You need three things in JupyterLab for this hackathon. The terminal is where your coding agent runs. The file browser shows what the agent changed. Notebooks are where you run and check its work.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#the-launcher",
-    "href": "setup/02-jupyterlab.html#the-launcher",
-    "title": "Find your way around JupyterLab",
-    "section": "The Launcher",
-    "text": "The Launcher\nThe Launcher opens notebooks, terminals and files. If you do not see it, choose File → New Launcher, or click the blue + at the top left.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#the-terminal",
-    "href": "setup/02-jupyterlab.html#the-terminal",
-    "title": "Find your way around JupyterLab",
-    "section": "The terminal",
-    "text": "The terminal\nClick Terminal in the Launcher, or choose File → New → Terminal. This is where you will start your agent. You only need a few commands yourself:\n\n\n\nCommand\nWhat it does\n\n\n\n\npwd\nShows which folder you are in\n\n\nls\nLists the files here (ls -a also shows hidden ones)\n\n\ncd folder\nMoves into a folder\n\n\ncd ..\nMoves up one folder\n\n\ncd ~\nGoes back to your home folder\n\n\n\nThe agent will run most other commands for you, and it asks before it runs anything risky. New to the shell? Try the Software Carpentry shell lesson.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#the-file-browser",
-    "href": "setup/02-jupyterlab.html#the-file-browser",
-    "title": "Find your way around JupyterLab",
-    "section": "The file browser",
-    "text": "The file browser\nThe folder icon at the far left opens the file browser. Use it to move between folders, make a new one (the folder icon with a +), and right-click a file to rename or delete it. When an agent writes a file, it shows up here. Open it and read it.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#notebooks",
-    "href": "setup/02-jupyterlab.html#notebooks",
-    "title": "Find your way around JupyterLab",
-    "section": "Notebooks",
-    "text": "Notebooks\nClick Python 3 in the Launcher to open a new notebook. A notebook is a list of cells, and each cell is either code or Markdown.\n\nRun a cell: press Shift + Enter.\nRun all cells: use the Run menu.\nAdd a cell: click the + in the notebook toolbar.\nChange the cell type: use the drop-down in the toolbar (Code / Markdown).\n\nTo open a notebook that someone else wrote, or that the agent wrote, double-click it in the file browser.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#installing-packages",
-    "href": "setup/02-jupyterlab.html#installing-packages",
-    "title": "Find your way around JupyterLab",
-    "section": "Installing packages",
-    "text": "Installing packages\n%pip install package in a notebook cell installs a package for the current session only. It will be gone the next time your server starts. If something should always be there, ask for it to be added to the hub image.\nAdapted from NMFS HackDays 2025: Intro to JupyterLab.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/04-git-with-agent.html",
-    "href": "setup/04-git-with-agent.html",
-    "title": "Git and GitHub, with an agent",
-    "section": "",
-    "text": "Your hackathon work lives in a GitHub repository, so you need a GitHub account. That matters more than usual here: the workshop hub is deleted a week after the hackathon, and GitHub is where your work survives. Git is a lot to learn in one week, and you do not have to: your agent can run the git commands for you. You make the decisions (what to save, when to share it, and whether a change is right), and the agent types the commands.\nTo do that, the agent needs to reach GitHub as you. You set that up once, with gh auth login.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Git and GitHub, with an agent"
-    ]
-  },
-  {
-    "objectID": "setup/04-git-with-agent.html#why-gh-auth-login",
-    "href": "setup/04-git-with-agent.html#why-gh-auth-login",
-    "title": "Git and GitHub, with an agent",
-    "section": "Why gh auth login?",
-    "text": "Why gh auth login?\ngh is GitHub’s command-line tool, and it is already installed on the hub. Logging in with it does two things:\n\ngit can push and pull over HTTPS without asking you for a password, because gh stores the credential for it.\ngh itself can open pull requests, read issues and check on a repository. Agents use it all the time.\n\nEverything the agent does through gh is done in your name, so decide how much it can reach.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Git and GitHub, with an agent"
-    ]
-  },
-  {
-    "objectID": "setup/04-git-with-agent.html#choose-how-much-access",
-    "href": "setup/04-git-with-agent.html#choose-how-much-access",
-    "title": "Git and GitHub, with an agent",
-    "section": "Choose how much access",
-    "text": "Choose how much access\n\nToken for one repository (safer)Full access\n\n\nThe agent can push to your hackathon repository and nothing else.\n\nGo to https://github.com/settings/personal-access-tokens/new.\nToken name: JupyterHub agent, IOOS hackathon. Expiration: a few days after the hackathon.\nRepository access: Only select repositories, then pick your project repository.\nRepository permissions: set Contents, Pull requests and Issues to Read and write. Leave the rest at No access.\nClick Generate token and copy it. GitHub shows it only once.\n\nThen, in a terminal, run gh auth login and answer:\n\nWhere do you use GitHub? GitHub.com\nPreferred protocol? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate? Paste an authentication token\n\n\n\nThe agent can do anything you can on GitHub, in every repository you can reach, including private ones.\nIn a terminal, run gh auth login and answer:\n\nWhere do you use GitHub? GitHub.com\nPreferred protocol? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate? Login with a web browser\n\nIt prints a one-time code. Open the link, paste the code, and approve.\n\n\n\nCheck that it worked:\ngh auth status",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Git and GitHub, with an agent"
-    ]
-  },
-  {
-    "objectID": "setup/04-git-with-agent.html#tell-git-who-you-are",
-    "href": "setup/04-git-with-agent.html#tell-git-who-you-are",
-    "title": "Git and GitHub, with an agent",
-    "section": "Tell git who you are",
-    "text": "Tell git who you are\nCommits need a name and an email. Do this once:\ngit config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"\nUse the email on your GitHub account. If you would rather keep it private, use the noreply address shown at https://github.com/settings/emails.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Git and GitHub, with an agent"
-    ]
-  },
-  {
-    "objectID": "setup/04-git-with-agent.html#let-the-agent-do-git",
-    "href": "setup/04-git-with-agent.html#let-the-agent-do-git",
-    "title": "Git and GitHub, with an agent",
-    "section": "Let the agent do git",
-    "text": "Let the agent do git\nAsk for the outcome you want, not the command. For example:\n\n\n\n\n\n\n\nYou want to…\nSay to the agent\n\n\n\n\nGet a copy of a repository\n“Clone github.com/ocean-icechunks/2026-ioos-hackathon into my home folder.”\n\n\nSee what you changed\n“What have I changed since the last commit?”\n\n\nSave your work\n“Make a new branch and commit these changes with a clear message.”\n\n\nShare it\n“Push the branch and open a pull request. Explain what changed in the description.”\n\n\nCatch up with your team\n“Pull the latest changes from main and tell me what is new.”\n\n\nRecover from a mess\n“Git says there is a merge conflict. Explain what happened before you fix anything.”\n\n\n\nThree habits keep this safe:\n\nWork on a branch, and merge through a pull request. Ask the agent never to push to main.\nRead the change before it is committed. Ask “show me the diff” if the agent does not.\nNever let credentials into a commit. Keys and tokens belong in environment variables or in a file listed in .gitignore. The ocean-icechunks skill already insists on this.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Git and GitHub, with an agent"
-    ]
-  },
-  {
-    "objectID": "setup/04-git-with-agent.html#learn-the-basics-anyway",
-    "href": "setup/04-git-with-agent.html#learn-the-basics-anyway",
-    "title": "Git and GitHub, with an agent",
-    "section": "Learn the basics anyway",
-    "text": "Learn the basics anyway\nIt helps to know what the agent is doing on your behalf: clone, commit, push and pull. The NMFS HackDays lesson Basic Git/GitHub skills in the terminal walks through all four in about 20 minutes. Or ask your agent to explain each command as it runs it.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Git and GitHub, with an agent"
-    ]
-  },
-  {
-    "objectID": "slides/01-why-virtual.html#so-many-netcdf-files",
-    "href": "slides/01-why-virtual.html#so-many-netcdf-files",
-    "title": "Why virtual Icechunk?",
-    "section": "So many NetCDF files",
-    "text": "So many NetCDF files\n\nCEFI MOM6 Northeast Pacific hindcast on the PSL THREDDS server: page 1 of 17.\n820 files, from one model, one hindcast, one region, and one release.\n\n\nOcean model output comes as thousands of NetCDF files, one per variable per year (or per day). Which files do I need? Which variables? A time series means opening hundreds of them.",
+    "objectID": "slides/04-audit.html#a-virtual-store-is-only-as-consistent-as-its-files",
+    "href": "slides/04-audit.html#a-virtual-store-is-only-as-consistent-as-its-files",
+    "title": "Auditing your files",
+    "section": "A virtual store is only as consistent as its files",
+    "text": "A virtual store is only as consistent as its files\nNothing is rewritten, so the files’ layout is the store’s layout.\n\nA virtual store copies no data. So it can fix metadata, but it cannot fix how the bytes are laid out: the grid, the chunks, the compression. An audit tells you, before you build, whether the files will make a good store, a slow one, or several stores.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#users-want-a-product-not-a-pile-of-files",
-    "href": "slides/01-why-virtual.html#users-want-a-product-not-a-pile-of-files",
-    "title": "Why virtual Icechunk?",
-    "section": "Users want a product, not a pile of files",
-    "text": "Users want a product, not a pile of files\n\n\nA cloud-optimized dataset that is linked to the underlying files hides the file structure. The user opens one dataset, with every variable and the full time range, and never sees a file name. We deliver a product.",
+    "objectID": "slides/04-audit.html#consistent-grids",
+    "href": "slides/04-audit.html#consistent-grids",
+    "title": "Auditing your files",
+    "section": "Consistent grids",
+    "text": "Consistent grids\n\nSame dimensions, shape and coordinate values in every file, apart from the time dimension you join along\nFiles on different grids cannot share one array. They become separate groups, or separate stores\n\n\nCoastWatch Ocean Heat Content: three regions on three different lat/lon grids, so three separate stores.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#why-not-just-download-the-files-or-use-thredds",
-    "href": "slides/01-why-virtual.html#why-not-just-download-the-files-or-use-thredds",
-    "title": "Why virtual Icechunk?",
-    "section": "Why not just download the files, or use THREDDS?",
-    "text": "Why not just download the files, or use THREDDS?\n\n\nDownloading\n\nGigabytes to get the one slice you need\nCopies on every laptop, all out of date\nHours of scripting before any science\n\nData servers\n\nCap large requests (PSL THREDDS: 500 MB each)\nFail under load (“NetCDF: DAP failure”)\n\n\nObject storage (S3, Google Cloud, Azure)\n\nServes byte ranges, not whole files\nSpreads requests across many machines, so parallel readers do not queue behind each other\nIn practice, as many connections as you can throw at it\n\n\n\nTHREDDS has one server, and every request goes through it. Object storage is built to serve huge numbers of concurrent requests for pieces of objects. That is what a cloud-optimized reader needs.",
+    "objectID": "slides/04-audit.html#consistent-chunking",
+    "href": "slides/04-audit.html#consistent-chunking",
+    "title": "Auditing your files",
+    "section": "Consistent chunking",
+    "text": "Consistent chunking\n\nA chunk is the smallest piece a reader can fetch. Virtual stores keep the provider’s chunks exactly\nEvery file needs the same chunk shape for a variable\nUnchunked arrays mean every read pulls the whole array\n\n\nNOAA NDVI: NDVI is chunked 1 × 1200 × 2400, but QA in the same file is unchunked, so any read of QA pulls all 3600 × 7200 values.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#from-minutes-to-seconds",
-    "href": "slides/01-why-virtual.html#from-minutes-to-seconds",
-    "title": "Why virtual Icechunk?",
-    "section": "From minutes to seconds",
-    "text": "From minutes to seconds\n\n\nResampling a 2-D CEFI MOM6 NEP variable: THREDDS vs. a virtual store in Earthmover Arraylake. Holmes, ESIP, July 2026.",
+    "objectID": "slides/04-audit.html#consistent-encoding",
+    "href": "slides/04-audit.html#consistent-encoding",
+    "title": "Auditing your files",
+    "section": "Consistent encoding",
+    "text": "Consistent encoding\n\nSame dtype, compression, fill value and file format in every file\nNetCDF-3 and NetCDF-4/HDF5 need different parsers, and cannot be mixed in one array\nCheck the file’s own header. Catalogs and servers get this wrong\n\n\nPacIOOS: the servers implied HDF5, but the files were NetCDF-3. About 3,200 “replacement” files were compressed HDF5 under the same names.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#bering-sea-snow-crab-19942015",
-    "href": "slides/01-why-virtual.html#bering-sea-snow-crab-19942015",
-    "title": "Why virtual Icechunk?",
-    "section": "Bering Sea snow crab, 1994–2015",
-    "text": "Bering Sea snow crab, 1994–2015\n306 TB of HYCOM reanalysis · opens in ~1 s · nothing downloaded\n\n\n\n\n\n\nOpen in Colab →\n\nRun all cells. The map is the cold pool on the eastern Bering Sea shelf. The time series is the box-mean bottom temperature and the fraction of the box below 2 °C. The metadata comes from Source Cooperative, and every value is read by byte range from HYCOM’s NetCDF files on AWS Open Data.",
+    "objectID": "slides/04-audit.html#built-to-be-appended",
+    "href": "slides/04-audit.html#built-to-be-appended",
+    "title": "Auditing your files",
+    "section": "Built to be appended",
+    "text": "Built to be appended\n\nNew files arrive the same way: same naming, same folder pattern, same grid\nEach file’s length along time is a whole number of chunks. If not, an append can put data in the wrong place without any error\nOne time step per file works, but the time coordinate needs explicit chunking or the store opens slowly\n\n\nCEFI daily files: 365 or 366 days each, chunked 100 days. In a test with that layout, appending put 430 of 730 values in the wrong place, with no error.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#virtualizarr-no-reprocessing",
-    "href": "slides/01-why-virtual.html#virtualizarr-no-reprocessing",
-    "title": "Why virtual Icechunk?",
-    "section": "VirtualiZarr: no reprocessing",
-    "text": "VirtualiZarr: no reprocessing\n\nKeep the data as it is. The NetCDF files stay where the provider put them.\nBuild a catalog of chunks. For every chunk: which file, at what byte offset, and how long.\nSave the catalog as one Zarr dataset. Readers open that, and read the bytes straight from the original files.\n\n\nIf the files are compatible (the same grid, chunking and encoding), there is nothing to rewrite.\n\n\nThis is the big change. We used to have to convert everything to Zarr, which meant a second copy of petabytes. Virtual references point at the originals.",
+    "objectID": "slides/04-audit.html#bugs-in-the-data",
+    "href": "slides/04-audit.html#bugs-in-the-data",
+    "title": "Auditing your files",
+    "section": "Bugs in the data",
+    "text": "Bugs in the data\n\nMissing time steps. Is it a real gap, or the product’s normal cadence?\nDuplicated or out-of-order time steps\nEmpty, truncated or unreadable files\nCoordinates that are all zero or all NaN\n\n\nHYCOM GOFS 3.1: a few analyses are missing from the archive, so the snow crab notebook takes the nearest time that exists.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
-    "href": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
-    "title": "Why virtual Icechunk?",
-    "section": "Why Icechunk, not Kerchunk?",
-    "text": "Why Icechunk, not Kerchunk?\nKerchunk made virtual datasets possible. Icechunk makes them safe to share and keep up to date.\n\nTransactions. Commits are atomic, with snapshots and rollback. Kerchunk references are plain JSON or Parquet files that anyone can overwrite.\nSafe appends. New files are added in a commit, and readers never see a half-written store. With Kerchunk you rewrite the references yourself.\nZarr-native. The store is a real Zarr store, so any Zarr reader opens it. Kerchunk needs an extra fsspec reference layer.\nScale. Chunk manifests are built for huge chunk counts. Very large JSON reference sets are slow to load.\nModern I/O. The stack reads through Rust and obstore, not fsspec: more flexible (S3, GCS, Azure, local, HTTP) and fast under many concurrent requests.\n\n\nKerchunk was the first way to get a virtual dataset, and it is still fine for a quick one-off. The problems show up when a dataset is shared and grows: there is no versioning, no atomic update, and no protection from two writers.\nOn I/O: Icechunk’s Rust core uses the Rust object_store crate. obstore is the Python binding to the same crate, and VirtualiZarr uses it to read NetCDF metadata (the ObjectStoreRegistry in the notebook). Kerchunk goes through fsspec. obstore’s own benchmarks show large gains over fsspec for many concurrent requests; say “in our experience” unless you have timed your own case.",
+    "objectID": "slides/04-audit.html#missing-or-wrong-metadata",
+    "href": "slides/04-audit.html#missing-or-wrong-metadata",
+    "title": "Auditing your files",
+    "section": "Missing or wrong metadata",
+    "text": "Missing or wrong metadata\nThis is the one thing a virtual store can fix, without touching the data.\n\nMissing units, standard_name, long_name, or a vertical positive\nAttributes that cannot be saved as JSON, such as a NaN fill value on a coordinate\nNo version recorded anywhere in the files\n\n\nFix it in the store, write down every change, and make the result follow CF conventions.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
-    "href": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
-    "title": "Why virtual Icechunk?",
-    "section": "Handling forecast model run collections",
-    "text": "Handling forecast model run collections\nA forecast model writes a new file every day. Keep every run, not just the latest.\n\nTwo time dimensions. time is the forecast reference time, one value per file. step is the lead time, the same in every file. Data are (time, step, ...).\nAppend along time. Each new file adds one entry. Nothing is rewritten.\nValid time is computed. It is time + step, never stored.\nPick a run, or a best estimate. Select one forecast, or stitch the newest hours from every run into one continuous series.\n\n\nOne store holds the whole history of every forecast.\n\n\nThe raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.\nIn the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per file before the concat: rename the time dimension to step, make the first valid time the scalar reference time, then concatenate along time. All files must have the same number of steps. Static variables (bathymetry, mesh connectivity) must be kept out of the concat, or they get stacked once per run.\nBest estimate is computed at read time, with Rolodex. Worked example: the Taranto SHYFEM forecast store in the MAGICA school notebooks.",
+    "objectID": "slides/04-audit.html#look-for-yourself",
+    "href": "slides/04-audit.html#look-for-yourself",
+    "title": "Auditing your files",
+    "section": "Look for yourself",
+    "text": "Look for yourself\nimport h5py, s3fs\n\nfs = s3fs.S3FileSystem(anon=True)\nurl = sorted(fs.ls(\"noaa-cdr-ndvi-pds/data/2000\"))[0]   # one day's file\nwith fs.open(url) as f, h5py.File(f) as h:\n    for name, v in h.items():\n        print(name, v.dtype, v.shape, \"chunks:\", v.chunks, v.compression)\n...\nNDVI int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip\nTIMEOFDAY int16 (1, 3600, 7200) chunks: (1, 1200, 2400) gzip\nQA int16 (1, 3600, 7200) chunks: None None\n\nRun on the first NDVI file on 2026-11-13. This reads only the header, a few kilobytes. Do this on files from the start, the middle and the end of the archive, and on both sides of any change in instrument, version or format.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#new-tools-make-this-much-easier",
-    "href": "slides/01-why-virtual.html#new-tools-make-this-much-easier",
-    "title": "Why virtual Icechunk?",
-    "section": "New tools make this much easier",
-    "text": "New tools make this much easier\n\nVirtualiZarr 2: reads NetCDF/HDF5 metadata and builds the chunk catalog\nIcechunk 2: stores the catalog, with versions and commits, like git for data\nCoding agents + ocean-icechunks-skills: plan, build, check and document a store for you\n\n\nA year ago this took a specialist days of trial and error. Now the libraries handle the hard parts, and an agent with the skill knows the gotchas.",
+    "objectID": "slides/04-audit.html#let-the-agent-write-the-audit-report",
+    "href": "slides/04-audit.html#let-the-agent-write-the-audit-report",
+    "title": "Auditing your files",
+    "section": "Let the agent write the audit report",
+    "text": "Let the agent write the audit report\nFirst, tell it how to find the files. It cannot guess:\n\nWhere they are: a bucket and prefix, a THREDDS catalog, an API\nHow to get in: public, or which credentials\nWhat to include: products, variables, years\n\nThen ask:\n\n“Audit the NOAA CDR NDVI files in s3://noaa-cdr-ndvi-pds/data/ (public, us-east-1, one NetCDF per day) for a virtual Icechunk store. Check grids, chunking, encoding, whether they can be appended, missing days and metadata. Read headers only. Write the findings to audit/report.md. No build code.”\n\n\nThe virtual-icechunk skill’s research-and-plan step does this audit. For a big archive, or files on a provider’s own server, the archive-to-cloud skill’s source audit scans everything resumably and reports what nobody asked about.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#make-your-own-virtual-store",
-    "href": "slides/01-why-virtual.html#make-your-own-virtual-store",
-    "title": "Why virtual Icechunk?",
-    "section": "Make your own virtual store",
-    "text": "Make your own virtual store\n\n5 NOAA NDVI NetCDF files on AWS\n303 MB of data, left in place\n54 kB Icechunk store\n\nOpen in Colab →\n\nSeven short steps: find the files, tell VirtualiZarr how to reach them, open one, combine five, write and commit, reopen as a reader, plot real data. Measured on 2026-11-13.",
+    "objectID": "slides/04-audit.html#next-building-a-store",
+    "href": "slides/04-audit.html#next-building-a-store",
+    "title": "Auditing your files",
+    "section": "Next: building a store",
+    "text": "Next: building a store\nChapter 5 · Building a store",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "4 · Auditing your files"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#resources",
-    "href": "slides/01-why-virtual.html#resources",
-    "title": "Why virtual Icechunk?",
-    "section": "Resources",
-    "text": "Resources\n\nThis tutorial: ocean-icechunks.github.io/2026-ioos-hackathon\nAgent skills: ocean-icechunks/ocean-icechunks-skills\nExample stores: ocean-icechunks/hycom, ocean-icechunks/icechunks\nBackground: AI-ready scientific data archives (Earthmover, 2026)\nDocs: VirtualiZarr, Icechunk",
+    "objectID": "slides/06-visualize.html#open-a-store-in-xarray",
+    "href": "slides/06-visualize.html#open-a-store-in-xarray",
+    "title": "Visualizing Icechunk stores",
+    "section": "Open a store in xarray",
+    "text": "Open a store in xarray\nimport icechunk, xarray as xr\n\nurl = \"https://data.source.coop/ocean-icechunks/hycom/hycom-gofs-3pt1-reanalysis\"\nrepo = icechunk.Repository.open(icechunk.http_storage(url))\n\n# The data live in HYCOM's bucket, outside the store: allow reads from there.\nauth = {p: icechunk.credentials.HttpAccess for p in repo.config.virtual_chunk_containers}\nrepo = repo.reopen(authorize_virtual_chunk_access=auth)\n\nds = xr.open_zarr(repo.readonly_session(tag=\"v1\").store, consolidated=False, chunks=None)\n\nFrom the snow crab notebook in chapter 1, which ran end to end on 2026-11-13. Opening the 306 TB store takes about a second, because only metadata is read.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "6 · Visualizing"
     ]
   },
   {
-    "objectID": "slides/01-why-virtual.html#next-put-an-agent-to-work",
-    "href": "slides/01-why-virtual.html#next-put-an-agent-to-work",
-    "title": "Why virtual Icechunk?",
-    "section": "Next: put an agent to work",
-    "text": "Next: put an agent to work\nChapter 2 · Working with an agent",
+    "objectID": "slides/06-visualize.html#then-it-is-just-xarray",
+    "href": "slides/06-visualize.html#then-it-is-just-xarray",
+    "title": "Visualizing Icechunk stores",
+    "section": "Then it is just xarray",
+    "text": "Then it is just xarray\n\nBottom temperature in the Bering Sea, 15 July 2010, from the HYCOM store. The black line is 2 °C; the magenta box is the snow crab grounds.",
     "crumbs": [
       "Lectures",
-      "1 · Why virtual Icechunk"
+      "6 · Visualizing"
     ]
   },
   {
-    "objectID": "slides/03-pipeline.html#six-steps",
-    "href": "slides/03-pipeline.html#six-steps",
-    "title": "The basic pipeline",
-    "section": "Six steps",
-    "text": "Six steps\n\n\n\n\n\n\n\n\n\nStep\nWhat happens\n\n\n\n\n1\nFind the files\nList the NetCDF files you want in the store\n\n\n2\nSay how to reach them\nAn object store, a registry and a parser for the file format\n\n\n3\nOpen one file virtually\nRead its metadata only. The big arrays stay where they are\n\n\n4\nCombine compatible files\nJoin them along time into one virtual dataset\n\n\n5\nWrite and commit\nSave the chunk references to an Icechunk repository\n\n\n6\nReopen and read\nOpen the store as a reader would, and read real values\n\n\n\n\nThis is exactly the NDVI notebook from chapter 1, so anyone who ran it has already done all six steps. The code on the next slides was run end to end on 2026-11-13 (icechunk 2.3.1, virtualizarr 2.8.0).",
+    "objectID": "slides/06-visualize.html#icechunk-is-built-on-zarr",
+    "href": "slides/06-visualize.html#icechunk-is-built-on-zarr",
+    "title": "Visualizing Icechunk stores",
+    "section": "Icechunk is built on Zarr",
+    "text": "Icechunk is built on Zarr\n\nZarr is an open format for chunked arrays in object storage. Each chunk is fetched on its own, with a simple web request\nIcechunk stores Zarr arrays, and adds versions and commits on top\nSo any Zarr reader with Icechunk support can open these stores, in any language, straight from the bucket. No server in between\n\n\n\n\nWhere\nLibraries\n\n\n\n\nPython\nicechunk + zarr + xarray, as in this tutorial\n\n\nJavaScript (browsers)\nzarrita + icechunk-js",
     "crumbs": [
       "Lectures",
-      "3 · The basic pipeline"
+      "6 · Visualizing"
     ]
   },
   {
-    "objectID": "slides/03-pipeline.html#find-the-files",
-    "href": "slides/03-pipeline.html#find-the-files",
-    "title": "The basic pipeline",
-    "section": "1 · Find the files",
-    "text": "1 · Find the files\nimport s3fs\n\nfs = s3fs.S3FileSystem(anon=True)          # public bucket, no credentials\nurls = [f\"s3://{p}\" for p in sorted(fs.ls(\"noaa-cdr-ndvi-pds/data/2000\"))[:5]]\nFive daily files of the NOAA AVHRR NDVI Climate Data Record, January 1–5, 2000.",
+    "objectID": "slides/06-visualize.html#zarrita-and-icechunk-js",
+    "href": "slides/06-visualize.html#zarrita-and-icechunk-js",
+    "title": "Visualizing Icechunk stores",
+    "section": "zarrita and icechunk-js",
+    "text": "zarrita and icechunk-js\n\nzarrita reads Zarr arrays in JavaScript: in a web page or in Node. It fetches only the chunks a view needs\nicechunk-js reads an Icechunk repository and hands it to zarrita as a store, including virtual chunks that live in the original NetCDF files\n\nconst store = await IcechunkStore.open(\"https://data.source.coop/&lt;account&gt;/&lt;store&gt;\");\nconst temp = await open(store.resolve(\"/water_temp\"), { kind: \"array\" });\n\nTogether they let a web page read a virtual store directly from object storage, the same way xarray does in Python. That is what the viewer on the next slide is built on.",
     "crumbs": [
       "Lectures",
-      "3 · The basic pipeline"
+      "6 · Visualizing"
     ]
   },
   {
-    "objectID": "slides/03-pipeline.html#say-how-to-reach-them",
-    "href": "slides/03-pipeline.html#say-how-to-reach-them",
-    "title": "The basic pipeline",
-    "section": "2 · Say how to reach them",
-    "text": "2 · Say how to reach them\nfrom obstore.store import from_url\nfrom obspec_utils.registry import ObjectStoreRegistry\nfrom virtualizarr.parsers import HDFParser\n\nbucket = \"s3://noaa-cdr-ndvi-pds/\"\nstore = from_url(bucket, region=\"us-east-1\", skip_signature=True)\nregistry = ObjectStoreRegistry({bucket: store})   # URLs starting with bucket -&gt; this store\nparser = HDFParser()                              # NetCDF4 is HDF5 inside\n\nPick the parser that matches the file format: HDFParser for NetCDF4/HDF5, NetCDF3Parser for classic NetCDF, and others for DMR++, Zarr and FITS. The audit in chapter 4 tells you which one.",
+    "objectID": "slides/06-visualize.html#gridlook-a-store-on-a-globe",
+    "href": "slides/06-visualize.html#gridlook-a-store-on-a-globe",
+    "title": "Visualizing Icechunk stores",
+    "section": "gridlook: a store on a globe",
+    "text": "gridlook: a store on a globe\ngridlook is a WebGL viewer for Earth system model output, built on zarrita and icechunk-js. Give it a store’s URL, and it draws the data on a globe in your browser, with nothing to install.\nOpen the ocean acidification indicators in gridlook →\n\nAxes but no data? The browser also needs CORS on the source host. NCEI and the NDVI bucket send it; HYCOM’s bucket on AWS does not.\n\n\nThe OA indicators store is virtual: metadata from Source Cooperative, data from NCEI. Use the Depth slider to move through its 14 levels. The HYCOM viewer shows axes but no data in an ordinary browser for this reason.",
     "crumbs": [
       "Lectures",
-      "3 · The basic pipeline"
+      "6 · Visualizing"
     ]
   },
   {
-    "objectID": "slides/03-pipeline.html#open-one-file-virtually",
-    "href": "slides/03-pipeline.html#open-one-file-virtually",
-    "title": "The basic pipeline",
-    "section": "3 · Open one file virtually",
-    "text": "3 · Open one file virtually\nfrom virtualizarr import open_virtual_dataset\n\ncoords = [\"time\", \"latitude\", \"longitude\"]\nvds = open_virtual_dataset(url=urls[0], parser=parser, registry=registry,\n                           loadable_variables=coords)\nNDVI   (time, latitude, longitude) int16 52MB ManifestArray&lt;shape=(1, 3600, 7200) ...&gt;\n\nSmall coordinates are loaded. Big arrays become ManifestArrays: lists of where each chunk sits (file, byte offset, length). No data is downloaded.",
+    "objectID": "slides/06-visualize.html#thats-the-tour",
+    "href": "slides/06-visualize.html#thats-the-tour",
+    "title": "Visualizing Icechunk stores",
+    "section": "That’s the tour",
+    "text": "That’s the tour\n\nBack to the start, and the Resources page\nBuild your own: open a terminal, start your agent, and ask it for a plan\nBonus, if you have time: forecast model run collections and finding stores with STAC",
     "crumbs": [
       "Lectures",
-      "3 · The basic pipeline"
+      "6 · Visualizing"
     ]
   },
   {
-    "objectID": "slides/03-pipeline.html#combine-compatible-files",
-    "href": "slides/03-pipeline.html#combine-compatible-files",
-    "title": "The basic pipeline",
-    "section": "4 · Combine compatible files",
-    "text": "4 · Combine compatible files\nimport xarray as xr\n\nvds_list = [\n    open_virtual_dataset(url=u, parser=parser, registry=registry, loadable_variables=coords)\n    .drop_vars([\"nv\", \"ncrs\", \"crs\"], errors=\"ignore\")\n    for u in urls\n]\ncombined = xr.concat(vds_list, dim=\"time\", data_vars=\"minimal\", coords=\"minimal\",\n                     compat=\"override\", combine_attrs=\"override\")\n\n“Compatible” means the same dimensions, shape apart from time, chunk grid, dtype and codecs. Files that differ cannot share one virtual array. The keyword arguments stop xarray from trying to compare virtual arrays, which it cannot do. The dropped variables are small CRS and bounds-dimension variables that get in the way of the join.",
-    "crumbs": [
-      "Lectures",
-      "3 · The basic pipeline"
-    ]
-  },
-  {
-    "objectID": "slides/03-pipeline.html#write-and-commit",
-    "href": "slides/03-pipeline.html#write-and-commit",
-    "title": "The basic pipeline",
-    "section": "5 · Write and commit",
-    "text": "5 · Write and commit\nimport icechunk\n\nconfig = icechunk.RepositoryConfig.default()\nconfig.set_virtual_chunk_container(icechunk.VirtualChunkContainer(\n    url_prefix=bucket, store=icechunk.s3_store(region=\"us-east-1\", anonymous=True)))\n\nstorage = icechunk.local_filesystem_storage(\"ndvi-icechunk\")\nrepo = icechunk.Repository.create(storage, config)\nrepo.save_config()\ncombined[\"time\"].encoding[\"chunks\"] = (len(combined.time),)   # one chunk for time\nsession = repo.writable_session(\"main\")\ncombined.vz.to_icechunk(session.store)\nsession.commit(\"Five days of NDVI CDR, January 2000\")\n\nThe virtual chunk container tells Icechunk that some chunks live outside the store, under this prefix, and how to reach them. save_config makes that setting part of the store, so readers get it too. Commits work like git: each one is a snapshot you can go back to.",
-    "crumbs": [
-      "Lectures",
-      "3 · The basic pipeline"
-    ]
-  },
-  {
-    "objectID": "slides/03-pipeline.html#reopen-and-read-real-data",
-    "href": "slides/03-pipeline.html#reopen-and-read-real-data",
-    "title": "The basic pipeline",
-    "section": "6 · Reopen and read real data",
-    "text": "6 · Reopen and read real data\ncreds = icechunk.containers_credentials(\n    {bucket: icechunk.s3_credentials(anonymous=True)})\nreader = icechunk.Repository.open(icechunk.local_filesystem_storage(\"ndvi-icechunk\"),\n                                  authorize_virtual_chunk_access=creds)\nds = xr.open_zarr(reader.readonly_session(\"main\").store, consolidated=False, chunks={})\n\nds[\"NDVI\"].sel(latitude=slice(50, 40), longitude=slice(-126, -114)).isel(time=0).plot()\n\nAlways check from a fresh read-only session, and read real values, not just metadata. That is the reader’s path, and it is where problems show up.",
-    "crumbs": [
-      "Lectures",
-      "3 · The basic pipeline"
-    ]
-  },
-  {
-    "objectID": "slides/03-pipeline.html#from-your-laptop-to-the-cloud",
-    "href": "slides/03-pipeline.html#from-your-laptop-to-the-cloud",
-    "title": "The basic pipeline",
-    "section": "From your laptop to the cloud",
-    "text": "From your laptop to the cloud\nOnly step 5’s storage line changes.\n\n\n\n\n\n\n\nWhere the store lives\nStorage\n\n\n\n\nA local folder\nicechunk.local_filesystem_storage(\"ndvi-icechunk\")\n\n\nAmazon S3\nicechunk.s3_storage(bucket=\"my-bucket\", prefix=\"ndvi-icechunk\", region=\"us-west-2\", from_env=True)\n\n\nGoogle Cloud Storage\nicechunk.gcs_storage(bucket=\"my-bucket\", prefix=\"ndvi-icechunk\", from_env=True)\n\n\nPublished on Source Cooperative\nWrite with icechunk.s3_storage(...) and your write keys; readers open it with icechunk.http_storage(\"https://data.source.coop/&lt;account&gt;/&lt;store&gt;\")\n\n\n\nThe NetCDF files never move.",
-    "crumbs": [
-      "Lectures",
-      "3 · The basic pipeline"
-    ]
-  },
-  {
-    "objectID": "slides/03-pipeline.html#try-it",
-    "href": "slides/03-pipeline.html#try-it",
-    "title": "The basic pipeline",
-    "section": "Try it",
-    "text": "Try it\nOpen the NDVI notebook in Colab →\nOr open it on the hub and ask your agent:\n\n“Walk me through simple-virtual-icechunk.ipynb one step at a time. For each step, tell me what is read from the source and what is written to the store.”",
-    "crumbs": [
-      "Lectures",
-      "3 · The basic pipeline"
-    ]
-  },
-  {
-    "objectID": "slides/03-pipeline.html#next-auditing-your-files",
-    "href": "slides/03-pipeline.html#next-auditing-your-files",
-    "title": "The basic pipeline",
-    "section": "Next: auditing your files",
-    "text": "Next: auditing your files\nChapter 4 · Auditing your files",
-    "crumbs": [
-      "Lectures",
-      "3 · The basic pipeline"
-    ]
-  },
-  {
-    "objectID": "slides/05-build.html#our-skill-builds-up-to-production",
-    "href": "slides/05-build.html#our-skill-builds-up-to-production",
-    "title": "Building a virtual Icechunk store",
-    "section": "Our skill builds up to production",
-    "text": "Our skill builds up to production\n\n\n\n\n\n\n\n\nStep\nYou get\nIt must\n\n\n\n\n1 · Plan\nplan.md: files, layout, decisions\nBe reviewed by you before any code\n\n\n2 · Smoke test\nA notebook that builds a local store from a few files\nReopen it read-only and read real values\n\n\n3 · Production\nA build script: settings at the top, batches, commits, restart\nSurvive being interrupted; tag the result\n\n\n4 · Docs\nA README, a loading example, the tested environment\nLet a stranger open the store with no help\n\n\n\nIt stops for your review between steps.",
-    "crumbs": [
-      "Lectures",
-      "5 · Building a store"
-    ]
-  },
-  {
-    "objectID": "slides/05-build.html#what-the-agent-needs-from-you",
-    "href": "slides/05-build.html#what-the-agent-needs-from-you",
-    "title": "Building a virtual Icechunk store",
-    "section": "What the agent needs from you",
-    "text": "What the agent needs from you\nIt cannot guess these. Put them in your first prompt:\n\nWhere the files are, and how to get in: a bucket, a THREDDS catalog, an API; public or which credentials\nWhich files: products, variables, years\nWhere the store goes: a bucket you can write to. Write credentials go in the environment, never in the chat\nWho will read it: Python users, a browser viewer, users outside one cloud region\nBuilt once, or kept up to date as new files arrive",
-    "crumbs": [
-      "Lectures",
-      "5 · Building a store"
-    ]
-  },
-  {
-    "objectID": "slides/05-build.html#what-the-skill-works-out-from-your-files",
-    "href": "slides/05-build.html#what-the-skill-works-out-from-your-files",
-    "title": "Building a virtual Icechunk store",
-    "section": "What the skill works out from your files",
-    "text": "What the skill works out from your files\nIt will propose these, and ask you to confirm:\n\nOne store, or several? The goal is one store with all the variables. Files on different grids or encodings force groups or separate stores\nHow the files fit together: joined along time, variables in separate files merged\nWhat to load, what to keep virtual: coordinates loaded, science arrays left virtual\nMetadata fixes to follow CF conventions\n\n\nThe files usually decide these. You can still ask “why?”, and override.",
-    "crumbs": [
-      "Lectures",
-      "5 · Building a store"
-    ]
-  },
-  {
-    "objectID": "slides/05-build.html#telling-the-agent-to-build-it",
-    "href": "slides/05-build.html#telling-the-agent-to-build-it",
-    "title": "Building a virtual Icechunk store",
-    "section": "Telling the agent to build it",
-    "text": "Telling the agent to build it\n\n“Build a virtual Icechunk store of the NDVI files in s3://noaa-cdr-ndvi-pds/data/ (public, us-east-1) for 2000–2024. Publish it to my Source Cooperative repository my-org/ndvi; my write keys are in environment variables. Python users and a browser viewer will read it. Start with the plan.”\n\nThen, one session per step:\n\n“The plan is approved. Write the smoke-test notebook.” (builds a local test store)\n“The smoke test passed. Write the production build script.” (writes to your bucket)\n“Write the README and a loading example.”",
-    "crumbs": [
-      "Lectures",
-      "5 · Building a store"
-    ]
-  },
-  {
-    "objectID": "slides/05-build.html#authenticating-to-your-bucket",
-    "href": "slides/05-build.html#authenticating-to-your-bucket",
-    "title": "Building a virtual Icechunk store",
-    "section": "Authenticating to your bucket",
-    "text": "Authenticating to your bucket\nThe agent writes to your bucket with your credentials. Tell it where they are:\n\n\n\n\n\n\n\nDestination\nTypical credentials\n\n\n\n\nAmazon S3\nAn AWS profile, or AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in the environment\n\n\nGoogle Cloud Storage\nA service-account key file, named in GOOGLE_APPLICATION_CREDENTIALS\n\n\nSource Cooperative\nTemporary S3 keys from your repository’s View credentials page. They expire\n\n\n\nNot sure? Ask it:\n\n“Help me set up write access to my Source Cooperative repository. Do not print my keys, and do not save them in any file in this repository.”\n\n\nThe smoke test always writes to a local store first: the skill never points a test at the real destination. Only the production build writes to the bucket. Keys go in environment variables or a credentials file outside the repository, and never into a notebook, a script or the chat.",
-    "crumbs": [
-      "Lectures",
-      "5 · Building a store"
-    ]
-  },
-  {
-    "objectID": "slides/05-build.html#worked-examples",
-    "href": "slides/05-build.html#worked-examples",
-    "title": "Building a virtual Icechunk store",
-    "section": "Worked examples",
-    "text": "Worked examples\n\nThe NDVI notebooks from June 5: concatenate, append, write to cloud storage\nPublished stores, with their build code: CoastWatch OHC, OA indicators, HYCOM\n\n\nThe June 5 notebooks use older patterns in places, for example try-create-except-open. They are good for seeing the steps. The ocean-icechunks repositories show a full layout: a small test notebook, the production pipeline, and a README published beside each store.",
-    "crumbs": [
-      "Lectures",
-      "5 · Building a store"
-    ]
-  },
-  {
-    "objectID": "slides/05-build.html#next-visualizing",
-    "href": "slides/05-build.html#next-visualizing",
-    "title": "Building a virtual Icechunk store",
-    "section": "Next: visualizing",
-    "text": "Next: visualizing\nChapter 6 · Visualizing",
-    "crumbs": [
-      "Lectures",
-      "5 · Building a store"
-    ]
-  },
-  {
-    "objectID": "slides/07-bonus-stac.html#which-stores-cover-my-place-and-period",
-    "href": "slides/07-bonus-stac.html#which-stores-cover-my-place-and-period",
+    "objectID": "slides/08-bonus-stac.html#which-stores-cover-my-place-and-period",
+    "href": "slides/08-bonus-stac.html#which-stores-cover-my-place-and-period",
     "title": "Bonus: finding stores with STAC",
     "section": "Which stores cover my place and period?",
     "text": "Which stores cover my place and period?\nIf we have time and interest. The ocean-icechunks account holds many stores. To pick the right ones, describe each store in a catalog you can search.\n\nSTAC is a standard format for catalogs of geospatial data. One item describes one store: where it is, when it covers, and what it holds\nstac-geoparquet keeps all the items in a single file\nrustac searches that file by place and time\nxpystac opens a match in xarray\n\n\nBonus material, for the end of the day or for people who finish early. Nothing here is needed for the rest of the tutorial.",
     "crumbs": [
       "Lectures",
-      "Bonus · Finding stores with STAC"
+      "8 · Bonus: Finding stores with STAC"
     ]
   },
   {
-    "objectID": "slides/07-bonus-stac.html#a-stac-item-describes-one-store",
-    "href": "slides/07-bonus-stac.html#a-stac-item-describes-one-store",
+    "objectID": "slides/08-bonus-stac.html#a-stac-item-describes-one-store",
+    "href": "slides/08-bonus-stac.html#a-stac-item-describes-one-store",
     "title": "Bonus: finding stores with STAC",
     "section": "A STAC item describes one store",
     "text": "A STAC item describes one store\n{\n  \"id\": \"pacioos-roms_hiig\",\n  \"bbox\": [-163.83, 17.02, -152.52, 23.98],\n  \"properties\": {\n    \"start_datetime\": \"2025-01-01T00:00:00Z\",\n    \"end_datetime\": \"2026-11-22T00:00:00Z\",\n    \"storage:schemes\": { \"source-coop\": { \"anonymous\": true, ... } }\n  },\n  \"assets\": { \"data\": {\n    \"href\": \"s3://.../ocean-icechunks/pacioos/roms_hiig/icechunk\",\n    \"type\": \"application/vnd.zarr+icechunk\",\n    \"storage:refs\": [\"source-coop\"],\n    \"cube:variables\": { \"temp\": ..., \"salt\": ..., ... } } }\n}\n\nTrimmed from a real item: the bucket host, the UTC offsets and some fields are shortened. The bounding box and the time range are what the search uses. The storage fields (the STAC storage extension) are what xpystac reads to open the asset: the bucket, the region, and that no credentials are needed. The asset type application/vnd.zarr+icechunk tells xpystac it is an Icechunk store.",
     "crumbs": [
       "Lectures",
-      "Bonus · Finding stores with STAC"
+      "8 · Bonus: Finding stores with STAC"
     ]
   },
   {
-    "objectID": "slides/07-bonus-stac.html#build-the-catalog",
-    "href": "slides/07-bonus-stac.html#build-the-catalog",
+    "objectID": "slides/08-bonus-stac.html#build-the-catalog",
+    "href": "slides/08-bonus-stac.html#build-the-catalog",
     "title": "Bonus: finding stores with STAC",
     "section": "Build the catalog",
     "text": "Build the catalog\nstores = list(find_stores(\"ocean-icechunks/\"))   # walk the bucket listing\nitems = [make_item(path) for path in stores]     # read each store's metadata\nawait rustac.write(\"ocean-icechunks-items.parquet\", items)\n\nfind_stores and make_item are defined step by step in the notebook stac-geoparquet-create. It lists the public bucket, opens each Icechunk store and reads only the small coordinate arrays, never the data, then writes one item per store: 8 items on 2026-11-17. It takes about a minute. Nothing is stored in the repository: everyone builds the catalog themselves.\nThe three noaa-ohc stores each keep several datasets in groups (14day, 14day_v1, daily). Those become several assets on one item.",
     "crumbs": [
       "Lectures",
-      "Bonus · Finding stores with STAC"
+      "8 · Bonus: Finding stores with STAC"
     ]
   },
   {
-    "objectID": "slides/07-bonus-stac.html#search-it-then-open-a-match",
-    "href": "slides/07-bonus-stac.html#search-it-then-open-a-match",
+    "objectID": "slides/08-bonus-stac.html#search-it-then-open-a-match",
+    "href": "slides/08-bonus-stac.html#search-it-then-open-a-match",
     "title": "Bonus: finding stores with STAC",
     "section": "Search it, then open a match",
     "text": "Search it, then open a match\nhits = await rustac.search(\"ocean-icechunks-items.parquet\",\n                           bbox=[-158.5, 20.5, -157.5, 21.5],  # Oahu\n                           datetime=\"2026-01-01/2026-02-01\")   # 3 of 8 stores match\nitem = pystac.Item.from_dict(next(h for h in hits if h[\"id\"] == \"pacioos-roms_hiig\"))\nds = xr.open_dataset(item.assets[\"data\"], engine=\"stac\")\n\nRun on 2026-11-17: the search returns noaa-ohc-np, pacioos-roms_hiig and pacioos-ww3_hawaii, and roms_hiig opens with 6 variables. The reanalyses ended before 2026, and the other ocean heat content basins do not cover Hawaii.\nxpystac always opens the root of a store, so it cannot open the noaa-ohc groups. The notebook opens those by hand with icechunk and xr.open_zarr. It needs an xpystac newer than release 0.5.0. Check that the workshop image has one before presenting this.",
     "crumbs": [
       "Lectures",
-      "Bonus · Finding stores with STAC"
+      "8 · Bonus: Finding stores with STAC"
     ]
   },
   {
-    "objectID": "slides/07-bonus-stac.html#try-it",
-    "href": "slides/07-bonus-stac.html#try-it",
+    "objectID": "slides/08-bonus-stac.html#try-it",
+    "href": "slides/08-bonus-stac.html#try-it",
     "title": "Bonus: finding stores with STAC",
     "section": "Try it",
     "text": "Try it\nBuild the catalog →\nThen search it →\nRun the second notebook in the same session, because it reads the file the first one writes.",
     "crumbs": [
       "Lectures",
-      "Bonus · Finding stores with STAC"
+      "8 · Bonus: Finding stores with STAC"
     ]
   },
   {
-    "objectID": "slides/07-bonus-stac.html#back-to-the-start",
-    "href": "slides/07-bonus-stac.html#back-to-the-start",
+    "objectID": "slides/08-bonus-stac.html#back-to-the-start",
+    "href": "slides/08-bonus-stac.html#back-to-the-start",
     "title": "Bonus: finding stores with STAC",
     "section": "Back to the start",
     "text": "Back to the start\n\nBack to the start, and the Resources page",
     "crumbs": [
       "Lectures",
-      "Bonus · Finding stores with STAC"
+      "8 · Bonus: Finding stores with STAC"
     ]
   },
   {

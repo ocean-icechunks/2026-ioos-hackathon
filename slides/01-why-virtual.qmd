@@ -152,7 +152,7 @@ A forecast model writes a new file every day. Keep every run, not just the lates
   hours from every run into one continuous series.
 
 ::: {.takeaway}
-One store holds the whole history of every forecast.
+One store holds the whole history of every forecast. Bonus lecture 7 builds one.
 :::
 
 ::: notes
