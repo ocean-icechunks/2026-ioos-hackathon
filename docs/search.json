@@ -514,215 +514,91 @@
     ]
   },
   {
-    "objectID": "setup/04-git-with-agent.html",
-    "href": "setup/04-git-with-agent.html",
-    "title": "Git and GitHub, with an agent",
+    "objectID": "setup/05-scratch-bucket.html",
+    "href": "setup/05-scratch-bucket.html",
+    "title": "The scratch bucket",
     "section": "",
-    "text": "Your hackathon work lives in a GitHub repository, so you need a GitHub account. That matters more than usual here: the workshop hub is deleted a week after the hackathon, and GitHub is where your work survives. Git is a lot to learn in one week, and you do not have to: your agent can run the git commands for you. You make the decisions (what to save, when to share it, and whether a change is right), and the agent types the commands.\nTo do that, the agent needs to reach GitHub as you. You set that up once, with gh auth login.",
+    "text": "The hub comes with an S3 scratch bucket. It is a good place to write a test Icechunk store to cloud storage, rather than to your home directory. You do not need to set up any credentials, because the hub already has them.",
     "crumbs": [
       "JupyterHub Skills",
-      "Git and GitHub, with an agent"
+      "The scratch bucket"
     ]
   },
   {
-    "objectID": "setup/04-git-with-agent.html#why-gh-auth-login",
-    "href": "setup/04-git-with-agent.html#why-gh-auth-login",
-    "title": "Git and GitHub, with an agent",
-    "section": "Why gh auth login?",
-    "text": "Why gh auth login?\ngh is GitHub’s command-line tool, and it is already installed on the hub. Logging in with it does two things:\n\ngit can push and pull over HTTPS without asking you for a password, because gh stores the credential for it.\ngh itself can open pull requests, read issues and check on a repository. Agents use it all the time.\n\nEverything the agent does through gh is done in your name, so decide how much it can reach.",
+    "objectID": "setup/05-scratch-bucket.html#your-folder",
+    "href": "setup/05-scratch-bucket.html#your-folder",
+    "title": "The scratch bucket",
+    "section": "Your folder",
+    "text": "Your folder\nThe hub sets an environment variable, SCRATCH_BUCKET, that points to a folder named after your GitHub username:\nimport os\nscratch = os.environ[\"SCRATCH_BUCKET\"]\nscratch    # 's3://&lt;scratch-bucket&gt;/&lt;your-github-username&gt;'",
     "crumbs": [
       "JupyterHub Skills",
-      "Git and GitHub, with an agent"
+      "The scratch bucket"
     ]
   },
   {
-    "objectID": "setup/04-git-with-agent.html#choose-how-much-access",
-    "href": "setup/04-git-with-agent.html#choose-how-much-access",
-    "title": "Git and GitHub, with an agent",
-    "section": "Choose how much access",
-    "text": "Choose how much access\n\nToken for one repository (safer)Full access\n\n\nThe agent can push to your hackathon repository and nothing else.\n\nGo to https://github.com/settings/personal-access-tokens/new.\nToken name: JupyterHub agent, IOOS hackathon. Expiration: a few days after the hackathon.\nRepository access: Only select repositories, then pick your project repository.\nRepository permissions: set Contents, Pull requests and Issues to Read and write. Leave the rest at No access.\nClick Generate token and copy it. GitHub shows it only once.\n\nThen, in a terminal, run gh auth login and answer:\n\nWhere do you use GitHub? GitHub.com\nPreferred protocol? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate? Paste an authentication token\n\n\n\nThe agent can do anything you can on GitHub, in every repository you can reach, including private ones.\nIn a terminal, run gh auth login and answer:\n\nWhere do you use GitHub? GitHub.com\nPreferred protocol? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate? Login with a web browser\n\nIt prints a one-time code. Open the link, paste the code, and approve.\n\n\n\nCheck that it worked:\ngh auth status",
+    "objectID": "setup/05-scratch-bucket.html#write-list-read-and-delete",
+    "href": "setup/05-scratch-bucket.html#write-list-read-and-delete",
+    "title": "The scratch bucket",
+    "section": "Write, list, read and delete",
+    "text": "Write, list, read and delete\nimport s3fs\n\nfs = s3fs.S3FileSystem()             # uses the hub's credentials\n\nfs.pipe(f\"{scratch}/hello.txt\", b\"hello\")   # write a small file\nfs.ls(scratch)                              # list your folder\nfs.cat(f\"{scratch}/hello.txt\")              # read it back\nfs.rm(f\"{scratch}/hello.txt\")               # delete it\nTo upload a local file or folder, use fs.put(\"local.nc\", f\"{scratch}/local.nc\"). For a folder, add recursive=True. fs.ls raises an error on an empty folder, so write something first.",
     "crumbs": [
       "JupyterHub Skills",
-      "Git and GitHub, with an agent"
+      "The scratch bucket"
     ]
   },
   {
-    "objectID": "setup/04-git-with-agent.html#tell-git-who-you-are",
-    "href": "setup/04-git-with-agent.html#tell-git-who-you-are",
-    "title": "Git and GitHub, with an agent",
-    "section": "Tell git who you are",
-    "text": "Tell git who you are\nCommits need a name and an email. Do this once:\ngit config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"\nUse the email on your GitHub account. If you would rather keep it private, use the noreply address shown at https://github.com/settings/emails.",
+    "objectID": "setup/05-scratch-bucket.html#an-icechunk-store-in-the-scratch-bucket",
+    "href": "setup/05-scratch-bucket.html#an-icechunk-store-in-the-scratch-bucket",
+    "title": "The scratch bucket",
+    "section": "An Icechunk store in the scratch bucket",
+    "text": "An Icechunk store in the scratch bucket\nYou can write an Icechunk store here almost as easily as to a local folder. Only the storage setup changes:\nimport boto3\nimport icechunk\n\nbucket, prefix = scratch.removeprefix(\"s3://\").split(\"/\", 1)\ncreds = boto3.Session().get_credentials().get_frozen_credentials()   # the hub's credentials\n\nstorage = icechunk.s3_storage(\n    bucket=bucket,\n    prefix=f\"{prefix}/my-store\",\n    region=\"us-west-2\",\n    access_key_id=creds.access_key,\n    secret_access_key=creds.secret_key,\n    session_token=creds.token,\n)\n\n\n\n\n\n\nNote\n\n\n\nWhy not from_env=True? On this hub, Icechunk does not pick up the hub’s credentials by itself, and you get AccessDenied (tested 2026-11-13 with icechunk 2.3.1). Passing them from boto3 works. They expire after about an hour, so rerun the cell if a long session starts failing.\n\n\nChapter 5, Building a store, covers the rest. Or ask your agent: “write the smoke-test store to my scratch bucket instead of a local folder.”\nAdapted from NMFS HackDays 2025: Using the S3 Scratch Bucket.",
     "crumbs": [
       "JupyterHub Skills",
-      "Git and GitHub, with an agent"
+      "The scratch bucket"
     ]
   },
   {
-    "objectID": "setup/04-git-with-agent.html#let-the-agent-do-git",
-    "href": "setup/04-git-with-agent.html#let-the-agent-do-git",
-    "title": "Git and GitHub, with an agent",
-    "section": "Let the agent do git",
-    "text": "Let the agent do git\nAsk for the outcome you want, not the command. For example:\n\n\n\n\n\n\n\nYou want to…\nSay to the agent\n\n\n\n\nGet a copy of a repository\n“Clone github.com/ocean-icechunks/2026-ioos-hackathon into my home folder.”\n\n\nSee what you changed\n“What have I changed since the last commit?”\n\n\nSave your work\n“Make a new branch and commit these changes with a clear message.”\n\n\nShare it\n“Push the branch and open a pull request. Explain what changed in the description.”\n\n\nCatch up with your team\n“Pull the latest changes from main and tell me what is new.”\n\n\nRecover from a mess\n“Git says there is a merge conflict. Explain what happened before you fix anything.”\n\n\n\nThree habits keep this safe:\n\nWork on a branch, and merge through a pull request. Ask the agent never to push to main.\nRead the change before it is committed. Ask “show me the diff” if the agent does not.\nNever let credentials into a commit. Keys and tokens belong in environment variables or in a file listed in .gitignore. The ocean-icechunks skill already insists on this.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Git and GitHub, with an agent"
-    ]
-  },
-  {
-    "objectID": "setup/04-git-with-agent.html#learn-the-basics-anyway",
-    "href": "setup/04-git-with-agent.html#learn-the-basics-anyway",
-    "title": "Git and GitHub, with an agent",
-    "section": "Learn the basics anyway",
-    "text": "Learn the basics anyway\nIt helps to know what the agent is doing on your behalf: clone, commit, push and pull. The NMFS HackDays lesson Basic Git/GitHub skills in the terminal walks through all four in about 20 minutes. Or ask your agent to explain each command as it runs it.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Git and GitHub, with an agent"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html",
-    "href": "setup/02-jupyterlab.html",
-    "title": "Find your way around JupyterLab",
+    "objectID": "setup/03-start-your-agent.html",
+    "href": "setup/03-start-your-agent.html",
+    "title": "Start your coding agent",
     "section": "",
-    "text": "You need three things in JupyterLab for this hackathon. The terminal is where your coding agent runs. The file browser shows what the agent changed. Notebooks are where you run and check its work.",
+    "text": "In this hackathon you hand most of the work to a coding agent running in a hub terminal. Bring your own subscription. Any one of these works:\nYou install the agent once. It goes in ~/.local/bin, inside your home directory, so it is still there the next time your server starts. Your sign-in is saved there too.",
     "crumbs": [
       "JupyterHub Skills",
-      "Find your way around JupyterLab"
+      "Start your coding agent"
     ]
   },
   {
-    "objectID": "setup/02-jupyterlab.html#the-launcher",
-    "href": "setup/02-jupyterlab.html#the-launcher",
-    "title": "Find your way around JupyterLab",
-    "section": "The Launcher",
-    "text": "The Launcher\nThe Launcher opens notebooks, terminals and files. If you do not see it, choose File → New Launcher, or click the blue + at the top left.",
+    "objectID": "setup/03-start-your-agent.html#install-and-sign-in",
+    "href": "setup/03-start-your-agent.html#install-and-sign-in",
+    "title": "Start your coding agent",
+    "section": "1 · Install and sign in",
+    "text": "1 · Install and sign in\nOpen a terminal (File → New → Terminal). Then follow the steps for your agent.\n\nClaude CodeCodexAntigravity\n\n\nInstall:\ncurl -fsSL https://claude.ai/install.sh | bash\nStart it:\ncd ~\nclaude\nThe first start asks you to pick a theme and a sign-in method. Choose Claude account with subscription. It prints a link: open it in your browser, sign in, and paste the code it gives you back into the terminal.\n\n\nInstall it into your home directory. Without --prefix, it is installed somewhere that is wiped when your server restarts.\nnpm install -g --prefix ~/.local @openai/codex\nSign in. The hub has no browser of its own, so use the device-code flow:\ncodex login --device-auth\nOpen the link it prints, sign in with your ChatGPT account, and enter the code. Then start it:\ncd ~\ncodex\n\n\nInstall:\ncurl -fsSL https://antigravity.google/cli/install.sh | bash\nStart it:\ncd ~\nagy\nOn the first start, sign in with the Google account that has your Antigravity access. It prints a link: open it, sign in, approve, and paste the code back into the terminal.\n\n\n\nWhen you see the agent’s prompt, type /exit to leave. You only needed it installed and signed in.\n\n\n\n\n\n\n“Command not found”?\n\n\n\nOpen a new terminal, so it picks up ~/.local/bin. If that does not help, run export PATH=\"$HOME/.local/bin:$PATH\" and try again.",
     "crumbs": [
       "JupyterHub Skills",
-      "Find your way around JupyterLab"
+      "Start your coding agent"
     ]
   },
   {
-    "objectID": "setup/02-jupyterlab.html#the-terminal",
-    "href": "setup/02-jupyterlab.html#the-terminal",
-    "title": "Find your way around JupyterLab",
-    "section": "The terminal",
-    "text": "The terminal\nClick Terminal in the Launcher, or choose File → New → Terminal. This is where you will start your agent. You only need a few commands yourself:\n\n\n\nCommand\nWhat it does\n\n\n\n\npwd\nShows which folder you are in\n\n\nls\nLists the files here (ls -a also shows hidden ones)\n\n\ncd folder\nMoves into a folder\n\n\ncd ..\nMoves up one folder\n\n\ncd ~\nGoes back to your home folder\n\n\n\nThe agent will run most other commands for you, and it asks before it runs anything risky. New to the shell? Try the Software Carpentry shell lesson.",
+    "objectID": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
+    "href": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
+    "title": "Start your coding agent",
+    "section": "2 · Add the ocean-icechunks skills",
+    "text": "2 · Add the ocean-icechunks skills\nThe ocean-icechunks-skills teach your agent how to build, check and document virtual Icechunk stores. This installs them for all three agents at once:\ngit clone https://github.com/ocean-icechunks/ocean-icechunks-skills ~/ocean-icechunks-skills\n\nfor dir in ~/.claude/skills ~/.agents/skills ~/.gemini/config/skills; do\n  mkdir -p \"$dir\"\n  for skill in virtual-icechunk archive-to-cloud; do\n    ln -sfn ~/ocean-icechunks-skills/skills/$skill \"$dir/$skill\"\n  done\ndone\nTo update them later, run git -C ~/ocean-icechunks-skills pull.",
     "crumbs": [
       "JupyterHub Skills",
-      "Find your way around JupyterLab"
+      "Start your coding agent"
     ]
   },
   {
-    "objectID": "setup/02-jupyterlab.html#the-file-browser",
-    "href": "setup/02-jupyterlab.html#the-file-browser",
-    "title": "Find your way around JupyterLab",
-    "section": "The file browser",
-    "text": "The file browser\nThe folder icon at the far left opens the file browser. Use it to move between folders, make a new one (the folder icon with a +), and right-click a file to rename or delete it. When an agent writes a file, it shows up here. Open it and read it.",
+    "objectID": "setup/03-start-your-agent.html#start-it-where-you-work",
+    "href": "setup/03-start-your-agent.html#start-it-where-you-work",
+    "title": "Start your coding agent",
+    "section": "3 · Start it where you work",
+    "text": "3 · Start it where you work\nAn agent works in the folder you start it from. So always cd into your project first:\ncd ~/my-project\nclaude        # or codex, or agy\nThe first time you start it in a new folder, it asks whether you trust the folder. Say yes for your own project folders.\nCheck that the skills loaded. Type /skills (in Claude Code or Codex) or / (in Antigravity) and look for virtual-icechunk. Or just ask: “What skills do you have for Icechunk?”\nChapter 2, Working with an agent, covers how to get good work out of it.",
     "crumbs": [
       "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#notebooks",
-    "href": "setup/02-jupyterlab.html#notebooks",
-    "title": "Find your way around JupyterLab",
-    "section": "Notebooks",
-    "text": "Notebooks\nClick Python 3 in the Launcher to open a new notebook. A notebook is a list of cells, and each cell is either code or Markdown.\n\nRun a cell: press Shift + Enter.\nRun all cells: use the Run menu.\nAdd a cell: click the + in the notebook toolbar.\nChange the cell type: use the drop-down in the toolbar (Code / Markdown).\n\nTo open a notebook that someone else wrote, or that the agent wrote, double-click it in the file browser.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#installing-packages",
-    "href": "setup/02-jupyterlab.html#installing-packages",
-    "title": "Find your way around JupyterLab",
-    "section": "Installing packages",
-    "text": "Installing packages\n%pip install package in a notebook cell installs a package for the current session only. It will be gone the next time your server starts. If something should always be there, ask for it to be added to the hub image.\nAdapted from NMFS HackDays 2025: Intro to JupyterLab.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "resources.html",
-    "href": "resources.html",
-    "title": "Resources",
-    "section": "",
-    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#skills-and-examples",
-    "href": "resources.html#skills-and-examples",
-    "title": "Resources",
-    "section": "",
-    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#background-reading",
-    "href": "resources.html#background-reading",
-    "title": "Resources",
-    "section": "Background reading",
-    "text": "Background reading\n\nBridging NOAA ocean model files and cloud-native access (Holmes, ESIP, July 2026; PDF of the talk several chapter 1 figures come from)\nAI-ready scientific data archives (Earthmover, 2026)\nRich Signell on the state of cloud-native geospatial (March 2026)",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#documentation",
-    "href": "resources.html#documentation",
-    "title": "Resources",
-    "section": "Documentation",
-    "text": "Documentation\n\nIcechunk\nVirtualiZarr\nXarray",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Virtual Icechunk",
-    "section": "",
-    "text": "This tutorial gives you a quick overview of virtual Icechunk stores: what they are, how one gets built, and what to check before building one. During the hackathon you will mostly hand the actual work to a coding agent that has the ocean-icechunks-skills installed. Each chapter is a short slide deck. Click through it, or press S for the speaker notes.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#before-you-start-get-set-up",
-    "href": "index.html#before-you-start-get-set-up",
-    "title": "Virtual Icechunk",
-    "section": "Before you start: get set up",
-    "text": "Before you start: get set up\nNew to the hub? Work through JupyterHub Skills first (about 30 minutes):\n\nLog in to the JupyterHub\nFind your way around JupyterLab\nStart your coding agent: Claude Code, Codex or Antigravity, with your own subscription\nGit and GitHub, with an agent: log in once with gh, then let the agent run git for you\nThe scratch bucket: cloud storage for test stores",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#lectures",
-    "href": "index.html#lectures",
-    "title": "Virtual Icechunk",
-    "section": "Lectures",
-    "text": "Lectures\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#examples",
-    "href": "index.html#examples",
-    "title": "Virtual Icechunk",
-    "section": "Examples",
-    "text": "Examples\nEach example opens a large ocean dataset as a virtual Icechunk store and answers one question with it in a few seconds or minutes. You download nothing in advance, even when the dataset is hundreds of terabytes or thousands of files. Use them to see how a store opens, how much a read costs, and what kind of analysis becomes easy. Each one has an Open in Colab button.\nSee Resources for links to everything mentioned in the decks.",
-    "crumbs": [
-      "Home"
+      "Start your coding agent"
     ]
   },
   {
@@ -792,91 +668,303 @@
     ]
   },
   {
-    "objectID": "setup/03-start-your-agent.html",
-    "href": "setup/03-start-your-agent.html",
-    "title": "Start your coding agent",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Virtual Icechunk",
     "section": "",
-    "text": "In this hackathon you hand most of the work to a coding agent running in a hub terminal. Bring your own subscription. Any one of these works:\nYou install the agent once. It goes in ~/.local/bin, inside your home directory, so it is still there the next time your server starts. Your sign-in is saved there too.",
+    "text": "This tutorial gives you a quick overview of virtual Icechunk stores: what they are, how one gets built, and what to check before building one. During the hackathon you will mostly hand the actual work to a coding agent that has the ocean-icechunks-skills installed. Each chapter is a short slide deck. Click through it, or press S for the speaker notes.",
     "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
+      "Home"
     ]
   },
   {
-    "objectID": "setup/03-start-your-agent.html#install-and-sign-in",
-    "href": "setup/03-start-your-agent.html#install-and-sign-in",
-    "title": "Start your coding agent",
-    "section": "1 · Install and sign in",
-    "text": "1 · Install and sign in\nOpen a terminal (File → New → Terminal). Then follow the steps for your agent.\n\nClaude CodeCodexAntigravity\n\n\nInstall:\ncurl -fsSL https://claude.ai/install.sh | bash\nStart it:\ncd ~\nclaude\nThe first start asks you to pick a theme and a sign-in method. Choose Claude account with subscription. It prints a link: open it in your browser, sign in, and paste the code it gives you back into the terminal.\n\n\nInstall it into your home directory. Without --prefix, it is installed somewhere that is wiped when your server restarts.\nnpm install -g --prefix ~/.local @openai/codex\nSign in. The hub has no browser of its own, so use the device-code flow:\ncodex login --device-auth\nOpen the link it prints, sign in with your ChatGPT account, and enter the code. Then start it:\ncd ~\ncodex\n\n\nInstall:\ncurl -fsSL https://antigravity.google/cli/install.sh | bash\nStart it:\ncd ~\nagy\nOn the first start, sign in with the Google account that has your Antigravity access. It prints a link: open it, sign in, approve, and paste the code back into the terminal.\n\n\n\nWhen you see the agent’s prompt, type /exit to leave. You only needed it installed and signed in.\n\n\n\n\n\n\n“Command not found”?\n\n\n\nOpen a new terminal, so it picks up ~/.local/bin. If that does not help, run export PATH=\"$HOME/.local/bin:$PATH\" and try again.",
+    "objectID": "index.html#before-you-start-get-set-up",
+    "href": "index.html#before-you-start-get-set-up",
+    "title": "Virtual Icechunk",
+    "section": "Before you start: get set up",
+    "text": "Before you start: get set up\nNew to the hub? Work through JupyterHub Skills first (about 30 minutes):\n\nLog in to the JupyterHub\nFind your way around JupyterLab\nStart your coding agent: Claude Code, Codex or Antigravity, with your own subscription\nGit and GitHub, with an agent: log in once with gh, then let the agent run git for you\nThe scratch bucket: cloud storage for test stores",
     "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
+      "Home"
     ]
   },
   {
-    "objectID": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
-    "href": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
-    "title": "Start your coding agent",
-    "section": "2 · Add the ocean-icechunks skills",
-    "text": "2 · Add the ocean-icechunks skills\nThe ocean-icechunks-skills teach your agent how to build, check and document virtual Icechunk stores. This installs them for all three agents at once:\ngit clone https://github.com/ocean-icechunks/ocean-icechunks-skills ~/ocean-icechunks-skills\n\nfor dir in ~/.claude/skills ~/.agents/skills ~/.gemini/config/skills; do\n  mkdir -p \"$dir\"\n  for skill in virtual-icechunk archive-to-cloud; do\n    ln -sfn ~/ocean-icechunks-skills/skills/$skill \"$dir/$skill\"\n  done\ndone\nTo update them later, run git -C ~/ocean-icechunks-skills pull.",
+    "objectID": "index.html#lectures",
+    "href": "index.html#lectures",
+    "title": "Virtual Icechunk",
+    "section": "Lectures",
+    "text": "Lectures\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook",
     "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
+      "Home"
     ]
   },
   {
-    "objectID": "setup/03-start-your-agent.html#start-it-where-you-work",
-    "href": "setup/03-start-your-agent.html#start-it-where-you-work",
-    "title": "Start your coding agent",
-    "section": "3 · Start it where you work",
-    "text": "3 · Start it where you work\nAn agent works in the folder you start it from. So always cd into your project first:\ncd ~/my-project\nclaude        # or codex, or agy\nThe first time you start it in a new folder, it asks whether you trust the folder. Say yes for your own project folders.\nCheck that the skills loaded. Type /skills (in Claude Code or Codex) or / (in Antigravity) and look for virtual-icechunk. Or just ask: “What skills do you have for Icechunk?”\nChapter 2, Working with an agent, covers how to get good work out of it.",
+    "objectID": "index.html#examples",
+    "href": "index.html#examples",
+    "title": "Virtual Icechunk",
+    "section": "Examples",
+    "text": "Examples\nEach example opens a large ocean dataset as a virtual Icechunk store and answers one question with it in a few seconds or minutes. You download nothing in advance, even when the dataset is hundreds of terabytes or thousands of files. Use them to see how a store opens, how much a read costs, and what kind of analysis becomes easy. Each one has an Open in Colab button.\nSee Resources for links to everything mentioned in the decks.",
     "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
+      "Home"
     ]
   },
   {
-    "objectID": "setup/05-scratch-bucket.html",
-    "href": "setup/05-scratch-bucket.html",
-    "title": "The scratch bucket",
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
     "section": "",
-    "text": "The hub comes with an S3 scratch bucket. It is a good place to write a test Icechunk store to cloud storage, rather than to your home directory. You do not need to set up any credentials, because the hub already has them.",
+    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
     "crumbs": [
-      "JupyterHub Skills",
-      "The scratch bucket"
+      "Resources"
     ]
   },
   {
-    "objectID": "setup/05-scratch-bucket.html#your-folder",
-    "href": "setup/05-scratch-bucket.html#your-folder",
-    "title": "The scratch bucket",
-    "section": "Your folder",
-    "text": "Your folder\nThe hub sets an environment variable, SCRATCH_BUCKET, that points to a folder named after your GitHub username:\nimport os\nscratch = os.environ[\"SCRATCH_BUCKET\"]\nscratch    # 's3://&lt;scratch-bucket&gt;/&lt;your-github-username&gt;'",
+    "objectID": "resources.html#skills-and-examples",
+    "href": "resources.html#skills-and-examples",
+    "title": "Resources",
+    "section": "",
+    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
     "crumbs": [
-      "JupyterHub Skills",
-      "The scratch bucket"
+      "Resources"
     ]
   },
   {
-    "objectID": "setup/05-scratch-bucket.html#write-list-read-and-delete",
-    "href": "setup/05-scratch-bucket.html#write-list-read-and-delete",
-    "title": "The scratch bucket",
-    "section": "Write, list, read and delete",
-    "text": "Write, list, read and delete\nimport s3fs\n\nfs = s3fs.S3FileSystem()             # uses the hub's credentials\n\nfs.pipe(f\"{scratch}/hello.txt\", b\"hello\")   # write a small file\nfs.ls(scratch)                              # list your folder\nfs.cat(f\"{scratch}/hello.txt\")              # read it back\nfs.rm(f\"{scratch}/hello.txt\")               # delete it\nTo upload a local file or folder, use fs.put(\"local.nc\", f\"{scratch}/local.nc\"). For a folder, add recursive=True. fs.ls raises an error on an empty folder, so write something first.",
+    "objectID": "resources.html#background-reading",
+    "href": "resources.html#background-reading",
+    "title": "Resources",
+    "section": "Background reading",
+    "text": "Background reading\n\nBridging NOAA ocean model files and cloud-native access (Holmes, ESIP, July 2026; PDF of the talk several chapter 1 figures come from)\nAI-ready scientific data archives (Earthmover, 2026)\nRich Signell on the state of cloud-native geospatial (March 2026)",
     "crumbs": [
-      "JupyterHub Skills",
-      "The scratch bucket"
+      "Resources"
     ]
   },
   {
-    "objectID": "setup/05-scratch-bucket.html#an-icechunk-store-in-the-scratch-bucket",
-    "href": "setup/05-scratch-bucket.html#an-icechunk-store-in-the-scratch-bucket",
-    "title": "The scratch bucket",
-    "section": "An Icechunk store in the scratch bucket",
-    "text": "An Icechunk store in the scratch bucket\nYou can write an Icechunk store here almost as easily as to a local folder. Only the storage setup changes:\nimport boto3\nimport icechunk\n\nbucket, prefix = scratch.removeprefix(\"s3://\").split(\"/\", 1)\ncreds = boto3.Session().get_credentials().get_frozen_credentials()   # the hub's credentials\n\nstorage = icechunk.s3_storage(\n    bucket=bucket,\n    prefix=f\"{prefix}/my-store\",\n    region=\"us-west-2\",\n    access_key_id=creds.access_key,\n    secret_access_key=creds.secret_key,\n    session_token=creds.token,\n)\n\n\n\n\n\n\nNote\n\n\n\nWhy not from_env=True? On this hub, Icechunk does not pick up the hub’s credentials by itself, and you get AccessDenied (tested 2026-11-13 with icechunk 2.3.1). Passing them from boto3 works. They expire after about an hour, so rerun the cell if a long session starts failing.\n\n\nChapter 5, Building a store, covers the rest. Or ask your agent: “write the smoke-test store to my scratch bucket instead of a local folder.”\nAdapted from NMFS HackDays 2025: Using the S3 Scratch Bucket.",
+    "objectID": "resources.html#documentation",
+    "href": "resources.html#documentation",
+    "title": "Resources",
+    "section": "Documentation",
+    "text": "Documentation\n\nIcechunk\nVirtualiZarr\nXarray",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html",
+    "href": "setup/02-jupyterlab.html",
+    "title": "Find your way around JupyterLab",
+    "section": "",
+    "text": "You need three things in JupyterLab for this hackathon. The terminal is where your coding agent runs. The file browser shows what the agent changed. Notebooks are where you run and check its work.",
     "crumbs": [
       "JupyterHub Skills",
-      "The scratch bucket"
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-launcher",
+    "href": "setup/02-jupyterlab.html#the-launcher",
+    "title": "Find your way around JupyterLab",
+    "section": "The Launcher",
+    "text": "The Launcher\nThe Launcher opens notebooks, terminals and files. If you do not see it, choose File → New Launcher, or click the blue + at the top left.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-terminal",
+    "href": "setup/02-jupyterlab.html#the-terminal",
+    "title": "Find your way around JupyterLab",
+    "section": "The terminal",
+    "text": "The terminal\nClick Terminal in the Launcher, or choose File → New → Terminal. This is where you will start your agent. You only need a few commands yourself:\n\n\n\nCommand\nWhat it does\n\n\n\n\npwd\nShows which folder you are in\n\n\nls\nLists the files here (ls -a also shows hidden ones)\n\n\ncd folder\nMoves into a folder\n\n\ncd ..\nMoves up one folder\n\n\ncd ~\nGoes back to your home folder\n\n\n\nThe agent will run most other commands for you, and it asks before it runs anything risky. New to the shell? Try the Software Carpentry shell lesson.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-file-browser",
+    "href": "setup/02-jupyterlab.html#the-file-browser",
+    "title": "Find your way around JupyterLab",
+    "section": "The file browser",
+    "text": "The file browser\nThe folder icon at the far left opens the file browser. Use it to move between folders, make a new one (the folder icon with a +), and right-click a file to rename or delete it. When an agent writes a file, it shows up here. Open it and read it.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#notebooks",
+    "href": "setup/02-jupyterlab.html#notebooks",
+    "title": "Find your way around JupyterLab",
+    "section": "Notebooks",
+    "text": "Notebooks\nClick Python 3 in the Launcher to open a new notebook. A notebook is a list of cells, and each cell is either code or Markdown.\n\nRun a cell: press Shift + Enter.\nRun all cells: use the Run menu.\nAdd a cell: click the + in the notebook toolbar.\nChange the cell type: use the drop-down in the toolbar (Code / Markdown).\n\nTo open a notebook that someone else wrote, or that the agent wrote, double-click it in the file browser.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#installing-packages",
+    "href": "setup/02-jupyterlab.html#installing-packages",
+    "title": "Find your way around JupyterLab",
+    "section": "Installing packages",
+    "text": "Installing packages\n%pip install package in a notebook cell installs a package for the current session only. It will be gone the next time your server starts. If something should always be there, ask for it to be added to the hub image.\nAdapted from NMFS HackDays 2025: Intro to JupyterLab.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html",
+    "href": "setup/04-git-with-agent.html",
+    "title": "Git and GitHub, with an agent",
+    "section": "",
+    "text": "Your hackathon work lives in a GitHub repository, so you need a GitHub account. That matters more than usual here: the workshop hub is deleted a week after the hackathon, and GitHub is where your work survives. Git is a lot to learn in one week, and you do not have to: your agent can run the git commands for you. You make the decisions (what to save, when to share it, and whether a change is right), and the agent types the commands.\nTo do that, the agent needs to reach GitHub as you. You set that up once, with gh auth login.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#why-gh-auth-login",
+    "href": "setup/04-git-with-agent.html#why-gh-auth-login",
+    "title": "Git and GitHub, with an agent",
+    "section": "Why gh auth login?",
+    "text": "Why gh auth login?\ngh is GitHub’s command-line tool, and it is already installed on the hub. Logging in with it does two things:\n\ngit can push and pull over HTTPS without asking you for a password, because gh stores the credential for it.\ngh itself can open pull requests, read issues and check on a repository. Agents use it all the time.\n\nEverything the agent does through gh is done in your name, so decide how much it can reach.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#choose-how-much-access",
+    "href": "setup/04-git-with-agent.html#choose-how-much-access",
+    "title": "Git and GitHub, with an agent",
+    "section": "Choose how much access",
+    "text": "Choose how much access\n\nToken for one repository (safer)Full access\n\n\nThe agent can push to your hackathon repository and nothing else.\n\nGo to https://github.com/settings/personal-access-tokens/new.\nToken name: JupyterHub agent, IOOS hackathon. Expiration: a few days after the hackathon.\nRepository access: Only select repositories, then pick your project repository.\nRepository permissions: set Contents, Pull requests and Issues to Read and write. Leave the rest at No access.\nClick Generate token and copy it. GitHub shows it only once.\n\nThen, in a terminal, run gh auth login and answer:\n\nWhere do you use GitHub? GitHub.com\nPreferred protocol? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate? Paste an authentication token\n\n\n\nThe agent can do anything you can on GitHub, in every repository you can reach, including private ones.\nIn a terminal, run gh auth login and answer:\n\nWhere do you use GitHub? GitHub.com\nPreferred protocol? HTTPS\nAuthenticate Git with your GitHub credentials? Yes\nHow would you like to authenticate? Login with a web browser\n\nIt prints a one-time code. Open the link, paste the code, and approve.\n\n\n\nCheck that it worked:\ngh auth status",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#tell-git-who-you-are",
+    "href": "setup/04-git-with-agent.html#tell-git-who-you-are",
+    "title": "Git and GitHub, with an agent",
+    "section": "Tell git who you are",
+    "text": "Tell git who you are\nCommits need a name and an email. Do this once:\ngit config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"\nUse the email on your GitHub account. If you would rather keep it private, use the noreply address shown at https://github.com/settings/emails.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#let-the-agent-do-git",
+    "href": "setup/04-git-with-agent.html#let-the-agent-do-git",
+    "title": "Git and GitHub, with an agent",
+    "section": "Let the agent do git",
+    "text": "Let the agent do git\nAsk for the outcome you want, not the command. For example:\n\n\n\n\n\n\n\nYou want to…\nSay to the agent\n\n\n\n\nGet a copy of a repository\n“Clone github.com/ocean-icechunks/2026-ioos-hackathon into my home folder.”\n\n\nSee what you changed\n“What have I changed since the last commit?”\n\n\nSave your work\n“Make a new branch and commit these changes with a clear message.”\n\n\nShare it\n“Push the branch and open a pull request. Explain what changed in the description.”\n\n\nCatch up with your team\n“Pull the latest changes from main and tell me what is new.”\n\n\nRecover from a mess\n“Git says there is a merge conflict. Explain what happened before you fix anything.”\n\n\n\nThree habits keep this safe:\n\nWork on a branch, and merge through a pull request. Ask the agent never to push to main.\nRead the change before it is committed. Ask “show me the diff” if the agent does not.\nNever let credentials into a commit. Keys and tokens belong in environment variables or in a file listed in .gitignore. The ocean-icechunks skill already insists on this.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "setup/04-git-with-agent.html#learn-the-basics-anyway",
+    "href": "setup/04-git-with-agent.html#learn-the-basics-anyway",
+    "title": "Git and GitHub, with an agent",
+    "section": "Learn the basics anyway",
+    "text": "Learn the basics anyway\nIt helps to know what the agent is doing on your behalf: clone, commit, push and pull. The NMFS HackDays lesson Basic Git/GitHub skills in the terminal walks through all four in about 20 minutes. Or ask your agent to explain each command as it runs it.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Git and GitHub, with an agent"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html",
+    "href": "agent-skills/01-safe-agent-practices.html",
+    "title": "Human in the loop: safe agent practices",
+    "section": "",
+    "text": "A coding agent can read files, run commands and push to GitHub as you. That is what makes it useful, and it is also why you stay in the loop. You make the decisions and review the result; the agent does the typing. The six practices below keep it that way. None of them needs special software: most are a habit, or a line you put in your repository’s agent instructions.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#review-every-change-before-it-reaches-main",
+    "href": "agent-skills/01-safe-agent-practices.html#review-every-change-before-it-reaches-main",
+    "title": "Human in the loop: safe agent practices",
+    "section": "1 · Review every change before it reaches main",
+    "text": "1 · Review every change before it reaches main\nLet the agent work on a branch and open a pull request. You read the pull request, try it if it matters, and merge it yourself. The agent does not push to main and does not merge.\n\nTell it so, at the start of the session or in AGENTS.md: “Work on a branch and open a pull request. Never push to main, and never merge.”\nBefore you merge, ask it to summarize what the pull request changes. If the summary surprises you, read the diff more closely.\n“Done” means done being written, not done being checked.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#ask-for-the-intent-and-for-proof-that-it-works",
+    "href": "agent-skills/01-safe-agent-practices.html#ask-for-the-intent-and-for-proof-that-it-works",
+    "title": "Human in the loop: safe agent practices",
+    "section": "2 · Ask for the intent, and for proof that it works",
+    "text": "2 · Ask for the intent, and for proof that it works\nA reviewer, you or another agent, can only check code against what it was meant to do. Ask the agent to write that down.\n\nComments for the why. Workarounds, non-obvious choices, things that look wrong but are deliberate. Not a narration of every line, which makes code harder to review.\nNotes for decisions. Keep a short AGENTS.md with the repository’s rules, and a notes file for decisions and the evidence behind them. They also help the next session, which starts with no memory of this one.\nProof by running. “I read it and it looks right” is not a test. Ask the agent to run the code, ideally in a fresh environment that has only the packages the repository declares, and to say in the pull request what it ran and what it did not.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#check-every-new-package",
+    "href": "agent-skills/01-safe-agent-practices.html#check-every-new-package",
+    "title": "Human in the loop: safe agent practices",
+    "section": "3 · Check every new package",
+    "text": "3 · Check every new package\nAgents sometimes suggest packages that do not exist, or have a name one letter off from a real one. Installing the wrong one runs someone else’s code on your account.\n\nBefore the agent installs a package by name (pip install something), have it confirm the exact name on PyPI, conda-forge or npm, with a maintainer and release history that make sense, and tell you why it is needed.\nPrefer packages the project already uses.\nNew packages go into the repository’s dependency file (requirements.txt, environment.yml) and are listed in the pull request, so you review them with the code.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#know-what-the-agent-can-reach-and-what-needs-your-approval",
+    "href": "agent-skills/01-safe-agent-practices.html#know-what-the-agent-can-reach-and-what-needs-your-approval",
+    "title": "Human in the loop: safe agent practices",
+    "section": "4 · Know what the agent can reach, and what needs your approval",
+    "text": "4 · Know what the agent can reach, and what needs your approval\n\nThe hub is the sandbox. Your agent runs on a cloud server that holds your hackathon work, not on your laptop next to your email and documents. That is a good place for an agent. Think twice before running one with broad permissions on a machine that has sensitive files.\nKeep the approval prompts on. Claude Code, Codex and Antigravity all ask before running commands they are unsure of. Each also has a mode that skips every prompt. Do not use it. Allow routine, read-only commands if the prompts slow you down, but keep the prompts for anything that deletes, pushes, installs or merges.\nSome actions always need you: merging a pull request, deleting a branch or repository, force-pushing or rewriting history, deleting files outside the project, and installing a new package. Say so in AGENTS.md.\nOne repository per session. Ask the agent to work only in the repository it started in, and to ask before touching any other.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#keep-credentials-out-of-code",
+    "href": "agent-skills/01-safe-agent-practices.html#keep-credentials-out-of-code",
+    "title": "Human in the loop: safe agent practices",
+    "section": "5 · Keep credentials out of code",
+    "text": "5 · Keep credentials out of code\n\nNever paste a key, token or password into a notebook, script or chat that ends up in a repository. On the hub, the scratch bucket uses the hub’s own credentials, so your code needs none.\nGive the agent a credential with the least access that works and an expiry date, like the fine-grained GitHub token in Git and GitHub, with an agent.\nYour prompts and code go to the company that runs your agent. Check your subscription’s privacy settings, and do not give the agent data you are not allowed to share with that company.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#mark-agent-written-work-as-such",
+    "href": "agent-skills/01-safe-agent-practices.html#mark-agent-written-work-as-such",
+    "title": "Human in the loop: safe agent practices",
+    "section": "6 · Mark agent-written work as such",
+    "text": "6 · Mark agent-written work as such\nSay where an agent helped, so reviewers know what they are looking at.\n\nAsk the agent to end each commit it makes with a co-author line, for example Co-Authored-By: Agent &lt;agent@noreply.invalid&gt;, and each pull request with a line saying it was generated with an AI coding agent.\nAdd a short “AI assistance” note to the README: parts of the code were written with AI coding agents, and every change was reviewed by a person before it was merged.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#put-it-in-agents.md",
+    "href": "agent-skills/01-safe-agent-practices.html#put-it-in-agents.md",
+    "title": "Human in the loop: safe agent practices",
+    "section": "Put it in AGENTS.md",
+    "text": "Put it in AGENTS.md\nMost of this fits in a few lines at the top of your repository’s AGENTS.md, which Codex and Antigravity read at the start of every session. Claude Code reads CLAUDE.md instead, so add a CLAUDE.md holding the single line @AGENTS.md.\n## Working rules\n\n- Work on a branch and open a pull request. Never push to main; never merge.\n- Ask before deleting branches, rewriting history, or touching another repo.\n- Before installing a new package, confirm it exists on PyPI or conda-forge,\n  say why it is needed, and add it to requirements.txt.\n- Comment the why, not the what. Record decisions in agent/notes.md.\n- Test by running in a clean environment. Say in the PR what ran and what did not.\n- Never write a credential into a tracked file.\n- End commits with `Co-Authored-By: Agent &lt;agent@noreply.invalid&gt;`.\nAn instruction is something the agent follows, not something it is forced to follow. Your review of each pull request is the check that does not depend on the agent.\nAdapted from Eli Holmes’s notes on how she meets NOAA’s AI-assisted coding practices.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
     ]
   },
   {

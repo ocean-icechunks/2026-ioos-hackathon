@@ -10,6 +10,7 @@ project:
     - index.qmd
     - resources.qmd
     - setup/*.qmd
+    - agent-skills/*.qmd
     - slides/*.qmd
     - examples/index.qmd
     - examples/*.ipynb
@@ -52,6 +53,10 @@ website:
               text: "Git and GitHub, with an agent"
             - href: setup/05-scratch-bucket.qmd
               text: "The scratch bucket"
+        - section: Agent Skills
+          contents:
+            - href: agent-skills/01-safe-agent-practices.qmd
+              text: "Human in the loop"
         - section: Lectures
           contents:
             - href: slides/01-why-virtual.qmd
