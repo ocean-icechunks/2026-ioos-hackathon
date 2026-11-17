@@ -45,6 +45,16 @@ install-user-tools claude agy    # both
 `install-user-tools --list` shows what it can install. It does not install
 Codex; for that, see the next section.
 
+**Then put `~/.local/bin` on your path.** The image does not do this yet, so
+without it you get "claude: command not found". Run this once:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.profile && export PATH="$HOME/.local/bin:$PATH"
+```
+
+The first half fixes every new terminal (hub terminals read `~/.profile`); the
+second fixes the one you are in.
+
 ### Codex, or a hub without the helper
 
 Use the agent's own installer:
@@ -86,8 +96,9 @@ which claude    # or codex, or agy   -> /home/jovyan/.local/bin/...
 ::: {.callout-tip}
 ## Good to know
 
-- **"Command not found" in a new terminal?** Add
-  `export PATH="$HOME/.local/bin:$PATH"` to `~/.bashrc`.
+- **"Command not found" in a new terminal?** Run the `~/.profile` line above.
+  If you have a `~/.bash_profile`, bash reads it instead of `~/.profile`: put
+  `export PATH="$HOME/.local/bin:$PATH"` there.
 - **Your home directory has a 20 GiB quota.** Claude Code keeps several
   versions (about 230 MB in `~/.local/share/claude`); Antigravity is about
   280 MB. To see what is using space: `du -sh ~/.local ~/.cache`
