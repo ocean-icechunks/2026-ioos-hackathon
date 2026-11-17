@@ -448,6 +448,28 @@
     ]
   },
   {
+    "objectID": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
+    "href": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
+    "title": "Why virtual Icechunk?",
+    "section": "Why Icechunk, not Kerchunk?",
+    "text": "Why Icechunk, not Kerchunk?\nKerchunk made virtual datasets possible. Icechunk makes them safe to share and keep up to date.\n\nTransactions. Commits are atomic, with snapshots and rollback. Kerchunk references are plain JSON or Parquet files that anyone can overwrite.\nSafe appends. New files are added in a commit, and readers never see a half-written store. With Kerchunk you rewrite the references yourself.\nZarr-native. The store is a real Zarr store, so any Zarr reader opens it. Kerchunk needs an extra fsspec reference layer.\nScale. Chunk manifests are built for huge chunk counts. Very large JSON reference sets are slow to load.\nModern I/O. The stack reads through Rust and obstore, not fsspec: more flexible (S3, GCS, Azure, local, HTTP) and fast under many concurrent requests.\n\n\nKerchunk was the first way to get a virtual dataset, and it is still fine for a quick one-off. The problems show up when a dataset is shared and grows: there is no versioning, no atomic update, and no protection from two writers.\nOn I/O: Icechunk’s Rust core uses the Rust object_store crate. obstore is the Python binding to the same crate, and VirtualiZarr uses it to read NetCDF metadata (the ObjectStoreRegistry in the notebook). Kerchunk goes through fsspec. obstore’s own benchmarks show large gains over fsspec for many concurrent requests; say “in our experience” unless you have timed your own case.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
+    "objectID": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
+    "href": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
+    "title": "Why virtual Icechunk?",
+    "section": "Handling forecast model run collections",
+    "text": "Handling forecast model run collections\nA forecast model writes a new file every day. Keep every run, not just the latest.\n\nTwo time dimensions. time is the forecast reference time, one value per file. step is the lead time, the same in every file. Data are (time, step, ...).\nAppend along time. Each new file adds one entry. Nothing is rewritten.\nValid time is computed. It is time + step, never stored.\nPick a run, or a best estimate. Select one forecast, or stitch the newest hours from every run into one continuous series.\n\n\nOne store holds the whole history of every forecast.\n\n\nThe raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.\nIn the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per file before the concat: rename the time dimension to step, make the first valid time the scalar reference time, then concatenate along time. All files must have the same number of steps. Static variables (bathymetry, mesh connectivity) must be kept out of the concat, or they get stacked once per run.\nBest estimate is computed at read time, with Rolodex. Worked example: the Taranto SHYFEM forecast store in the MAGICA school notebooks.",
+    "crumbs": [
+      "Lectures",
+      "1 · Why virtual Icechunk"
+    ]
+  },
+  {
     "objectID": "slides/01-why-virtual.html#new-tools-make-this-much-easier",
     "href": "slides/01-why-virtual.html#new-tools-make-this-much-easier",
     "title": "Why virtual Icechunk?",
@@ -1177,6 +1199,17 @@
     ]
   },
   {
+    "objectID": "slides/06-visualize.html#bonus-find-stores-with-stac",
+    "href": "slides/06-visualize.html#bonus-find-stores-with-stac",
+    "title": "Visualizing Icechunk stores",
+    "section": "Bonus: find stores with STAC",
+    "text": "Bonus: find stores with STAC\nIf we have time and interest: with many stores, how do you find the ones that cover your place and period? Describe each store as a STAC item, with its bounding box, time range and variables.\n\nstac-geoparquet holds all the items in one file\nrustac searches it by place and time\nxpystac opens a match in xarray\n\nhits = await rustac.search(\"ocean-icechunks-items.parquet\",\n                           bbox=[-158.5, 20.5, -157.5, 21.5],  # Oahu\n                           datetime=\"2026-01-01/2026-02-01\")   # 3 of 8 stores match\nitem = pystac.Item.from_dict(next(h for h in hits if h[\"id\"] == \"pacioos-roms_hiig\"))\nds = xr.open_dataset(item.assets[\"data\"], engine=\"stac\")\nBuild the catalog, then search it →\n\nBonus material. The two notebooks are stac-geoparquet-create (walks the ocean-icechunks bucket on Source Cooperative and writes one item per store to a local geoparquet file) and stac-geoparquet-query (searches it and opens the matches). Nothing is stored in the repository: everyone builds the catalog themselves, which takes about a minute.\nThe search above was run on 2026-11-17 and returns noaa-ohc-np, pacioos-roms_hiig and pacioos-ww3_hawaii. The ocean heat content stores keep their data in groups (14day, 14day_v1, daily), and xpystac cannot open a group yet, so the query notebook opens those by hand. It needs an xpystac newer than release 0.5.0. Check that the workshop image has one before presenting this.",
+    "crumbs": [
+      "Lectures",
+      "6 · Visualizing"
+    ]
+  },
+  {
     "objectID": "slides/06-visualize.html#thats-the-tour",
     "href": "slides/06-visualize.html#thats-the-tour",
     "title": "Visualizing Icechunk stores",
@@ -1339,28 +1372,6 @@
     "crumbs": [
       "Examples",
       "5 · OISST: Gulf of Maine marine heatwaves"
-    ]
-  },
-  {
-    "objectID": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
-    "href": "slides/01-why-virtual.html#why-icechunk-not-kerchunk",
-    "title": "Why virtual Icechunk?",
-    "section": "Why Icechunk, not Kerchunk?",
-    "text": "Why Icechunk, not Kerchunk?\nKerchunk made virtual datasets possible. Icechunk makes them safe to share and keep up to date.\n\nTransactions. Commits are atomic, with snapshots and rollback. Kerchunk references are plain JSON or Parquet files that anyone can overwrite.\nSafe appends. New files are added in a commit, and readers never see a half-written store. With Kerchunk you rewrite the references yourself.\nZarr-native. The store is a real Zarr store, so any Zarr reader opens it. Kerchunk needs an extra fsspec reference layer.\nScale. Chunk manifests are built for huge chunk counts. Very large JSON reference sets are slow to load.\nModern I/O. The stack reads through Rust and obstore, not fsspec: more flexible (S3, GCS, Azure, local, HTTP) and fast under many concurrent requests.\n\n\nKerchunk was the first way to get a virtual dataset, and it is still fine for a quick one-off. The problems show up when a dataset is shared and grows: there is no versioning, no atomic update, and no protection from two writers.\nOn I/O: Icechunk’s Rust core uses the Rust object_store crate. obstore is the Python binding to the same crate, and VirtualiZarr uses it to read NetCDF metadata (the ObjectStoreRegistry in the notebook). Kerchunk goes through fsspec. obstore’s own benchmarks show large gains over fsspec for many concurrent requests; say “in our experience” unless you have timed your own case.",
-    "crumbs": [
-      "Lectures",
-      "1 · Why virtual Icechunk"
-    ]
-  },
-  {
-    "objectID": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
-    "href": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
-    "title": "Why virtual Icechunk?",
-    "section": "Handling forecast model run collections",
-    "text": "Handling forecast model run collections\nA forecast model writes a new file every day. Keep every run, not just the latest.\n\nTwo time dimensions. time is the forecast reference time, one value per file. step is the lead time, the same in every file. Data are (time, step, ...).\nAppend along time. Each new file adds one entry. Nothing is rewritten.\nValid time is computed. It is time + step, never stored.\nPick a run, or a best estimate. Select one forecast, or stitch the newest hours from every run into one continuous series.\n\n\nOne store holds the whole history of every forecast.\n\n\nThe raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.\nIn the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per file before the concat: rename the time dimension to step, make the first valid time the scalar reference time, then concatenate along time. All files must have the same number of steps. Static variables (bathymetry, mesh connectivity) must be kept out of the concat, or they get stacked once per run.\nBest estimate is computed at read time, with Rolodex. Worked example: the Taranto SHYFEM forecast store in the MAGICA school notebooks.",
-    "crumbs": [
-      "Lectures",
-      "1 · Why virtual Icechunk"
     ]
   }
 ]
