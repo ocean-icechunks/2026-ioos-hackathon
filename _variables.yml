@@ -2,3 +2,5 @@
 hub:
   url: https://workshop.nmfs-openscapes.2i2c.cloud/
   home: https://workshop.nmfs-openscapes.2i2c.cloud/hub/home
+  # Custom image for "Image: Other". Temporary test tag; to be replaced.
+  image: ghcr.io/nmfs-opensci/py-rocket-geospatial-2/test:501bd72
