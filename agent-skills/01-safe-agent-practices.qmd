@@ -125,6 +125,3 @@ reads `CLAUDE.md` instead, so add a `CLAUDE.md` holding the single line
 An instruction is something the agent follows, not something it is forced to
 follow. Your review of each pull request is the check that does not depend on
 the agent.
-
-[Adapted from Eli Holmes's notes on how she meets NOAA's AI-assisted coding
-practices.]{.small}
