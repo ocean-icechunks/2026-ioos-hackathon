@@ -110,7 +110,8 @@ do here too.
 
 In practice:
 
-- Use public data for hackathon work. The examples on this site all are.
+- Use public data, and public or non-sensitive code, for hackathon work. The
+  examples on this site use only public data and public code.
 - Keep restricted files out of any folder the agent works in. An agent reads
   whatever it decides is relevant, not only the files you point it at.
 - If you are not sure whether something is public, do not give it to the agent.
