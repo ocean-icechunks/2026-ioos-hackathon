@@ -2,11 +2,12 @@
 
 Rolling state for agents. This is orientation, not a task list.
 
-## Repo state (2026-11-14, after PR #8)
+## Repo state (2026-11-17, after PR #16)
 
 - The virtual Icechunk tutorial site for the 2026 IOOS Hackathon. Eli Holmes and
   Rich Signell lead the project.
-- Sidebar: Home, JupyterHub Skills, **Lectures** (six decks), **Examples**
+- Sidebar: Home, JupyterHub Skills, **Agent Skills** (one page so far),
+  **Lectures** (six decks), **Examples**
   (landing page `examples/index.qmd` + six notebooks), Resources.
 - Live at
   <https://ocean-icechunks.github.io/2026-ioos-hackathon> (GitHub Pages, `main`
@@ -50,8 +51,15 @@ Rolling state for agents. This is orientation, not a task list.
 - **The skill's bad `to_icechunk(encoding=...)` snippet:**
   ocean-icechunks/ocean-icechunks-skills#13 is filed, and the skill is not
   fixed yet. The tutorial already uses the working form.
-- **Never verified on the workshop hub:** scratch bucket, image, machine sizes.
-  Only the main hub was checked.
+- **Hub image is temporary.** Participants pick "Image: Other" and paste
+  `hub.image` from `_variables.yml`, currently the test tag
+  `ghcr.io/nmfs-opensci/py-rocket-geospatial-2/test:501bd72`. Eli said on
+  2026-11-17 a new URL comes later that day: change that one line and render.
+- **Never verified on the workshop hub:** scratch bucket, the custom image,
+  machine sizes. Only the main hub was checked.
+- **Agent Skills section is a stub on purpose.** Eli asked for only the
+  human-in-the-loop page for now ("don't flesh it out yet"), and said it is
+  fine that the home page and setup pages do not link to it yet.
 - **Examples not checked:** run times on Colab (only the hub was timed; OISST
   may be slower there, GOBAI faster), and the landing page's sample prompt has
   not been run through an agent. The home page's Examples paragraph does not
@@ -61,6 +69,17 @@ Rolling state for agents. This is orientation, not a task list.
   slides). Eli checked chapter 2's flowcharts in a browser on 2026-11-14.
 
 ## Recently shipped
+
+- PR #16 (merged 2026-11-17, branch deleted): Agent Skills section with
+  `agent-skills/01-safe-agent-practices.qmd`, seven practices adapted from
+  `~/claude-config/docs/agent-guards.md` for participants. Eli's own hooks,
+  Vertex and telemetry were left out on purpose. Section 6 on non-public data
+  is in Eli's framing: personal info in a chatbot is your own risk, but work
+  data at NOAA, other agencies and companies is under actual rules; use public
+  data and public or non-sensitive code. No "adapted from" credit line (Eli
+  had it removed).
+- PR #15 (merged 2026-11-17, branch deleted): login step 3 uses the custom
+  image (`hub.image`); the password is given in person or by DM.
 
 - PR #8 (merged 2026-11-14, branch deleted): the example notebooks' Colab
   badge is an HTML `<a><img alt=...></a>` on purpose. Markdown `![Open In
