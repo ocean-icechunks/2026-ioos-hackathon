@@ -71,6 +71,10 @@ website:
               text: "5 · Building a store"
             - href: slides/06-visualize.qmd
               text: "6 · Visualizing"
+            - href: slides/07-bonus-fmrc.qmd
+              text: "7 · Bonus: Forecast model run collections"
+            - href: slides/08-bonus-stac.qmd
+              text: "8 · Bonus: Finding stores with STAC"
         - section: Examples
           href: examples/index.qmd
           contents:

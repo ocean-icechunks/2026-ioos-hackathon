@@ -195,6 +195,127 @@
     ]
   },
   {
+    "objectID": "slides/07-bonus-fmrc.html#a-new-run-every-few-hours",
+    "href": "slides/07-bonus-fmrc.html#a-new-run-every-few-hours",
+    "title": "Bonus: forecast model run collections",
+    "section": "A new run every few hours",
+    "text": "A new run every few hours\nIf we have time and interest. Operational models write a new forecast run on a schedule. Each file is a time series of valid times: when the model says things will happen.\n\nJoin the files end to end, and the older runs are lost. Every update means trimming and rewriting the tail\nBut people ask for different things: the latest forecast, one specific run, or a best estimate, a continuous series that uses the newest run for every hour\nTo answer all three, the store must keep every run\n\n\nThis expands the slide in lecture 1. A run is also called a cycle, or a forecast model run collection (FMRC) once you keep them all. The skill is building-fmrc-virtual-icechunk in ocean-icechunks-skills.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#two-time-dimensions",
+    "href": "slides/07-bonus-fmrc.html#two-time-dimensions",
+    "title": "Bonus: forecast model run collections",
+    "section": "Two time dimensions",
+    "text": "Two time dimensions\n\n\n\n\n\n\n\n\nDimension\nMeaning\nValues\n\n\n\n\ntime\nforecast reference time: when the run started\none per run, appended\n\n\nstep\nlead time: hours after the run started\nthe same in every run\n\n\n\n\nData variables are (time, step, ...), with one chunk per run\nValid time is time + step. It is computed when you read, never stored\n\n\nAppending a new run adds one entry along time. Nothing already in the store is rewritten.\n\n\nDo not flatten this to a single valid-time dimension, with each new file appended after the last. That is a different product, a best-estimate series. It discards the older runs.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#our-example-gomofs",
+    "href": "slides/07-bonus-fmrc.html#our-example-gomofs",
+    "title": "Bonus: forecast model run collections",
+    "section": "Our example: GoMOFS",
+    "text": "Our example: GoMOFS\n\n3 runs: 10 to 12 November 2026, 00Z\n75 NetCDF files, 55 GB, left in place\n401 kB Icechunk store\n\nNOAA’s Gulf of Maine model runs four times a day. Each run is 25 files: the nowcast valid at the run time, and a forecast every 3 hours out to 72 hours.\n\nNumbers from running the notebook on 2026-11-17. The files are NOAA’s public GoMOFS output (noaa-nos-ofs-pds). We use the 00Z run of three days, to keep the notebook quick. The nowcast file n006 is valid at the run time, so it is lead 0.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#one-run-becomes-time-step",
+    "href": "slides/07-bonus-fmrc.html#one-run-becomes-time-step",
+    "title": "Bonus: forecast model run collections",
+    "section": "1 · One run becomes (time, step)",
+    "text": "1 · One run becomes (time, step)\n# ds: the 25 files of one run, joined along the valid time (ocean_time)\nref = pd.Timestamp(cycle)                         # the run's reference time\nvalid = pd.DatetimeIndex(ds[\"ocean_time\"].values)\n\nds = ds.rename_dims(ocean_time=\"step\").drop_vars(\"ocean_time\")\nds = ds.assign_coords(step=(\"step\", (valid - ref).values))      # lead time\n\nvarying = [v for v in ds.data_vars if \"step\" in ds[v].dims]\nstatic = ds.drop_vars(varying)                                  # grid, mask, ...\nds = xr.merge([ds[varying].expand_dims(time=[np.datetime64(ref)]), static],\n              compat=\"override\", combine_attrs=\"override\")\n\nAn excerpt of open_cycle in the notebook gomofs-fmrc-icechunk. The notebook also checks that the valid times in the files agree with the times in the file names, so the step axis cannot lie.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#where-runs-go-wrong",
+    "href": "slides/07-bonus-fmrc.html#where-runs-go-wrong",
+    "title": "Bonus: forecast model run collections",
+    "section": "Where runs go wrong",
+    "text": "Where runs go wrong\n\nStatic variables. Grid and mask variables, like h and mask_rho, have no time. Add time only to variables that vary with step. Otherwise every run stores its own copy of the grid\nTime encoding. Pin the units of time and step. Left to xarray, they depend on each run’s own values, and a run appended later can decode to the wrong date\nSame steps in every run. step is one shared dimension. Check the lead times match before combining, with a clear error\nReference time from the file. Use the file’s own first time, not the date in its name. File names can be off by a day\n\n\nThe first two are the ones people hit. A static variable stacked per run looks fine until you notice the store is much larger than expected, and a wrongly encoded append gives dates that are off with no error.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#create-then-append",
+    "href": "slides/07-bonus-fmrc.html#create-then-append",
+    "title": "Bonus: forecast model run collections",
+    "section": "2 · Create, then append",
+    "text": "2 · Create, then append\ndef commit_cycle(repo, cycle, ds, append):\n    session = repo.writable_session(\"main\")\n    if append:\n        ds_time = ds.drop_vars([v for v in ds.variables if \"time\" not in ds[v].dims])\n        ds_time.vz.to_icechunk(session.store, append_dim=\"time\")\n    else:\n        ds.vz.to_icechunk(session.store)\n    session.commit(f\"GoMOFS cycle {cycle:%Y-%m-%d %Hz}\")\n\ncommit_cycle(repo, first, one_cycle, append=False)     # create\ncommit_cycle(repo, second, open_cycle(second, cycles[second]), append=True)   # append\n\nOne commit per run. An append carries only the variables that have a time dimension, because writing the static variables again would rewrite their metadata, which VirtualiZarr refuses. open_cycle takes a run’s reference time and its files: it is the reshaping on the previous slides, applied to the next run.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#daily-updates-diff-on-reference-time",
+    "href": "slides/07-bonus-fmrc.html#daily-updates-diff-on-reference-time",
+    "title": "Bonus: forecast model run collections",
+    "section": "3 · Daily updates: diff on reference time",
+    "text": "3 · Daily updates: diff on reference time\nds = xr.open_zarr(repo.readonly_session(\"main\").store, consolidated=False, chunks={})\n\nset_repo = set(pd.to_datetime(ds.time.values).strftime(\"%Y%m%d\"))   # runs in the store\nnew = sorted(set_cloud - set_repo)                                  # only in the bucket\n\nCompare reference times, so a rerun never adds a run twice\nAppend in increasing time order, so sort the new runs first\n\n\nset_cloud is the set of complete runs found in the bucket, keyed the same way, as in section 1 of the notebook. If the bucket’s folder dates differ from the reference time, apply that offset in one place and comment on it. Run on the store from the notebook with a fourth run in the bucket, it returns just the fourth run.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#read-it-best-estimate-with-rolodex",
+    "href": "slides/07-bonus-fmrc.html#read-it-best-estimate-with-rolodex",
+    "title": "Bonus: forecast model run collections",
+    "section": "4 · Read it: best estimate with Rolodex",
+    "text": "4 · Read it: best estimate with Rolodex\nimport rolodex.forecast\nfrom rolodex.forecast import BestEstimate, ForecastIndex\n\nds.coords[\"valid_time\"] = rolodex.forecast.create_lazy_valid_time_variable(\n    reference_time=ds.time, period=ds.step)                    # time + step\nfmrc = ds.drop_indexes([\"time\", \"step\"]).set_xindex(\n    [\"time\", \"step\", \"valid_time\"], ForecastIndex)\n\nbest = fmrc.sel(valid_time=BestEstimate(offset=6))   # newest run for every hour\n\nRolodex (github.com/dcherian/rolodex) adds an xarray index. offset=6 starts each run at step 6, which is 18 hours in with 3-hour steps, so the first hours of every run, while the model settles, are skipped. The result has one dimension, valid_time, and time and step say which run and lead each value came from. For our three runs it has 35 valid times. The notebook pins Rolodex to commit 527bd42; main was the same commit on 2026-11-17.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#best-estimate-and-the-runs",
+    "href": "slides/07-bonus-fmrc.html#best-estimate-and-the-runs",
+    "title": "Bonus: forecast model run collections",
+    "section": "Best estimate and the runs",
+    "text": "Best estimate and the runs\n\nSea surface height near NERACOOS buoy B01 from three GoMOFS runs (colored lines) and the best estimate (grey band), which uses the newest run for every hour.\nSame selection code as the Rolodex notebook, run on 2026-11-17, with the plot redrawn for the slide so the runs show through. The blue run (10 November) is used until 18:00 on 11 November, when the 11 November run takes over, and the 12 November run takes over a day later. The first 18 hours of the first run are not in the best estimate, because of offset=6. The runs agree closely in this window.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#try-it",
+    "href": "slides/07-bonus-fmrc.html#try-it",
+    "title": "Bonus: forecast model run collections",
+    "section": "Try it",
+    "text": "Try it\nBuild the store from NOAA’s GoMOFS files →\nRead it with Rolodex →\nRun the second notebook on the same machine and in the same folder, because it reads the store the first one writes. The first takes about four minutes.",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
+    "objectID": "slides/07-bonus-fmrc.html#back-to-the-start",
+    "href": "slides/07-bonus-fmrc.html#back-to-the-start",
+    "title": "Bonus: forecast model run collections",
+    "section": "Back to the start",
+    "text": "Back to the start\n\nBack to the start, and the Resources page\nNext, if you have time: finding stores with STAC",
+    "crumbs": [
+      "Lectures",
+      "7 · Bonus: Forecast model run collections"
+    ]
+  },
+  {
     "objectID": "slides/05-build.html#our-skill-builds-up-to-production",
     "href": "slides/05-build.html#our-skill-builds-up-to-production",
     "title": "Building a virtual Icechunk store",
@@ -463,7 +584,7 @@
     "href": "slides/01-why-virtual.html#handling-forecast-model-run-collections",
     "title": "Why virtual Icechunk?",
     "section": "Handling forecast model run collections",
-    "text": "Handling forecast model run collections\nA forecast model writes a new file every day. Keep every run, not just the latest.\n\nTwo time dimensions. time is the forecast reference time, one value per file. step is the lead time, the same in every file. Data are (time, step, ...).\nAppend along time. Each new file adds one entry. Nothing is rewritten.\nValid time is computed. It is time + step, never stored.\nPick a run, or a best estimate. Select one forecast, or stitch the newest hours from every run into one continuous series.\n\n\nOne store holds the whole history of every forecast.\n\n\nThe raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.\nIn the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per file before the concat: rename the time dimension to step, make the first valid time the scalar reference time, then concatenate along time. All files must have the same number of steps. Static variables (bathymetry, mesh connectivity) must be kept out of the concat, or they get stacked once per run.\nBest estimate is computed at read time, with Rolodex. Worked example: the Taranto SHYFEM forecast store in the MAGICA school notebooks.",
+    "text": "Handling forecast model run collections\nA forecast model writes a new file every day. Keep every run, not just the latest.\n\nTwo time dimensions. time is the forecast reference time, one value per file. step is the lead time, the same in every file. Data are (time, step, ...).\nAppend along time. Each new file adds one entry. Nothing is rewritten.\nValid time is computed. It is time + step, never stored.\nPick a run, or a best estimate. Select one forecast, or stitch the newest hours from every run into one continuous series.\n\n\nOne store holds the whole history of every forecast. Bonus lecture 7 builds one.\n\n\nThe raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.\nIn the agent skill (building-fmrc-virtual-icechunk), the reshaping is done per file before the concat: rename the time dimension to step, make the first valid time the scalar reference time, then concatenate along time. All files must have the same number of steps. Static variables (bathymetry, mesh connectivity) must be kept out of the concat, or they get stacked once per run.\nBest estimate is computed at read time, with Rolodex. Worked example: the Taranto SHYFEM forecast store in the MAGICA school notebooks.",
     "crumbs": [
       "Lectures",
       "1 · Why virtual Icechunk"
@@ -946,6 +1067,17 @@
     ]
   },
   {
+    "objectID": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
+    "href": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
+    "title": "Human in the loop: safe agent practices",
+    "section": "6 · Keep non-public data away from the agent",
+    "text": "6 · Keep non-public data away from the agent\nYour prompts, your code, and any file the agent reads go to the company that runs your agent. Check your subscription’s privacy settings, and treat anything the agent can see as shared with that company.\nPlenty of people paste their own personal information into chatbots. That is a bad idea, but it is their own information and their own risk. Work data is different. At NOAA, at any other agency, and at most companies, there are actual rules about where non-public data may go, and putting it into an AI tool that is not running in an environment approved for that data breaks them. The restricted data typically includes personally identifiable information (PII), controlled unclassified information (CUI), business identifiable information (BII), proprietary, medical, financial or classified data, information collected under the Paperwork Reduction Act, and anything else that is not already public. A personal subscription to a coding agent is not an approved environment. If you work for such an organization, its rules apply to what you do here too.\nIn practice:\n\nUse public data, and public or non-sensitive code, for hackathon work. The examples on this site use only public data and public code.\nKeep restricted files out of any folder the agent works in. An agent reads whatever it decides is relevant, not only the files you point it at.\nIf you are not sure whether something is public, do not give it to the agent.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
     "objectID": "agent-skills/01-safe-agent-practices.html#mark-agent-written-work-as-such",
     "href": "agent-skills/01-safe-agent-practices.html#mark-agent-written-work-as-such",
     "title": "Human in the loop: safe agent practices",
@@ -1291,10 +1423,76 @@
     "href": "slides/06-visualize.html#thats-the-tour",
     "title": "Visualizing Icechunk stores",
     "section": "That’s the tour",
-    "text": "That’s the tour\n\nBack to the start, and the Resources page\nBuild your own: open a terminal, start your agent, and ask it for a plan",
+    "text": "That’s the tour\n\nBack to the start, and the Resources page\nBuild your own: open a terminal, start your agent, and ask it for a plan\nBonus, if you have time: forecast model run collections and finding stores with STAC",
     "crumbs": [
       "Lectures",
       "6 · Visualizing"
+    ]
+  },
+  {
+    "objectID": "slides/08-bonus-stac.html#which-stores-cover-my-place-and-period",
+    "href": "slides/08-bonus-stac.html#which-stores-cover-my-place-and-period",
+    "title": "Bonus: finding stores with STAC",
+    "section": "Which stores cover my place and period?",
+    "text": "Which stores cover my place and period?\nIf we have time and interest. The ocean-icechunks account holds many stores. To pick the right ones, describe each store in a catalog you can search.\n\nSTAC is a standard format for catalogs of geospatial data. One item describes one store: where it is, when it covers, and what it holds\nstac-geoparquet keeps all the items in a single file\nrustac searches that file by place and time\nxpystac opens a match in xarray\n\n\nBonus material, for the end of the day or for people who finish early. Nothing here is needed for the rest of the tutorial.",
+    "crumbs": [
+      "Lectures",
+      "8 · Bonus: Finding stores with STAC"
+    ]
+  },
+  {
+    "objectID": "slides/08-bonus-stac.html#a-stac-item-describes-one-store",
+    "href": "slides/08-bonus-stac.html#a-stac-item-describes-one-store",
+    "title": "Bonus: finding stores with STAC",
+    "section": "A STAC item describes one store",
+    "text": "A STAC item describes one store\n{\n  \"id\": \"pacioos-roms_hiig\",\n  \"bbox\": [-163.83, 17.02, -152.52, 23.98],\n  \"properties\": {\n    \"start_datetime\": \"2025-01-01T00:00:00Z\",\n    \"end_datetime\": \"2026-11-22T00:00:00Z\",\n    \"storage:schemes\": { \"source-coop\": { \"anonymous\": true, ... } }\n  },\n  \"assets\": { \"data\": {\n    \"href\": \"s3://.../ocean-icechunks/pacioos/roms_hiig/icechunk\",\n    \"type\": \"application/vnd.zarr+icechunk\",\n    \"storage:refs\": [\"source-coop\"],\n    \"cube:variables\": { \"temp\": ..., \"salt\": ..., ... } } }\n}\n\nTrimmed from a real item: the bucket host, the UTC offsets and some fields are shortened. The bounding box and the time range are what the search uses. The storage fields (the STAC storage extension) are what xpystac reads to open the asset: the bucket, the region, and that no credentials are needed. The asset type application/vnd.zarr+icechunk tells xpystac it is an Icechunk store.",
+    "crumbs": [
+      "Lectures",
+      "8 · Bonus: Finding stores with STAC"
+    ]
+  },
+  {
+    "objectID": "slides/08-bonus-stac.html#build-the-catalog",
+    "href": "slides/08-bonus-stac.html#build-the-catalog",
+    "title": "Bonus: finding stores with STAC",
+    "section": "Build the catalog",
+    "text": "Build the catalog\nstores = list(find_stores(\"ocean-icechunks/\"))   # walk the bucket listing\nitems = [make_item(path) for path in stores]     # read each store's metadata\nawait rustac.write(\"ocean-icechunks-items.parquet\", items)\n\nfind_stores and make_item are defined step by step in the notebook stac-geoparquet-create. It lists the public bucket, opens each Icechunk store and reads only the small coordinate arrays, never the data, then writes one item per store: 8 items on 2026-11-17. It takes about a minute. Nothing is stored in the repository: everyone builds the catalog themselves.\nThe three noaa-ohc stores each keep several datasets in groups (14day, 14day_v1, daily). Those become several assets on one item.",
+    "crumbs": [
+      "Lectures",
+      "8 · Bonus: Finding stores with STAC"
+    ]
+  },
+  {
+    "objectID": "slides/08-bonus-stac.html#search-it-then-open-a-match",
+    "href": "slides/08-bonus-stac.html#search-it-then-open-a-match",
+    "title": "Bonus: finding stores with STAC",
+    "section": "Search it, then open a match",
+    "text": "Search it, then open a match\nhits = await rustac.search(\"ocean-icechunks-items.parquet\",\n                           bbox=[-158.5, 20.5, -157.5, 21.5],  # Oahu\n                           datetime=\"2026-01-01/2026-02-01\")   # 3 of 8 stores match\nitem = pystac.Item.from_dict(next(h for h in hits if h[\"id\"] == \"pacioos-roms_hiig\"))\nds = xr.open_dataset(item.assets[\"data\"], engine=\"stac\")\n\nRun on 2026-11-17: the search returns noaa-ohc-np, pacioos-roms_hiig and pacioos-ww3_hawaii, and roms_hiig opens with 6 variables. The reanalyses ended before 2026, and the other ocean heat content basins do not cover Hawaii.\nxpystac always opens the root of a store, so it cannot open the noaa-ohc groups. The notebook opens those by hand with icechunk and xr.open_zarr. It needs an xpystac newer than release 0.5.0. Check that the workshop image has one before presenting this.",
+    "crumbs": [
+      "Lectures",
+      "8 · Bonus: Finding stores with STAC"
+    ]
+  },
+  {
+    "objectID": "slides/08-bonus-stac.html#try-it",
+    "href": "slides/08-bonus-stac.html#try-it",
+    "title": "Bonus: finding stores with STAC",
+    "section": "Try it",
+    "text": "Try it\nBuild the catalog →\nThen search it →\nRun the second notebook in the same session, because it reads the file the first one writes.",
+    "crumbs": [
+      "Lectures",
+      "8 · Bonus: Finding stores with STAC"
+    ]
+  },
+  {
+    "objectID": "slides/08-bonus-stac.html#back-to-the-start",
+    "href": "slides/08-bonus-stac.html#back-to-the-start",
+    "title": "Bonus: finding stores with STAC",
+    "section": "Back to the start",
+    "text": "Back to the start\n\nBack to the start, and the Resources page",
+    "crumbs": [
+      "Lectures",
+      "8 · Bonus: Finding stores with STAC"
     ]
   },
   {
@@ -1449,17 +1647,6 @@
     "crumbs": [
       "Examples",
       "5 · OISST: Gulf of Maine marine heatwaves"
-    ]
-  },
-  {
-    "objectID": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
-    "href": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
-    "title": "Human in the loop: safe agent practices",
-    "section": "6 · Keep non-public data away from the agent",
-    "text": "6 · Keep non-public data away from the agent\nYour prompts, your code, and any file the agent reads go to the company that runs your agent. Check your subscription’s privacy settings, and treat anything the agent can see as shared with that company.\nPlenty of people paste their own personal information into chatbots. That is a bad idea, but it is their own information and their own risk. Work data is different. At NOAA, at any other agency, and at most companies, there are actual rules about where non-public data may go, and putting it into an AI tool that is not running in an environment approved for that data breaks them. The restricted data typically includes personally identifiable information (PII), controlled unclassified information (CUI), business identifiable information (BII), proprietary, medical, financial or classified data, information collected under the Paperwork Reduction Act, and anything else that is not already public. A personal subscription to a coding agent is not an approved environment. If you work for such an organization, its rules apply to what you do here too.\nIn practice:\n\nUse public data, and public or non-sensitive code, for hackathon work. The examples on this site use only public data and public code.\nKeep restricted files out of any folder the agent works in. An agent reads whatever it decides is relevant, not only the files you point it at.\nIf you are not sure whether something is public, do not give it to the agent.",
-    "crumbs": [
-      "Agent Skills",
-      "Human in the loop"
     ]
   }
 ]

@@ -330,7 +330,7 @@
 <li><strong>Pick a run, or a best estimate.</strong> Select one forecast, or stitch the newest hours from every run into one continuous series.</li>
 </ul>
 <div class="takeaway">
-<p>One store holds the whole history of every forecast.</p>
+<p>One store holds the whole history of every forecast. Bonus lecture 7 builds one.</p>
 </div>
 <aside class="notes">
 <p>The raw files each have a single time dimension of valid times. If we simply join them end to end, we throw away the older runs, and every update means trimming and rewriting the tail. Splitting time into the reference time and the lead time keeps every run, and a daily update is one append.</p>
