@@ -101,7 +101,7 @@ picks the skill. To ask for one directly, type `/virtual-icechunk` (in Codex, `$
 Both were written from lessons learned on real ocean-data builds, and they
 work with Claude Code, Codex, Copilot and Antigravity.
 
-**Install them:** [Start your coding agent → Add the ocean-icechunks skills](../setup/03-start-your-agent.qmd#add-the-ocean-icechunks-skills)
+**Install them:** [Start your coding agent → Add the ocean-icechunks skills](../agent-skills/00-start-your-agent.qmd#add-the-ocean-icechunks-skills)
 
 [github.com/ocean-icechunks/ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills){.small}
 
