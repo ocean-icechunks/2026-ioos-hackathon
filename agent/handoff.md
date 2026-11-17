@@ -2,11 +2,12 @@
 
 Rolling state for agents. This is orientation, not a task list.
 
-## Repo state (2026-11-17, after PR #17)
+## Repo state (2026-11-17, after PR #18)
 
 - The virtual Icechunk tutorial site for the 2026 IOOS Hackathon. Eli Holmes and
   Rich Signell lead the project.
-- Sidebar: Home, JupyterHub Skills, **Agent Skills** (one page so far),
+- Sidebar: Home, JupyterHub Skills (01, 02, 04, 05), **Agent Skills** (Start
+  your coding agent, Human in the loop),
   **Lectures** (six decks), **Examples**
   (landing page `examples/index.qmd` + six notebooks), Resources.
 - Live at
@@ -48,14 +49,25 @@ Rolling state for agents. This is orientation, not a task list.
 
 ## Open threads
 
+- **PATH workaround on the agent page, to remove later.** Hub terminals are
+  login shells (`bash -l`, so `~/.profile`, not `~/.bashrc`), and neither image
+  puts `~/.local/bin` on PATH; a fresh home has no `~/.profile`. Eli hit
+  `claude: command not found` after `install-user-tools claude`.
+  `agent-skills/00-start-your-agent.qmd` tells participants to append the
+  export to `~/.profile`. Image fix filed as nmfs-opensci/py-rocket-base#320
+  (also covers the helper's wrong `~/.bashrc` hint in py-rocket-geospatial-2).
+  Eli will fix it later; drop the step once the image has it.
+- **`install-user-tools` itself never run by me** (this hub is not on the
+  workshop image, and running a copy of the script was denied). Eli ran it
+  on the workshop image.
+
 - **The skill's bad `to_icechunk(encoding=...)` snippet:**
   ocean-icechunks/ocean-icechunks-skills#13 is filed, and the skill is not
   fixed yet. The tutorial already uses the working form.
 - **Never verified on the workshop hub:** scratch bucket, the custom image,
   machine sizes. Only the main hub was checked.
-- **Agent Skills section is a stub on purpose.** Eli asked for only the
-  human-in-the-loop page for now ("don't flesh it out yet"), and said it is
-  fine that the home page and setup pages do not link to it yet.
+- **Agent Skills section is small on purpose.** Eli asked not to flesh it out
+  yet. The home page links only the agent page, after the setup list.
 - **Examples not checked:** run times on Colab (only the hub was timed; OISST
   may be slower there, GOBAI faster), and the landing page's sample prompt has
   not been run through an agent. The home page's Examples paragraph does not
@@ -65,6 +77,15 @@ Rolling state for agents. This is orientation, not a task list.
   slides). Eli checked chapter 2's flowcharts in a browser on 2026-11-14.
 
 ## Recently shipped
+
+- PR #18 (merged 2026-11-17, branch deleted): "Start your coding agent"
+  moved from `setup/03-` to `agent-skills/00-start-your-agent.qmd`. Workshop
+  hub's `install-user-tools claude|agy` first (it lives in
+  py-rocket-geospatial-2, not py-rocket-base, and does not cover Codex), then
+  each agent's own installer, then sign-in, skills, start. Antigravity's curl
+  needs `--compressed` (installer is served gzipped). A Quarto `aliases:`
+  redirect keeps the old setup URL; setup files kept their numbers so their
+  URLs did not change.
 
 - PR #17 (merged 2026-11-17): `hub.image` is now the workshop image
   `ghcr.io/nmfs-opensci/py-rocket-geospatial-2:2026.11.17`, replacing the
