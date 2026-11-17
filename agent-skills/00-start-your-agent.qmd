@@ -1,6 +1,9 @@
 ---
 title: "Start your coding agent"
-description: "Install Claude Code, Codex or Antigravity on the hub, sign in with your own subscription, and add the ocean-icechunks skills."
+description: "Install Claude Code, Codex or Antigravity, sign in with your own subscription, and add the ocean-icechunks skills."
+# The page used to live in setup/; keep the old link working.
+aliases:
+  - ../setup/03-start-your-agent.html
 ---
 
 In this hackathon you hand most of the work to a coding agent running in a hub
@@ -13,8 +16,8 @@ terminal. **Bring your own subscription.** Any one of these works:
 | Google Antigravity | A Google account with Antigravity access | `agy` |
 
 You install the agent **once**. It goes in `~/.local/bin`, inside your home
-directory, so it is still there the next time your server starts. Your sign-in
-is saved there too.
+directory, so it is still there the next time your server starts, and after
+image updates. Your sign-in is saved there too.
 
 ::: {.callout-warning}
 The agent works in your name, with your subscription. It can read and change
@@ -22,22 +25,84 @@ files in your home directory, and it asks before running commands it is not
 sure about. Read what it proposes before you say yes.
 :::
 
-## 1 · Install and sign in
+## 1 · Install
 
-Open a terminal (**File → New → Terminal**). Then follow the steps for your
-agent.
+Open a terminal (**File → New → Terminal**).
+
+### On the workshop hub
+
+The workshop image does **not** include a coding agent. Agents update
+themselves about once a week, so a copy built into the image would soon be out
+of date. Instead the image ships a small helper, `install-user-tools`, that
+runs each agent's official installer into your home directory:
+
+```bash
+install-user-tools claude        # Claude Code  -> ~/.local/bin/claude
+install-user-tools agy           # Antigravity  -> ~/.local/bin/agy
+install-user-tools claude agy    # both
+```
+
+`install-user-tools --list` shows what it can install. It does not install
+Codex; for that, see the next section.
+
+### Codex, or a hub without the helper
+
+Use the agent's own installer:
 
 ::: {.panel-tabset}
 
-### Claude Code
-
-Install:
+#### Claude Code
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-Start it:
+#### Codex
+
+Install it into your home directory. Without `--prefix`, it is installed
+somewhere that is wiped when your server restarts.
+
+```bash
+npm install -g --prefix ~/.local @openai/codex
+```
+
+#### Antigravity
+
+The installer is served compressed, so `--compressed` is needed.
+
+```bash
+curl -fsSL --compressed https://antigravity.google/cli/install.sh | bash
+```
+
+:::
+
+Then **open a new terminal**, so it picks up `~/.local/bin`, and check that
+the agent is there:
+
+```bash
+which claude    # or codex, or agy   -> /home/jovyan/.local/bin/...
+```
+
+::: {.callout-tip}
+## Good to know
+
+- **"Command not found" in a new terminal?** Add
+  `export PATH="$HOME/.local/bin:$PATH"` to `~/.bashrc`.
+- **Your home directory has a 20 GiB quota.** Claude Code keeps several
+  versions (about 230 MB in `~/.local/share/claude`); Antigravity is about
+  280 MB. To see what is using space: `du -sh ~/.local ~/.cache`
+- **Run the installers as yourself**, not with `sudo`. They install into your
+  home.
+:::
+
+## 2 · Sign in
+
+Installing gives you the software, not access: the image has no credentials.
+Start the agent once and sign in with your own account.
+
+::: {.panel-tabset}
+
+### Claude Code
 
 ```bash
 cd ~
@@ -50,14 +115,7 @@ in, and paste the code it gives you back into the terminal.
 
 ### Codex
 
-Install it into your home directory. Without `--prefix`, it is installed
-somewhere that is wiped when your server restarts.
-
-```bash
-npm install -g --prefix ~/.local @openai/codex
-```
-
-Sign in. The hub has no browser of its own, so use the device-code flow:
+The hub has no browser of its own, so use the device-code flow:
 
 ```bash
 codex login --device-auth
@@ -73,14 +131,6 @@ codex
 
 ### Antigravity
 
-Install:
-
-```bash
-curl -fsSL https://antigravity.google/cli/install.sh | bash
-```
-
-Start it:
-
 ```bash
 cd ~
 agy
@@ -95,13 +145,7 @@ into the terminal.
 When you see the agent's prompt, type `/exit` to leave. You only needed it
 installed and signed in.
 
-::: {.callout-tip}
-## "Command not found"?
-Open a **new** terminal, so it picks up `~/.local/bin`. If that does not help,
-run `export PATH="$HOME/.local/bin:$PATH"` and try again.
-:::
-
-## 2 · Add the ocean-icechunks skills
+## 3 · Add the ocean-icechunks skills
 
 The [ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills)
 teach your agent how to build, check and document virtual Icechunk stores. This
@@ -120,7 +164,7 @@ done
 
 To update them later, run `git -C ~/ocean-icechunks-skills pull`.
 
-## 3 · Start it where you work
+## 4 · Start it where you work
 
 An agent works in the folder you start it from. So always `cd` into your
 project first:

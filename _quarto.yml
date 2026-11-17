@@ -47,16 +47,14 @@ website:
               text: "Log in to the JupyterHub"
             - href: setup/02-jupyterlab.qmd
               text: "Find your way around JupyterLab"
-            - href: setup/03-start-your-agent.qmd
-              text: "Start your coding agent"
             - href: setup/04-git-with-agent.qmd
               text: "Git and GitHub, with an agent"
             - href: setup/05-scratch-bucket.qmd
               text: "The scratch bucket"
         - section: Agent Skills
           contents:
-            - href: agent-skills/00-set-up-your-agent.qmd
-              text: "Set up your agent"
+            - href: agent-skills/00-start-your-agent.qmd
+              text: "Start your coding agent"
             - href: agent-skills/01-safe-agent-practices.qmd
               text: "Human in the loop"
         - section: Lectures

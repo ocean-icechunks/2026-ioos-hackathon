@@ -514,25 +514,58 @@
     ]
   },
   {
-    "objectID": "agent-skills/00-set-up-your-agent.html",
-    "href": "agent-skills/00-set-up-your-agent.html",
-    "title": "Set up your agent",
+    "objectID": "agent-skills/00-start-your-agent.html",
+    "href": "agent-skills/00-start-your-agent.html",
+    "title": "Start your coding agent",
     "section": "",
-    "text": "The workshop image does not include a coding agent. Agents update themselves about once a week, so a copy built into the image would soon be out of date. Instead the image ships a small helper, install-user-tools, that runs each agent’s official installer into your home directory.",
+    "text": "In this hackathon you hand most of the work to a coding agent running in a hub terminal. Bring your own subscription. Any one of these works:\nYou install the agent once. It goes in ~/.local/bin, inside your home directory, so it is still there the next time your server starts, and after image updates. Your sign-in is saved there too.",
     "crumbs": [
       "Agent Skills",
-      "Set up your agent"
+      "Start your coding agent"
     ]
   },
   {
-    "objectID": "agent-skills/00-set-up-your-agent.html#install",
-    "href": "agent-skills/00-set-up-your-agent.html#install",
-    "title": "Set up your agent",
-    "section": "Install",
-    "text": "Install\nOpen a terminal (File → New → Terminal) and install the agent you have a subscription for:\ninstall-user-tools claude        # Claude Code  -&gt; ~/.local/bin/claude\ninstall-user-tools agy           # Antigravity  -&gt; ~/.local/bin/agy\ninstall-user-tools claude agy    # both\ninstall-user-tools --list shows what it can install. Then open a new terminal, so it picks up ~/.local/bin, and check that the agent is there:\nwhich claude    # or: which agy   -&gt; /home/jovyan/.local/bin/...\nYou install once. Your home directory is kept between sessions and across image updates, so the agent is still there the next time your server starts.\n\n\n\n\n\n\nGood to know\n\n\n\n\nIt installs software, not access. Nothing here signs you in, and the image has no credentials. You sign in with your own account the first time you start the agent.\nYour home directory has a 20 GiB quota. Claude Code keeps several versions (about 230 MB in ~/.local/share/claude); Antigravity is about 280 MB. To see what is using space: du -sh ~/.local ~/.cache\nRun it as yourself, not with sudo. It refuses to run as root, because it installs into your home.\n“Command not found” in a new terminal? Add export PATH=\"$HOME/.local/bin:$PATH\" to ~/.bashrc. The helper prints this line at the end if ~/.local/bin is missing from your path.",
+    "objectID": "agent-skills/00-start-your-agent.html#install",
+    "href": "agent-skills/00-start-your-agent.html#install",
+    "title": "Start your coding agent",
+    "section": "1 · Install",
+    "text": "1 · Install\nOpen a terminal (File → New → Terminal).\n\nOn the workshop hub\nThe workshop image does not include a coding agent. Agents update themselves about once a week, so a copy built into the image would soon be out of date. Instead the image ships a small helper, install-user-tools, that runs each agent’s official installer into your home directory:\ninstall-user-tools claude        # Claude Code  -&gt; ~/.local/bin/claude\ninstall-user-tools agy           # Antigravity  -&gt; ~/.local/bin/agy\ninstall-user-tools claude agy    # both\ninstall-user-tools --list shows what it can install. It does not install Codex; for that, see the next section.\n\n\nCodex, or a hub without the helper\nUse the agent’s own installer:\n\nClaude CodeCodexAntigravity\n\n\ncurl -fsSL https://claude.ai/install.sh | bash\n\n\nInstall it into your home directory. Without --prefix, it is installed somewhere that is wiped when your server restarts.\nnpm install -g --prefix ~/.local @openai/codex\n\n\nThe installer is served compressed, so --compressed is needed.\ncurl -fsSL --compressed https://antigravity.google/cli/install.sh | bash\n\n\n\nThen open a new terminal, so it picks up ~/.local/bin, and check that the agent is there:\nwhich claude    # or codex, or agy   -&gt; /home/jovyan/.local/bin/...\n\n\n\n\n\n\nGood to know\n\n\n\n\n“Command not found” in a new terminal? Add export PATH=\"$HOME/.local/bin:$PATH\" to ~/.bashrc.\nYour home directory has a 20 GiB quota. Claude Code keeps several versions (about 230 MB in ~/.local/share/claude); Antigravity is about 280 MB. To see what is using space: du -sh ~/.local ~/.cache\nRun the installers as yourself, not with sudo. They install into your home.",
     "crumbs": [
       "Agent Skills",
-      "Set up your agent"
+      "Start your coding agent"
+    ]
+  },
+  {
+    "objectID": "agent-skills/00-start-your-agent.html#sign-in",
+    "href": "agent-skills/00-start-your-agent.html#sign-in",
+    "title": "Start your coding agent",
+    "section": "2 · Sign in",
+    "text": "2 · Sign in\nInstalling gives you the software, not access: the image has no credentials. Start the agent once and sign in with your own account.\n\nClaude CodeCodexAntigravity\n\n\ncd ~\nclaude\nThe first start asks you to pick a theme and a sign-in method. Choose Claude account with subscription. It prints a link: open it in your browser, sign in, and paste the code it gives you back into the terminal.\n\n\nThe hub has no browser of its own, so use the device-code flow:\ncodex login --device-auth\nOpen the link it prints, sign in with your ChatGPT account, and enter the code. Then start it:\ncd ~\ncodex\n\n\ncd ~\nagy\nOn the first start, sign in with the Google account that has your Antigravity access. It prints a link: open it, sign in, approve, and paste the code back into the terminal.\n\n\n\nWhen you see the agent’s prompt, type /exit to leave. You only needed it installed and signed in.",
+    "crumbs": [
+      "Agent Skills",
+      "Start your coding agent"
+    ]
+  },
+  {
+    "objectID": "agent-skills/00-start-your-agent.html#add-the-ocean-icechunks-skills",
+    "href": "agent-skills/00-start-your-agent.html#add-the-ocean-icechunks-skills",
+    "title": "Start your coding agent",
+    "section": "3 · Add the ocean-icechunks skills",
+    "text": "3 · Add the ocean-icechunks skills\nThe ocean-icechunks-skills teach your agent how to build, check and document virtual Icechunk stores. This installs them for all three agents at once:\ngit clone https://github.com/ocean-icechunks/ocean-icechunks-skills ~/ocean-icechunks-skills\n\nfor dir in ~/.claude/skills ~/.agents/skills ~/.gemini/config/skills; do\n  mkdir -p \"$dir\"\n  for skill in virtual-icechunk archive-to-cloud; do\n    ln -sfn ~/ocean-icechunks-skills/skills/$skill \"$dir/$skill\"\n  done\ndone\nTo update them later, run git -C ~/ocean-icechunks-skills pull.",
+    "crumbs": [
+      "Agent Skills",
+      "Start your coding agent"
+    ]
+  },
+  {
+    "objectID": "agent-skills/00-start-your-agent.html#start-it-where-you-work",
+    "href": "agent-skills/00-start-your-agent.html#start-it-where-you-work",
+    "title": "Start your coding agent",
+    "section": "4 · Start it where you work",
+    "text": "4 · Start it where you work\nAn agent works in the folder you start it from. So always cd into your project first:\ncd ~/my-project\nclaude        # or codex, or agy\nThe first time you start it in a new folder, it asks whether you trust the folder. Say yes for your own project folders.\nCheck that the skills loaded. Type /skills (in Claude Code or Codex) or / (in Antigravity) and look for virtual-icechunk. Or just ask: “What skills do you have for Icechunk?”\nChapter 2, Working with an agent, covers how to get good work out of it.",
+    "crumbs": [
+      "Agent Skills",
+      "Start your coding agent"
     ]
   },
   {
@@ -602,152 +635,6 @@
     ]
   },
   {
-    "objectID": "setup/02-jupyterlab.html",
-    "href": "setup/02-jupyterlab.html",
-    "title": "Find your way around JupyterLab",
-    "section": "",
-    "text": "You need three things in JupyterLab for this hackathon. The terminal is where your coding agent runs. The file browser shows what the agent changed. Notebooks are where you run and check its work.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#the-launcher",
-    "href": "setup/02-jupyterlab.html#the-launcher",
-    "title": "Find your way around JupyterLab",
-    "section": "The Launcher",
-    "text": "The Launcher\nThe Launcher opens notebooks, terminals and files. If you do not see it, choose File → New Launcher, or click the blue + at the top left.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#the-terminal",
-    "href": "setup/02-jupyterlab.html#the-terminal",
-    "title": "Find your way around JupyterLab",
-    "section": "The terminal",
-    "text": "The terminal\nClick Terminal in the Launcher, or choose File → New → Terminal. This is where you will start your agent. You only need a few commands yourself:\n\n\n\nCommand\nWhat it does\n\n\n\n\npwd\nShows which folder you are in\n\n\nls\nLists the files here (ls -a also shows hidden ones)\n\n\ncd folder\nMoves into a folder\n\n\ncd ..\nMoves up one folder\n\n\ncd ~\nGoes back to your home folder\n\n\n\nThe agent will run most other commands for you, and it asks before it runs anything risky. New to the shell? Try the Software Carpentry shell lesson.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#the-file-browser",
-    "href": "setup/02-jupyterlab.html#the-file-browser",
-    "title": "Find your way around JupyterLab",
-    "section": "The file browser",
-    "text": "The file browser\nThe folder icon at the far left opens the file browser. Use it to move between folders, make a new one (the folder icon with a +), and right-click a file to rename or delete it. When an agent writes a file, it shows up here. Open it and read it.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#notebooks",
-    "href": "setup/02-jupyterlab.html#notebooks",
-    "title": "Find your way around JupyterLab",
-    "section": "Notebooks",
-    "text": "Notebooks\nClick Python 3 in the Launcher to open a new notebook. A notebook is a list of cells, and each cell is either code or Markdown.\n\nRun a cell: press Shift + Enter.\nRun all cells: use the Run menu.\nAdd a cell: click the + in the notebook toolbar.\nChange the cell type: use the drop-down in the toolbar (Code / Markdown).\n\nTo open a notebook that someone else wrote, or that the agent wrote, double-click it in the file browser.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "setup/02-jupyterlab.html#installing-packages",
-    "href": "setup/02-jupyterlab.html#installing-packages",
-    "title": "Find your way around JupyterLab",
-    "section": "Installing packages",
-    "text": "Installing packages\n%pip install package in a notebook cell installs a package for the current session only. It will be gone the next time your server starts. If something should always be there, ask for it to be added to the hub image.\nAdapted from NMFS HackDays 2025: Intro to JupyterLab.",
-    "crumbs": [
-      "JupyterHub Skills",
-      "Find your way around JupyterLab"
-    ]
-  },
-  {
-    "objectID": "resources.html",
-    "href": "resources.html",
-    "title": "Resources",
-    "section": "",
-    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#skills-and-examples",
-    "href": "resources.html#skills-and-examples",
-    "title": "Resources",
-    "section": "",
-    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#background-reading",
-    "href": "resources.html#background-reading",
-    "title": "Resources",
-    "section": "Background reading",
-    "text": "Background reading\n\nBridging NOAA ocean model files and cloud-native access (Holmes, ESIP, July 2026; PDF of the talk several chapter 1 figures come from)\nAI-ready scientific data archives (Earthmover, 2026)\nRich Signell on the state of cloud-native geospatial (March 2026)",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "resources.html#documentation",
-    "href": "resources.html#documentation",
-    "title": "Resources",
-    "section": "Documentation",
-    "text": "Documentation\n\nIcechunk\nVirtualiZarr\nXarray",
-    "crumbs": [
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Virtual Icechunk",
-    "section": "",
-    "text": "This tutorial gives you a quick overview of virtual Icechunk stores: what they are, how one gets built, and what to check before building one. During the hackathon you will mostly hand the actual work to a coding agent that has the ocean-icechunks-skills installed. Each chapter is a short slide deck. Click through it, or press S for the speaker notes.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#before-you-start-get-set-up",
-    "href": "index.html#before-you-start-get-set-up",
-    "title": "Virtual Icechunk",
-    "section": "Before you start: get set up",
-    "text": "Before you start: get set up\nNew to the hub? Work through JupyterHub Skills first (about 30 minutes):\n\nLog in to the JupyterHub\nFind your way around JupyterLab\nStart your coding agent: Claude Code, Codex or Antigravity, with your own subscription\nGit and GitHub, with an agent: log in once with gh, then let the agent run git for you\nThe scratch bucket: cloud storage for test stores",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#lectures",
-    "href": "index.html#lectures",
-    "title": "Virtual Icechunk",
-    "section": "Lectures",
-    "text": "Lectures\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#examples",
-    "href": "index.html#examples",
-    "title": "Virtual Icechunk",
-    "section": "Examples",
-    "text": "Examples\nEach example opens a large ocean dataset as a virtual Icechunk store and answers one question with it in a few seconds or minutes. You download nothing in advance, even when the dataset is hundreds of terabytes or thousands of files. Use them to see how a store opens, how much a read costs, and what kind of analysis becomes easy. Each one has an Open in Colab button.\nSee Resources for links to everything mentioned in the decks.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
     "objectID": "setup/01-jupyterhub.html",
     "href": "setup/01-jupyterhub.html",
     "title": "Log in to the JupyterHub",
@@ -814,47 +701,149 @@
     ]
   },
   {
-    "objectID": "setup/03-start-your-agent.html",
-    "href": "setup/03-start-your-agent.html",
-    "title": "Start your coding agent",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Virtual Icechunk",
     "section": "",
-    "text": "In this hackathon you hand most of the work to a coding agent running in a hub terminal. Bring your own subscription. Any one of these works:\nYou install the agent once. It goes in ~/.local/bin, inside your home directory, so it is still there the next time your server starts. Your sign-in is saved there too.",
+    "text": "This tutorial gives you a quick overview of virtual Icechunk stores: what they are, how one gets built, and what to check before building one. During the hackathon you will mostly hand the actual work to a coding agent that has the ocean-icechunks-skills installed. Each chapter is a short slide deck. Click through it, or press S for the speaker notes.",
     "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
+      "Home"
     ]
   },
   {
-    "objectID": "setup/03-start-your-agent.html#install-and-sign-in",
-    "href": "setup/03-start-your-agent.html#install-and-sign-in",
-    "title": "Start your coding agent",
-    "section": "1 · Install and sign in",
-    "text": "1 · Install and sign in\nOpen a terminal (File → New → Terminal). Then follow the steps for your agent.\n\nClaude CodeCodexAntigravity\n\n\nInstall:\ncurl -fsSL https://claude.ai/install.sh | bash\nStart it:\ncd ~\nclaude\nThe first start asks you to pick a theme and a sign-in method. Choose Claude account with subscription. It prints a link: open it in your browser, sign in, and paste the code it gives you back into the terminal.\n\n\nInstall it into your home directory. Without --prefix, it is installed somewhere that is wiped when your server restarts.\nnpm install -g --prefix ~/.local @openai/codex\nSign in. The hub has no browser of its own, so use the device-code flow:\ncodex login --device-auth\nOpen the link it prints, sign in with your ChatGPT account, and enter the code. Then start it:\ncd ~\ncodex\n\n\nInstall:\ncurl -fsSL https://antigravity.google/cli/install.sh | bash\nStart it:\ncd ~\nagy\nOn the first start, sign in with the Google account that has your Antigravity access. It prints a link: open it, sign in, approve, and paste the code back into the terminal.\n\n\n\nWhen you see the agent’s prompt, type /exit to leave. You only needed it installed and signed in.\n\n\n\n\n\n\n“Command not found”?\n\n\n\nOpen a new terminal, so it picks up ~/.local/bin. If that does not help, run export PATH=\"$HOME/.local/bin:$PATH\" and try again.",
+    "objectID": "index.html#before-you-start-get-set-up",
+    "href": "index.html#before-you-start-get-set-up",
+    "title": "Virtual Icechunk",
+    "section": "Before you start: get set up",
+    "text": "Before you start: get set up\nNew to the hub? Work through JupyterHub Skills first (about 30 minutes):\n\nLog in to the JupyterHub\nFind your way around JupyterLab\nGit and GitHub, with an agent: log in once with gh, then let the agent run git for you\nThe scratch bucket: cloud storage for test stores\n\nThen start your coding agent: Claude Code, Codex or Antigravity, with your own subscription.",
     "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
+      "Home"
     ]
   },
   {
-    "objectID": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
-    "href": "setup/03-start-your-agent.html#add-the-ocean-icechunks-skills",
-    "title": "Start your coding agent",
-    "section": "2 · Add the ocean-icechunks skills",
-    "text": "2 · Add the ocean-icechunks skills\nThe ocean-icechunks-skills teach your agent how to build, check and document virtual Icechunk stores. This installs them for all three agents at once:\ngit clone https://github.com/ocean-icechunks/ocean-icechunks-skills ~/ocean-icechunks-skills\n\nfor dir in ~/.claude/skills ~/.agents/skills ~/.gemini/config/skills; do\n  mkdir -p \"$dir\"\n  for skill in virtual-icechunk archive-to-cloud; do\n    ln -sfn ~/ocean-icechunks-skills/skills/$skill \"$dir/$skill\"\n  done\ndone\nTo update them later, run git -C ~/ocean-icechunks-skills pull.",
+    "objectID": "index.html#lectures",
+    "href": "index.html#lectures",
+    "title": "Virtual Icechunk",
+    "section": "Lectures",
+    "text": "Lectures\n\n\n\n\nDeck\nWhat it covers\n\n\n\n\n1\nWhy virtual Icechunk\nA product, not a pile of files; both quick wins\n\n\n2\nWorking with an agent\nOne task per session; installing and using ocean-icechunks-skills\n\n\n3\nThe basic pipeline\nSix steps from NetCDF files to a store anyone can open\n\n\n4\nAuditing your files\nWhat to check before anyone writes build code\n\n\n5\nBuilding a store\nWhat the skill needs from you, what it works out, and how to prompt it\n\n\n6\nVisualizing\nxarray, then Zarr in the browser: zarrita, icechunk-js and gridlook",
     "crumbs": [
-      "JupyterHub Skills",
-      "Start your coding agent"
+      "Home"
     ]
   },
   {
-    "objectID": "setup/03-start-your-agent.html#start-it-where-you-work",
-    "href": "setup/03-start-your-agent.html#start-it-where-you-work",
-    "title": "Start your coding agent",
-    "section": "3 · Start it where you work",
-    "text": "3 · Start it where you work\nAn agent works in the folder you start it from. So always cd into your project first:\ncd ~/my-project\nclaude        # or codex, or agy\nThe first time you start it in a new folder, it asks whether you trust the folder. Say yes for your own project folders.\nCheck that the skills loaded. Type /skills (in Claude Code or Codex) or / (in Antigravity) and look for virtual-icechunk. Or just ask: “What skills do you have for Icechunk?”\nChapter 2, Working with an agent, covers how to get good work out of it.",
+    "objectID": "index.html#examples",
+    "href": "index.html#examples",
+    "title": "Virtual Icechunk",
+    "section": "Examples",
+    "text": "Examples\nEach example opens a large ocean dataset as a virtual Icechunk store and answers one question with it in a few seconds or minutes. You download nothing in advance, even when the dataset is hundreds of terabytes or thousands of files. Use them to see how a store opens, how much a read costs, and what kind of analysis becomes easy. Each one has an Open in Colab button.\nSee Resources for links to everything mentioned in the decks.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#skills-and-examples",
+    "href": "resources.html#skills-and-examples",
+    "title": "Resources",
+    "section": "",
+    "text": "ocean-icechunks-skills: the virtual-icechunk and archive-to-cloud agent skills\nocean-icechunks/icechunks: CoastWatch OHC, GOBAI-O2 and OA-indicators stores\nocean-icechunks/hycom: the HYCOM reanalysis stores\nNMFS HackHours, June 5 2026: VirtualiZarr + Icechunk notebooks\ngridlook: a browser viewer for Zarr and Icechunk stores",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#background-reading",
+    "href": "resources.html#background-reading",
+    "title": "Resources",
+    "section": "Background reading",
+    "text": "Background reading\n\nBridging NOAA ocean model files and cloud-native access (Holmes, ESIP, July 2026; PDF of the talk several chapter 1 figures come from)\nAI-ready scientific data archives (Earthmover, 2026)\nRich Signell on the state of cloud-native geospatial (March 2026)",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#documentation",
+    "href": "resources.html#documentation",
+    "title": "Resources",
+    "section": "Documentation",
+    "text": "Documentation\n\nIcechunk\nVirtualiZarr\nXarray",
+    "crumbs": [
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html",
+    "href": "setup/02-jupyterlab.html",
+    "title": "Find your way around JupyterLab",
+    "section": "",
+    "text": "You need three things in JupyterLab for this hackathon. The terminal is where your coding agent runs. The file browser shows what the agent changed. Notebooks are where you run and check its work.",
     "crumbs": [
       "JupyterHub Skills",
-      "Start your coding agent"
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-launcher",
+    "href": "setup/02-jupyterlab.html#the-launcher",
+    "title": "Find your way around JupyterLab",
+    "section": "The Launcher",
+    "text": "The Launcher\nThe Launcher opens notebooks, terminals and files. If you do not see it, choose File → New Launcher, or click the blue + at the top left.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-terminal",
+    "href": "setup/02-jupyterlab.html#the-terminal",
+    "title": "Find your way around JupyterLab",
+    "section": "The terminal",
+    "text": "The terminal\nClick Terminal in the Launcher, or choose File → New → Terminal. This is where you will start your agent. You only need a few commands yourself:\n\n\n\nCommand\nWhat it does\n\n\n\n\npwd\nShows which folder you are in\n\n\nls\nLists the files here (ls -a also shows hidden ones)\n\n\ncd folder\nMoves into a folder\n\n\ncd ..\nMoves up one folder\n\n\ncd ~\nGoes back to your home folder\n\n\n\nThe agent will run most other commands for you, and it asks before it runs anything risky. New to the shell? Try the Software Carpentry shell lesson.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#the-file-browser",
+    "href": "setup/02-jupyterlab.html#the-file-browser",
+    "title": "Find your way around JupyterLab",
+    "section": "The file browser",
+    "text": "The file browser\nThe folder icon at the far left opens the file browser. Use it to move between folders, make a new one (the folder icon with a +), and right-click a file to rename or delete it. When an agent writes a file, it shows up here. Open it and read it.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#notebooks",
+    "href": "setup/02-jupyterlab.html#notebooks",
+    "title": "Find your way around JupyterLab",
+    "section": "Notebooks",
+    "text": "Notebooks\nClick Python 3 in the Launcher to open a new notebook. A notebook is a list of cells, and each cell is either code or Markdown.\n\nRun a cell: press Shift + Enter.\nRun all cells: use the Run menu.\nAdd a cell: click the + in the notebook toolbar.\nChange the cell type: use the drop-down in the toolbar (Code / Markdown).\n\nTo open a notebook that someone else wrote, or that the agent wrote, double-click it in the file browser.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
+    ]
+  },
+  {
+    "objectID": "setup/02-jupyterlab.html#installing-packages",
+    "href": "setup/02-jupyterlab.html#installing-packages",
+    "title": "Find your way around JupyterLab",
+    "section": "Installing packages",
+    "text": "Installing packages\n%pip install package in a notebook cell installs a package for the current session only. It will be gone the next time your server starts. If something should always be there, ask for it to be added to the hub image.\nAdapted from NMFS HackDays 2025: Intro to JupyterLab.",
+    "crumbs": [
+      "JupyterHub Skills",
+      "Find your way around JupyterLab"
     ]
   },
   {
