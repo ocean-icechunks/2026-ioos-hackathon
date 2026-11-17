@@ -2,7 +2,7 @@
 
 Rolling state for agents. This is orientation, not a task list.
 
-## Repo state (2026-11-17, after PR #16)
+## Repo state (2026-11-17, after PR #17)
 
 - The virtual Icechunk tutorial site for the 2026 IOOS Hackathon. Eli Holmes and
   Rich Signell lead the project.
@@ -51,10 +51,6 @@ Rolling state for agents. This is orientation, not a task list.
 - **The skill's bad `to_icechunk(encoding=...)` snippet:**
   ocean-icechunks/ocean-icechunks-skills#13 is filed, and the skill is not
   fixed yet. The tutorial already uses the working form.
-- **Hub image is temporary.** Participants pick "Image: Other" and paste
-  `hub.image` from `_variables.yml`, currently the test tag
-  `ghcr.io/nmfs-opensci/py-rocket-geospatial-2/test:501bd72`. Eli said on
-  2026-11-17 a new URL comes later that day: change that one line and render.
 - **Never verified on the workshop hub:** scratch bucket, the custom image,
   machine sizes. Only the main hub was checked.
 - **Agent Skills section is a stub on purpose.** Eli asked for only the
@@ -70,6 +66,10 @@ Rolling state for agents. This is orientation, not a task list.
 
 ## Recently shipped
 
+- PR #17 (merged 2026-11-17): `hub.image` is now the workshop image
+  `ghcr.io/nmfs-opensci/py-rocket-geospatial-2:2026.11.17`, replacing the
+  test tag. Participants paste it under "Image: Other". Not yet started on
+  the workshop hub. Branch `workshop-image` not deleted yet.
 - PR #16 (merged 2026-11-17, branch deleted): Agent Skills section with
   `agent-skills/01-safe-agent-practices.qmd`, seven practices adapted from
   `~/claude-config/docs/agent-guards.md` for participants. Eli's own hooks,
