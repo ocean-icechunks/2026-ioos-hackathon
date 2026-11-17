@@ -617,7 +617,7 @@
     "href": "setup/01-jupyterhub.html#start-a-server",
     "title": "Log in to the JupyterHub",
     "section": "Start a server",
-    "text": "Start a server\n\nGo to https://workshop.nmfs-openscapes.2i2c.cloud/.\nLog in. Your username is your email address. The organizers give you the password in person or by direct message; everyone uses the same one. Do not post it anywhere public, including GitHub.\nImage: choose Other, then paste this into the Custom image box:\nghcr.io/nmfs-opensci/py-rocket-geospatial-2/test:501bd72\nSize: pick the smallest machine. That is plenty for everything here. Larger machines cost more, so choose one only if you run out of memory.\n\nClick Start. It can take a few minutes to start.\n\nWhen it is ready you land in JupyterLab, on the Launcher. Next: Find your way around JupyterLab.",
+    "text": "Start a server\n\nGo to https://workshop.nmfs-openscapes.2i2c.cloud/.\nLog in. Your username is your email address. The organizers give you the password in person or by direct message; everyone uses the same one. Do not post it anywhere public, including GitHub.\nImage: choose Other, then paste this into the Custom image box:\nghcr.io/nmfs-opensci/py-rocket-geospatial-2:2026.11.17\nSize: pick the smallest machine. That is plenty for everything here. Larger machines cost more, so choose one only if you run out of memory.\n\nClick Start. It can take a few minutes to start.\n\nWhen it is ready you land in JupyterLab, on the Launcher. Next: Find your way around JupyterLab.",
     "crumbs": [
       "JupyterHub Skills",
       "Log in to the JupyterHub"
@@ -940,6 +940,17 @@
     "title": "Human in the loop: safe agent practices",
     "section": "5 · Keep credentials out of code",
     "text": "5 · Keep credentials out of code\n\nNever paste a key, token or password into a notebook, script or chat that ends up in a repository. On the hub, the scratch bucket uses the hub’s own credentials, so your code needs none.\nGive the agent a credential with the least access that works and an expiry date, like the fine-grained GitHub token in Git and GitHub, with an agent.",
+    "crumbs": [
+      "Agent Skills",
+      "Human in the loop"
+    ]
+  },
+  {
+    "objectID": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
+    "href": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
+    "title": "Human in the loop: safe agent practices",
+    "section": "6 · Keep non-public data away from the agent",
+    "text": "6 · Keep non-public data away from the agent\nYour prompts, your code, and any file the agent reads go to the company that runs your agent. Check your subscription’s privacy settings, and treat anything the agent can see as shared with that company.\nPlenty of people paste their own personal information into chatbots. That is a bad idea, but it is their own information and their own risk. Work data is different. At NOAA, at any other agency, and at most companies, there are actual rules about where non-public data may go, and putting it into an AI tool that is not running in an environment approved for that data breaks them. The restricted data typically includes personally identifiable information (PII), controlled unclassified information (CUI), business identifiable information (BII), proprietary, medical, financial or classified data, information collected under the Paperwork Reduction Act, and anything else that is not already public. A personal subscription to a coding agent is not an approved environment. If you work for such an organization, its rules apply to what you do here too.\nIn practice:\n\nUse public data, and public or non-sensitive code, for hackathon work. The examples on this site use only public data and public code.\nKeep restricted files out of any folder the agent works in. An agent reads whatever it decides is relevant, not only the files you point it at.\nIf you are not sure whether something is public, do not give it to the agent.",
     "crumbs": [
       "Agent Skills",
       "Human in the loop"
@@ -1449,17 +1460,6 @@
     "crumbs": [
       "Examples",
       "5 · OISST: Gulf of Maine marine heatwaves"
-    ]
-  },
-  {
-    "objectID": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
-    "href": "agent-skills/01-safe-agent-practices.html#keep-non-public-data-away-from-the-agent",
-    "title": "Human in the loop: safe agent practices",
-    "section": "6 · Keep non-public data away from the agent",
-    "text": "6 · Keep non-public data away from the agent\nYour prompts, your code, and any file the agent reads go to the company that runs your agent. Check your subscription’s privacy settings, and treat anything the agent can see as shared with that company.\nPlenty of people paste their own personal information into chatbots. That is a bad idea, but it is their own information and their own risk. Work data is different. At NOAA, at any other agency, and at most companies, there are actual rules about where non-public data may go, and putting it into an AI tool that is not running in an environment approved for that data breaks them. The restricted data typically includes personally identifiable information (PII), controlled unclassified information (CUI), business identifiable information (BII), proprietary, medical, financial or classified data, information collected under the Paperwork Reduction Act, and anything else that is not already public. A personal subscription to a coding agent is not an approved environment. If you work for such an organization, its rules apply to what you do here too.\nIn practice:\n\nUse public data, and public or non-sensitive code, for hackathon work. The examples on this site use only public data and public code.\nKeep restricted files out of any folder the agent works in. An agent reads whatever it decides is relevant, not only the files you point it at.\nIf you are not sure whether something is public, do not give it to the agent.",
-    "crumbs": [
-      "Agent Skills",
-      "Human in the loop"
     ]
   }
 ]
