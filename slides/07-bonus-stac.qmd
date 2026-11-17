@@ -1,0 +1,99 @@
+---
+title: "Bonus: finding stores with STAC"
+subtitle: "Search the ocean-icechunks stores by place and time"
+---
+
+## Which stores cover my place and period?
+
+If we have time and interest. The ocean-icechunks account holds many stores.
+To pick the right ones, describe each store in a **catalog** you can search.
+
+- **[STAC](https://stacspec.org)** is a standard format for catalogs of geospatial data. One
+  **item** describes one store: where it is, when it covers, and what it holds
+- **stac-geoparquet** keeps all the items in a single file
+- **rustac** searches that file by place and time
+- **xpystac** opens a match in xarray
+
+::: notes
+Bonus material, for the end of the day or for people who finish early. Nothing
+here is needed for the rest of the tutorial.
+:::
+
+## A STAC item describes one store {.code}
+
+```json
+{
+  "id": "pacioos-roms_hiig",
+  "bbox": [-163.83, 17.02, -152.52, 23.98],
+  "properties": {
+    "start_datetime": "2025-01-01T00:00:00Z",
+    "end_datetime": "2026-11-22T00:00:00Z",
+    "storage:schemes": { "source-coop": { "anonymous": true, ... } }
+  },
+  "assets": { "data": {
+    "href": "s3://.../ocean-icechunks/pacioos/roms_hiig/icechunk",
+    "type": "application/vnd.zarr+icechunk",
+    "storage:refs": ["source-coop"],
+    "cube:variables": { "temp": ..., "salt": ..., ... } } }
+}
+```
+
+::: notes
+Trimmed from a real item: the bucket host, the UTC offsets and some fields are shortened. The bounding box and the time range are what the
+search uses. The storage fields (the STAC storage extension) are what xpystac
+reads to open the asset: the bucket, the region, and that no credentials are
+needed. The asset type application/vnd.zarr+icechunk tells xpystac it is an
+Icechunk store.
+:::
+
+## Build the catalog {.code}
+
+```python
+stores = list(find_stores("ocean-icechunks/"))   # walk the bucket listing
+items = [make_item(path) for path in stores]     # read each store's metadata
+await rustac.write("ocean-icechunks-items.parquet", items)
+```
+
+::: notes
+find_stores and make_item are defined step by step in the notebook
+stac-geoparquet-create. It lists the public bucket, opens each Icechunk store
+and reads only the small coordinate arrays, never the data, then writes one
+item per store: 8 items on 2026-11-17. It takes about a minute. Nothing is
+stored in the repository: everyone builds the catalog themselves.
+
+The three noaa-ohc stores each keep several datasets in groups (14day,
+14day_v1, daily). Those become several assets on one item.
+:::
+
+## Search it, then open a match {.code}
+
+```python
+hits = await rustac.search("ocean-icechunks-items.parquet",
+                           bbox=[-158.5, 20.5, -157.5, 21.5],  # Oahu
+                           datetime="2026-01-01/2026-02-01")   # 3 of 8 stores match
+item = pystac.Item.from_dict(next(h for h in hits if h["id"] == "pacioos-roms_hiig"))
+ds = xr.open_dataset(item.assets["data"], engine="stac")
+```
+
+::: notes
+Run on 2026-11-17: the search returns noaa-ohc-np, pacioos-roms_hiig and
+pacioos-ww3_hawaii, and roms_hiig opens with 6 variables. The reanalyses ended
+before 2026, and the other ocean heat content basins do not cover Hawaii.
+
+xpystac always opens the root of a store, so it cannot open the noaa-ohc
+groups. The notebook opens those by hand with icechunk and xr.open_zarr. It
+needs an xpystac newer than release 0.5.0. Check that the workshop image has
+one before presenting this.
+:::
+
+## Try it
+
+[**Build the catalog →**](https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/stac-geoparquet-create.ipynb){.lead}
+
+[**Then search it →**](https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/stac-geoparquet-query.ipynb){.lead}
+
+Run the second notebook in the same session, because it reads the file the first one writes.
+
+## Back to the start {.dark}
+
+- [Back to the start](../index.qmd), and the [Resources](../resources.qmd) page

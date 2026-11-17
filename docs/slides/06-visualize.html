@@ -326,40 +326,12 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="bonus-find-stores-with-stac" class="slide level2">
-<h2>Bonus: find stores with STAC</h2>
-<p>If we have time and interest: with many stores, how do you find the ones that cover your place and period? Describe each store as a <strong><a href="https://stacspec.org">STAC</a> item</strong>, with its bounding box, time range and variables.</p>
-<ul>
-<li><strong>stac-geoparquet</strong> holds all the items in one file</li>
-<li><strong>rustac</strong> searches it by place and time</li>
-<li><strong>xpystac</strong> opens a match in xarray</li>
-</ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>hits <span class="op">=</span> <span class="cf">await</span> rustac.search(<span class="st">"ocean-icechunks-items.parquet"</span>,</span>
-<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>                           bbox<span class="op">=</span>[<span class="op">-</span><span class="fl">158.5</span>, <span class="fl">20.5</span>, <span class="op">-</span><span class="fl">157.5</span>, <span class="fl">21.5</span>],  <span class="co"># Oahu</span></span>
-<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>                           datetime<span class="op">=</span><span class="st">"2026-01-01/2026-02-01"</span>)   <span class="co"># 3 of 8 stores match</span></span>
-<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> pystac.Item.from_dict(<span class="bu">next</span>(h <span class="cf">for</span> h <span class="kw">in</span> hits <span class="cf">if</span> h[<span class="st">"id"</span>] <span class="op">==</span> <span class="st">"pacioos-roms_hiig"</span>))</span>
-<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(item.assets[<span class="st">"data"</span>], engine<span class="op">=</span><span class="st">"stac"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><a href="https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/stac-geoparquet-create.ipynb" class="lead"><strong>Build the catalog, then search it →</strong></a></p>
-<aside class="notes">
-<p>Bonus material. The two notebooks are stac-geoparquet-create (walks the ocean-icechunks bucket on Source Cooperative and writes one item per store to a local geoparquet file) and stac-geoparquet-query (searches it and opens the matches). Nothing is stored in the repository: everyone builds the catalog themselves, which takes about a minute.</p>
-<p>The search above was run on 2026-11-17 and returns noaa-ohc-np, pacioos-roms_hiig and pacioos-ww3_hawaii. The ocean heat content stores keep their data in groups (14day, 14day_v1, daily), and xpystac cannot open a group yet, so the query notebook opens those by hand. It needs an xpystac newer than release 0.5.0. Check that the workshop image has one before presenting this.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="thats-the-tour" class="slide level2 dark" data-state="talk-dark" data-background-color="#0F1C26">
 <h2>That’s the tour</h2>
 <ul>
 <li><a href="../index.html">Back to the start</a>, and the <a href="../resources.html">Resources</a> page</li>
 <li>Build your own: open a terminal, start your agent, and ask it for a plan</li>
+<li>Bonus, if you have time: <a href="../slides/07-bonus-stac.html">finding stores with STAC</a></li>
 </ul>
 
 

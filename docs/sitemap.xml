@@ -2,82 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/06-gobai-oxygen-minimum-zone.html</loc>
-    <lastmod>2026-11-14T05:10:10.014Z</lastmod>
+    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/04-oisst-world-sst.html</loc>
-    <lastmod>2026-11-14T05:10:01.489Z</lastmod>
+    <lastmod>2026-11-16T13:26:06.892Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/02-pacioos-aloha-profiles.html</loc>
-    <lastmod>2026-11-14T05:09:52.721Z</lastmod>
+    <lastmod>2026-11-16T13:26:06.889Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/index.html</loc>
-    <lastmod>2026-11-14T04:53:25.132Z</lastmod>
+    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/05-build.html</loc>
-    <lastmod>2026-11-14T02:27:26.152Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/06-visualize.html</loc>
+    <lastmod>2026-11-17T16:03:24.257Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/03-pipeline.html</loc>
-    <lastmod>2026-11-14T02:27:26.144Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/04-audit.html</loc>
+    <lastmod>2026-11-16T13:26:06.907Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/02-agent-and-skills.html</loc>
+    <lastmod>2026-11-16T13:26:06.907Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/05-scratch-bucket.html</loc>
+    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/03-start-your-agent.html</loc>
+    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
+    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
+    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/resources.html</loc>
+    <lastmod>2026-11-16T13:26:06.894Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/02-jupyterlab.html</loc>
+    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/04-git-with-agent.html</loc>
+    <lastmod>2026-11-16T13:26:06.906Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/01-why-virtual.html</loc>
     <lastmod>2026-11-16T13:53:33.990Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/04-git-with-agent.html</loc>
-    <lastmod>2026-11-14T02:27:26.108Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/03-pipeline.html</loc>
+    <lastmod>2026-11-16T13:26:06.907Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/02-jupyterlab.html</loc>
-    <lastmod>2026-11-14T02:27:26.100Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/05-build.html</loc>
+    <lastmod>2026-11-16T13:26:06.907Z</lastmod>
   </url>
   <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/resources.html</loc>
-    <lastmod>2026-11-14T02:27:26.046Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/index.html</loc>
-    <lastmod>2026-11-14T04:53:25.137Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/01-jupyterhub.html</loc>
-    <lastmod>2026-11-14T02:27:26.095Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/03-start-your-agent.html</loc>
-    <lastmod>2026-11-14T02:27:26.104Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/setup/05-scratch-bucket.html</loc>
-    <lastmod>2026-11-14T02:27:26.112Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/02-agent-and-skills.html</loc>
-    <lastmod>2026-11-14T03:16:40.892Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/04-audit.html</loc>
-    <lastmod>2026-11-14T02:27:26.148Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/06-visualize.html</loc>
-    <lastmod>2026-11-14T02:27:26.156Z</lastmod>
+    <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/slides/07-bonus-stac.html</loc>
+    <lastmod>2026-11-17T16:04:02.166Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/01-hycom-snow-crab.html</loc>
-    <lastmod>2026-11-14T05:09:49.835Z</lastmod>
+    <lastmod>2026-11-16T13:26:06.887Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/03-oa-saturation-horizon.html</loc>
-    <lastmod>2026-11-14T05:10:16.653Z</lastmod>
+    <lastmod>2026-11-16T13:26:06.890Z</lastmod>
   </url>
   <url>
     <loc>https://ocean-icechunks.github.io/2026-ioos-hackathon/examples/05-oisst-gulf-of-maine-heatwaves.html</loc>
-    <lastmod>2026-11-14T05:10:07.362Z</lastmod>
+    <lastmod>2026-11-16T13:26:06.893Z</lastmod>
   </url>
 </urlset>

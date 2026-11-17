@@ -66,6 +66,8 @@ website:
               text: "5 · Building a store"
             - href: slides/06-visualize.qmd
               text: "6 · Visualizing"
+            - href: slides/07-bonus-stac.qmd
+              text: "Bonus · Finding stores with STAC"
         - section: Examples
           href: examples/index.qmd
           contents:

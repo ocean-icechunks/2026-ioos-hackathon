@@ -78,41 +78,8 @@ from NCEI. Use the Depth slider to move through its 14 levels. The HYCOM viewer
 shows axes but no data in an ordinary browser for this reason.
 :::
 
-## Bonus: find stores with STAC
-
-If we have time and interest: with many stores, how do you find the ones that
-cover your place and period? Describe each store as a **[STAC](https://stacspec.org)
-item**, with its bounding box, time range and variables.
-
-- **stac-geoparquet** holds all the items in one file
-- **rustac** searches it by place and time
-- **xpystac** opens a match in xarray
-
-```python
-hits = await rustac.search("ocean-icechunks-items.parquet",
-                           bbox=[-158.5, 20.5, -157.5, 21.5],  # Oahu
-                           datetime="2026-01-01/2026-02-01")   # 3 of 8 stores match
-item = pystac.Item.from_dict(next(h for h in hits if h["id"] == "pacioos-roms_hiig"))
-ds = xr.open_dataset(item.assets["data"], engine="stac")
-```
-
-[**Build the catalog, then search it →**](https://github.com/ocean-icechunks/2026-ioos-hackathon/blob/main/notebooks/stac-geoparquet-create.ipynb){.lead}
-
-::: notes
-Bonus material. The two notebooks are stac-geoparquet-create (walks the
-ocean-icechunks bucket on Source Cooperative and writes one item per store to a
-local geoparquet file) and stac-geoparquet-query (searches it and opens the
-matches). Nothing is stored in the repository: everyone builds the catalog
-themselves, which takes about a minute.
-
-The search above was run on 2026-11-17 and returns noaa-ohc-np,
-pacioos-roms_hiig and pacioos-ww3_hawaii. The ocean heat content stores keep
-their data in groups (14day, 14day_v1, daily), and xpystac cannot open a group
-yet, so the query notebook opens those by hand. It needs an xpystac newer than
-release 0.5.0. Check that the workshop image has one before presenting this.
-:::
-
 ## That's the tour {.dark}
 
 - [Back to the start](../index.qmd), and the [Resources](../resources.qmd) page
 - Build your own: open a terminal, start your agent, and ask it for a plan
+- Bonus, if you have time: [finding stores with STAC](07-bonus-stac.qmd)
