@@ -124,26 +124,7 @@ README or a code comment can link to them. The agent writes most of them; I
 read and correct them, because that is where the decisions are.
 :::
 
-## How I do it: every repo carries its own notes
-
-```text
-AGENTS.md              how to work in this repo
-agent/handoff.md       where things stand: read this first
-docs/design/*.md       decisions, and why, with the evidence
-memory/                one fact per file, shared by my agents
-```
-
-- A hook **loads the handoff** when a session starts
-- **"I am about to clear"** → the agent updates handoff and memory, commits,
-  pushes, says *Ready to clear*
-
-::: notes
-This goes further than the guidance: the notes are committed, so they travel
-with the repo and a reviewer (person or agent) can check the work against the
-intent. Generic names, not one vendor's: I use two agents.
-:::
-
-## In practice
+## In practice: the notes in my repos
 
 - **Day 2** of xpublish-erddap: "Move session notes and handoff into this
   repo"
@@ -240,15 +221,19 @@ deletes, overwrites. PacIOOS #9, a script that could overwrite finished
 copies, was found by reading while writing a skill.
 :::
 
-## 1 · Design notes are a must
+## Stronger ways to review than reading every line
 
-- Talk through the design **before** the code
-- Written for **agents and people**: the next session reads them, so does
-  your collaborator
-- "Agents write code I can't understand." *Did you have it write down the
-  design first?*
+1. **Design notes.** The structure is decided and written down before the code
+2. **Know what is in the PR.** The agent summarises; you ask questions
+3. **Small tasks and phases.** You always know what the agent was doing
+4. **Clean up after each task.** Handoff, then `/clear`
 
-## 2 · Know what is in the PR
+::: notes
+1 and 4 we already saw: the design docs and the daily workflow. The next two
+slides are 2 and 3. These work on your own code too, and on another agent's.
+:::
+
+## Know what is in the PR
 
 - Ask the agent to **summarise the PR**: intent, what was run, what was not
 - **Ask it questions.** *Why this structure? What did you assume? What would
@@ -261,7 +246,7 @@ Shen and Tamkin, *How AI assistance impacts the formation of coding skills*,
 arXiv 2601.20245 (2026)
 :::
 
-## 3 · Break the work into tasks and phases
+## Break the work into tasks and phases
 
 - Each issue: **Order N of M**, what it depends on, and **"Done when:"**
 - One issue → one branch → one PR
@@ -271,13 +256,6 @@ arXiv 2601.20245 (2026)
 Big chunks of unstructured work are how you end up not knowing what the
 agent did.
 :::
-
-## 4 · Clean up after every task
-
-- **Handoff, then `/clear`.** A fresh session with good notes beats a long
-  one that has forgotten the start
-- My routine phrases: *"I am about to clear"*, *"This task is done"* (open the
-  PR, then stop), *"I am about to sign off"*
 
 # Security
 

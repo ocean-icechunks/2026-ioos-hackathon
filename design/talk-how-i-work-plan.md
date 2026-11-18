@@ -45,3 +45,13 @@ PRs and issues.**
 
 - The pie chart is my own rough estimate (chapter 2 says so in the notes).
 - Not yet checked in a browser.
+
+## Revision 3b (2026-11-18, while drafting)
+
+Eli added three slides after the daily workflow: what the handoff is, what
+`AGENTS.md` is (and why `CLAUDE.md` is `@AGENTS.md`), and what the design
+docs are. They replaced the "How I do it" layout slide. In the review
+section, "Design notes are a must" and "Clean up after each task" became one
+summary slide of the four review methods, because the first section already
+covers both; "Know what is in the PR" and "Break the work into tasks" keep
+their own slides. 16 slides plus 4 section dividers, for 15–20 minutes.

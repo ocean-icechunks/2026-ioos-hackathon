@@ -1422,8 +1422,8 @@
     "objectID": "slides/07-how-i-work.html#know-what-is-in-the-pr",
     "href": "slides/07-how-i-work.html#know-what-is-in-the-pr",
     "title": "Working with an agent",
-    "section": "2 · Know what is in the PR",
-    "text": "2 · Know what is in the PR\n\nAsk the agent to summarise the PR: intent, what was run, what was not\nAsk it questions. Why this structure? What did you assume? What would break this?\nIn Anthropic’s study, people who asked conceptual questions understood the code best\n\n\nShen and Tamkin, How AI assistance impacts the formation of coding skills, arXiv 2601.20245 (2026)",
+    "section": "Know what is in the PR",
+    "text": "Know what is in the PR\n\nAsk the agent to summarise the PR: intent, what was run, what was not\nAsk it questions. Why this structure? What did you assume? What would break this?\nIn Anthropic’s study, people who asked conceptual questions understood the code best\n\n\nShen and Tamkin, How AI assistance impacts the formation of coding skills, arXiv 2601.20245 (2026)",
     "crumbs": [
       "Lectures",
       "7 · How I work with an agent"
@@ -1433,8 +1433,8 @@
     "objectID": "slides/07-how-i-work.html#break-the-work-into-tasks-and-phases",
     "href": "slides/07-how-i-work.html#break-the-work-into-tasks-and-phases",
     "title": "Working with an agent",
-    "section": "3 · Break the work into tasks and phases",
-    "text": "3 · Break the work into tasks and phases\n\nEach issue: Order N of M, what it depends on, and “Done when:”\nOne issue → one branch → one PR\nSmall issues can run in parallel, one agent each\n\n\nBig chunks of unstructured work are how you end up not knowing what the agent did.",
+    "section": "Break the work into tasks and phases",
+    "text": "Break the work into tasks and phases\n\nEach issue: Order N of M, what it depends on, and “Done when:”\nOne issue → one branch → one PR\nSmall issues can run in parallel, one agent each\n\n\nBig chunks of unstructured work are how you end up not knowing what the agent did.",
     "crumbs": [
       "Lectures",
       "7 · How I work with an agent"
@@ -1666,6 +1666,28 @@
     "title": "Working with an agent",
     "section": "What are the design docs in a repo?",
     "text": "What are the design docs in a repo?\nMarkdown notes in docs/design/: the decisions, and why, with the evidence.\n\n\nWhat’s in them\n\nThe plan, written before the code\nHow the code is structured\nDecisions, with who and when\nThings that look wrong but are deliberate\n\n\nWhy I do this\n\nPlanning: we agree on the design before any code\nIntentional structure, not something an agent vibe-coded\nAnyone, agent or human, can see the choices and the reasons behind them\nReproducible and understandable by agents and people\n\n\n\nThey live under docs/ because they are documentation people read too: a README or a code comment can link to them. The agent writes most of them; I read and correct them, because that is where the decisions are.",
+    "crumbs": [
+      "Lectures",
+      "7 · How I work with an agent"
+    ]
+  },
+  {
+    "objectID": "slides/07-how-i-work.html#in-practice-the-notes-in-my-repos",
+    "href": "slides/07-how-i-work.html#in-practice-the-notes-in-my-repos",
+    "title": "Working with an agent",
+    "section": "In practice: the notes in my repos",
+    "text": "In practice: the notes in my repos\n\nDay 2 of xpublish-erddap: “Move session notes and handoff into this repo”\n14 small “Handoff:” PRs in one month, one after each chunk of work\nDecisions carry a name and a date: “EH decided this on 2026-10-14 and asked for it to be written here because she will forget.”\nPacIOOS ends with a guide for the data owner: how each step runs, and what looks wrong but is deliberate\n\n\nSources: xpublish-erddap commit b7b35f9 and PRs #23–#128; its handoff; pacioos how_store_created.md.",
+    "crumbs": [
+      "Lectures",
+      "7 · How I work with an agent"
+    ]
+  },
+  {
+    "objectID": "slides/07-how-i-work.html#stronger-ways-to-review-than-reading-every-line",
+    "href": "slides/07-how-i-work.html#stronger-ways-to-review-than-reading-every-line",
+    "title": "Working with an agent",
+    "section": "Stronger ways to review than reading every line",
+    "text": "Stronger ways to review than reading every line\n\nDesign notes. The structure is decided and written down before the code\nKnow what is in the PR. The agent summarises; you ask questions\nSmall tasks and phases. You always know what the agent was doing\nClean up after each task. Handoff, then /clear\n\n\n1 and 4 we already saw: the design docs and the daily workflow. The next two slides are 2 and 3. These work on your own code too, and on another agent’s.",
     "crumbs": [
       "Lectures",
       "7 · How I work with an agent"

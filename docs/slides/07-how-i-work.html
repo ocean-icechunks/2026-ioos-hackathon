@@ -308,32 +308,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="how-i-do-it-every-repo-carries-its-own-notes" class="slide level2">
-<h2>How I do it: every repo carries its own notes</h2>
-<pre class="text"><code>AGENTS.md              how to work in this repo
-agent/handoff.md       where things stand: read this first
-docs/design/*.md       decisions, and why, with the evidence
-memory/                one fact per file, shared by my agents</code></pre>
-<ul>
-<li>A hook <strong>loads the handoff</strong> when a session starts</li>
-<li><strong>“I am about to clear”</strong> → the agent updates handoff and memory, commits, pushes, says <em>Ready to clear</em></li>
-</ul>
-<aside class="notes">
-<p>This goes further than the guidance: the notes are committed, so they travel with the repo and a reviewer (person or agent) can check the work against the intent. Generic names, not one vendor’s: I use two agents.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="in-practice" class="slide level2">
-<h2>In practice</h2>
+<section id="in-practice-the-notes-in-my-repos" class="slide level2">
+<h2>In practice: the notes in my repos</h2>
 <ul>
 <li><strong>Day 2</strong> of xpublish-erddap: “Move session notes and handoff into this repo”</li>
 <li><strong>14 small “Handoff:” PRs</strong> in one month, one after each chunk of work</li>
@@ -481,16 +457,30 @@ memory/                one fact per file, shared by my agents</code></pre>
           display:block!important;
       }</style></aside>
 </section>
-<section id="design-notes-are-a-must" class="slide level2">
-<h2>1 · Design notes are a must</h2>
-<ul>
-<li>Talk through the design <strong>before</strong> the code</li>
-<li>Written for <strong>agents and people</strong>: the next session reads them, so does your collaborator</li>
-<li>“Agents write code I can’t understand.” <em>Did you have it write down the design first?</em></li>
-</ul>
+<section id="stronger-ways-to-review-than-reading-every-line" class="slide level2">
+<h2>Stronger ways to review than reading every line</h2>
+<ol type="1">
+<li><strong>Design notes.</strong> The structure is decided and written down before the code</li>
+<li><strong>Know what is in the PR.</strong> The agent summarises; you ask questions</li>
+<li><strong>Small tasks and phases.</strong> You always know what the agent was doing</li>
+<li><strong>Clean up after each task.</strong> Handoff, then <code>/clear</code></li>
+</ol>
+<aside class="notes">
+<p>1 and 4 we already saw: the design docs and the daily workflow. The next two slides are 2 and 3. These work on your own code too, and on another agent’s.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="know-what-is-in-the-pr" class="slide level2">
-<h2>2 · Know what is in the PR</h2>
+<h2>Know what is in the PR</h2>
 <ul>
 <li>Ask the agent to <strong>summarise the PR</strong>: intent, what was run, what was not</li>
 <li><strong>Ask it questions.</strong> <em>Why this structure? What did you assume? What would break this?</em></li>
@@ -501,7 +491,7 @@ memory/                one fact per file, shared by my agents</code></pre>
 </div>
 </section>
 <section id="break-the-work-into-tasks-and-phases" class="slide level2">
-<h2>3 · Break the work into tasks and phases</h2>
+<h2>Break the work into tasks and phases</h2>
 <ul>
 <li>Each issue: <strong>Order N of M</strong>, what it depends on, and <strong>“Done when:”</strong></li>
 <li>One issue → one branch → one PR</li>
@@ -510,13 +500,6 @@ memory/                one fact per file, shared by my agents</code></pre>
 <div class="takeaway">
 <p>Big chunks of unstructured work are how you end up not knowing what the agent did.</p>
 </div>
-</section>
-<section id="clean-up-after-every-task" class="slide level2">
-<h2>4 · Clean up after every task</h2>
-<ul>
-<li><strong>Handoff, then <code>/clear</code>.</strong> A fresh session with good notes beats a long one that has forgotten the start</li>
-<li>My routine phrases: <em>“I am about to clear”</em>, <em>“This task is done”</em> (open the PR, then stop), <em>“I am about to sign off”</em></li>
-</ul>
 </section></section>
 <section>
 <section id="security" class="title-slide slide level1 talk-section center" data-state="talk-dark" data-background-color="#0F1C26">
