@@ -71,6 +71,8 @@ website:
               text: "5 · Building a store"
             - href: slides/06-visualize.qmd
               text: "6 · Visualizing"
+            - href: slides/07-how-i-work.qmd
+              text: "7 · How I work with an agent"
         - section: Examples
           href: examples/index.qmd
           contents:
