@@ -1626,5 +1626,16 @@
       "Examples",
       "5 · OISST: Gulf of Maine marine heatwaves"
     ]
+  },
+  {
+    "objectID": "slides/07-how-i-work.html#the-basic-daily-workflow-the-handoff",
+    "href": "slides/07-how-i-work.html#the-basic-daily-workflow-the-handoff",
+    "title": "Working with an agent",
+    "section": "The basic daily workflow: the handoff",
+    "text": "The basic daily workflow: the handoff\n\n“What is the status? What is next for today?”\nStart work on this task\nBring the task to completion, or to a stopping point\n“Get ready to clear”: write the handoff, then clear the context\n\n\nAnthropic, Claude Code best practices · Lopopolo, Harness engineering (OpenAI) · Bridgeford et al., Ten Simple Rules for AI-Assisted Coding in Science",
+    "crumbs": [
+      "Lectures",
+      "7 · How I work with an agent"
+    ]
   }
 ]

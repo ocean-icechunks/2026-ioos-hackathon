@@ -15,19 +15,17 @@ part.
 
 # Handoff and notes
 
-## Recommended: keep the context in files
+## The basic daily workflow: the handoff
 
-- **The context window fills up fast.** Explore, plan, then implement; put
-  the plan in a doc or an issue (Anthropic)
-- **"If knowledge isn't in the repository, it doesn't exist for agents"**
-  (OpenAI, harness engineering)
-- **Manage context strategically:** files that survive between sessions
-  (Ten Simple Rules, rule 5)
+1. *"What is the status? What is next for today?"*
+2. Start work on this task
+3. Bring the task to completion, or to a stopping point
+4. *"Get ready to clear"*: write the handoff, then clear the context
 
 ::: {.refs}
-Anthropic, *Claude Code best practices* (2025) · Lopopolo, *Harness
-engineering* (OpenAI, 2026) · Bridgeford et al., *Ten Simple Rules for
-AI-Assisted Coding in Science*, arXiv 2510.22254 (2025)
+[Anthropic, *Claude Code best practices*](https://www.anthropic.com/engineering/claude-code-best-practices)
+· [Lopopolo, *Harness engineering* (OpenAI)](https://openai.com/index/harness-engineering/)
+· [Bridgeford et al., *Ten Simple Rules for AI-Assisted Coding in Science*](https://arxiv.org/abs/2510.22254)
 :::
 
 ## How I do it: every repo carries its own notes
