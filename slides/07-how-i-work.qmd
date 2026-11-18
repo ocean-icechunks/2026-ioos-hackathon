@@ -94,6 +94,36 @@ CLAUDE.md". Example from this repo: the layout, "run quarto render before
 every commit", never write the hub password.
 :::
 
+## What are the design docs in a repo?
+
+Markdown notes in `docs/design/`: **the decisions, and why, with the
+evidence**.
+
+:::: {.columns}
+::: {.column width="50%"}
+**What's in them**
+
+- The plan, written before the code
+- How the code is structured
+- Decisions, with who and when
+- Things that look wrong but are deliberate
+:::
+::: {.column width="50%"}
+**Why I do this**
+
+- **Planning:** we agree on the design before any code
+- **Intentional structure,** not something an agent vibe-coded
+- **Anyone, agent or human, can see the choices** and the reasons behind them
+- **Reproducible and understandable** by agents and people
+:::
+::::
+
+::: notes
+They live under docs/ because they are documentation people read too: a
+README or a code comment can link to them. The agent writes most of them; I
+read and correct them, because that is where the decisions are.
+:::
+
 ## How I do it: every repo carries its own notes
 
 ```text

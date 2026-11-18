@@ -1659,5 +1659,16 @@
       "Lectures",
       "7 · How I work with an agent"
     ]
+  },
+  {
+    "objectID": "slides/07-how-i-work.html#what-are-the-design-docs-in-a-repo",
+    "href": "slides/07-how-i-work.html#what-are-the-design-docs-in-a-repo",
+    "title": "Working with an agent",
+    "section": "What are the design docs in a repo?",
+    "text": "What are the design docs in a repo?\nMarkdown notes in docs/design/: the decisions, and why, with the evidence.\n\n\nWhat’s in them\n\nThe plan, written before the code\nHow the code is structured\nDecisions, with who and when\nThings that look wrong but are deliberate\n\n\nWhy I do this\n\nPlanning: we agree on the design before any code\nIntentional structure, not something an agent vibe-coded\nAnyone, agent or human, can see the choices and the reasons behind them\nReproducible and understandable by agents and people\n\n\n\nThey live under docs/ because they are documentation people read too: a README or a code comment can link to them. The agent writes most of them; I read and correct them, because that is where the decisions are.",
+    "crumbs": [
+      "Lectures",
+      "7 · How I work with an agent"
+    ]
   }
 ]
