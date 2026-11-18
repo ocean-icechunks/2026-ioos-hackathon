@@ -1637,5 +1637,16 @@
       "Lectures",
       "7 · How I work with an agent"
     ]
+  },
+  {
+    "objectID": "slides/07-how-i-work.html#what-is-the-handoff",
+    "href": "slides/07-how-i-work.html#what-is-the-handoff",
+    "title": "Working with an agent",
+    "section": "What is the handoff?",
+    "text": "What is the handoff?\nA short file in the repo, agent/handoff.md: where things stand.\n\n\nWhat’s in it\n\nRepo state\nHow we work here\nWhat shipped recently\nOpen threads\nPointers to the design notes\n\n\nHow the agent uses it\n\nReads it first, every new session\nGets oriented, then waits for my task\nRewrites it before I clear\nCommits it, so the next session, another agent, or a collaborator picks up from there\n\n\n\nKeep it lean: orientation, not a task list and not a diary. Detail goes in the design notes; the handoff points to them. A fresh session reads a one-page handoff in seconds instead of me re-explaining the project.",
+    "crumbs": [
+      "Lectures",
+      "7 · How I work with an agent"
+    ]
   }
 ]

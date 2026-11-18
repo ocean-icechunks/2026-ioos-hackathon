@@ -201,6 +201,42 @@
 <p><a href="https://www.anthropic.com/engineering/claude-code-best-practices">Anthropic, <em>Claude Code best practices</em></a> · <a href="https://openai.com/index/harness-engineering/">Lopopolo, <em>Harness engineering</em> (OpenAI)</a> · <a href="https://arxiv.org/abs/2510.22254">Bridgeford et al., <em>Ten Simple Rules for AI-Assisted Coding in Science</em></a></p>
 </div>
 </section>
+<section id="what-is-the-handoff" class="slide level2">
+<h2>What is the handoff?</h2>
+<p>A short file in the repo, <code>agent/handoff.md</code>: <strong>where things stand</strong>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>What’s in it</strong></p>
+<ul>
+<li>Repo state</li>
+<li>How we work here</li>
+<li>What shipped recently</li>
+<li>Open threads</li>
+<li>Pointers to the design notes</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>How the agent uses it</strong></p>
+<ul>
+<li><strong>Reads it first</strong>, every new session</li>
+<li>Gets oriented, then <strong>waits for my task</strong></li>
+<li><strong>Rewrites it</strong> before I clear</li>
+<li>Commits it, so the <strong>next session, another agent, or a collaborator</strong> picks up from there</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Keep it lean: orientation, not a task list and not a diary. Detail goes in the design notes; the handoff points to them. A fresh session reads a one-page handoff in seconds instead of me re-explaining the project.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="how-i-do-it-every-repo-carries-its-own-notes" class="slide level2">
 <h2>How I do it: every repo carries its own notes</h2>
 <pre class="text"><code>AGENTS.md              how to work in this repo

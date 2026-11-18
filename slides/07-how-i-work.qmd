@@ -28,6 +28,37 @@ part.
 · [Bridgeford et al., *Ten Simple Rules for AI-Assisted Coding in Science*](https://arxiv.org/abs/2510.22254)
 :::
 
+## What is the handoff?
+
+A short file in the repo, `agent/handoff.md`: **where things stand**.
+
+:::: {.columns}
+::: {.column width="50%"}
+**What's in it**
+
+- Repo state
+- How we work here
+- What shipped recently
+- Open threads
+- Pointers to the design notes
+:::
+::: {.column width="50%"}
+**How the agent uses it**
+
+- **Reads it first**, every new session
+- Gets oriented, then **waits for my task**
+- **Rewrites it** before I clear
+- Commits it, so the **next session, another agent, or a collaborator** picks
+  up from there
+:::
+::::
+
+::: notes
+Keep it lean: orientation, not a task list and not a diary. Detail goes in
+the design notes; the handoff points to them. A fresh session reads a
+one-page handoff in seconds instead of me re-explaining the project.
+:::
+
 ## How I do it: every repo carries its own notes
 
 ```text
