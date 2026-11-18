@@ -2,13 +2,13 @@
 
 Rolling state for agents. This is orientation, not a task list.
 
-## Repo state (2026-11-17, after PR #18)
+## Repo state (2026-11-18, after PR #19)
 
 - The virtual Icechunk tutorial site for the 2026 IOOS Hackathon. Eli Holmes and
   Rich Signell lead the project.
 - Sidebar: Home, JupyterHub Skills (01, 02, 04, 05), **Agent Skills** (Start
   your coding agent, Human in the loop),
-  **Lectures** (six decks), **Examples**
+  **Lectures** (seven decks), **Examples**
   (landing page `examples/index.qmd` + six notebooks), Resources.
 - Live at
   <https://ocean-icechunks.github.io/2026-ioos-hackathon> (GitHub Pages, `main`
@@ -49,6 +49,10 @@ Rolling state for agents. This is orientation, not a task list.
 
 ## Open threads
 
+- **Lecture 7 (`slides/07-how-i-work.qmd`) never seen in a browser by me.**
+  Eli presented it on 2026-11-18. The OpenAI harness-engineering link on the
+  daily-workflow slide refused the agent's fetch; not confirmed to open.
+
 - **PATH workaround on the agent page, to remove later.** Hub terminals are
   login shells (`bash -l`, so `~/.profile`, not `~/.bashrc`), and neither image
   puts `~/.local/bin` on PATH; a fresh home has no `~/.profile`. Eli hit
@@ -77,6 +81,17 @@ Rolling state for agents. This is orientation, not a task list.
   slides). Eli checked chapter 2's flowcharts in a browser on 2026-11-14.
 
 ## Recently shipped
+
+- PR #19 (merged 2026-11-18): lecture 7, "Working with an agent:
+  brainstorming, planning and directing; less coding", Eli's 15–20 min talk
+  on how she works (daily workflow and handoff, `AGENTS.md`, design docs, Ten
+  Simple Rules, reviewing without reading every line, security, take-home).
+  Plan in `design/talk-how-i-work-plan.md`; Eli chose a plain structure over
+  the story arcs in `design/research-talk-structures.md`. Research notes
+  `design/research-how-eli-works.md` (her working patterns, meant to be
+  pointed at by agents) and `design/research-agent-practice-literature.md`
+  (published guidance compared with her practice). Branch `talk-how-i-work`
+  not deleted yet.
 
 - PR #18 (merged 2026-11-17, branch deleted): "Start your coding agent"
   moved from `setup/03-` to `agent-skills/00-start-your-agent.qmd`. Workshop
