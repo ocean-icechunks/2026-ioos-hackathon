@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>PacIOOS: seasons and water masses at Station ALOHA – Virtual Icechunk</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -58,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -73,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-55e293e7e8c3c3332286285459f7de79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-885326d30f7e6b122c651110f6bcaca6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -156,7 +162,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/ioos-code-sprint-logo.png" alt="IOOS Code Sprint logo" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../images/ioos-code-sprint-logo.png" alt="IOOS Code Sprint logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/ioos-code-sprint-logo.png" alt="IOOS Code Sprint logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
@@ -270,6 +277,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">6 · Visualizing</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/07-how-i-work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 · How I work with an agent</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -373,13 +386,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>The point is <a href="https://hahana.soest.hawaii.edu/hot/">Station ALOHA</a> (22.75 °N, 158 °W), where the Hawaii Ocean Time-series has sampled monthly since 1988. No credentials needed. Runs on Google Colab (Python 3.12).</p>
 <div id="2099ec20" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>q <span class="st">"icechunk&gt;=2.3"</span> <span class="st">"xarray&gt;=2026.7"</span> <span class="st">"zarr&gt;=3.4"</span> matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>q <span class="st">"icechunk&gt;=2.3"</span> <span class="st">"xarray&gt;=2026.7"</span> <span class="st">"zarr&gt;=3.4"</span> matplotlib</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="open-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="open-the-dataset">Open the dataset</h2>
 <p>The store holds only metadata; every value is read by byte range from the NetCDF files on Source Cooperative. <code>chunks=None</code> keeps it lazy until we select.</p>
 <div id="4efb199f" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> icechunk, xarray <span class="im">as</span> xr, zarr</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> icechunk, xarray <span class="im">as</span> xr, zarr</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>zarr.config.<span class="bu">set</span>({<span class="st">"async.concurrency"</span>: <span class="dv">128</span>})   <span class="co"># many small chunks: read lots at once</span></span>
@@ -390,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> {p: icechunk.credentials.HttpAccess <span class="cf">for</span> p <span class="kw">in</span> repo.config.virtual_chunk_containers}</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> repo.reopen(authorize_virtual_chunk_access<span class="op">=</span>auth)</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_zarr(repo.readonly_session(tag<span class="op">=</span><span class="st">"v2.0"</span>).store, consolidated<span class="op">=</span><span class="va">False</span>, chunks<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1009,7 +1022,7 @@ Attributes: (12/54)
 </div>
 <p>Nothing has been read yet but metadata, and xarray already knows how much data it can reach:</p>
 <div id="feb4e49b" class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Size reported by xarray: </span><span class="sc">{</span>ds<span class="sc">.</span>nbytes <span class="op">/</span> <span class="fl">1e12</span><span class="sc">:.2f}</span><span class="ss"> TB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Size reported by xarray: </span><span class="sc">{</span>ds<span class="sc">.</span>nbytes <span class="op">/</span> <span class="fl">1e12</span><span class="sc">:.2f}</span><span class="ss"> TB"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Size reported by xarray: 1.17 TB</code></pre>
 </div>
@@ -1019,13 +1032,13 @@ Attributes: (12/54)
 <h2 class="anchored" data-anchor-id="read-profiles-at-station-aloha">Read profiles at Station ALOHA</h2>
 <p>One profile per month, 2009–2020: the 15th at 12Z (02:00 in Hawaiʻi, so the afternoon warm skin is not in it), top 1,500 m, temperature and salinity. Each chunk in this store is one depth level at one time step, so this is 144 times × 27 levels × 2 variables ≈ 7,800 reads, about 1.8 GB. That took about 15 s on a JupyterHub in AWS us-west-2.</p>
 <div id="427004b8" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>m<span class="sc">:02d}</span><span class="ss">-15T12"</span> <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2009</span>, <span class="dv">2021</span>) <span class="cf">for</span> m <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">13</span>)]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>m<span class="sc">:02d}</span><span class="ss">-15T12"</span> <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2009</span>, <span class="dv">2021</span>) <span class="cf">for</span> m <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">13</span>)]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>aloha <span class="op">=</span> (ds[[<span class="st">"temp"</span>, <span class="st">"salt"</span>]]</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>         .sel(lat<span class="op">=</span><span class="fl">22.75</span>, lon<span class="op">=-</span><span class="fl">158.0</span>, method<span class="op">=</span><span class="st">"nearest"</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>         .sel(time<span class="op">=</span>times, depth<span class="op">=</span><span class="bu">slice</span>(<span class="dv">0</span>, <span class="dv">1500</span>))</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         .load())</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>aloha</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>aloha</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1702,10 +1715,10 @@ Attributes: (12/54)
 <h2 class="anchored" data-anchor-id="seasons-reach-only-the-top-100-m">Seasons reach only the top ~100 m</h2>
 <p>Sun and wind warm and stir the top of the ocean, so its temperature follows the seasons. Deeper down, the thermocline is shielded from them. Plot temperature at four depths through the 12 years.</p>
 <div id="3a2c4204" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>aloha.temp.sel(depth<span class="op">=</span>[<span class="fl">0.25</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>]).plot.line(ax<span class="op">=</span>ax, x<span class="op">=</span><span class="st">"time"</span>, hue<span class="op">=</span><span class="st">"depth"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">""</span>, ylabel<span class="op">=</span><span class="st">"temperature (°C)"</span>, title<span class="op">=</span><span class="st">"Temperature at Station ALOHA, one profile per month"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1725,7 +1738,7 @@ Attributes: (12/54)
 </ul>
 <p>In a T–S diagram each water mass is a bend in the curve.</p>
 <div id="701c967e" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> aloha.mean(<span class="st">"time"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> aloha.mean(<span class="st">"time"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>smax <span class="op">=</span> mean.salt.sel(depth<span class="op">=</span><span class="bu">slice</span>(<span class="dv">0</span>, <span class="dv">300</span>)).idxmax().item()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>smin <span class="op">=</span> mean.salt.sel(depth<span class="op">=</span><span class="bu">slice</span>(<span class="dv">300</span>, <span class="dv">1000</span>)).idxmin().item()</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1748,7 +1761,7 @@ Attributes: (12/54)
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>ax3.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"salinity"</span>, ylabel<span class="op">=</span><span class="st">"potential temperature (°C)"</span>, title<span class="op">=</span><span class="st">"T–S, all 144 profiles"</span>)</span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>fig.colorbar(sc, ax<span class="op">=</span>ax3, label<span class="op">=</span><span class="st">"depth (m)"</span>)</span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1816,13 +1829,14 @@ Attributes: (12/54)
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
