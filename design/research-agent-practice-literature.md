@@ -232,6 +232,195 @@ notes, plans and "Tested / Not tested" sections are observability; issues,
 plan approval and `/clear` are directability. Verify these sources before
 using them.
 
+## 5c. Follow-ups (Eli's questions, 2026-11-18)
+
+### Understanding without reading: the Anthropic study in detail
+
+Shen and Tamkin, "How AI assistance impacts the formation of coding skills"
+(Anthropic, 2026-01-29; arXiv 2601.20245) **[read]**. A randomised trial with
+52 mostly junior developers learning Trio, a Python async library none had
+used. 35 minutes of coding, then a 25-minute quiz without AI. The AI group
+scored about 50% against 67% for hand-coders (d = 0.74, p = 0.01), worst on
+debugging. It was not significantly faster.
+
+What matters for Eli is the breakdown by **how** people used the AI:
+
+| Pattern | n | Quiz |
+|---|---|---|
+| AI delegation: let it write everything | 4 | low (<40%) |
+| Progressive reliance: a few questions, then delegate | 4 | low |
+| Iterative AI debugging: let it fix and verify | 4 | low |
+| Generation then comprehension: generate, then ask follow-up questions to understand | 2 | high (~86%) |
+| Hybrid: ask for code *with* explanations | 3 | high (~68%) |
+| Conceptual inquiry: ask only conceptual questions, fix errors yourself | 7 | high (~65%) |
+
+"Not all AI-reliance is the same: the way we interact with AI while trying to
+be efficient affects how much we learn."
+
+**Caveats** that the authors state: groups of 2–7 people, correlational, one
+short task, a chat sidebar rather than an agent (they expect agents to have a
+*larger* effect), and the quiz measured learning a new library, not
+maintaining a system.
+
+**What it supports:** the high scorers did not read more code. They asked the
+AI to explain what it did and why. That is close to Eli's method: the agent
+writes design notes and explains its structure, and she questions it. The
+study gives no support for line-by-line reading as the route to
+understanding, and some support for conversation about the design. It does not
+show that the conversation can replace *all* contact with the code; the
+debugging gap suggests that whoever will debug a system needs some working
+model of it.
+
+### Plausible plans: the evidence, and guards against it
+
+He, Demartini and Gadiraju, "Plan-Then-Execute: An Empirical Study of User
+Trust and Team Performance When Using LLM Agents As A Daily Assistant" (CHI
+2025; arXiv 2502.01390). 248 participants, everyday tasks of varying risk,
+four set-ups from full automation to human involvement in both planning and
+execution. Findings (from the abstract and the authors' slides):
+
+- Plausible plans can be "convincingly wrong", and they lead users to trust
+  the agent when it is wrong.
+- Being involved does **not** calibrate trust.
+- Involvement **helps fix an imperfect plan, and can harm a good one.**
+- Their conclusion: too much human involvement can be undesirable; involve
+  the user where it helps.
+
+The second half bears on Eli's own worry below: a human editing a sound plan
+can make it worse.
+
+**Guards**, from the sources in this note plus decision-making research
+(marked where it is background knowledge):
+
+1. **Ask for alternatives, not a plan.** Two or three approaches with their
+   trade-offs, and a recommendation. A single plan invites a yes; a choice
+   invites judgment. Superpowers' brainstorming step and Harper Reed's "one
+   question at a time" both push this way.
+2. **Make the plan show its evidence.** What did it read, what did it run,
+   what did it assume? An assumption you can see is one you can check against
+   what you know. Eli's issue and PR templates already separate decisions from
+   findings.
+3. **Test the plan cheaply before trusting it.** A smoke test, a spike, a
+   probe: Eli's stage 5 (local store → scratch → production) is a plan test.
+   The plan is judged by what happened, not by how it reads.
+4. **Have a fresh session attack it.** A new session, with only the plan and
+   the repo, asked "what is wrong with this plan; what would make it fail?"
+   (agent-coders Skills 103 recommends this for code). Correlated-failure
+   caveat (§5b): a model criticising its own family's plan shares some blind
+   spots, so it supplements, not replaces, step 3.
+5. **Pre-mortem** (Gary Klein, *Harvard Business Review*, 2007; background
+   knowledge, not checked this session): "It is six months later and this
+   failed. Why?" It makes criticism the expected answer rather than a
+   challenge.
+6. **Put checkpoints in the plan that can fail.** Each phase says what result
+   would show it is wrong (HumanLayer: "precise about testing and verification
+   per phase").
+7. **Judge on your domain, not on the prose.** Ask the plan to predict
+   something you know: the file count, the value range, the time span, the
+   size of the result. A wrong prediction is the cheapest signal there is.
+
+### Ten Simple Rules, and how Eli's practice compares
+
+Bridgeford, Campbell, Chen, Lin, Ritz, Vandekerckhove and Poldrack, "Ten
+Simple Rules for AI-Assisted Coding in Science", arXiv 2510.22254 (2025-10)
+**[read]**. In the PLOS Computational Biology "Ten Simple Rules" tradition, by
+psychology and neuroscience researchers; written for scientists who write
+analysis code with AI help.
+
+| Rule | Its advice | Eli |
+|---|---|---|
+| 1. Gather domain knowledge before implementation | Learn data shapes, conventions, existing tools first; use AI to research | **Same.** Stage 1, background notes, server probes. |
+| 2. Distinguish problem framing from coding | Framing and design are a separate job; stay fluent enough to judge output | **Same,** taken further: framing lives in issues and design notes. |
+| 3. Choose appropriate AI interaction models | Autonomous agents "risk code divergence" and "require careful monitoring"; stay close to the codebase | **Differs.** Eli runs autonomous agents by design and puts the control in structure (issues, hooks, PRs, notes) rather than closeness to the code. |
+| 4. Start by thinking through a potential solution | Inputs, outputs, constraints, edge cases, fit with the project, before prompting | **Same in intent;** Eli has the agent draft the options and she decides. |
+| 5. Manage context strategically | Context files and a problem-tracking file that survive sessions; restate constraints | **Same,** more developed: handoff, design notes, memory, `/clear`. |
+| 6. Implement test-driven development | Behavioural tests before code; watch for "paper tests" and tests edited to pass | **Partly.** Eli's "done when" and oracle tests (real ERDDAP, netCDF-C reads) are behavioural; tests are not usually written first. Her test-suite review found the predicted failure (tests that could not fail). |
+| 7. Leverage AI for test planning | Use AI for edge cases and test infrastructure | **Same.** |
+| 8. Monitor progress and know when to restart | Watch for wrong turns, stop early, restart from clean context, use version control | **Same,** as routine: one task per session, handoff, `/clear`, branches. |
+| 9. Critically review generated code | Don't trust claims of success; test independently; "read and understand the code" | **Agrees on the first two, disagrees on the third** (next section). Eli's PRs say what was run and what was not. |
+| 10. Refine incrementally with focused objectives | Bounded requests, test after each, revert if needed | **Same:** small issues, one PR each. |
+
+Discussion section: sandboxes, commit before agent changes, configure what
+agents may modify and what needs approval, keep monitoring. Eli does all
+four, with the approval rules enforced by hooks.
+
+**Net:** eight of ten rules match, and Eli usually goes further. The two
+differences (rules 3 and 9) are the same disagreement: the rules keep the
+human close to the code; Eli keeps the human close to the decisions and the
+evidence. The paper's audience is a scientist writing analysis code, where
+**the code is the science**. Eli's examples (an ERDDAP server, an upload
+pipeline, virtual stores) are mostly infrastructure around the science. That
+difference is probably most of the disagreement.
+
+### "Read and understand the code": where the operating-system argument holds
+
+Eli's argument: nobody reads their operating system, and they still use it;
+for a whole codebase, reading every line is neither possible nor the point.
+
+**Why it holds for the OS:** you trust it because of things other than
+reading it. It has maintainers, a test suite, a long record of use by many
+people, and stable interfaces whose behaviour is documented. Trust comes from
+the process and the evidence around the code.
+
+**What that means for an agent-written codebase:** you are its maintainer,
+so you have to supply those substitutes yourself. Eli's practice supplies
+most of them: design notes (the documented interfaces and intent), tests
+against independent oracles (the test suite), PRs with "Tested / Not tested"
+(the record), small issues (a history you can audit), and real use by
+collaborators before release (the track record).
+
+**Where reading still pays,** as a refinement rather than a rule:
+
+- **Where the code *is* the science:** the calculation, the units, the
+  statistical choice, the handling of missing data. A wrong line there is a
+  wrong result that no infrastructure test will notice. This is the case Ten
+  Simple Rules is written for.
+- **At the seams:** auth, deletion, overwrites, anything irreversible (Jain's
+  escalation list; PacIOOS #9 was a two-line `|| true` that could overwrite
+  finished copies, found by reading).
+- **When the evidence surprises you.** Then you read to find out why, with the
+  agent explaining.
+
+A defensible slogan: *understand the design and the evidence everywhere;
+read the code where the science or the risk lives.*
+
+### Acceptance criteria: defined by Eli, not written by her, and not too narrow
+
+The earlier wording ("acceptance tests written by you before the code") was
+wrong for Eli's case. Two corrections:
+
+1. **Defined, not written.** The agent writes the tests. What matters is that
+   the *criteria* come from the human, so the agent is not grading its own
+   homework (Jain: "authored by humans, verified by machines"; Böckeler:
+   correctness is out of any sensor's reach if the human never said what they
+   wanted).
+2. **Narrow criteria can trap the agent in a bad solution.** Eli's worry has
+   support. He et al. found that human involvement can make a good plan
+   worse. Böckeler warns against verbose up-front specs. And Goodhart's law
+   applies to agents especially strongly: they optimise exactly what is
+   measured.
+
+Criteria come at three levels, and the guidance (read together) says to
+spend human effort on the first two:
+
+| Level | Example (web page) | Example (data store) | Who sets it |
+|---|---|---|---|
+| **Principles**: what good looks like | "Readable at phone width; one idea per slide; colour is never the only signal" | "Copies are write-once; metadata matches the provider's" | Eli |
+| **Outcomes and oracles**: checks against something independent | "No horizontal scroll at 400 px; contrast passes WCAG AA" | "Values match netCDF-C reads of the same file; erddapy's real calls succeed" | Eli defines, agent implements |
+| **Implementation**: how to do it | "Use this CSS grid" | "Use `rclone copyto` with these flags" | the agent, unless there is a reason |
+
+Eli's best criteria are already at the second level, and they are a strong
+kind: **independent oracles**. "Match a real ERDDAP server" and "match
+netCDF-C byte-range reads" don't tell the agent how; they say what the answer
+must agree with. Thoughtworks' "anchoring coding agents to a reference
+application" is the same idea. Her visual-principles instinct is the first
+level. OpenAI's harness post writes such principles into the repo as "golden
+principles".
+
+A test for whether a criterion is too narrow: could a better solution than
+the one you imagine fail it? If yes, it is an implementation choice in
+disguise. Restate it as the property you actually care about.
+
 ## 6. Harnesses, instructions and skills
 
 - **Instructions files are now standard practice.** `AGENTS.md`: Thoughtworks
@@ -305,9 +494,10 @@ Few. The two found:
 
 Candidates, not recommendations. Eli decides.
 
-1. **Human-authored acceptance tests before code** (Ten Simple Rules 6;
-   Jain; Böckeler's caution about AI tests). Her "Done when" is the nearest
-   equivalent.
+1. **Human-defined acceptance criteria before code**, at the level of
+   principles and independent oracles, not implementation (§5c). Her "Done
+   when" and her oracle tests are the nearest equivalent; the agent writes
+   the tests.
 2. **More computational sensors** in the norms: linters, type checks,
    structural tests, an automated agent review pass on each PR.
 3. **Measuring, not estimating.** METR's perception gap is a warning about
@@ -366,6 +556,9 @@ others from search summaries.
 | Bridgeford et al., "Ten Simple Rules for AI-Assisted Coding in Science", arXiv 2510.22254, <https://arxiv.org/html/2510.22254v2> **[read]** | R | 2025-10 |
 | Hung and Yeung, "Re-opening open-source science through AI assisted development", arXiv 2512.11993, <https://arxiv.org/abs/2512.11993> **[read, abstract]** | R | 2025-12 |
 
+| Shen and Tamkin, "How AI assistance impacts the formation of coding skills", <https://www.anthropic.com/research/AI-assistance-coding-skills> (arXiv 2601.20245) **[read]** | V/R | 2026-01-29 |
+| He, Demartini and Gadiraju, "Plan-Then-Execute: An Empirical Study of User Trust and Team Performance When Using LLM Agents As A Daily Assistant", CHI 2025, arXiv 2502.01390, <https://arxiv.org/abs/2502.01390> | R | 2025-04 |
+| "Architecting Resilient LLM Agents: A Guide to Secure Plan-then-Execute Implementations", arXiv 2509.08646, <https://arxiv.org/html/2509.08646v1> | R | 2025-09 |
 | Bainbridge, "Ironies of automation", *Automatica* 19(6):775–779 | R | 1983 |
 | Simkute, Tankelevitch, Kewenig, Scott, Sellen and Rintel, "Ironies of Generative AI", *IJHCI*; arXiv 2402.11364, <https://arxiv.org/abs/2402.11364> | R | 2024-10 |
 | Parasuraman, Sheridan and Wickens, "A model for types and levels of human interaction with automation", *IEEE Trans. SMC-A* 30(3):286–297, <https://www.cs.uml.edu/~holly/91.549/readings/sheridan-autonomy.pdf> | R | 2000 |
