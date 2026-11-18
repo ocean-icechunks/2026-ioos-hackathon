@@ -1692,5 +1692,16 @@
       "Lectures",
       "7 · How I work with an agent"
     ]
+  },
+  {
+    "objectID": "slides/07-how-i-work.html#take-home",
+    "href": "slides/07-how-i-work.html#take-home",
+    "title": "Working with an agent",
+    "section": "Take-home",
+    "text": "Take-home\nAgents let us build better, more reproducible code bases than most of us could write alone. To get that, adopt structured work practices and be the project manager.\n\nThis tutorial: ocean-icechunks.github.io/2026-ioos-hackathon\nSkills: github.com/ocean-icechunks/ocean-icechunks-skills\nExample: xpublish-erddap",
+    "crumbs": [
+      "Lectures",
+      "7 · How I work with an agent"
+    ]
   }
 ]

@@ -272,7 +272,11 @@ agent did.
 
 [Safe agent practices](https://ocean-icechunks.github.io/2026-ioos-hackathon/agent-skills/01-safe-agent-practices.html){.lead}
 
-## Thank you {.dark .closing}
+## Take-home {.dark .closing}
+
+Agents let us build **better, more reproducible code bases** than most of us
+could write alone. To get that, **adopt structured work practices** and
+**be the project manager**.
 
 - This tutorial: [ocean-icechunks.github.io/2026-ioos-hackathon](https://ocean-icechunks.github.io/2026-ioos-hackathon)
 - Skills: [github.com/ocean-icechunks/ocean-icechunks-skills](https://github.com/ocean-icechunks/ocean-icechunks-skills)
