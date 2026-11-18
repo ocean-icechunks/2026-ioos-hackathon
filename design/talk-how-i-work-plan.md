@@ -1,167 +1,203 @@
 # Plan: "How I work with agents" (15–20 min talk)
 
-Status: **draft plan for Eli to edit.** No slides are written yet. Edit
-anything in place; put questions or comments as `> EH:` lines and I will
-work from those.
+Status: **draft plan for Eli to edit.** No slides are written yet. Edit in
+place; put questions or comments as `> EH:` lines and I will work from those.
+
+Revision 2: the talk is about **patterns of work**, learned from how two
+projects grew from a first prototype to a mature project, not about what
+those projects did. xpublish-erddap and PacIOOS are illustrations only.
 
 ## Brief
 
 - **Audience:** IOOS Hackathon participants. Ocean scientists and data people;
-  most have used a chatbot, some have used a coding agent, few have a workflow.
+  most have used a chatbot, some a coding agent, few have a workflow.
 - **Length:** 15–20 min, about 16 slides.
-- **What it is:** an opinionated talk about how *I* work, with evidence from my
-  own repos. Not a tutorial (deck 02 and the Agent Skills pages are the
-  tutorial).
-- **One sentence they leave with (draft):**
-  *Don't chat with an agent. Run it like a project, with issues, branches,
-  PRs, notes and skills, so the work is small, checked and written down.*
+- **What it is:** opinionated: how *I* work. Deck 02 and the Agent Skills
+  pages are the tutorial; this is the why behind them.
+- **One sentence they leave with (draft):** *Structure is what lets you go
+  fast with an agent: questions before code, every task written down, every
+  result checked, and every lesson kept.*
 
-> EH: Is this a replacement for deck 02, a new deck 07, or a talk outside the
-> lecture sequence? It changes how much setup I can assume.
+> EH: Replacement for deck 02, a new deck 07, or a talk outside the lecture
+> sequence?
 
-## The argument in one paragraph
+---
 
-Vibe coding is like working in one endless script: one long conversation, no
-boundaries, nothing written down, and no point where anyone checks the work.
-It feels fast for an afternoon and falls apart in a week. I work the other
-way. Every piece of work is an issue with a "done when". The agent does it on
-a branch and proves it in a PR that says what was run. The session ends with a
-handoff note and `/clear`. Hooks enforce the rules the model must not break,
-and memory keeps my corrections. Skills are where the experience from many
-projects is collected, and they get better only because each project reports
-its lessons back. My time goes to deciding and checking, not typing.
+## 1. The pattern: how a project grows
 
-## Title options (pick or rewrite)
+What I see in both repos, in the order it happens. The same arc shows up
+in a month-long software project (xpublish-erddap) and an eight-day data
+project (PacIOOS).
 
-1. **Stop vibe coding** — How I actually work with agents
-2. **Not one endless script** — Structure for working with coding agents
-3. **Run it like a project** — Issues, PRs, notes and skills with a coding agent
-4. **The agent types; I decide**
+| Stage | What I do | Why |
+|---|---|---|
+| **1. Start with a question** | First session is research: how does the thing work, what would it need, a gentle probe of the source. The agent writes a background note. I set the scope in my own words. | Direction changes are cheap here. xpublish-erddap's first plan was dropped on day one, and the note says why. |
+| **2. Prototype fast, then stop** | A quick prototype, loosely, even straight to `main`. Then, the same day, every gap it shows becomes an issue, including the boring ones (ownership, license, attribution). | A prototype tells you what the work is. The backlog is what you keep from it. |
+| **3. Move the notes into the repo** | By day two: `AGENTS.md`, a handoff note, topic notes. When work outgrows its home repo, it moves to its own (PacIOOS moved out of a shared repo). | From here on, any session can start cold. |
+| **4. Think about failure first** | Before building, ask what breaks: what if files change, what if a request is huge, what if keys expire. These become issues too. | Failure modes are cheaper on paper than in production. |
+| **5. Test against the real thing** | Real servers, real client code, real data. Local smoke test → scratch copy → production. Clean venv, every time. The PR says what ran and what did not. | "I read it and it looks right" is not a test. |
+| **6. Ask for reports, not code** | Big questions go to the agent as research: compare with the sibling projects, audit the repo, review the test suite. It proposes; I decide; the decisions become issues. | The agent is good at a wide look. The choices stay mine. |
+| **7. Run a queue** | Issues numbered "order N of M", with dependencies, a "done when" and a suggested model. One issue, one branch, one PR, then a handoff and `/clear`. Small ones in parallel. | At this point the work is mostly execution, and it is easy to review. |
+| **8. Record decisions with a name and date** | "Decisions (Eli, 2026-11-14)" in PRs and design notes; "looks wrong but is deliberate"; corrections become memory. | So the next session, or person, doesn't undo them. |
+| **9. Harden and hand over** | Tests that can't fail, hygiene, packaging, a release; docs for the people who will own it, including a prompt to recreate the work. | The project must outlive my sessions. |
+| **10. Feed the lessons back** | What a project taught goes into its notes, then into the skill. | The next project starts further along. |
+
+**The opinion this supports:** vibe coding isn't wrong for stage 2. It's
+wrong as the *whole* method. The loose part lasts hours; the rest is
+structure, and the structure is what keeps the speed.
+
+> EH: Is this arc right? Anything missing, especially from the early stage?
+> One thing I noticed: you pick a model per task (Opus for judgment, Sonnet or
+> Haiku for execution). Is that worth a point?
+
+## 2. My norms with the agent (gist of `~/claude-config`)
+
+- **One setup, everywhere.** Instructions, hooks, skills and memory are in a
+  git repo, linked into each machine and into both agents (Claude Code and
+  Antigravity).
+- **Rules that matter are enforced, not requested.** Hooks refuse destructive
+  git and pushes to `main`, and ask me before a merge or a new package. The
+  model cannot argue its way past a hook.
+- **Every change goes through a PR I review.** The agent never merges on its
+  own; "done" means done writing, not done checking.
+- **Short phrases start routines.** "I am about to clear", "This task is
+  done", "I am about to sign off".
+- **Notes live with the repository** (handoff, design notes, `AGENTS.md`),
+  written for people and agents. The handoff is orientation, not a to-do list.
+- **Verify by running, in a clean environment;** report what ran.
+- **Corrections become memory:** one fact per file, backed up in git.
+- **Ask me only what is mine to decide**; a question from me gets an answer,
+  not an edit.
+- **The config grows from friction.** Most rules trace to something that went
+  wrong once (a quota memory corrected by measurement; a guard added after a
+  near miss).
+
+## 3. Work requirements and how I meet them (high level)
+
+My agency's AI-assisted coding practices, and the short answer for each
+(detail in `~/claude-config/docs/agent-guards.md`):
+
+| Requirement | How |
+|---|---|
+| Disclose AI-generated code | Agent co-author line on every commit, a note in every PR, a README section |
+| Human review; explain intent | Everything reaches `main` through a PR I review; the agent comments the *why*; design notes state intent |
+| Verify dependencies | Installing a new package needs my approval and a check that it is real; it goes in the dependency file and the PR |
+| Sandboxing and approval gates | Agents run only on cloud VMs, no root; hooks and a command classifier gate risky actions |
+| Credentials and telemetry | No keys in code; telemetry off where possible; work code runs on Vertex (FedRAMP Moderate) |
+
+**Point for the talk:** a structured workflow and the compliance rules are the
+same thing. Almost every requirement is met by habits I'd keep anyway.
+
+> EH: For a hackathon audience, one slide on this, or leave it out? It may
+> matter most to the federal people in the room.
+
+---
 
 ## Spine (about 16 slides)
 
-Times are rough: Hook 3 min, the loop 7, guardrails 3, skills 5, close 2.
+Rough times: hook 3 min, the arc 8, norms 3, skills 4, close 2.
 
 ### Part 1 · The hook (3 min)
 
 | # | Slide | Form | Content |
 |---|---|---|---|
-| 1 | Title | title | Title, subtitle, me |
-| 2 | **Vibe coding is one endless script** | statement | One long chat. Every idea goes in. Nothing has an end. Like a 3,000-line `analysis.R` you are afraid to touch. |
-| 3 | What that costs | 3 bullets | You can't review it. The agent loses the thread (and burns budget) as the chat grows. Nobody else, including you next week, can pick it up. |
-| 4 | **Run it like a project** | statement | The same tools a software team uses: issues, branches, PRs, notes. The agent is fast and new to the project, so give it a team's structure. |
+| 1 | Title | title | |
+| 2 | **Vibe coding is one endless script** | statement | One chat, no ends, nothing written down. Like the 3,000-line `analysis.R` you're afraid to touch. |
+| 3 | It works for an afternoon | 3 bullets | Then: you can't review it, the agent loses the thread, nobody (including you next week) can pick it up. |
+| 4 | **Structure is what keeps the speed** | statement | The claim of the talk. |
 
-> EH: Do you want a real (anonymized) "before" example on slide 2, e.g. an old
-> notebook of yours, or keep it as an image people recognize?
+### Part 2 · How a project grows (8 min)
 
-### Part 2 · The loop (7 min)
+The arc in section 1, compressed to six slides. Each slide is one pattern,
+with one small real example as the illustration, not the topic.
+
+| # | Slide | Pattern (stages) | Illustration |
+|---|---|---|---|
+| 5 | **The arc** | all | One-row diagram: question → prototype → backlog → test for real → reports → queue → hand over. Overlaid: the loose part is a sliver at the start. Could use the xpublish-erddap timeline (first PR is on day two; ~129 issues and PRs by release). |
+| 6 | **Start with a question** | 1, 4 | First session writes a background note and drops the first plan. Ask what breaks before building. |
+| 7 | **Prototype, then write the backlog** | 2, 3 | A prototype on day one; a dozen issues filed the same day; notes in the repo on day two. |
+| 8 | **Ask for a report, not a fix** | 6 | "Audit the repository and propose work. Do not fix anything." → findings → issues. |
+| 9 | **The issue is the prompt** | 7 | A real issue: what's wrong, *Done when*, *Order 1 of 4*, *Model: Sonnet*. A fresh session can do it with no chat history. |
+| 10 | **A PR is proof** | 5, 8 | A "Tested" table and a "Not tested" line; decisions with a name and a date. |
+
+### Part 3 · Norms (3 min)
 
 | # | Slide | Form | Content |
 |---|---|---|---|
-| 5 | **One month, one plugin** | visual | xpublish-erddap timeline: 236 commits, ~129 issues and PRs, 2026-09-15 → v0.1.0 on PyPI 2026-10-14. Figure: issues opened and PRs merged per day (from git/GitHub). Point: this volume is only reviewable because every step is an issue and a PR. |
-| 6 | The loop | diagram | Issue → branch → plan → small change → PR "what was run" → I review and merge → handoff → `/clear` → next issue. (One-row Mermaid, as in deck 02.) |
-| 7 | **The issue is the prompt** | code/quote | Excerpt of xpublish-erddap #111: what is wrong, **Done when:** …, *Order 1 of 4*, *Model: Sonnet*. The issue is written so a fresh session can do it with no chat history. |
-| 8 | **Ask for an audit, not a fix** | figure + text | #50 "Audit the repository and propose work. Do not fix anything." → findings filed as #55–#72 → shipped one PR each, Oct 7–9. Same move for the test suite: #110 → #111–#114 (it found tests that could not fail). |
-| 9 | **A PR is proof, not a diff** | table | PacIOOS #24 "Tested" table: wrong keys → stops, exit 3; rerun → 0 uploads; changed file → `CHANGED`, copy untouched. And the line I want in every PR: **"Not tested: …"**. Quote from #18: *"Everything was run, not read."* |
-| 10 | **Clear often; the notes are the memory** | 3 bullets | `agent/handoff.md` (where things stand, short), `docs/design/` (decisions and why), git history. The chat is disposable; the repo is not. |
-| 11 | **My phrases are routines** | two-column | "I am about to clear" → update handoff, commit, push, memory. "This task is done" → PR, then stop and ask. Set once in my global instructions file (Skills 100). |
+| 11 | **My rules, in one repo** | two columns | Enforced (hooks): no `main`, no destructive git, ask before merge/install. Asked (instructions): phrases as routines, notes in the repo, verify by running, corrections as memory. |
+| 12 | **The rules are the compliance** (optional) | table | Section 3, five rows. |
 
-> EH: Slide 8 is my favourite "punchy" moment. Is it accurate that the audit
-> issue is your habit, or was that a one-off for the transfer?
-
-### Part 3 · Guardrails (3 min)
+### Part 4 · Skills (4 min)
 
 | # | Slide | Form | Content |
 |---|---|---|---|
-| 12 | **Some rules are not up to the model** | table | Hook (can't be argued with): no push to `main`, no force push / `reset --hard`, ask before installing a package, ask before merging. Instruction (the model follows): comment the *why*, say what was tested, work only in this repo. Workflow: I read every PR. From `claude-config/docs/agent-guards.md`. |
-| 13 | **Corrections become memory** | list of real memory titles | "Examples are not requirements." "'I don't know' means decide and explain." "Answer questions before acting." "Skills carry knowledge, not one-off scripts." One correction, said once, kept for every future session. |
-
-> EH: OK to show real memory titles from your config? They are harmless, but
-> they are yours.
-
-### Part 4 · Skills (5 min)
-
-| # | Slide | Form | Content |
-|---|---|---|---|
-| 14 | **A skill is experience, written down** | figure + text | virtual-icechunk started (2026-09-03) from an analysis of three of my store repos plus 16 questions I answered on the issue. `SKILL.md` (175 lines) + 15 reference files. Not a prompt; a playbook with gates: plan → local smoke test → production build → README. |
-| 15 | **Projects teach the skill** | diagram | Build in a project repo → lessons go in that repo's notes → "Update skill" issue → harvested into the skill → next project starts better. Real examples: OA-indicators build (skill was *flatly wrong* that no virtual store had rendered in a browser); PacIOOS #14 lessons; PacIOOS #9, a bug found by reading the upload script *while writing* archive-to-cloud. |
-| 16 | **Rules for a skill** | 3–4 bullets | One success is an anecdote: promote a lesson only when it holds on more than one dataset. Mark guesses Experimental. Bundle knowledge, not one-off scripts. Lessons don't move by themselves: one sat uncollected for two weeks. |
-
-> EH: Do you want to show the archive-to-cloud skill too, or keep the skills
-> part on virtual-icechunk only?
+| 13 | **A skill is experience, written down** | figure + text | Built from an analysis of earlier projects plus my answers to the agent's questions. A playbook with gates, not a prompt. |
+| 14 | **Projects teach the skill** | diagram | Build → lessons in the project's notes → "Update skill" issue → harvested → next project starts better. One example of the skill being flatly wrong until a build showed it. |
+| 15 | **Rules for a skill** | bullets | One success is an anecdote. Mark guesses Experimental. Knowledge, not one-off scripts. Lessons don't move by themselves. |
 
 ### Part 5 · Close (2 min)
 
 | # | Slide | Form | Content |
 |---|---|---|---|
-| 17 | **Where my time goes now** | visual | Reuse `fig_agent_time.png` from deck 02 (my estimate, not a measurement). |
-| 18 | **Start tomorrow** | 3 bullets | 1. Write your workflow phrases into a global instructions file (Skills 100). 2. One task per session; handoff, then `/clear` (Skills 101). 3. Make the agent prove it: real data, "try to break it", a "Tested / Not tested" section (Skills 103). Skills (102) come once you have done something twice. |
-| 19 | Thank you / links | closing | agent-coders Skills 100–103, ocean-icechunks-skills, claude-config (if public). QR to the tutorial site. |
+| 16 | **Where my time goes** | visual | `fig_agent_time.png` from deck 02, labelled as my estimate. |
+| 17 | **Start tomorrow** | 3 bullets | Global instructions with your phrases (Skills 100). One task per session, handoff, `/clear` (101). Make it prove its work (103). Skills (102) once you've done a thing twice. |
+| 18 | Thank you / links | closing | Skills 100–103, ocean-icechunks-skills, tutorial QR. |
 
-## Evidence ledger
+---
 
-Every number above comes from these. Nothing on a slide that isn't here.
+## Evidence for the patterns
 
-| Claim | Evidence | Source | Status |
-|---|---|---|---|
-| xpublish-erddap: 236 commits, 2026-09-15 → 2026-10-14 | `git log` in `~/xpublish-erddap` | local clone, 2026-11-18 | settled |
-| ~129 issues + PRs in that time; 158 commits carry an agent co-author line | GitHub API numbering; `git log` grep | xpublish-community/xpublish-erddap | settled (re-count at build time) |
-| v0.1.0 on PyPI 2026-10-14 | handoff | `claude/handoff.md` | settled |
-| Audit #50 → findings #55–#72, shipped Oct 7–9 | issue + PR list | GitHub | settled |
-| Test review #110: 974 tests, tests that cannot fail (#111) | issue bodies | GitHub #110, #111 | settled |
-| Issues carry order, "done when", model suggestion | #110, #111; memory "issues-ordered-with-model-suggestion" | GitHub, memory | settled |
-| PacIOOS: 30 issues/PRs, 68 commits, 2026-11-10 → 11-17 | GitHub API, `git log` | ocean-icechunks/pacioos | settled |
-| PacIOOS #24 tested table; #18 "Everything was run, not read" | PR bodies | GitHub | settled |
-| PacIOOS #9 found while writing archive-to-cloud | issue #9 body | GitHub | settled |
-| virtual-icechunk built 2026-09-03 from 3 repos + 16 answered questions | design note | `ocean-icechunks-skills/docs/design/virtual-icechunk-skill.md` | settled |
-| Skill was "flatly wrong" about browser rendering; lesson sat two weeks | same note | same | settled |
-| SKILL.md 175 lines, 15 references | `wc -l`, `ls` | local clone | settled |
-| Evals dry-run on paper only; found 3 gaps | same note | same | settled (say "on paper") |
-| Hooks: what is refused vs needs approval | `agent-guards.md` | `~/claude-config/docs/` | settled |
-| Time split pie | Eli's estimate | deck 02 notes | **tentative**: label it as an estimate on the slide |
-| "Vibe coding falls apart in a week" | opinion | — | opinion; present as mine |
+Where each stage in section 1 is seen. Illustrations on slides come from here.
+
+| Stage | xpublish-erddap (2026-09-15 → 10-14) | PacIOOS (2026-11-10 → 11-17) |
+|---|---|---|
+| 1 Question | `design-and-history.md`: first question, first plan dropped, scope in Eli's words | #1: a gentle server probe explains why the files must be copied |
+| 2 Prototype → backlog | prototype committed to `main` 09-15; issues #1–#12 filed 09-15 (incl. #12 ownership/citation) | — (prototype lived in a shared repo first) |
+| 3 Notes in repo | notes and handoff moved in 09-16 | #5 moves the work into its own repo |
+| 4 Failure first | #16 max response size, #8 auth | #2 write-once copies, before the build |
+| 5 Real thing | #1 parity with real ERDDAP servers; Flux-like server on AWS (#17) | #15 smoke test vs netCDF-C; local → scratch → production in #18 |
+| 6 Reports | #29 plugin comparison → #32–#37; #50 audit → #55–#72; #110 test review → #111–#114 | #16 file audit, with a prompt to recreate it |
+| 7 Queue | #110/#111: order, done-when, model; memory "parallel agents for small issues" | one store issue per product (#10–#14) |
+| 8 Decisions | memories: "examples are not requirements", "'I don't know' means decide and explain" | #18 "Decisions (Eli, 2026-11-14)"; "hindcast years are PacIOOS's call" |
+| 9 Harden, hand over | #111 tests that cannot fail; packaging #66; PyPI 0.1.0; transfer to xpublish-community | `how_store_created.md` for the PacIOOS team; daily updater |
+| 10 Lessons back | — | #9 found while writing archive-to-cloud; skills issue #14 |
+
+Skill evidence: `ocean-icechunks-skills/docs/design/virtual-icechunk-skill.md`
+(built 2026-09-03 from three repos and 16 answered questions; the browser
+claim was "flatly wrong"; a lesson sat uncollected for two weeks) and
+`references/learn-and-evolve.md` ("One success is an anecdote").
+
+Norms and requirements: `~/claude-config/CLAUDE.md`,
+`docs/agent-guards.md`, and its git history (rules added as they were needed,
+2026-08-28 onward).
+
+Opinion, presented as mine: "vibe coding works for an afternoon"; the time
+split in `fig_agent_time.png` (an estimate, labelled on the slide).
 
 ## Figures
 
-| Figure | What they should see | Data | Status |
-|---|---|---|---|
-| `fig_xpe_timeline` | A month of steady small PRs, with the audit burst on Oct 7–9 | GitHub issues/PRs of xpublish-erddap (dates, type) | to make; script in `slides/scripts/` |
-| Loop diagram | the cycle, one row | none | Mermaid |
-| Skill ↔ project loop | lessons flow back into the skill | none | Mermaid, one row |
-| `fig_agent_time.png` | where my time goes | Eli's estimate | exists (deck 02) |
+| Figure | What they should see | Status |
+|---|---|---|
+| The arc | the stages in one row; the loose part is short | Mermaid or drawn |
+| xpublish-erddap timeline (optional) | commits/issues per day, phases marked | script from git log + GitHub API |
+| Skill ↔ project loop | lessons flow back | Mermaid, one row |
+| `fig_agent_time.png` | my time split | exists |
 
-> EH: For slide 5, would a screenshot of the real GitHub PR list be punchier
-> than a chart? It is more recognizable, less precise.
+## Making it punchy
 
-## Making it punchier (ideas, pick any)
+- Statement slides open each part (2, 4, 8, 9, 10, 13).
+- Real artifacts, small: one issue, one "Tested" table, a few memory titles.
+- The running contrast: "endless chat" vs "issue → PR → handoff".
+- Be honest that I start loose. It makes the rest believable.
 
-- **Statement slides as the backbone.** Each section opens with one sentence
-  on a plain slide (slides 2, 4, 7, 8, 9, 12, 14). Fewer bullets overall.
-- **Real artifacts on screen**, not paraphrase: an actual issue, an actual
-  "Tested" table, actual memory titles. The evidence is what makes it an
-  opinion worth hearing.
-- **A running contrast**: a small "vibe" vs "project" tag in the corner of
-  slides 5–11 (e.g. "endless chat" vs "issue #111").
-- **One live-feeling moment**: show a real prompt I typed ("I am about to
-  clear") and what the agent did, as a before/after screenshot.
+## Not in this talk
 
-## Not in this talk (on purpose)
-
-- Install and sign-in (Agent Skills pages).
-- How to write a `SKILL.md` (Skills 102).
-- Vertex, telemetry, NOAA rules (agent-guards covers it; too much for 20 min).
+Install and sign-in; how to write a `SKILL.md`; Vertex and telemetry detail.
 
 ## Sources read
 
-- agent-coders `content/skills-100.qmd` … `skills-103.qmd` (local clone,
-  same as the live pages on 2026-11-18)
-- `slides/02-agent-and-skills.qmd` in this repo
-- `~/claude-config`: `CLAUDE.md`, `docs/agent-guards.md`, memory indexes
-- ocean-icechunks/pacioos: issues #1–#14, PRs #5–#30, bodies of #9, #18, #24
-- xpublish-community/xpublish-erddap: issues and PRs #15–#129, bodies of #50,
-  #110, #111; `claude/handoff.md`
-- ocean-icechunks/ocean-icechunks-skills: issues/PRs #1–#18, `agent/handoff.md`,
-  `CONTRIBUTING.md`, `docs/design/virtual-icechunk-skill.md`,
-  `skills/virtual-icechunk/references/learn-and-evolve.md`
-- nmfs-opensci/agent-skills: history of `skills/virtual-icechunk` (#6, #10,
-  #13, #41)
+agent-coders Skills 100–103; deck 02; `~/claude-config` (`CLAUDE.md`,
+`docs/agent-guards.md`, memory indexes, git history); xpublish-erddap git
+history, issues and PRs #1–#129, `claude/notes/design-and-history.md`,
+`claude/handoff.md`; pacioos git history, issues and PRs #1–#30;
+ocean-icechunks-skills issues/PRs, handoff, design note, `CONTRIBUTING.md`.
