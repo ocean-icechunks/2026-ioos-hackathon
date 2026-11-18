@@ -161,6 +161,77 @@ mechanical part; and read code where it is risky or surprising. That is
 consistent with the strongest sources, and it is what her PR "Tested"
 tables already do.
 
+## 5b. What robust-systems research adds
+
+Human factors and safety research studied "a person supervising automation"
+for decades before coding agents existed. Three of its findings apply
+directly. Eli suggested this strand; it is the strongest theory behind
+sections 4 and 5.
+
+**The ironies of automation** (Bainbridge, *Automatica*, 1983). The more
+capable the automation, the more the human operator matters, and the worse
+placed they are to do the job. People are poor at watching for rare failures
+in a system that usually works, and the skills they need to take over fade
+from disuse. Simkute et al. (*IJHCI*, 2024; arXiv 2402.11364) map this onto
+generative AI. They name four causes of lost productivity: the user's role
+shifts from producing to evaluating, which lowers situational awareness and
+raises the effort of judging the output; workflows are restructured
+unhelpfully; interruptions; and easy tasks get easier while hard ones get
+harder.
+
+- *For Eli's argument:* line-by-line review asks a person to do the exact
+  task this literature says people do badly: vigilant monitoring of output
+  that is usually right. Comprehension debt and the Anthropic skill-formation
+  result are the deskilling half of the same irony.
+- *What it recommends instead:* keep the human in a role that builds
+  situational awareness (framing, design, deciding), not only evaluating
+  finished output. That is the case for design docs and discussion before
+  code, made 40 years before agents.
+
+**Types and levels of automation** (Parasuraman, Sheridan and Wickens, *IEEE
+SMC-A*, 2000). Automation is set separately for four functions: getting
+information, analysing it, choosing a decision, and carrying it out. Each can
+be automated to a different level. Where errors are costly, keep *decision*
+automation low, so the human still chooses, because highly reliable but
+imperfect automation breeds complacency. *Action* automation can be high.
+Related: Parasuraman and Riley (1997) on use, misuse, disuse and abuse of
+automation; Parasuraman and Manzey (2010) on complacency and automation bias.
+
+- *Mapped onto Eli's setup:* the agent works at high automation for research,
+  analysis and action (the audit, the build, running tests). Decisions stay
+  with her: scope, the plan, which findings become issues, the merge. That is
+  the allocation this model recommends for high-stakes work, and it gives the
+  talk a precise answer to "what does human in the loop mean": *the human
+  owns the decisions, not the typing or the reading.*
+
+**Defence in depth and the Swiss cheese model** (James Reason, from aviation
+and medicine). Every safety layer has holes, and harm gets through only when
+the holes line up. So the layers have to fail *independently*. Recent AI
+safety work worries about exactly this: layers that share a failure mode
+(arXiv 2510.11235 on correlated failures; the International AI Safety Report
+calls defence in depth helpful but not sufficient on its own). arXiv
+2408.02205 proposes a Swiss cheese reference architecture for agent
+guardrails.
+
+- *For Eli's setup:* her layers are instructions, Claude's classifier, hooks,
+  running in a clean venv, PR review and design notes. They are not equally
+  independent. Instructions and the classifier are model-based, so they can
+  fail together with the agent. Hooks are deterministic code outside the
+  model, a genuinely independent layer, which is why the hard rules live
+  there. This is also the theory behind Jain's point that a second agent
+  reviewing an agent shares its blind spots, and behind Thoughtworks' advice
+  to turn instructions into hooks.
+
+**Resilience engineering** (Hollnagel, Woods and others; Safety-II) was not
+searched this session. From background knowledge, not checked here: it
+studies how systems keep working under surprise, rather than only how they
+fail. Klein, Woods and colleagues' "Ten challenges for making automation a
+team player" (2004) asks for automation that is *observable* (you can see
+what it is doing and why) and *directable* (you can redirect it). Handoff
+notes, plans and "Tested / Not tested" sections are observability; issues,
+plan approval and `/clear` are directability. Verify these sources before
+using them.
+
 ## 6. Harnesses, instructions and skills
 
 - **Instructions files are now standard practice.** `AGENTS.md`: Thoughtworks
@@ -295,7 +366,21 @@ others from search summaries.
 | Bridgeford et al., "Ten Simple Rules for AI-Assisted Coding in Science", arXiv 2510.22254, <https://arxiv.org/html/2510.22254v2> **[read]** | R | 2025-10 |
 | Hung and Yeung, "Re-opening open-source science through AI assisted development", arXiv 2512.11993, <https://arxiv.org/abs/2512.11993> **[read, abstract]** | R | 2025-12 |
 
+| Bainbridge, "Ironies of automation", *Automatica* 19(6):775–779 | R | 1983 |
+| Simkute, Tankelevitch, Kewenig, Scott, Sellen and Rintel, "Ironies of Generative AI", *IJHCI*; arXiv 2402.11364, <https://arxiv.org/abs/2402.11364> | R | 2024-10 |
+| Parasuraman, Sheridan and Wickens, "A model for types and levels of human interaction with automation", *IEEE Trans. SMC-A* 30(3):286–297, <https://www.cs.uml.edu/~holly/91.549/readings/sheridan-autonomy.pdf> | R | 2000 |
+| Parasuraman and Riley, "Humans and Automation: Use, Misuse, Disuse, Abuse", *Human Factors* 39(2):230–253 | R | 1997 |
+| Parasuraman and Manzey, "Complacency and bias in human use of automation", *Human Factors* 52(3):381–410 | R | 2010 |
+| "Designing Multi-layered Runtime Guardrails for Foundation Model Based Agents: Swiss Cheese Model", arXiv 2408.02205, <https://arxiv.org/html/2408.02205v3> | R | 2024 |
+| "AI Alignment Strategies from a Risk Perspective: Independent Safety Mechanisms or Shared Failures?", arXiv 2510.11235, <https://arxiv.org/abs/2510.11235> | R | 2025-10 |
+| International AI Safety Report, arXiv 2501.17805, <https://arxiv.org/abs/2501.17805> | R | 2025-01 |
+
 ## Not done
+
+- Resilience engineering (Hollnagel, Woods, Safety-II) and Klein et al.
+  2004 were not searched; section 5b's paragraph on them is from background
+  knowledge and needs checking.
+- The robust-systems sources are known from search summaries, not read.
 
 - The arXiv 26xx papers, the DORA PDFs, Anthropic's best-practices page and
   the OpenAI post were not read in full; claims from them rest on search
