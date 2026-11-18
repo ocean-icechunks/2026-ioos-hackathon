@@ -59,6 +59,41 @@ the design notes; the handoff points to them. A fresh session reads a
 one-page handoff in seconds instead of me re-explaining the project.
 :::
 
+## What is AGENTS.md?
+
+The repo's **standing instructions** for any agent: read at every session start.
+
+:::: {.columns}
+::: {.column width="50%"}
+**What's usually in it**
+
+- What the repo is
+- How to build and test
+- Conventions and rules
+:::
+::: {.column width="50%"}
+**How mine differ**
+
+- **Only this repo's rules.** My general norms live in one config repo
+  for all projects
+- **Short:** a map that points to the handoff and design notes
+- **Vendor-neutral**, written for people and agents
+:::
+::::
+
+::: {.takeaway}
+`CLAUDE.md` is one line, `@AGENTS.md`. Claude Code reads only `CLAUDE.md`;
+other agents read `AGENTS.md`. One source, no copies to drift apart.
+:::
+
+::: notes
+Why not a symlink: on a Windows clone or a zip download a symlink becomes a
+text file containing the word "AGENTS.md", and Claude silently gets no
+instructions. The first line of my AGENTS.md says "edit AGENTS.md, not
+CLAUDE.md". Example from this repo: the layout, "run quarto render before
+every commit", never write the hub password.
+:::
+
 ## How I do it: every repo carries its own notes
 
 ```text

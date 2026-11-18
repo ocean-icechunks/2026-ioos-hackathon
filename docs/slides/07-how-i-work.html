@@ -237,6 +237,42 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="what-is-agents.md" class="slide level2">
+<h2>What is AGENTS.md?</h2>
+<p>The repo’s <strong>standing instructions</strong> for any agent: read at every session start.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>What’s usually in it</strong></p>
+<ul>
+<li>What the repo is</li>
+<li>How to build and test</li>
+<li>Conventions and rules</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>How mine differ</strong></p>
+<ul>
+<li><strong>Only this repo’s rules.</strong> My general norms live in one config repo for all projects</li>
+<li><strong>Short:</strong> a map that points to the handoff and design notes</li>
+<li><strong>Vendor-neutral</strong>, written for people and agents</li>
+</ul>
+</div></div>
+<div class="takeaway">
+<p><code>CLAUDE.md</code> is one line, <code>@AGENTS.md</code>. Claude Code reads only <code>CLAUDE.md</code>; other agents read <code>AGENTS.md</code>. One source, no copies to drift apart.</p>
+</div>
+<aside class="notes">
+<p>Why not a symlink: on a Windows clone or a zip download a symlink becomes a text file containing the word “AGENTS.md”, and Claude silently gets no instructions. The first line of my AGENTS.md says “edit AGENTS.md, not CLAUDE.md”. Example from this repo: the layout, “run quarto render before every commit”, never write the hub password.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="how-i-do-it-every-repo-carries-its-own-notes" class="slide level2">
 <h2>How I do it: every repo carries its own notes</h2>
 <pre class="text"><code>AGENTS.md              how to work in this repo
